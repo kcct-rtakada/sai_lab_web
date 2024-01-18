@@ -1,0 +1,47 @@
+.fixed_header {
+  width: 100%;
+  position: fixed;
+  height: 4rem;
+  background-color: rgb(250, 250, 250);
+
+  .header_contents {
+    margin: 0 auto;
+    justify-content: space-between;
+    display: flex;
+    width: min(80rem, 100%);
+
+    .icon_box {
+      width: 4rem;
+      height: 4rem;
+      margin-left: 2rem;
+
+      a {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .link_box {
+      margin-right: 2rem;
+
+      ul {
+        padding: 0;
+        margin: calc((4rem - 1.3rem) / 2) 0 0 0;
+        font-size: 1.3rem;
+        display: flex;
+
+        a {
+          text-decoration: none;
+          color: black;
+          display: block;
+          margin-left: 1.3rem;
+          li {
+            list-style: none;
+          }
+        }
+      }
+    }
+  }
+}

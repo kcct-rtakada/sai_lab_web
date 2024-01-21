@@ -13,6 +13,19 @@ export default function Header() {
               <Image src="/sai_logo.png" alt="SAI LOGO" fill />
             </Link>
           </div>
+          <input
+            type="checkbox"
+            id="hamburger"
+            className={styles.hamburger}
+            style={{ display: "none" }}
+          />
+          <label htmlFor="hamburger" className={styles.hamburger_button}>
+            <div >
+              <span />
+              <span />
+              <span />
+            </div>
+          </label>
           <div className={styles.link_box}>
             <ul>
               <Link href="/member">メンバー</Link>

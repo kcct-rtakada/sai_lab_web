@@ -1,3 +1,5 @@
+@import "../../global/responsive.scss";
+
 .main {
   margin-top: 4rem;
   // overflow: hidden;
@@ -27,6 +29,15 @@
     margin: 0 auto;
     padding: 2rem;
     user-select: text;
+    position: relative;
+
+    @include mqUp(xl) {
+      padding: 2rem 0;
+    }
+
+    @include mqUp(sm) {
+      width: 100%;
+    }
 
     .page_title {
       font-size: 2rem;
@@ -36,6 +47,13 @@
     .result_box {
       display: flex;
       flex-wrap: wrap;
+      position: relative;
+      width: 100%;
+
+      @include mqUp(xl) {
+        justify-content: center;
+        flex-direction: row;
+      }
 
       .project_link {
         pointer-events: none;
@@ -51,6 +69,13 @@
           filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
           transition: all 0.15s;
 
+          @include mqUp(sm) {
+            margin: 0;
+            width: 100%;
+            height: 24rem;
+            filter: none;
+          }
+
           &::after {
             position: absolute;
             content: "";
@@ -62,14 +87,27 @@
             background-color: rgba(255, 255, 255, 0.3);
             opacity: 0;
             transition: all 0.15s;
+
+            @include mqUp(sm) {
+              width: 100%;
+              height: 24rem;
+            }
           }
 
           &:hover {
             filter: drop-shadow(0.1rem 0.1rem 0.5rem rgb(228, 228, 228));
+
+            @include mqUp(sm) {
+              filter: none;
+            }
           }
 
           &:hover::after {
             opacity: 1;
+
+            @include mqUp(md) {
+              opacity: 0;
+            }
           }
 
           .thumbnail_box {
@@ -81,6 +119,15 @@
               rgb(253, 253, 253)
             );
             position: relative;
+            overflow: hidden;
+            user-select: none;
+
+            @include mqUp(sm) {
+              margin: 0;
+              width: 100%;
+              height: calc(100vw * 9 / 16 - 1rem);
+              filter: none;
+            }
 
             .thumbnail {
               width: 100%;

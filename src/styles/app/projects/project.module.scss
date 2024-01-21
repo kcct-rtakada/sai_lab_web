@@ -1,3 +1,6 @@
+@import "../../global/responsive.scss";
+
+
 .main {
   margin-top: 4rem;
   // overflow: hidden;
@@ -23,7 +26,14 @@
         rgb(253, 245, 171)
       );
       border-radius: 1rem;
+      position: relative;
       filter: drop-shadow(0.5rem 0.3rem 0.5rem rgb(230, 230, 230));
+
+      @include mqUp(md) {
+        border-radius: 0;
+        margin-top: 4rem;
+        filter: drop-shadow(0rem 0.2rem 0.2rem rgb(230, 230, 230));
+      }
 
       .type {
         margin-bottom: 0.5rem;
@@ -86,6 +96,10 @@
       padding: 2rem 1.5rem;
       font-size: 1.05rem;
 
+      @include mqUp(md) {
+        padding: 2rem 0 0 0 ;
+      }
+
       .section_name {
         font-weight: bold;
         font-size: 1.6rem;
@@ -119,6 +133,10 @@
         margin: 0 auto;
         background-color: rgb(245, 245, 245);
         margin-bottom: 1rem;
+
+        @include mqUp(md) {
+          padding: 0;
+        }
       }
 
       .abstract {
@@ -141,6 +159,13 @@
         );
         border-radius: 1rem;
         filter: drop-shadow(0.5rem 0.3rem 0.5rem rgb(230, 230, 230));
+
+        @include mqUp(md) {
+          border-radius: 0;
+          margin-bottom: 0;
+          margin-top: 0;
+          filter: none;
+        }
 
         .information_section_title {
           font-weight: bold;

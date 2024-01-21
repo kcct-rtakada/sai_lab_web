@@ -1,0 +1,20 @@
+$breakpoints: (
+    min: 0rem,
+    xs: 24rem,
+    sm: 32rem,
+    md: 48rem,
+    lg: 56rem,
+    xl: 80rem,
+) !default;
+
+@mixin mqUp($bp: md) {
+  @media (max-width: #{map-get($breakpoints, $bp)}) {
+      @content;
+  }
+}
+
+@mixin mqDown($bp: md) {
+  @media (min-width: #{map-get($breakpoints, $bp)}) {
+      @content;
+  }
+}

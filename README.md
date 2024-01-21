@@ -15,3 +15,6 @@ pnpm dev
 # or
 bun dev
 ```
+## 現在使用している機能
+
+- [GAS(Google Apps Script)](https://workspace.google.co.jp/intl/ja/products/apps-script/)

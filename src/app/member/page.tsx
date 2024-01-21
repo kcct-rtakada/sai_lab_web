@@ -15,9 +15,8 @@ export default function Home() {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setMembers(data);
-        setLoaded(true)
+        setLoaded(true);
       })
       .catch((err) => {
         console.log(err);
@@ -40,6 +39,29 @@ export default function Home() {
     );
   }
 
+  const sortedMemberWithTeacher = members?.filter((element) =>
+    element.belonging.toLowerCase().includes("教員")
+  );
+  const sortedMemberWithGraduation = members?.filter(
+    (element) =>
+      element.belonging.toLowerCase().includes("卒") ||
+      element.belonging.toLowerCase().includes("修")
+  );
+  const sortedEnrolledMember = members?.filter((element) => {
+    return (
+      !sortedMemberWithGraduation?.some(
+        (sortedMember) => sortedMember.id === element.id
+      ) &&
+      !sortedMemberWithTeacher?.some(
+        (sortedMember) => sortedMember.id === element.id
+      )
+    );
+  });
+
+  // console.log(sortedMemberWithTeacher);
+  // console.log(sortedMemberWithGraduation);
+  // console.log(sortedEnrolledMember);
+
   return (
     <main className={styles.main}>
       <div className={styles.title_box}>
@@ -49,7 +71,42 @@ export default function Home() {
       </div>
       <div className={styles.list_box}>
         <div className={styles.result_box}>
-          {members!.map((item, i) => (
+          <h2>教員</h2>
+          {sortedMemberWithTeacher!.map((item, i) => (
+            <div key={i} className={styles.member}>
+              <div className="left">
+                <div className={styles.name}>{item.name}</div>
+                <div className={styles.english_name}>{item.englishName}</div>
+              </div>
+              <div className="right">
+                <div className={styles.belonging}>{item.belonging}</div>
+                <div className={styles.classification}>
+                  {item.classification}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className={styles.result_box}>
+          <h2>在籍中</h2>
+          {sortedEnrolledMember!.map((item, i) => (
+            <div key={i} className={styles.member}>
+              <div className="left">
+                <div className={styles.name}>{item.name}</div>
+                <div className={styles.english_name}>{item.englishName}</div>
+              </div>
+              <div className="right">
+                <div className={styles.belonging}>{item.belonging}</div>
+                <div className={styles.classification}>
+                  {item.classification}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className={styles.result_box}>
+          <h2>卒業/修了</h2>
+          {sortedMemberWithGraduation!.map((item, i) => (
             <div key={i} className={styles.member}>
               <div className="left">
                 <div className={styles.name}>{item.name}</div>

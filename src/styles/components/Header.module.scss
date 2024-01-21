@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
   height: 4rem;
-  background-color: rgb(250, 250, 250);
+  background-color: #fafafa;
   z-index: 10000;
 
   user-select: none;
@@ -90,6 +90,7 @@
     @include mqUp(md) {
       .hamburger:checked~.link_box {
         height: 8rem;
+        border-color: rgb(202, 202, 202);
       }
 
       .hamburger:checked~.hamburger_button {
@@ -123,7 +124,7 @@
         width: 100%;
         border-style: solid;
         border-width: 0 0 .1rem 0;
-        border-color: rgb(202, 202, 202);
+        border-color: transparent;
         transition: all .15s;
       }
 

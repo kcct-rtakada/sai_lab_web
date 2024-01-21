@@ -1,5 +1,6 @@
+@import "../../global/responsive.scss";
+
 .main {
-  margin-top: 4rem;
   // overflow: hidden;
 
   .title_box {
@@ -28,8 +29,37 @@
     padding: 2rem;
     user-select: text;
 
+    @include mqUp(sm) {
+      width: 100%;
+      padding: 0;
+    }
+
     .result_box {
       margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+
+      @include mqUp(sm) {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      h2 {
+        font-size: 1.4rem;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        background-image: linear-gradient(
+          to bottom right,
+          rgb(220, 241, 255),
+          rgb(234, 232, 255)
+        );
+        padding: 0.2rem 1rem;
+        border-radius: .3rem;
+
+        @include mqUp(sm) {
+          border-radius: 0;
+          margin-bottom: 0;
+        }
+      }
 
       .member {
         background-image: linear-gradient(
@@ -47,6 +77,12 @@
         width: min(40rem, 100%);
         margin-left: auto;
         margin-right: auto;
+
+        @include mqUp(sm) {
+          margin: 0;
+          filter: none;
+          border-radius: 0;
+        }
 
         .left {
           text-align: left;

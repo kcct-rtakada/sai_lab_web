@@ -2,8 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  height: 100%;
+  background-color: #fafafa;
+}
+
 body {
   user-select: none;
+  height: 100%;
+}
+
+main {
+  min-height: calc(100% - 4rem);
+  padding-top: 4rem;
+  background-color: #fff;
 }
 
 main.main {
@@ -60,6 +72,7 @@ main.main {
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   animation-direction:normal;
+  transform: rotateZ(0deg);
 }
 
 .loading>.load_1 {
@@ -84,37 +97,46 @@ main.main {
   0% {
     top: 0;
     left: 0;
+    transform: rotateZ(0deg);
   }
   12.5% {
     top: min(27vw, 27vh);
     left: 0;
+    transform: rotateZ(90deg);
   }
   25% {
     top: min(27vw, 27vh);
     left: 0;
+    transform: rotateZ(90deg);
   }
   37.5% {
     top: 0;
     left: min(27vw, 27vh);
+    transform: rotateZ(180deg);
   }
   50% {
     top: 0;
     left: min(27vw, 27vh);
+    transform: rotateZ(180deg);
   }
   62.5% {
     top: min(27vw, 27vh);
     left: min(27vw, 27vh);
+    transform: rotateZ(270deg);
   }
   75% {
     top: min(27vw, 27vh);
     left: min(27vw, 27vh);
+    transform: rotateZ(270deg);
   }
   87.5% {
     top: 0vw;
     left: 0vw;
+    transform: rotateZ(360deg);
   }
   100% {
     top: 0vw;
     left: 0vw;
+    transform: rotateZ(360deg);
   }
 }

@@ -2,3 +2,119 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  user-select: none;
+}
+
+main.main {
+  margin-top: 4rem;
+}
+
+::selection {
+  background-color: rgb(13, 207, 181);
+  color: white;
+}
+
+
+.loading {
+  width: min(30vw, 30vh);
+  height: min(30vw, 30vh);
+  background-color: rgb(253, 253, 253);
+  margin: 2rem auto 0 auto;
+  position: relative;
+  border-radius: min(.7vw, .7vh);
+}
+
+.loading::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: min(11.5vw, 11.5vh);
+  left: min(5vw, 5vh);
+  width: min(20vw, 20vh);
+  height: min(5.5vw, 5.5vh);
+  background-color: rgba(253, 253, 253, 0.75);
+  border-radius: min(.7vw, .7vh);
+  z-index: 1000;
+}
+
+.loading::after {
+  content: "Loading...";
+  color: rgb(75, 75, 75);
+  font-weight: bold;
+  font-size: min(4vw, 4vh);
+  position: absolute;
+  top: min(11vw, 11vh);
+  left: min(6vw, 6vh);
+  z-index: 1100;
+}
+
+.loading>span {
+  width: min(3vw, 3vh);
+  height: min(3vw, 3vh);
+  display: block;
+  position: absolute;
+  border-radius: min(.7vw, .7vh);
+  animation-name: load_1;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-direction:normal;
+}
+
+.loading>.load_1 {
+  top: 0;
+  left: 0;
+  background-color: rgb(90, 74, 230);
+  animation-duration: 4s;
+  animation-delay: 0s;
+}
+
+.loading>.load_2 {
+  top: min(27vw, 27vh);
+  left: min(27vw, 27vh);
+  background-color: rgb(230, 97, 74);
+  animation-duration: 4s;
+  animation-delay: -1.46s;
+  animation-direction: reverse;
+
+}
+
+@keyframes load_1 {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  12.5% {
+    top: min(27vw, 27vh);
+    left: 0;
+  }
+  25% {
+    top: min(27vw, 27vh);
+    left: 0;
+  }
+  37.5% {
+    top: 0;
+    left: min(27vw, 27vh);
+  }
+  50% {
+    top: 0;
+    left: min(27vw, 27vh);
+  }
+  62.5% {
+    top: min(27vw, 27vh);
+    left: min(27vw, 27vh);
+  }
+  75% {
+    top: min(27vw, 27vh);
+    left: min(27vw, 27vh);
+  }
+  87.5% {
+    top: 0vw;
+    left: 0vw;
+  }
+  100% {
+    top: 0vw;
+    left: 0vw;
+  }
+}

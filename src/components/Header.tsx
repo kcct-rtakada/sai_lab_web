@@ -15,8 +15,8 @@ export default function Header() {
           </div>
           <div className={styles.link_box}>
             <ul>
-              <Link href="/">メンバー一覧</Link>
-              <Link href="/">プロジェクト</Link>
+              <Link href="/member">メンバー</Link>
+              <Link href="/project">プロジェクト</Link>
               <Link href="/">コンタクト</Link>
             </ul>
           </div>

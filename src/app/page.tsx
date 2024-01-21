@@ -1,9 +1,12 @@
 import Image from 'next/image'
+import styles from '@/styles/app/page.module.scss'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      
+    <main className={styles.main}>
+      <div className={styles.section}>
+        <p className={styles.section_name}>プロジェクト</p>
+      </div>
     </main>
   )
 }

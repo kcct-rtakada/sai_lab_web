@@ -1,8 +1,13 @@
 .fixed_header {
   width: 100%;
   position: fixed;
+  top: 0;
+  left: 0;
   height: 4rem;
   background-color: rgb(250, 250, 250);
+  z-index: 10000;
+  
+  user-select: none;
 
   .header_contents {
     margin: 0 auto;

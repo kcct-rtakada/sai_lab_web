@@ -1,0 +1,139 @@
+.main {
+  margin-top: 4rem;
+  // overflow: hidden;
+
+  .title_box {
+    background-image: linear-gradient(
+      to bottom right,
+      rgb(186, 206, 99),
+      rgb(59, 177, 65)
+    );
+
+    .title_area {
+      width: min(55rem, 100%);
+      margin: 0 auto;
+
+      .page_title {
+        font-size: 2rem;
+        font-weight: bold;
+        padding: 1.5rem 3rem;
+        color: rgb(253, 253, 253);
+      }
+    }
+  }
+
+  .list_box {
+    width: min(55rem, 100%);
+    margin: 0 auto;
+    padding: 2rem;
+    user-select: text;
+
+    .page_title {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .result_box {
+      display: flex;
+      flex-wrap: wrap;
+
+      .project_link {
+        pointer-events: none;
+        .project {
+          pointer-events: auto;
+          width: 23rem;
+          height: 22rem;
+          background-color: rgb(253, 253, 253);
+          margin: 1rem;
+          position: relative;
+          border-radius: 0.25rem;
+          overflow: hidden;
+          filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+          transition: all 0.15s;
+
+          &::after {
+            position: absolute;
+            content: "";
+            width: 23rem;
+            height: 20rem;
+            border-radius: 0.25rem;
+            top: 0;
+            left: 0;
+            background-color: rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transition: all 0.15s;
+          }
+
+          &:hover {
+            filter: drop-shadow(0.1rem 0.1rem 0.5rem rgb(228, 228, 228));
+          }
+
+          &:hover::after {
+            opacity: 1;
+          }
+
+          .thumbnail_box {
+            width: 23rem;
+            height: 12.93rem;
+            background-image: linear-gradient(
+              to bottom right,
+              rgb(255, 251, 246),
+              rgb(253, 253, 253)
+            );
+            position: relative;
+
+            .thumbnail {
+              width: 100%;
+            }
+          }
+
+          .type {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            margin-bottom: 0.5rem;
+            span {
+              font-size: .9rem;
+              display: inline-block;
+              background-color: rgb(240, 57, 118);
+              padding: 0.1rem 0.4rem;
+              line-height: 1.2;
+              border-radius: 0.5rem;
+              color: rgb(253, 253, 253);
+              border-style: solid;
+              border-color: rgb(253, 253, 253);
+              border-width: 0.1rem;
+            }
+          }
+
+          .title {
+            margin: 0.4rem 0.4rem 0.1rem 0.4rem;
+            font-size: 1.05rem;
+            font-weight: bold;
+            line-height: 1.15;
+          }
+
+          .authors {
+            margin: 0 0.4rem;
+
+            .author {
+              display: inline-block;
+              margin-right: 0.3rem;
+              margin-bottom: 0.35rem;
+              background-color: rgb(244, 253, 255);
+              border-radius: 0.3rem;
+              padding: 0.05rem 0.2rem;
+              line-height: 1.2;
+              font-size: .8rem;
+            }
+          }
+
+          .book {
+            font-size: .7rem;
+            margin: .1rem 0.4rem 0.1rem 0.4rem;
+          }
+        }
+      }
+    }
+  }
+}

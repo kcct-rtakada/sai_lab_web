@@ -1,0 +1,81 @@
+.main {
+  margin-top: 4rem;
+  // overflow: hidden;
+
+  .title_box {
+    background-image: linear-gradient(
+      to bottom right,
+      rgb(233, 111, 217),
+      rgb(117, 99, 223)
+    );
+
+    .title_area {
+      width: min(55rem, 100%);
+      margin: 0 auto;
+
+      .page_title {
+        font-size: 2rem;
+        font-weight: bold;
+        padding: 1.5rem 3rem;
+        color: rgb(253, 253, 253);
+      }
+    }
+  }
+
+  .list_box {
+    width: min(55rem, 100%);
+    margin: 0 auto;
+    padding: 2rem;
+    user-select: text;
+
+    .result_box {
+      margin-top: 1.5rem;
+
+      .member {
+        background-image: linear-gradient(
+          to right,
+          rgb(253, 253, 253),
+          rgb(248, 254, 255)
+        );
+        filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+        margin-bottom: 1rem;
+        border-radius: 0.3rem;
+        padding: 0.2rem 0.8rem;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        width: min(40rem, 100%);
+        margin-left: auto;
+        margin-right: auto;
+
+        .left {
+          text-align: left;
+          display: block;
+          width: calc(50% - 0.8rem);
+        }
+
+        .right {
+          text-align: right;
+          display: block;
+          width: calc(50% - 0.8rem);
+        }
+
+        .name {
+          font-size: 1.2rem;
+        }
+
+        .english_name {
+          font-size: 0.9rem;
+        }
+
+        .belonging {
+          text-align: right;
+        }
+
+        .classification {
+          text-align: right;
+        }
+      }
+    }
+  }
+}

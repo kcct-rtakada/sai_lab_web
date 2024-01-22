@@ -1,0 +1,64 @@
+@import "../../global/responsive.scss";
+
+.main {
+  padding-top: 4rem;
+  // overflow: hidden;
+
+  .title_box {
+    background-image: linear-gradient(
+      to bottom right,
+      rgb(234, 127, 117),
+      rgb(240, 98, 98)
+    );
+
+    .title_area {
+      width: min(55rem, 100%);
+      margin: 0 auto;
+
+      .page_title {
+        font-size: 2rem;
+        font-weight: bold;
+        padding: 1.5rem 3rem;
+        color: rgb(253, 253, 253);
+      }
+    }
+  }
+
+  .main_script {
+    width: min(55rem, 100%);
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    font-size: 1.05rem;
+
+    @include mqUp(md) {
+      padding: 2rem 0 0 0 ;
+    }
+
+    h2 {
+      font-weight: bold;
+      font-size: 1.6rem;
+      line-height: 1.8;
+      top: 4rem;
+      position: sticky;
+      z-index: 1000;
+      padding-left: 1rem;
+      border-radius: 0 0 0.5rem 0.5rem;
+      background-image: linear-gradient(to right, white, rgb(245, 255, 255));
+
+      &::before {
+        display: inline-block;
+        width: 0.5rem;
+        height: 2rem;
+        position: absolute;
+        bottom: 0.25rem;
+        left: 0.15rem;
+        content: "";
+        background-image: linear-gradient(
+          to bottom right,
+          rgb(86, 231, 195),
+          rgb(128, 172, 255)
+        );
+      }
+    }
+  }
+}

@@ -36,7 +36,7 @@ export default function Header() {
             <ul>
               <Link href="/member">メンバー</Link>
               <Link href="/project">プロジェクト</Link>
-              <Link href="/">コンタクト</Link>
+              <Link href="/contact">コンタクト</Link>
             </ul>
           </div>
         </div>

@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
 import Image from "next/image";
 import styles from "@/styles/app/page.module.scss";
 import { useState, useEffect } from "react";

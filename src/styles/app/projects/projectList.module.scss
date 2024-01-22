@@ -28,7 +28,11 @@
     width: min(55rem, 100%);
     margin: 0 auto;
     padding: 2rem;
-    user-select: text;
+    user-select: none;
+    -webkit-user-select: text;
+    -khtml-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
     position: relative;
 
     @include mqUp(xl) {
@@ -69,6 +73,15 @@
           overflow: hidden;
           filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
           transition: all 0.15s;
+          -webkit-border-radius: 0.25rem;
+          -moz-border-radius: 0.25rem;
+          -ms-border-radius: 0.25rem;
+          -o-border-radius: 0.25rem;
+          -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+          -webkit-transition: all 0.15s;
+          -moz-transition: all 0.15s;
+          -ms-transition: all 0.15s;
+          -o-transition: all 0.15s;
 
           @include mqUp(sm) {
             margin: 0;
@@ -76,6 +89,10 @@
             height: 24rem;
             filter: none;
             border-radius: 0;
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            -ms-border-radius: 0;
+            -o-border-radius: 0;
           }
 
           &::after {
@@ -89,6 +106,14 @@
             background-color: rgba(255, 255, 255, 0.3);
             opacity: 0;
             transition: all 0.15s;
+            -webkit-transition: all 0.15s;
+            -moz-transition: all 0.15s;
+            -ms-transition: all 0.15s;
+            -o-transition: all 0.15s;
+            -webkit-border-radius: 0.25rem;
+            -moz-border-radius: 0.25rem;
+            -ms-border-radius: 0.25rem;
+            -o-border-radius: 0.25rem;
 
             @include mqUp(sm) {
               width: 100%;
@@ -98,9 +123,12 @@
 
           &:hover {
             filter: drop-shadow(0.1rem 0.1rem 0.5rem rgb(228, 228, 228));
-
+            -webkit-filter: drop-shadow(
+              0.1rem 0.1rem 0.5rem rgb(228, 228, 228)
+            );
             @include mqUp(sm) {
               filter: none;
+              -webkit-filter: none;
             }
           }
 
@@ -123,6 +151,11 @@
             position: relative;
             overflow: hidden;
             user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
 
             @include mqUp(sm) {
               margin: 0;
@@ -142,7 +175,7 @@
             left: 0.5rem;
             margin-bottom: 0.5rem;
             span {
-              font-size: .9rem;
+              font-size: 0.9rem;
               display: inline-block;
               background-color: rgb(240, 57, 118);
               padding: 0.1rem 0.4rem;
@@ -152,6 +185,10 @@
               border-style: solid;
               border-color: rgb(253, 253, 253);
               border-width: 0.1rem;
+              -webkit-border-radius: 0.5rem;
+              -moz-border-radius: 0.5rem;
+              -ms-border-radius: 0.5rem;
+              -o-border-radius: 0.5rem;
             }
           }
 
@@ -173,13 +210,17 @@
               border-radius: 0.3rem;
               padding: 0.05rem 0.2rem;
               line-height: 1.2;
-              font-size: .8rem;
+              font-size: 0.8rem;
+              -webkit-border-radius: 0.3rem;
+              -moz-border-radius: 0.3rem;
+              -ms-border-radius: 0.3rem;
+              -o-border-radius: 0.3rem;
             }
           }
 
           .book {
-            font-size: .7rem;
-            margin: .1rem 0.4rem 0.1rem 0.4rem;
+            font-size: 0.7rem;
+            margin: 0.1rem 0.4rem 0.1rem 0.4rem;
           }
         }
       }

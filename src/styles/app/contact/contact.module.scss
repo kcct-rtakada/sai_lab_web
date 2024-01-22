@@ -31,7 +31,7 @@
     font-size: 1.05rem;
 
     @include mqUp(md) {
-      padding: 2rem 0 0 0 ;
+      padding: 2rem 0 0 0;
     }
 
     h2 {
@@ -44,6 +44,10 @@
       padding-left: 1rem;
       border-radius: 0 0 0.5rem 0.5rem;
       background-image: linear-gradient(to right, white, rgb(245, 255, 255));
+      -webkit-border-radius: 0 0 0.5rem 0.5rem;
+      -moz-border-radius: 0 0 0.5rem 0.5rem;
+      -ms-border-radius: 0 0 0.5rem 0.5rem;
+      -o-border-radius: 0 0 0.5rem 0.5rem;
 
       &::before {
         display: inline-block;

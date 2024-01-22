@@ -10,6 +10,11 @@
   z-index: 10000;
 
   user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 
   .header_contents {
     margin: 0 auto;
@@ -40,11 +45,15 @@
       height: 3.5rem;
       background-color: transparent;
       margin-right: 2rem;
-      margin-top: .25rem;
+      margin-top: 0.25rem;
       border-radius: 2rem;
       cursor: pointer;
       position: relative;
-      transition: all .1s;
+      transition: all 0.1s;
+      -webkit-transition: all 0.1s;
+      -moz-transition: all 0.1s;
+      -ms-transition: all 0.1s;
+      -o-transition: all 0.1s;
 
       &:hover {
         background-color: rgb(230, 230, 230);
@@ -63,42 +72,54 @@
 
       span {
         width: 1.75rem;
-        height: .2rem;
+        height: 0.2rem;
         background-color: rgb(29, 29, 29);
         display: block;
         position: absolute;
         border-radius: 1rem;
-        transition: all .2s;
+        transition: all 0.2s;
+        -webkit-border-radius: 1rem;
+        -moz-border-radius: 1rem;
+        -ms-border-radius: 1rem;
+        -o-border-radius: 1rem;
+        -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        -ms-transition: all 0.2s;
+        -o-transition: all 0.2s;
       }
 
       span:nth-child(1) {
         top: 1.1rem;
-        left: .9rem;
+        left: 0.9rem;
       }
 
       span:nth-child(2) {
         top: 1.7rem;
-        left: .9rem;
+        left: 0.9rem;
       }
 
       span:nth-child(3) {
         top: 2.3rem;
-        left: .9rem;
+        left: 0.9rem;
       }
     }
 
     @include mqUp(md) {
-      .hamburger:checked~.link_box {
+      .hamburger:checked ~ .link_box {
         height: 8rem;
         border-color: rgb(202, 202, 202);
       }
 
-      .hamburger:checked~.hamburger_button {
+      .hamburger:checked ~ .hamburger_button {
         background-color: rgb(230, 230, 230);
 
         span:nth-child(1) {
           top: 1.75rem;
           transform: rotateZ(45deg);
+          -webkit-transform: rotateZ(45deg);
+          -moz-transform: rotateZ(45deg);
+          -ms-transform: rotateZ(45deg);
+          -o-transform: rotateZ(45deg);
         }
         span:nth-child(2) {
           opacity: 0;
@@ -106,6 +127,10 @@
         span:nth-child(3) {
           top: 1.75rem;
           transform: rotateZ(-45deg);
+          -webkit-transform: rotateZ(-45deg);
+          -moz-transform: rotateZ(-45deg);
+          -ms-transform: rotateZ(-45deg);
+          -o-transform: rotateZ(-45deg);
         }
       }
     }
@@ -119,13 +144,18 @@
         height: 0;
         overflow: hidden;
         background-color: rgb(250, 250, 250, 0.8);
-        backdrop-filter: blur(.75rem);
+        backdrop-filter: blur(0.75rem);
         z-index: 15000;
         width: 100%;
         border-style: solid;
-        border-width: 0 0 .1rem 0;
+        border-width: 0 0 0.1rem 0;
         border-color: transparent;
-        transition: all .15s;
+        transition: all 0.15s;
+        -webkit-backdrop-filter: blur(0.75rem);
+        -webkit-transition: all 0.15s;
+        -moz-transition: all 0.15s;
+        -ms-transition: all 0.15s;
+        -o-transition: all 0.15s;
       }
 
       ul {

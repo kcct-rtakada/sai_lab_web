@@ -28,6 +28,11 @@
     margin: 0 auto;
     padding: 2rem;
     user-select: text;
+    -webkit-touch-callout: text;
+    -webkit-user-select: text;
+    -khtml-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
 
     @include mqUp(sm) {
       width: 100%;
@@ -53,11 +58,19 @@
           rgb(234, 232, 255)
         );
         padding: 0.2rem 1rem;
-        border-radius: .3rem;
+        border-radius: 0.3rem;
+        -webkit-border-radius: 0.3rem;
+        -moz-border-radius: 0.3rem;
+        -ms-border-radius: 0.3rem;
+        -o-border-radius: 0.3rem;
 
         @include mqUp(sm) {
           border-radius: 0;
           margin-bottom: 0;
+          -webkit-border-radius: 0;
+          -moz-border-radius: 0;
+          -ms-border-radius: 0;
+          -o-border-radius: 0;
         }
       }
 
@@ -77,11 +90,20 @@
         width: min(40rem, 100%);
         margin-left: auto;
         margin-right: auto;
+        -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+        -webkit-border-radius: 0.3rem;
+        -moz-border-radius: 0.3rem;
+        -ms-border-radius: 0.3rem;
+        -o-border-radius: 0.3rem;
 
         @include mqUp(sm) {
           margin: 0;
           filter: none;
           border-radius: 0;
+          -webkit-border-radius: 0;
+          -moz-border-radius: 0;
+          -ms-border-radius: 0;
+          -o-border-radius: 0;
         }
 
         .left {

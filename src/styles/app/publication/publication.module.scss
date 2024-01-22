@@ -1,0 +1,103 @@
+@import "../../global/responsive.scss";
+
+.main {
+  padding-top: 4rem;
+  // overflow: hidden;
+
+  .title_box {
+    background-image: linear-gradient(
+      to bottom right,
+      rgb(185, 99, 206),
+      rgb(177, 59, 114)
+    );
+
+    .title_area {
+      width: min(55rem, 100%);
+      margin: 0 auto;
+
+      .page_title {
+        font-size: 2rem;
+        font-weight: bold;
+        padding: 1.5rem 3rem;
+        color: rgb(253, 253, 253);
+      }
+    }
+  }
+
+  .list_box {
+    width: min(55rem, 100%);
+    margin: 0 auto;
+    padding: 2rem;
+    user-select: none;
+    -webkit-user-select: text;
+    -khtml-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    position: relative;
+
+    @include mqUp(xl) {
+      padding: 2rem 0;
+    }
+
+    @include mqUp(sm) {
+      width: 100%;
+      padding-top: 0;
+    }
+
+    .page_title {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .result_box {
+      position: relative;
+      width: 100%;
+      user-select: text;
+
+      @include mqUp(xl) {
+        justify-content: center;
+        flex-direction: row;
+      }
+
+      ol {
+        margin: 1rem 2rem 1rem 3.5rem;
+
+        li {
+          list-style: decimal;
+        }
+      }
+
+      h2 {
+        margin-left: .2rem;
+        text-align: left;
+        font-weight: bold;
+        font-size: 1.2rem;
+        padding: 0.2rem 0.5rem 0.2rem 1.2rem;
+        position: relative;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        background-image: linear-gradient(to right, white, rgb(245, 255, 255));
+
+        &::before {
+          display: inline-block;
+          width: 0.5rem;
+          height: 100%;
+          position: absolute;
+          bottom: 0rem;
+          left: 0rem;
+          content: "";
+          background-image: linear-gradient(
+            to bottom right,
+            rgb(86, 231, 195),
+            rgb(128, 172, 255)
+          );
+        }
+      }
+
+      h3 {
+        font-size: 1.1rem;
+        padding: 0.2rem 0.5rem 0.2rem 1.2rem;
+      }
+    }
+  }
+}

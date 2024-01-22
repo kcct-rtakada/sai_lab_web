@@ -16,7 +16,8 @@ export default function Header() {
         <div className={styles.header_contents}>
           <div className={styles.icon_box}>
             <Link href="/">
-              <Image src="/sai_logo.png" alt="SAI LOGO" fill sizes="(max-width: 768px) 100vw" priority={false} />
+              <Image src="/sai_logo.png" alt="SAI LOGO" fill sizes="4rem" priority={false} />
+              <p>神戸高専<br />髙田研究室</p>
             </Link>
           </div>
           <input
@@ -36,6 +37,9 @@ export default function Header() {
             <ul>
               <Link href="/member">メンバー</Link>
               <Link href="/project">プロジェクト</Link>
+              <Link href="/publication">研究業績</Link>
+              <Link href="/thesis">卒論/修論</Link>
+              <Link href="/award">表彰</Link>
               <Link href="/contact">コンタクト</Link>
             </ul>
           </div>

@@ -2,21 +2,48 @@
 import Image from "next/image";
 import styles from "@/styles/app/contact/contact.module.scss";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <>
-        <main className={styles.main}>
-          <div className={styles.title_box}>
-            <div className={styles.title_area}>
-              <h1 className={styles.page_title}>コンタクト</h1>
-            </div>
+      <main className={styles.main}>
+        <div className={styles.title_box}>
+          <div className={styles.title_area}>
+            <h1 className={styles.page_title}>コンタクト</h1>
           </div>
-          <div className={styles.main_script}>
-            <h2>メールアドレス</h2>
-            hoge[at]example.com
-          </div>
-        </main>
-      </>
+        </div>
+        <div className={styles.main_script}>
+          <h2>コンタクト</h2>
+          <p>研究室への</p>
+          <ul>
+            <li>SAIへの配属希望・研究室説明希望</li>
+            <li>他学科・他学年学生だけど研究に興味がある</li>
+            <li>共同研究依頼</li>
+            <li>取材依頼</li>
+          </ul>
+          <p>
+            また、指導教員（髙田）個人への連絡は
+            <Link href="mailto:kcct-rtakada@g.kobe-kosen.ac.jp">
+              kcct-rtakada@g.kobe-kosen.ac.jp
+            </Link>
+            でも受け付けています。
+          </p>
+          <h2>アクセス</h2>
+          <p>
+            <Link
+              href="https://www.kobe-kosen.ac.jp/common/access_campus_map.html"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              神戸高専アクセス情報：https://www.kobe-kosen.ac.jp/common/access_campus_map.html
+            </Link>
+          </p>
+          <p>
+            上記ウェブページのキャンパスマップ内⑦にある「電子工学科棟3F」で活動しております。
+          </p>
+        </div>
+      </main>
+    </>
   );
 }

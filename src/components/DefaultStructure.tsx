@@ -8,6 +8,7 @@ export interface AdditionalImage {
 
 export default interface Project {
   id: number;
+  classification: string;
   type: string;
   title: string;
   authors: Author[];
@@ -32,4 +33,14 @@ export default interface Member {
   englishName: string;
   belonging: string;
   classification: string;
+}
+
+export default interface Award {
+  id: number;
+  organization: string;
+  competition: string;
+  award: string;
+  person: string;
+  date: Date;
+  link: string;
 }

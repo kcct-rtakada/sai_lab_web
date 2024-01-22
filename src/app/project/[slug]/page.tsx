@@ -44,7 +44,9 @@ export default function Page({ params }: { params: { slug: string } }) {
     );
   }
 
-  // const displayDate = `${project.date.getFullYear()}/${(project.date.getMonth() + 1).toString().padStart(2, '0')}`;
+  const date = new Date(project.date) 
+
+  const displayDate = `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${(date.getDate() + 1).toString().padStart(2, '0')}`;
 
   return (
     <>
@@ -119,7 +121,7 @@ export default function Page({ params }: { params: { slug: string } }) {
               <div className={styles.flex_box}>
                 <div>
                   <h3 className={styles.information_section_title}>Date</h3>
-                  <div>{String(project.date)}</div>
+                  <div>{String(displayDate)}</div>
                 </div>
                 <div>
                   <h3 className={styles.information_section_title}>Pages</h3>

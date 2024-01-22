@@ -7,8 +7,8 @@
   .title_box {
     background-image: linear-gradient(
       to bottom right,
-      rgb(186, 206, 99),
-      rgb(59, 177, 65)
+      rgb(233, 143, 58),
+      rgb(184, 221, 49)
     );
 
     .title_area {
@@ -215,12 +215,38 @@
               -moz-border-radius: 0.3rem;
               -ms-border-radius: 0.3rem;
               -o-border-radius: 0.3rem;
+
+              div {
+                display: inline-block;
+                border-right: 1rem;
+                width: 0.8rem;
+                font-size: 0.8rem;
+              }
+
+              p {
+                margin-left: 0.2rem;
+                margin-right: 0.2rem;
+                display: inline-block;
+              }
             }
           }
 
           .book {
             font-size: 0.7rem;
-            margin: 0.1rem 0.4rem 0.1rem 0.4rem;
+            margin: 0.1rem 0.4rem 0.1rem 0.5rem;
+
+            div {
+              display: inline;
+              border-right: 1rem;
+              width: 0.8rem;
+              font-size: 0.8rem;
+            }
+
+            p {
+              margin-left: 0.4rem;
+              margin-right: 0.2rem;
+              display: inline;
+            }
           }
         }
       }

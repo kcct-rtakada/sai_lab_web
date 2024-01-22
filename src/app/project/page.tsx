@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Project from "@/components/DefaultStructure";
 import styles from "@/styles/app/projects/projectList.module.scss";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faBookOpen } from "@fortawesome/free-solid-svg-icons";
 // import SEO from "@/components/SEO";
 
 export default function Home() {
@@ -74,26 +76,45 @@ export default function Home() {
                       />
                     )}
                   </div>
-                  <div className={styles.type}>
-                    <span>{item.type}</span>
-                  </div>
+                  {item.type ? (
+                    <div className={styles.type}>
+                      <span>{item.type}</span>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+
                   <div className={styles.title}>{item.title}</div>
                   <div className={styles.authors}>
                     {item.authors.map((author, i) => (
                       <span className={styles.author} key={i}>
-                        {author.name}
+                        <div>
+                          <FontAwesomeIcon
+                            icon={faUser}
+                            style={{ color: "#222" }}
+                          />
+                        </div>
+                        <p>{author.name}</p>
                       </span>
                     ))}
                   </div>
-                  <div className={styles.book}>{`${
-                    item.bookTitle ? `${item.bookTitle}` : ``
-                  }${item.volume ? `, Vol.${item.volume}` : ``}${
-                    item.number ? `, ${item.number}` : ``
-                  }${
-                    item.pageStart && item.pageEnd
-                      ? `, pp.${item.pageStart}-${item.pageEnd}`
-                      : ``
-                  }`}</div>
+                  <div className={styles.book}>
+                    <div>
+                      <FontAwesomeIcon
+                        icon={faBookOpen}
+                        style={{ color: "#222" }}
+                      />
+                    </div>
+                    <p>
+                      {`${item.bookTitle ? `${item.bookTitle}` : ``}${
+                        item.volume ? `, Vol.${item.volume}` : ``
+                      }${item.number ? `, ${item.number}` : ``}${
+                        item.pageStart && item.pageEnd
+                          ? `, pp.${item.pageStart}-${item.pageEnd}`
+                          : ``
+                      }`}
+                    </p>
+                  </div>
                 </div>
               </Link>
             ))}

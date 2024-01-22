@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Project from "@/components/DefaultStructure";
 import styles from "@/styles/app/projects/project.module.scss";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilePdf, faLink } from "@fortawesome/free-solid-svg-icons";
 // import SEO from "@/components/SEO";
 
 export default function Page({ params }: { params: { slug: string } }) {
@@ -44,9 +46,11 @@ export default function Page({ params }: { params: { slug: string } }) {
     );
   }
 
-  const date = new Date(project.date) 
+  const date = new Date(project.date);
 
-  const displayDate = `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${(date.getDate() + 1).toString().padStart(2, '0')}`;
+  const displayDate = `${date.getFullYear()}/${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}/${(date.getDate() + 1).toString().padStart(2, "0")}`;
 
   return (
     <>
@@ -54,9 +58,14 @@ export default function Page({ params }: { params: { slug: string } }) {
       <main className={styles.main}>
         <section className={styles.project}>
           <div className={styles.project_card}>
-            <div className={styles.type}>
-              <span>{project.type}</span>
-            </div>
+            {project.type ? (
+              <div className={styles.type}>
+                <span>{project.type}</span>
+              </div>
+            ) : (
+              <></>
+            )}
+
             <h1 className={styles.title}>{project.title}</h1>
             <div className={styles.authors}>
               {project.authors.map((item, i) => (
@@ -67,7 +76,21 @@ export default function Page({ params }: { params: { slug: string } }) {
             </div>
             {project.url ? (
               <Link href={project.url} className={styles.url_box_link}>
-                <div className={styles.url_box}>{/* {project.url} */}</div>
+                <div className={styles.url_box}>
+                  <FontAwesomeIcon icon={faLink} style={{ color: "#ffffff" }} />
+                </div>
+              </Link>
+            ) : (
+              <></>
+            )}
+            {project.paperUrl ? (
+              <Link href={project.paperUrl} className={styles.pdf_box_link}>
+                <div className={styles.pdf_box}>
+                  <FontAwesomeIcon
+                    icon={faFilePdf}
+                    style={{ color: "#ffffff" }}
+                  />
+                </div>
               </Link>
             ) : (
               <></>

@@ -11,7 +11,7 @@
     user-select: text;
 
     .project_card {
-      margin-top: 6rem;
+      margin-top: 2rem;
       margin-bottom: 3rem;
       margin-left: auto;
       margin-right: auto;
@@ -30,7 +30,7 @@
 
       @include mqUp(md) {
         border-radius: 0;
-        margin-top: 4rem;
+        margin-top: 0rem;
         filter: drop-shadow(0rem 0.2rem 0.2rem rgb(230, 230, 230));
       }
 

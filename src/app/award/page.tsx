@@ -27,7 +27,7 @@ export default function Home() {
   if (!loaded) {
     return (
       <>
-        <main className={styles.main}>
+        <div className={styles.main}>
           <div className={styles.title_box}>
             <div className={styles.title_area}>
               <h1 className={styles.page_title}>表彰</h1>
@@ -37,15 +37,14 @@ export default function Home() {
             <span className="load_1" />
             <span className="load_2" />
           </div>
-        </main>
+        </div>
       </>
     );
   }
-  console.log(awards);
 
   return (
     <>
-      <main className={styles.main}>
+      <div className={styles.main}>
         <div className={styles.title_box}>
           <div className={styles.title_area}>
             <h1 className={styles.page_title}>表彰</h1>
@@ -85,7 +84,7 @@ export default function Home() {
             </ul>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

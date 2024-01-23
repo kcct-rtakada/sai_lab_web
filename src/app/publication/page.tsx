@@ -27,7 +27,7 @@ export default function Home() {
   if (!loaded) {
     return (
       <>
-        <main className={styles.main}>
+        <div className={styles.main}>
           <div className={styles.title_box}>
             <div className={styles.title_area}>
               <h1 className={styles.page_title}>研究業績</h1>
@@ -37,7 +37,7 @@ export default function Home() {
             <span className="load_1" />
             <span className="load_2" />
           </div>
-        </main>
+        </div>
       </>
     );
   }
@@ -48,7 +48,6 @@ export default function Home() {
       element.classification.toLowerCase().includes("国際会議") ||
       element.classification.toLowerCase().includes("論文誌")
   );
-  console.log(sortedConferencePapers);
 
   const uniqueYears = Array.from(
     new Set(
@@ -57,11 +56,10 @@ export default function Home() {
       )
     )
   );
-  console.log(uniqueYears);
 
   return (
     <>
-      <main className={styles.main}>
+      <div className={styles.main}>
         <div className={styles.title_box}>
           <div className={styles.title_area}>
             <h1 className={styles.page_title}>研究業績</h1>
@@ -73,42 +71,74 @@ export default function Home() {
               const matchedDataWithYear = sortedConferencePapers?.filter(
                 (item) => new Date(item.date).getFullYear() === year
               );
-              const matchedInternal = matchedDataWithYear?.filter(
-                (item) => item.classification.toLowerCase().includes("国内会議")
-              )
-              const matchedExternal = matchedDataWithYear?.filter(
-                (item) => item.classification.toLowerCase().includes("国際会議")
-              )
-              const matchedJournal = matchedDataWithYear?.filter(
-                (item) => item.classification.toLowerCase().includes("論文誌")
-              )
+              const matchedInternal = matchedDataWithYear?.filter((item) =>
+                item.classification.toLowerCase().includes("国内会議")
+              );
+              const matchedExternal = matchedDataWithYear?.filter((item) =>
+                item.classification.toLowerCase().includes("国際会議")
+              );
+              const matchedJournal = matchedDataWithYear?.filter((item) =>
+                item.classification.toLowerCase().includes("論文誌")
+              );
               return (
                 <>
-                <h2>{year}年</h2>
-                <h3>論文誌</h3>
-                  <ol>
-                    {matchedJournal!.map((item, i) => (
-                      <li key={i}><Link href={`/project/${item.id}`}>{item.citation}</Link></li>
-                    ))}
-                  </ol>
-                  <h3>国内会議</h3>
-                  <ol>
-                    {matchedInternal!.map((item, i) => (
-                      <li key={i}><Link href={`/project/${item.id}`}>{item.citation}</Link></li>
-                    ))}
-                  </ol>
-                  <h3>国際会議</h3>
-                  <ol>
-                    {matchedExternal!.map((item, i) => (
-                      <li key={i}><Link href={`/project/${item.id}`}>{item.citation}</Link></li>
-                    ))}
-                  </ol>
+                  <h2 key={i}>{year}年</h2>
+                  {matchedJournal!.length > 0 ? (
+                    <>
+                      <h3>論文誌</h3>
+                      <ol>
+                        {matchedJournal!.map((item, j) => (
+                          <li key={j}>
+                            <Link href={`/project/${item.id}`}>
+                              {item.citation}
+                            </Link>
+                          </li>
+                        ))}
+                      </ol>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+
+                  {matchedInternal!.length > 0 ? (
+                    <>
+                      <h3>国内会議</h3>
+                      <ol>
+                        {matchedInternal!.map((item, j) => (
+                          <li key={j}>
+                            <Link href={`/project/${item.id}`}>
+                              {item.citation}
+                            </Link>
+                          </li>
+                        ))}
+                      </ol>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+
+                  {matchedExternal!.length > 0 ? (
+                    <>
+                      <h3>国際会議</h3>
+                      <ol>
+                        {matchedExternal!.map((item, j) => (
+                          <li key={j}>
+                            <Link href={`/project/${item.id}`}>
+                              {item.citation}
+                            </Link>
+                          </li>
+                        ))}
+                      </ol>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </>
               );
             })}
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

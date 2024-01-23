@@ -5,7 +5,7 @@ import Project from "@/components/DefaultStructure";
 import styles from "@/styles/app/projects/project.module.scss";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilePdf, faLink } from "@fortawesome/free-solid-svg-icons";
+import { faFilePdf, faLink, faTag } from "@fortawesome/free-solid-svg-icons";
 // import SEO from "@/components/SEO";
 
 export default function Page({ params }: { params: { slug: string } }) {
@@ -36,12 +36,12 @@ export default function Page({ params }: { params: { slug: string } }) {
       <>
         {/* <SEO pageTitle="Loading" pageDescription={""} /> */}
 
-        <main className={styles.main}>
+        <div className={styles.main}>
           <div className="loading">
             <span className="load_1" />
             <span className="load_2" />
           </div>
-        </main>
+        </div>
       </>
     );
   }
@@ -55,7 +55,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   return (
     <>
       {/* <SEO pageTitle={project.name} pageDescription={""} /> */}
-      <main className={styles.main}>
+      <div className={styles.main}>
         <section className={styles.project}>
           <div className={styles.project_card}>
             {project.type ? (
@@ -74,27 +74,47 @@ export default function Page({ params }: { params: { slug: string } }) {
                 </span>
               ))}
             </div>
-            {project.url ? (
-              <Link href={project.url} className={styles.url_box_link}>
-                <div className={styles.url_box}>
-                  <FontAwesomeIcon icon={faLink} style={{ color: "#ffffff" }} />
+              {project.tags.length > 0 ? (
+                <div className={styles.tags}>
+                  {project.tags.map((tag, j) => (
+                    <span key={j}>
+                      <FontAwesomeIcon
+                        icon={faTag}
+                        style={{ color: "#8a8a8a" }}
+                      />
+                      {tag.name}
+                    </span>
+                  ))}
                 </div>
-              </Link>
-            ) : (
-              <></>
-            )}
-            {project.paperUrl ? (
-              <Link href={project.paperUrl} className={styles.pdf_box_link}>
-                <div className={styles.pdf_box}>
-                  <FontAwesomeIcon
-                    icon={faFilePdf}
-                    style={{ color: "#ffffff" }}
-                  />
-                </div>
-              </Link>
-            ) : (
-              <></>
-            )}
+              ) : (
+                <></>
+              )}
+            <div className={styles.links}>
+              {project.url ? (
+                <Link href={project.url} className={styles.url_box_link}>
+                  <div className={styles.url_box}>
+                    <FontAwesomeIcon
+                      icon={faLink}
+                      style={{ color: "#ffffff" }}
+                    />
+                  </div>
+                </Link>
+              ) : (
+                <></>
+              )}
+              {project.paperUrl ? (
+                <Link href={project.paperUrl} className={styles.pdf_box_link}>
+                  <div className={styles.pdf_box}>
+                    <FontAwesomeIcon
+                      icon={faFilePdf}
+                      style={{ color: "#ffffff" }}
+                    />
+                  </div>
+                </Link>
+              ) : (
+                <></>
+              )}
+            </div>
           </div>
 
           <div className={styles.main_script}>
@@ -158,7 +178,7 @@ export default function Page({ params }: { params: { slug: string } }) {
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }

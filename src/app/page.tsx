@@ -2,10 +2,11 @@
 import Image from "next/image";
 import styles from "@/styles/app/page.module.scss";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <div className={styles.main}>
       <div className={styles.img_box}>
         <div className={styles.animation_box}>
           <div>
@@ -77,19 +78,23 @@ export default function Home() {
         <div className={styles.circles_box}>
           <div className={styles.keyword}>
             『Human Interface Design』
-            <br />- コンピュータへの入力手法
+            <br />
+            コンピュータへの入力手法
           </div>
           <div className={styles.keyword}>
             『Creator Assist Design』
-            <br />- クリエータを支援する
+            <br />
+            クリエータを支援する
           </div>
           <div className={styles.keyword}>
             『Human Agent(Robot) Interaction』
-            <br />- 人と協調・人の支援
+            <br />
+            人と協調・人の支援
           </div>
           <div className={styles.keyword}>
             『Human Sensing』
-            <br />- 人の一挙手一投足を
+            <br />
+            人の一挙手一投足を
             <br />
             センシングする
           </div>
@@ -111,7 +116,30 @@ export default function Home() {
           また、投稿先としては学会以外にも各種技術コンテストやSNSなどもありえるかもしれません（要相談）。
         </p>
         <p>是非、みんなで楽しく「才」を磨いていきましょう！</p>
+
+        <h3>他学科・3年生以下のみなさんへ</h3>
+        <p>
+          SAIではHCIに興味ある他学科・他学年の放課後・長期休みの研究や外部発表もサポートしています。研究テーマの立案や論文執筆に至るまでの相談・サポート、手持ちの範囲で各種計測機器や電子部品等の貸し出しも行っています。興味がある方は昼休みや放課後に髙田の居室、あるいはメール等でご連絡ください。
+        </p>
+
+        <h3>企業・大学等の皆様へ</h3>
+        <p>
+          SAIでは出張授業やコラボレーション等の相談も随時受け付けておりますので、興味がある方はご連絡ください。
+        </p>
+
+        <h3>コンタクト</h3>
+
+        <p>
+          <Link
+            href="https://forms.gle/JngM8dAN5b6yAtBv9"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            SAI（神戸高専
+            髙田研究室）問い合わせフォーム：https://forms.gle/JngM8dAN5b6yAtBv9
+          </Link>
+        </p>
       </div>
-    </main>
+    </div>
   );
 }

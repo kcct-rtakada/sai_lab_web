@@ -6,8 +6,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <>
-      <main className={styles.main}>
+      <div className={styles.main}>
         <div className={styles.title_box}>
           <div className={styles.title_area}>
             <h1 className={styles.page_title}>コンタクト</h1>
@@ -42,8 +41,18 @@ export default function Home() {
           <p>
             上記ウェブページのキャンパスマップ内⑦にある「電子工学科棟3F」で活動しております。
           </p>
+          <h2>フォーム</h2>
+          <p>
+            <Link
+              href="https://forms.gle/JngM8dAN5b6yAtBv9"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              SAI（神戸高専 髙田研究室）問い合わせフォーム：https://forms.gle/JngM8dAN5b6yAtBv9
+            </Link>
+          </p>
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeP-U1M1MeJIp4b5wBAlDmgptdyLxOWacAZVLIPezzGssslhw/viewform?embedded=true" width="640" height="1171">読み込んでいます…</iframe>
         </div>
-      </main>
-    </>
+      </div>
   );
 }

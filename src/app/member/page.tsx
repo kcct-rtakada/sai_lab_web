@@ -25,7 +25,7 @@ export default function Home() {
 
   if (!loaded) {
     return (
-      <main className={styles.main}>
+      <div className={styles.main}>
         <div className={styles.title_box}>
           <div className={styles.title_area}>
             <h1 className={styles.page_title}>メンバー</h1>
@@ -35,7 +35,7 @@ export default function Home() {
           <span className="load_1" />
           <span className="load_2" />
         </div>
-      </main>
+      </div>
     );
   }
 
@@ -58,12 +58,8 @@ export default function Home() {
     );
   });
 
-  // console.log(sortedMemberWithTeacher);
-  // console.log(sortedMemberWithGraduation);
-  // console.log(sortedEnrolledMember);
-
   return (
-    <main className={styles.main}>
+    <div className={styles.main}>
       <div className={styles.title_box}>
         <div className={styles.title_area}>
           <h1 className={styles.page_title}>メンバー</h1>
@@ -122,6 +118,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-    </main>
+    </div>
   );
 }

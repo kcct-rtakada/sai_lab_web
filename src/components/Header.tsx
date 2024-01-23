@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import styles from "@/styles/components/Header.module.scss";
 import Image from "next/image";
@@ -6,41 +6,115 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 
 export default function Header() {
-  const [isJapanese, setIsJapanese] = useState<boolean>(true)
+  const [isJapanese, setIsJapanese] = useState<boolean>(true);
+  const [isOpening, setIsOpening] = useState<boolean>(false);
   const router = useRouter();
-  const path = usePathname()
+  const path = usePathname();
+
+  console.log(path);
 
   return (
     <header>
       <nav className={styles.fixed_header}>
         <div className={styles.header_contents}>
           <div className={styles.icon_box}>
-            <Link href="/">
-              <Image src="/sai_logo.png" alt="SAI LOGO" fill sizes="4rem" priority={false} />
-              <p>神戸高専<br />髙田研究室</p>
-            </Link>
+            {path != "/" ? (
+              <Link onClick={() => setIsOpening(false)} href="/">
+                <Image
+                  src="/sai_logo.png"
+                  alt="SAI LOGO"
+                  fill
+                  sizes="4rem"
+                  priority={false}
+                />
+                <p>
+                  神戸高専
+                  <br />
+                  髙田研究室
+                </p>
+              </Link>
+            ) : (
+              <span>
+                <Image
+                  src="/sai_logo.png"
+                  alt="SAI LOGO"
+                  fill
+                  sizes="4rem"
+                  priority={false}
+                />
+                <p>
+                  神戸高専
+                  <br />
+                  髙田研究室
+                </p>
+              </span>
+            )}
           </div>
           <input
+            onChange={() => setIsOpening(!isOpening)}
             type="checkbox"
             id="hamburger"
             className={styles.hamburger}
             style={{ display: "none" }}
           />
-          <label htmlFor="hamburger" className={styles.hamburger_button}>
-            <div >
+          <label
+            htmlFor="hamburger"
+            className={`${styles.hamburger_button} ${
+              isOpening ? styles.opening : ""
+            }`}
+          >
+            <div>
               <span />
               <span />
               <span />
             </div>
           </label>
-          <div className={styles.link_box}>
+          <div
+            className={`${styles.link_box} ${isOpening ? styles.opening : ""}`}
+          >
             <ul>
-              <Link href="/member">メンバー</Link>
-              <Link href="/project">プロジェクト</Link>
-              <Link href="/publication">研究業績</Link>
-              <Link href="/thesis">卒論/修論</Link>
-              <Link href="/award">表彰</Link>
-              <Link href="/contact">コンタクト</Link>
+              {path !== "/member" ? (
+                <Link onClick={() => setIsOpening(false)} href="/member">
+                  メンバー
+                </Link>
+              ) : (
+                <p>メンバー</p>
+              )}
+              {path !== "/project" ? (
+                <Link onClick={() => setIsOpening(false)} href="/project">
+                  プロジェクト
+                </Link>
+              ) : (
+                <p>プロジェクト</p>
+              )}
+              {path !== "/publication" ? (
+                <Link onClick={() => setIsOpening(false)} href="/publication">
+                  研究業績
+                </Link>
+              ) : (
+                <p>研究業績</p>
+              )}
+              {path !== "/thesis" ? (
+                <Link onClick={() => setIsOpening(false)} href="/thesis">
+                  卒論/修論
+                </Link>
+              ) : (
+                <p>卒論/修論</p>
+              )}
+              {path !== "/award" ? (
+                <Link onClick={() => setIsOpening(false)} href="/award">
+                  表彰
+                </Link>
+              ) : (
+                <p>表彰</p>
+              )}
+              {path !== "/contact" ? (
+                <Link onClick={() => setIsOpening(false)} href="/contact">
+                  コンタクト
+                </Link>
+              ) : (
+                <p>コンタクト</p>
+              )}
             </ul>
           </div>
         </div>

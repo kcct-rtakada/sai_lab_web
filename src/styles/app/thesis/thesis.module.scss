@@ -1,7 +1,8 @@
 @import "../../global/responsive.scss";
 
 .main {
-  padding-top: 4rem;
+  padding-top: 0;
+  min-height: calc(100% - 4rem);
   // overflow: hidden;
 
   .title_box {

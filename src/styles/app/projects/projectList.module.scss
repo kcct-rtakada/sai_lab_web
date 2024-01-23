@@ -1,7 +1,8 @@
 @import "../../global/responsive.scss";
 
 .main {
-  padding-top: 4rem;
+  padding-top: 0;
+  min-height: calc(100% - 4rem);
   // overflow: hidden;
 
   .title_box {
@@ -10,6 +11,7 @@
       rgb(233, 143, 58),
       rgb(184, 221, 49)
     );
+    margin: 0 auto;
 
     .title_area {
       width: min(55rem, 100%);
@@ -25,9 +27,9 @@
   }
 
   .list_box {
-    width: min(55rem, 100%);
+    width: 100%;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 0 0 2rem 0;
     user-select: none;
     -webkit-user-select: text;
     -khtml-user-select: text;
@@ -36,7 +38,7 @@
     position: relative;
 
     @include mqUp(xl) {
-      padding: 2rem 0;
+      padding: 0;
     }
 
     @include mqUp(sm) {
@@ -49,11 +51,156 @@
       font-weight: bold;
     }
 
+    .search_box {
+      width: 100%;
+      height: auto;
+      padding: 1rem;
+      background-color: rgb(250, 250, 250);
+      margin-bottom: 1rem;
+      position: sticky;
+      top: 0rem;
+      z-index: 1000;
+
+      @include mqUp(sm){
+        margin-bottom: 0;
+      }
+
+      .search_area {
+        width: min(55rem, 100%);
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 1rem;
+        justify-content: center;
+
+        .search_box_frame {
+          position: relative;
+          display: flex;
+
+          .search_input {
+            background-color: rgb(255, 255, 255);
+            height: 2.5rem;
+            width: 12.5rem;
+            position: relative;
+            appearance: none;
+            -webkit-appearance: none;
+            border-style: solid;
+            border-width: 0.1rem;
+            border-color: #dcdcdc transparent #dcdcdc #dcdcdc;
+            border-radius: 2rem 0 0 2rem;
+            padding: 0 2.5rem 0 1rem;
+            transition: all 0.1s;
+            opacity: 1;
+            -webkit-border-radius: 2rem 0 0 2rem;
+            -moz-border-radius: 2rem 0 0 2rem;
+            -ms-border-radius: 2rem 0 0 2rem;
+            -o-border-radius: 2rem 0 0 2rem;
+
+            &:hover {
+              border-color: rgb(35, 190, 190) transparent rgb(35, 190, 190)
+                rgb(35, 190, 190);
+            }
+
+            &:active,
+            &:focus {
+              outline: none;
+              border-color: rgb(35, 190, 190) transparent rgb(35, 190, 190)
+                rgb(35, 190, 190);
+            }
+          }
+
+          .search_clear_button {
+            position: absolute;
+            appearance: none;
+            -webkit-appearance: none;
+            right: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            // padding: -2rem;
+            background-color: transparent;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+
+            &:hover,
+            &:focus {
+              outline: none;
+            }
+
+            svg {
+              color: #aaa;
+            }
+
+            &:hover svg,
+            &:focus svg {
+              color: #333;
+              width: 1rem;
+              height: 1rem;
+              font-size: 1rem;
+            }
+          }
+        }
+
+        .search_button {
+          background-color: rgb(35, 190, 190);
+          border-style: solid;
+          border-color: rgb(35, 190, 190);
+          border-width: 0.1rem;
+          margin-right: 1rem;
+          display: block;
+          cursor: pointer;
+          width: 3.5rem;
+          height: 2.5rem;
+          border-radius: 0 2rem 2rem 0;
+          transition: all 0.1s;
+
+          &:hover,
+          &:focus {
+            background-color: rgb(34, 161, 161);
+            border-color: rgb(34, 161, 161);
+            outline: none;
+          }
+
+          .search_magnify {
+            position: relative;
+            left: -0.1rem;
+            top: 0.1rem;
+            color: white;
+            width: 1.4rem;
+            font-size: 1.4rem;
+            padding: 0;
+            margin: 0;
+          }
+        }
+
+        .search_select {
+          border-style: solid;
+          border-width: 0.1rem;
+          border-color: rgb(223, 223, 223);
+          width: 6rem;
+          cursor: pointer;
+
+          &:hover {
+            border-color: rgb(35, 190, 190);
+          }
+
+          &:active,
+          &:focus {
+            outline: none;
+            border-color: rgb(35, 190, 190);
+          }
+        }
+      }
+    }
+
     .result_box {
       display: flex;
       flex-wrap: wrap;
       position: relative;
-      width: 100%;
+      width: min(55rem, 100%);
+      margin: 0 auto;
 
       @include mqUp(xl) {
         justify-content: center;
@@ -65,7 +212,7 @@
         .project {
           pointer-events: auto;
           width: 23rem;
-          height: 22rem;
+          height: 23rem;
           background-color: rgb(253, 253, 253);
           margin: 1rem;
           position: relative;
@@ -205,7 +352,7 @@
             .author {
               display: inline-block;
               margin-right: 0.3rem;
-              margin-bottom: 0.35rem;
+              margin-bottom: 0;
               background-color: rgb(244, 253, 255);
               border-radius: 0.3rem;
               padding: 0.05rem 0.2rem;
@@ -231,6 +378,27 @@
             }
           }
 
+          .tags {
+            font-size: 0.8rem;
+            margin: 0.2rem 0.5rem 0.2rem 0.7rem;
+
+            span {
+              display: inline-block;
+              margin-right: .5rem;
+              position: relative;
+
+              svg {
+                width: 0.8rem;
+                height: 0.8rem;
+                font-size: 0.8rem;
+                display: inline-block;
+                margin-right: 0.15rem;
+                position: relative;
+                top: .07rem;
+              }
+            }
+          }
+
           .book {
             font-size: 0.7rem;
             margin: 0.1rem 0.4rem 0.1rem 0.5rem;
@@ -248,6 +416,32 @@
               display: inline;
             }
           }
+        }
+      }
+
+      .notfound {
+        user-select: none;
+        width: 100%;
+        height: auto;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+
+        .notfound_text {
+          margin-top: 1.1rem;
+          font-size: 1.2rem;
+          line-height: 1.8;
+          margin-bottom: 1rem;
+        }
+
+        .notfound_img_box {
+          position: relative;
+          width: 5rem;
+          height: 5rem;
+          pointer-events: none;
         }
       }
     }

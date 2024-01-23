@@ -1,7 +1,8 @@
 @import "../../global/responsive.scss";
 
 .main {
-  padding-top: 4rem;
+  padding-top: 0;
+  min-height: calc(100% - 4rem);
   // overflow: hidden;
 
   a {
@@ -59,6 +60,23 @@
       padding: 2rem 0 0 0;
     }
 
+    iframe {
+      width: calc(100% - 2rem);
+      border-style: solid;
+      border-width: .15rem;
+      border-color: rgb(230, 230, 230);
+      border-radius: .5rem;
+      overflow: hidden;
+      margin: 1.5rem 1rem 0 1rem;
+
+      @include mqUp(md) {
+        width: 100%;
+        border-radius: 0;
+        border-color: transparent;
+        margin: 1.5rem 0 0 0;
+      }
+    }
+
     p {
       margin-left: 1rem;
       line-height: 1.7;
@@ -77,7 +95,7 @@
       font-weight: bold;
       font-size: 1.6rem;
       line-height: 1.8;
-      top: 4rem;
+      top: 0;
       position: sticky;
       z-index: 1000;
       padding-left: 1rem;

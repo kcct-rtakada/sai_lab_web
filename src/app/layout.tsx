@@ -246,8 +246,10 @@ export default function RootLayout({
       </head>
       <body>
         <Header />
+        <main>
         {children}
         <Footer />
+        </main>
       </body>
     </html>
   );

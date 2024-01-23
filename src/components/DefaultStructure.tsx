@@ -2,8 +2,13 @@ export interface Author {
   name: string
 }
 
+export interface Tag {
+  name: string
+}
+
+
 export interface AdditionalImage {
-  url: string
+  name: string
 }
 
 export default interface Project {
@@ -12,6 +17,7 @@ export default interface Project {
   type: string;
   title: string;
   authors: Author[];
+  tags: Tag[];
   bookTitle: string;
   volume: string;
   number: string;

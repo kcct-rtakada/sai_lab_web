@@ -2,7 +2,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Project from "@/components/DefaultStructure";
-import styles from "@/styles/app/thesis/thesis.module.scss"
+import styles from "@/styles/app/thesis/thesis.module.scss";
 import Link from "next/link";
 // import SEO from "@/components/SEO";
 
@@ -27,7 +27,7 @@ export default function Home() {
   if (!loaded) {
     return (
       <>
-        <main className={styles.main}>
+        <div className={styles.main}>
           <div className={styles.title_box}>
             <div className={styles.title_area}>
               <h1 className={styles.page_title}>卒論/修論</h1>
@@ -37,7 +37,7 @@ export default function Home() {
             <span className="load_1" />
             <span className="load_2" />
           </div>
-        </main>
+        </div>
       </>
     );
   }
@@ -47,7 +47,6 @@ export default function Home() {
       element.classification.toLowerCase().includes("卒論") ||
       element.classification.toLowerCase().includes("修論")
   );
-  console.log(sortedConferencePapers);
 
   const uniqueYears = Array.from(
     new Set(
@@ -56,11 +55,10 @@ export default function Home() {
       )
     )
   );
-  console.log(uniqueYears);
 
   return (
     <>
-      <main className={styles.main}>
+      <div className={styles.main}>
         <div className={styles.title_box}>
           <div className={styles.title_area}>
             <h1 className={styles.page_title}>卒論/修論</h1>
@@ -72,33 +70,57 @@ export default function Home() {
               const matchedDataWithYear = sortedConferencePapers?.filter(
                 (item) => new Date(item.date).getFullYear() === year
               );
-              const matched2ndPaper = matchedDataWithYear?.filter(
-                (item) => item.classification.toLowerCase().includes("修論")
-              )
-              const matched1stPaper = matchedDataWithYear?.filter(
-                (item) => item.classification.toLowerCase().includes("卒論")
-              )
+              const matched2ndPaper = matchedDataWithYear?.filter((item) =>
+                item.classification.toLowerCase().includes("修論")
+              );
+              const matched1stPaper = matchedDataWithYear?.filter((item) =>
+                item.classification.toLowerCase().includes("卒論")
+              );
               return (
                 <>
-                <h2>{year}年</h2>
-                  <h3>修論</h3>
-                  <ol>
-                    {matched2ndPaper!.map((item, i) => (
-                      <li key={i}><Link href={`/project/${item.id}`}>{`${item.authors.map((e, j) => `${e.name}, `)}${item.title}`}</Link></li>
-                    ))}
-                  </ol>
-                  <h3>卒論</h3>
-                  <ol>
-                    {matched1stPaper!.map((item, i) => (
-                      <li key={i}><Link href={`/project/${item.id}`}>{`${item.authors.map((e, j) => `${e.name}, `)}${item.title}`}</Link></li>
-                    ))}
-                  </ol>
+                  <h2>{year}年</h2>
+                  {matched2ndPaper!.length > 0 ? (
+                    <>
+                      <h3>修論</h3>
+                      <ol>
+                        {matched2ndPaper!.map((item, i) => (
+                          <li key={i}>
+                            <Link
+                              href={`/project/${item.id}`}
+                            >{`${item.authors.map((e, j) => `${e.name}, `)}${
+                              item.title
+                            }`}</Link>
+                          </li>
+                        ))}
+                      </ol>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                  {matched1stPaper!.length > 0 ? (
+                    <>
+                      <h3>卒論</h3>
+                      <ol>
+                        {matched1stPaper!.map((item, i) => (
+                          <li key={i}>
+                            <Link
+                              href={`/project/${item.id}`}
+                            >{`${item.authors.map((e, j) => `${e.name}, `)}${
+                              item.title
+                            }`}</Link>
+                          </li>
+                        ))}
+                      </ol>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </>
               );
             })}
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

@@ -4,15 +4,14 @@ import React, { useState, useEffect } from "react";
 import Member from "@/components/DefaultStructure";
 import styles from "@/styles/app/member/member.module.scss";
 import Link from "next/link";
+import { sai_members } from "@/components/constant";
 
 export default function Home() {
   const [members, setMembers] = useState<null | Member[]>(null);
   const [loaded, setLoaded] = useState<boolean>(false);
 
   useEffect(() => {
-    fetch(
-      "https://script.google.com/macros/s/AKfycbxiw89-v7yG6pGfG3HPDcrJb6tjrQ6_vKI8EATuKX8WmchggOC2gWlYaoiXUCRcokUt/exec"
-    )
+    fetch(sai_members)
       .then((response) => response.json())
       .then((data) => {
         setMembers(data);

@@ -1,18 +1,21 @@
 export interface Author {
-  name: string
+  name: string;
 }
 
 export interface Tag {
-  name: string
+  name: string;
 }
 
-
 export interface AdditionalImage {
-  name: string
+  name: string;
+}
+
+export interface Link {
+  name: string;
 }
 
 export default interface Project {
-  id: number;
+  id: string;
   classification: string;
   type: string;
   title: string;
@@ -33,8 +36,17 @@ export default interface Project {
   additionalImageURL: AdditionalImage[];
 }
 
+export default interface News {
+  id: string;
+  date: Date;
+  title: string;
+  article: string;
+  thumbnailURL: string;
+  links: Link[];
+}
+
 export default interface Member {
-  id: number;
+  id: string;
   name: string;
   englishName: string;
   belonging: string;
@@ -42,7 +54,7 @@ export default interface Member {
 }
 
 export default interface Award {
-  id: number;
+  id: string;
   organization: string;
   competition: string;
   award: string;

@@ -2,7 +2,7 @@
 
 .main {
   padding-top: 0;
-  min-height: calc(100% - 4rem);
+  min-height: calc(100% - 6rem);
   // overflow: hidden;
 
   .title_box {
@@ -98,6 +98,17 @@
       h3 {
         font-size: 1.1rem;
         padding: 0.2rem 0.5rem 0.2rem 1.2rem;
+      }
+
+      a.direct {
+        color: black;
+        text-decoration: none;
+        font-weight: normal;
+        position: relative;
+      }
+
+      a.direct:hover {
+        text-decoration: underline;
       }
     }
   }

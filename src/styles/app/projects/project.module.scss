@@ -1,6 +1,8 @@
 @import "../../global/responsive.scss";
 
 .main {
+  min-height: calc(100% - 8rem);
+  padding-top: 0;
   // overflow: hidden;
 
   .project {
@@ -245,6 +247,11 @@
         margin: 0 auto;
         background-color: rgb(245, 245, 245);
         margin-bottom: 1rem;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
 
         @include mqUp(md) {
           padding: 0;

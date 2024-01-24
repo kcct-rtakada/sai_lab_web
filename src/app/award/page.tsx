@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Award from "@/components/DefaultStructure";
 import styles from "@/styles/app/award/award.module.scss";
 import Link from "next/link";
+import { sai_awards } from "@/components/constant";
 // import SEO from "@/components/SEO";
 
 export default function Home() {
@@ -11,9 +12,7 @@ export default function Home() {
   const [loaded, setLoaded] = useState<boolean>(false);
 
   useEffect(() => {
-    fetch(
-      "https://script.google.com/macros/s/AKfycbyghZzjroYK8o4rRH2eVByK5id4Obxn3GqoyF7iJL9Ap8MjZCnA5GPbpAtpGle1Vo_8/exec"
-    )
+    fetch(sai_awards)
       .then((response) => response.json())
       .then((data) => {
         setAwards(data);
@@ -72,7 +71,9 @@ export default function Home() {
                         rel="noopener noreferrer"
                       >{`${award.organization ? `${award.organization}` : ``}${
                         award.competition ? `, ${award.competition}` : ``
-                      }, ${award.award}, ${award.person} (${displayDate})`}</Link>
+                      }, ${award.award}, ${
+                        award.person
+                      } (${displayDate})`}</Link>
                     ) : (
                       `${award.organization ? `${award.organization}` : ``}${
                         award.competition ? `, ${award.competition}` : ``

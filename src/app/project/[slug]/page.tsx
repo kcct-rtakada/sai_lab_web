@@ -6,20 +6,22 @@ import styles from "@/styles/app/projects/project.module.scss";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faLink, faTag } from "@fortawesome/free-solid-svg-icons";
+import { sai_projects } from "@/components/constant";
 // import SEO from "@/components/SEO";
 
 export default function Page({ params }: { params: { slug: string } }) {
   const [project, setProject] = useState<null | Project>(null);
 
   useEffect(() => {
-    fetch(
-      "https://script.google.com/macros/s/AKfycbyOfmK1lgnsFRZLQzghGEvYT-y3ftv0B0qBnAyKnpQNcOD3Z_oocbpSqJgUribNcYel/exec"
-    )
+    fetch(sai_projects)
       .then((response) => response.json())
       .then((data) => {
-        const id_num: number = Number(params.slug);
+        const id: string = String(params.slug);
         const selectedCompany: Project = data.find(
-          (c: { id: number }) => c.id === id_num
+          (c: { id: string; }) =>{
+            const cid = String(c.id)
+            return cid === params.slug
+          } 
         );
 
         if (selectedCompany) {
@@ -50,7 +52,7 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   const displayDate = `${date.getFullYear()}/${(date.getMonth() + 1)
     .toString()
-    .padStart(2, "0")}/${(date.getDate() + 1).toString().padStart(2, "0")}`;
+    .padStart(2, "0")}/${(date.getDate()).toString().padStart(2, "0")}`;
 
   return (
     <>
@@ -74,24 +76,29 @@ export default function Page({ params }: { params: { slug: string } }) {
                 </span>
               ))}
             </div>
-              {project.tags.length > 0 ? (
-                <div className={styles.tags}>
-                  {project.tags.map((tag, j) => (
-                    <span key={j}>
-                      <FontAwesomeIcon
-                        icon={faTag}
-                        style={{ color: "#8a8a8a" }}
-                      />
-                      {tag.name}
-                    </span>
-                  ))}
-                </div>
-              ) : (
-                <></>
-              )}
+            {project.tags.length > 0 ? (
+              <div className={styles.tags}>
+                {project.tags.map((tag, j) => (
+                  <span key={j}>
+                    <FontAwesomeIcon
+                      icon={faTag}
+                      style={{ color: "#8a8a8a" }}
+                    />
+                    {tag.name}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <></>
+            )}
             <div className={styles.links}>
               {project.url ? (
-                <Link href={project.url} className={styles.url_box_link}>
+                <Link
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.url_box_link}
+                >
                   <div className={styles.url_box}>
                     <FontAwesomeIcon
                       icon={faLink}
@@ -103,7 +110,12 @@ export default function Page({ params }: { params: { slug: string } }) {
                 <></>
               )}
               {project.paperUrl ? (
-                <Link href={project.paperUrl} className={styles.pdf_box_link}>
+                <Link
+                  href={project.paperUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.pdf_box_link}
+                >
                   <div className={styles.pdf_box}>
                     <FontAwesomeIcon
                       icon={faFilePdf}

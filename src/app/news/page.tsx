@@ -1,38 +1,35 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useState, useEffect } from "react";
-import Project from "@/components/DefaultStructure";
-import styles from "@/styles/app/projects/projectList.module.scss";
+import News from "@/components/DefaultStructure";
+import styles from "@/styles/app/news/newsList.module.scss";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUser,
-  faBookOpen,
   faMagnifyingGlass,
   faXmark,
-  faTag,
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
-import { sai_projects } from "@/components/constant";
+import { sai_news } from "@/components/constant";
 // import SEO from "@/components/SEO";
 
 export default function Home() {
-  const [projects, setProjects] = useState<null | Project[]>(null);
+  const [newsList, setNewsList] = useState<null | News[]>(null);
   const [loaded, setLoaded] = useState<boolean>(false);
   const [selectedSearchMode, setSelectedSearchMode] =
-    useState<string>("research_name");
-  const [filteredProjects, setFilteredProjects] = useState<
-    undefined | Project[]
-  >([]);
+    useState<string>("news_name");
+  const [filteredNews, setFilteredNews] = useState<undefined | News[]>(
+    []
+  );
   const [userFiltered, setUserFiltered] = useState<boolean>(false);
   const [searchWord, setSearchWord] = useState<string>("");
 
   useEffect(() => {
-    fetch(sai_projects)
+    fetch(sai_news)
       .then((response) => response.json())
       .then((data) => {
-        setProjects(data);
+        setNewsList(data);
         setLoaded(true);
       })
       .catch((err) => {
@@ -40,7 +37,7 @@ export default function Home() {
       });
   }, []);
 
-  const triggerSearchProjects = () => {
+  const triggerSearchNews = () => {
     if (searchWord === "") {
       setUserFiltered(false);
       return;
@@ -53,41 +50,24 @@ export default function Home() {
       return;
     }
 
-    let filteredArray: Project[] | undefined = [];
+    let filteredArray: News[] | undefined = [];
 
-    if (selectedSearchMode === "research_name") {
-      filteredArray = projects?.filter((project) =>
+    if (selectedSearchMode === "news_name") {
+      filteredArray = newsList?.filter((news) =>
         filterKeywords.some(
           (keyword) =>
-            keyword !== "" && project.title.toLowerCase().includes(keyword)
+            keyword !== "" && news.title.toLowerCase().includes(keyword)
         )
       );
-    } else if (selectedSearchMode === "research_author") {
-      filteredArray = projects?.filter((project) =>
+    } else if (selectedSearchMode === "news_year") {
+      filteredArray = newsList?.filter((news) =>
         filterKeywords.some((keyword) =>
-          project.authors.some(
-            (author) =>
-              keyword !== "" && author.name.toLowerCase().includes(keyword)
-          )
-        )
-      );
-    } else if (selectedSearchMode === "research_tag") {
-      filteredArray = projects?.filter((project) =>
-        filterKeywords.some((keyword) =>
-          project.tags.some(
-            (tag) => keyword !== "" && tag.name.toLowerCase().includes(keyword)
-          )
-        )
-      );
-    } else if (selectedSearchMode === "research_year") {
-      filteredArray = projects?.filter((project) =>
-        filterKeywords.some((keyword) =>
-          String(new Date(project.date).getFullYear()) === keyword
+          String(new Date(news.date).getFullYear()) === keyword
         )
       );
     }
 
-    setFilteredProjects(filteredArray);
+    setFilteredNews(filteredArray);
     setUserFiltered(true);
   };
 
@@ -99,7 +79,7 @@ export default function Home() {
 
   const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      triggerSearchProjects();
+      triggerSearchNews();
     }
   };
 
@@ -115,7 +95,7 @@ export default function Home() {
         <div className={styles.main}>
           <div className={styles.title_box}>
             <div className={styles.title_area}>
-              <h1 className={styles.page_title}>プロジェクト</h1>
+              <h1 className={styles.page_title}>ニュース</h1>
             </div>
           </div>
           <div className="loading">
@@ -127,14 +107,14 @@ export default function Home() {
     );
   }
 
-  const displayArray = userFiltered ? filteredProjects : projects;
+  const displayArray = userFiltered ? filteredNews : newsList;
 
   return (
     <>
       <div className={styles.main}>
         <div className={styles.title_box}>
           <div className={styles.title_area}>
-            <h1 className={styles.page_title}>プロジェクト</h1>
+            <h1 className={styles.page_title}>ニュース</h1>
           </div>
         </div>
         <div className={styles.list_box}>
@@ -163,7 +143,7 @@ export default function Home() {
                 id="header-search-click"
                 className={`
                 ${styles.search_button}`}
-                onClick={triggerSearchProjects}
+                onClick={triggerSearchNews}
               >
                 <FontAwesomeIcon
                   icon={faMagnifyingGlass}
@@ -176,10 +156,8 @@ export default function Home() {
                 onChange={triggerSearchModeSelection}
                 name="search_type"
               >
-                <option value="research_name">研究題目</option>
-                <option value="research_author">著者</option>
-                <option value="research_tag">キーワード</option>
-                <option value="research_year">発行年</option>
+                <option value="news_name">記事名</option>
+                <option value="news_year">公開年</option>
               </select>
             </div>
           </div>
@@ -189,10 +167,10 @@ export default function Home() {
                 displayArray!.map((item, i) => (
                   <Link
                     key={i}
-                    href={`/project/${item.id}`}
-                    className={styles.project_link}
+                    href={`/news/${item.id}`}
+                    className={styles.news_link}
                   >
-                    <div className={styles.project}>
+                    <div className={styles.news}>
                       <div className={styles.thumbnail_box}>
                         {item.thumbnailURL ? (
                           <img
@@ -208,66 +186,22 @@ export default function Home() {
                           />
                         )}
                       </div>
-                      {item.type ? (
-                        <div className={styles.type}>
-                          <span>{item.type}</span>
-                        </div>
-                      ) : (
-                        <></>
-                      )}
-                      <div className={styles.date}>
-                        <FontAwesomeIcon
-                          icon={faClock}
-                          style={{ marginRight: ".3rem" }}
-                        />
-                        {`${new Date(item.date).getFullYear()}`}
-                      </div>
-                      <div className={styles.description_area}>
+
+                      <div>
                         <div className={styles.title}>{item.title}</div>
-                        <div className={styles.authors}>
-                          {item.authors.map((author, j) => (
-                            <span className={styles.author} key={j}>
-                              <div>
-                                <FontAwesomeIcon
-                                  icon={faUser}
-                                  style={{ color: "#222" }}
-                                />
-                              </div>
-                              <p>{author.name}</p>
-                            </span>
-                          ))}
-                        </div>
-                        {item.tags.length > 0 ? (
-                          <div className={styles.tags}>
-                            {item.tags.map((tag, j) => (
-                              <span key={j}>
-                                <FontAwesomeIcon
-                                  icon={faTag}
-                                  style={{ color: "#8a8a8a" }}
-                                />
-                                {tag.name}
-                              </span>
-                            ))}
-                          </div>
-                        ) : (
-                          <></>
-                        )}
-                        <div className={styles.book}>
-                          <div>
-                            <FontAwesomeIcon
-                              icon={faBookOpen}
-                              style={{ color: "#222" }}
-                            />
-                          </div>
-                          <p>
-                            {`${item.bookTitle ? `${item.bookTitle}` : ``}${
-                              item.volume ? `, Vol.${item.volume}` : ``
-                            }${item.number ? `, ${item.number}` : ``}${
-                              item.pageStart && item.pageEnd
-                                ? `, pp.${item.pageStart}-${item.pageEnd}`
-                                : ``
-                            }`}
-                          </p>
+                        <div className={styles.date}>
+                          <FontAwesomeIcon
+                            icon={faClock}
+                            style={{ marginRight: ".3rem" }}
+                          />
+                          {`${new Date(item.date).getFullYear()}/${(
+                            new Date(item.date).getMonth() + 1
+                          )
+                            .toString()
+                            .padStart(2, "0")}/${new Date(item.date)
+                            .getDate()
+                            .toString()
+                            .padStart(2, "0")}`}
                         </div>
                       </div>
                     </div>

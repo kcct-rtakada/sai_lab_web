@@ -1,0 +1,152 @@
+@import "../../global/responsive.scss";
+
+.main {
+  min-height: calc(100% - 8rem);
+  padding-top: 0;
+  // overflow: hidden;
+
+  .project {
+    width: 100%;
+    // height: calc(100vh - 5rem);
+    position: relative;
+    user-select: text;
+    -webkit-user-select: text;
+    -khtml-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+
+    .project_card {
+      margin-top: 2rem;
+      margin-bottom: 1.5rem;
+      margin-left: auto;
+      margin-right: auto;
+      width: min(55rem, 100%);
+      padding: 2rem;
+      color: rgb(30, 30, 30);
+      //background-color: rgb(250, 250, 250);
+      background-image: linear-gradient(
+        to bottom right,
+        rgb(248, 200, 239),
+        rgb(250, 243, 182)
+      );
+      border-radius: 1rem;
+      position: relative;
+      filter: drop-shadow(0.5rem 0.3rem 0.5rem rgb(230, 230, 230));
+      -webkit-filter: drop-shadow(0.5rem 0.3rem 0.5rem rgb(230, 230, 230));
+      -webkit-border-radius: 1rem;
+      -moz-border-radius: 1rem;
+      -ms-border-radius: 1rem;
+      -o-border-radius: 1rem;
+
+      @include mqUp(md) {
+        border-radius: 0;
+        margin-top: 0rem;
+        filter: drop-shadow(0rem 0.2rem 0.2rem rgb(230, 230, 230));
+      }
+
+      .title {
+        font-weight: bold;
+        font-size: 2rem;
+        line-height: 2.65rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .main_script {
+      width: min(55rem, 100%);
+      margin: 0 auto;
+      // border-style: solid;
+      // border-width: 0 0.1rem;
+      // border-color: rgb(201, 201, 201);
+      padding: 2rem 1.5rem;
+      font-size: 1.05rem;
+
+      @include mqUp(md) {
+        padding: 2rem 0 0 0;
+      }
+
+      a {
+        font-weight: bold;
+        color: rgb(21, 21, 212);
+        text-decoration: none;
+        position: relative;
+      }
+
+      a::after {
+        position: absolute;
+        bottom: 0em;
+        left: 0;
+        content: "";
+        width: 100%;
+        height: 2px;
+        background: rgb(21, 21, 212);
+        transform: scale(0, 1);
+        transform-origin: left top;
+        transition: transform 0.3s;
+      }
+
+      a:hover::after {
+        transform: scale(1, 1);
+      }
+
+      .section_name {
+        font-weight: bold;
+        font-size: 1.6rem;
+        line-height: 1.8;
+        top: 0;
+        position: sticky;
+        z-index: 1000;
+        padding-left: 1rem;
+        border-radius: 0 0 0.5rem 0.5rem;
+        background-image: linear-gradient(to right, white, rgb(245, 255, 255));
+        -webkit-border-radius: 0 0 0.5rem 0.5rem;
+        -moz-border-radius: 0 0 0.5rem 0.5rem;
+        -ms-border-radius: 0 0 0.5rem 0.5rem;
+        -o-border-radius: 0 0 0.5rem 0.5rem;
+
+        &::before {
+          display: inline-block;
+          width: 0.5rem;
+          height: 2rem;
+          position: absolute;
+          bottom: 0.25rem;
+          left: 0.15rem;
+          content: "";
+          background-image: linear-gradient(
+            to bottom right,
+            rgb(86, 231, 195),
+            rgb(128, 172, 255)
+          );
+        }
+      }
+
+      .thumbnail_box {
+        padding: 1rem;
+        width: 90%;
+        margin: 0 auto;
+        background-color: rgb(245, 245, 245);
+        margin-bottom: 1rem;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+
+        @include mqUp(md) {
+          padding: 0;
+        }
+      }
+
+      .abstract {
+        padding: 0.4rem 0.8rem 1rem 0.8rem;
+      }
+
+      .links {
+        li {
+          margin-left: 3rem;
+          list-style: disc;
+        }
+      }
+    }
+  }
+}

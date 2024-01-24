@@ -40,7 +40,7 @@ export default function Home() {
       </div>
       <div className={styles.section}></div>
       <div className={styles.section}>
-        <h2 className={styles.section_name}>Welcome to SAI lab.!!</h2>
+        <h2 className={styles.section_name}>Welcome to SAI!!</h2>
         <div className={styles.string_box}>
           <p>
             SAIは神戸市立工業高等専門学校
@@ -128,8 +128,16 @@ export default function Home() {
         </p>
 
         <h3>コンタクト</h3>
-
         <p>
+          メールアドレス
+          <br />
+          <Link href="mailto:kcct-rtakada@g.kobe-kosen.ac.jp">
+            kcct-rtakada@g.kobe-kosen.ac.jp
+          </Link>
+        </p>
+        <p>
+          問い合わせフォーム
+          <br />
           <Link
             href="https://forms.gle/JngM8dAN5b6yAtBv9"
             target="_blank"

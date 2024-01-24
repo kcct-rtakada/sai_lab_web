@@ -2,6 +2,7 @@
 
 .main {
   width: 100%;
+  min-height: calc(100% - 6rem);
 
   .img_box {
     background-color: rgb(230, 230, 230);

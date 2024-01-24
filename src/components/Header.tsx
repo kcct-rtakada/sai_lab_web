@@ -11,8 +11,6 @@ export default function Header() {
   const router = useRouter();
   const path = usePathname();
 
-  console.log(path);
-
   return (
     <header>
       <nav className={styles.fixed_header}>
@@ -73,6 +71,13 @@ export default function Header() {
             className={`${styles.link_box} ${isOpening ? styles.opening : ""}`}
           >
             <ul>
+              {path !== "/news" ? (
+                <Link onClick={() => setIsOpening(false)} href="/news">
+                  ニュース
+                </Link>
+              ) : (
+                <p>ニュース</p>
+              )}
               {path !== "/member" ? (
                 <Link onClick={() => setIsOpening(false)} href="/member">
                   メンバー

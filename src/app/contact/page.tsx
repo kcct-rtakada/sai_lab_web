@@ -23,9 +23,9 @@ export default function Home() {
           </ul>
           <p>
             また、指導教員（髙田）個人への連絡は
-            <Link href="mailto:kcct-rtakada@g.kobe-kosen.ac.jp">
+            <a href="mailto:kcct-rtakada@g.kobe-kosen.ac.jp">
               kcct-rtakada@g.kobe-kosen.ac.jp
-            </Link>
+            </a>
             でも受け付けています。
           </p>
           <h2>アクセス</h2>

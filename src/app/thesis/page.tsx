@@ -4,6 +4,9 @@ import React, { useState, useEffect } from "react";
 import Project from "@/components/DefaultStructure";
 import styles from "@/styles/app/thesis/thesis.module.scss";
 import Link from "next/link";
+import { sai_projects } from "@/components/constant";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilePdf, faLink } from "@fortawesome/free-solid-svg-icons";
 // import SEO from "@/components/SEO";
 
 export default function Home() {
@@ -11,9 +14,7 @@ export default function Home() {
   const [loaded, setLoaded] = useState<boolean>(false);
 
   useEffect(() => {
-    fetch(
-      "https://script.google.com/macros/s/AKfycbyOfmK1lgnsFRZLQzghGEvYT-y3ftv0B0qBnAyKnpQNcOD3Z_oocbpSqJgUribNcYel/exec"
-    )
+    fetch(sai_projects)
       .then((response) => response.json())
       .then((data) => {
         setProjects(data);
@@ -87,9 +88,25 @@ export default function Home() {
                           <li key={i}>
                             <Link
                               href={`/project/${item.id}`}
+                              className={styles.direct}
                             >{`${item.authors.map((e, j) => `${e.name}, `)}${
                               item.title
                             }`}</Link>
+                            {item.paperUrl ? (
+                              <Link
+                                href={item.paperUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ marginLeft: ".5rem" }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faFilePdf}
+                                  style={{ color: "#df0000" }}
+                                />
+                              </Link>
+                            ) : (
+                              <></>
+                            )}
                           </li>
                         ))}
                       </ol>
@@ -105,9 +122,25 @@ export default function Home() {
                           <li key={i}>
                             <Link
                               href={`/project/${item.id}`}
+                              className={styles.direct}
                             >{`${item.authors.map((e, j) => `${e.name}, `)}${
                               item.title
                             }`}</Link>
+                            {item.paperUrl ? (
+                              <Link
+                                href={item.paperUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ marginLeft: ".5rem" }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faFilePdf}
+                                  style={{ color: "#df0000" }}
+                                />
+                              </Link>
+                            ) : (
+                              <></>
+                            )}
                           </li>
                         ))}
                       </ol>

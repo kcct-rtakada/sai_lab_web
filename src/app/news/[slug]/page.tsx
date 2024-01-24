@@ -87,7 +87,7 @@ export default function Page({ params }: { params: { slug: string } }) {
 
             {news.article ? (
               <>
-                <div className={styles.abstract}>{parse(news.article)}</div>
+                <div className={styles.article}>{parse(news.article)}</div>
               </>
             ) : (
               <></>

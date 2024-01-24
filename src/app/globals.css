@@ -24,6 +24,10 @@ header {
   width: 100%;
 }
 
+h1 {
+  margin: 0;
+}
+
 main {
   height: calc(100% - 4rem);
   margin: 0 0 0 0;

@@ -140,7 +140,7 @@
             // position: absolute;
             // bottom: -1.4rem;
             // right: 7rem;
-            background-color: rgb(226, 142, 32);
+            background-color: #e28e20;
             -webkit-border-radius: 10rem;
             -moz-border-radius: 10rem;
             -ms-border-radius: 10rem;
@@ -260,6 +260,48 @@
 
       .abstract {
         padding: 0.4rem 0.8rem;
+      }
+
+      .slide_box {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        margin: 1rem 0;
+
+        iframe {
+          margin: 0 auto;
+          width: 100%;
+        }
+      }
+
+      .images_box {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 1.5rem;
+        column-gap: 1.5rem;
+        position: relative;
+        margin-top: 1rem;
+        justify-content: center;
+
+        a {
+          pointer-events: none;
+          position: relative;
+
+          .image {
+            pointer-events: auto;
+            overflow: hidden;
+            min-width: 10rem;
+            max-width: 20rem;
+            max-height: 100vw;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            padding: .75rem;
+            background-color: rgb(252, 252, 252);
+          }
+        }
       }
 
       .book_card {

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faLink, faTag } from "@fortawesome/free-solid-svg-icons";
 import { sai_projects } from "@/components/constant";
+import parse from "html-react-parser";
 // import SEO from "@/components/SEO";
 
 export default function Page({ params }: { params: { slug: string } }) {
@@ -17,12 +18,10 @@ export default function Page({ params }: { params: { slug: string } }) {
       .then((response) => response.json())
       .then((data) => {
         const id: string = String(params.slug);
-        const selectedCompany: Project = data.find(
-          (c: { id: string; }) =>{
-            const cid = String(c.id)
-            return cid === params.slug
-          } 
-        );
+        const selectedCompany: Project = data.find((c: { id: string }) => {
+          const cid = String(c.id);
+          return cid === params.slug;
+        });
 
         if (selectedCompany) {
           setProject(selectedCompany);
@@ -52,7 +51,7 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   const displayDate = `${date.getFullYear()}/${(date.getMonth() + 1)
     .toString()
-    .padStart(2, "0")}/${(date.getDate()).toString().padStart(2, "0")}`;
+    .padStart(2, "0")}/${date.getDate().toString().padStart(2, "0")}`;
 
   return (
     <>
@@ -154,9 +153,36 @@ export default function Page({ params }: { params: { slug: string } }) {
             )}
 
             {project.presentationURL ? (
-              <div>{project.presentationURL}</div>
+              <>
+                <h2 className={styles.section_name}>Slideshow</h2>
+                <div className={styles.slide_box}>
+                  {parse(project.presentationURL)}
+                </div>
+              </>
             ) : (
-              <>{/*No Slideshow*/}</>
+              <></>
+            )}
+
+            {project.additionalImageURL.length > 0 ? (
+              <>
+                <h2 className={styles.section_name}>Images</h2>
+                <div className={styles.images_box}>
+                  {project.additionalImageURL.map((item, j) => (
+                    <Link
+                      href={`${item.name}`}
+                      key={j}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <div className={styles.image} key={j}>
+                        <img src={item.name} key={j} alt={`img_${j}`} />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <></>
             )}
 
             <h2 className={styles.section_name}>Information</h2>

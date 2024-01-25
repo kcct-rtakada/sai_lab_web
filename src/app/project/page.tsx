@@ -11,11 +11,10 @@ import {
   faMagnifyingGlass,
   faXmark,
   faTag,
-  faClock,
+  faCalendar,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { sai_projects } from "@/components/constant";
-// import SEO from "@/components/SEO";
 
 export default function Home() {
   const [projects, setProjects] = useState<null | Project[]>(null);
@@ -81,8 +80,8 @@ export default function Home() {
       );
     } else if (selectedSearchMode === "research_year") {
       filteredArray = projects?.filter((project) =>
-        filterKeywords.some((keyword) =>
-          String(new Date(project.date).getFullYear()) === keyword
+        filterKeywords.some(
+          (keyword) => String(new Date(project.date).getFullYear()) === keyword
         )
       );
     }
@@ -217,7 +216,7 @@ export default function Home() {
                       )}
                       <div className={styles.date}>
                         <FontAwesomeIcon
-                          icon={faClock}
+                          icon={faCalendar}
                           style={{ marginRight: ".3rem" }}
                         />
                         {`${new Date(item.date).getFullYear()}`}

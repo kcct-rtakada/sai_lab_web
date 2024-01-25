@@ -45,8 +45,8 @@ export default function Home() {
 
   const sortedConferencePapers = projects?.filter(
     (element) =>
-      element.classification.toLowerCase().includes("卒論") ||
-      element.classification.toLowerCase().includes("修論")
+      element.classification.toLowerCase().includes("本科卒業論文") ||
+      element.classification.toLowerCase().includes("専攻科特別研究論文")
   );
 
   const uniqueYears = Array.from(
@@ -56,6 +56,56 @@ export default function Home() {
       )
     )
   );
+
+  const displayingThesis = (name: string, arrays: Project[] | undefined) => {
+    return (
+      <>
+        <h3>{name}</h3>
+        <ol>
+          {arrays!.map((item, i) => (
+            <li key={i}>
+              <Link
+                href={`/project/${item.id}`}
+                className={styles.direct}
+              >{`${item.authors.map((e, j) => `${e.name}, `)}${
+                item.title
+              }`}</Link>
+              {item.url ? (
+                <Link
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ marginLeft: ".5rem" }}
+                >
+                  <FontAwesomeIcon
+                    icon={faLink}
+                    style={{ color: "#FA5F2F" }}
+                  />
+                </Link>
+              ) : (
+                <></>
+              )}
+              {item.paperUrl ? (
+                <Link
+                  href={item.paperUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ marginLeft: ".5rem" }}
+                >
+                  <FontAwesomeIcon
+                    icon={faFilePdf}
+                    style={{ color: "#df0000" }}
+                  />
+                </Link>
+              ) : (
+                <></>
+              )}
+            </li>
+          ))}
+        </ol>
+      </>
+    );
+  };
 
   return (
     <>
@@ -72,78 +122,30 @@ export default function Home() {
                 (item) => new Date(item.date).getFullYear() === year
               );
               const matched2ndPaper = matchedDataWithYear?.filter((item) =>
-                item.classification.toLowerCase().includes("修論")
+                item.classification.toLowerCase().includes("専攻科特別研究論文")
               );
               const matched1stPaper = matchedDataWithYear?.filter((item) =>
-                item.classification.toLowerCase().includes("卒論")
+                item.classification.toLowerCase().includes("本科卒業論文")
               );
               return (
                 <>
                   <h2>{year}年</h2>
                   {matched2ndPaper!.length > 0 ? (
                     <>
-                      <h3>修論</h3>
-                      <ol>
-                        {matched2ndPaper!.map((item, i) => (
-                          <li key={i}>
-                            <Link
-                              href={`/project/${item.id}`}
-                              className={styles.direct}
-                            >{`${item.authors.map((e, j) => `${e.name}, `)}${
-                              item.title
-                            }`}</Link>
-                            {item.paperUrl ? (
-                              <Link
-                                href={item.paperUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{ marginLeft: ".5rem" }}
-                              >
-                                <FontAwesomeIcon
-                                  icon={faFilePdf}
-                                  style={{ color: "#df0000" }}
-                                />
-                              </Link>
-                            ) : (
-                              <></>
-                            )}
-                          </li>
-                        ))}
-                      </ol>
+                      {displayingThesis(
+                        "学士（専攻科特別研究論文）",
+                        matched2ndPaper
+                      )}
                     </>
                   ) : (
                     <></>
                   )}
                   {matched1stPaper!.length > 0 ? (
                     <>
-                      <h3>卒論</h3>
-                      <ol>
-                        {matched1stPaper!.map((item, i) => (
-                          <li key={i}>
-                            <Link
-                              href={`/project/${item.id}`}
-                              className={styles.direct}
-                            >{`${item.authors.map((e, j) => `${e.name}, `)}${
-                              item.title
-                            }`}</Link>
-                            {item.paperUrl ? (
-                              <Link
-                                href={item.paperUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{ marginLeft: ".5rem" }}
-                              >
-                                <FontAwesomeIcon
-                                  icon={faFilePdf}
-                                  style={{ color: "#df0000" }}
-                                />
-                              </Link>
-                            ) : (
-                              <></>
-                            )}
-                          </li>
-                        ))}
-                      </ol>
+                      {displayingThesis(
+                        "準学士（本科卒業論文）",
+                        matched1stPaper
+                      )}
                     </>
                   ) : (
                     <></>

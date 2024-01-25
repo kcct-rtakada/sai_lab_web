@@ -15,6 +15,7 @@ export default function RootLayout({
     <html lang="ja">
       <head>
         <title>SAI</title>
+        <meta name="description" content="神戸市立工業高等専門学校 電子工学科 髙田研究室(SAI)" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
         <meta name="theme-color" content="#fafafa" />

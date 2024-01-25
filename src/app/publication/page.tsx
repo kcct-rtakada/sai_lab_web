@@ -58,6 +58,53 @@ export default function Home() {
     )
   );
 
+  const displayingThesis = (name: string, arrays: Project[] | undefined) => {
+    return (
+      <>
+        <h3>{name}</h3>
+        <ol>
+          {arrays!.map((item, j) => (
+            <li key={j}>
+              <Link href={`/project/${item.id}`} className={styles.direct}>
+                {item.citation}
+              </Link>
+              {item.url ? (
+                <Link
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ marginLeft: ".5rem" }}
+                >
+                  <FontAwesomeIcon
+                    icon={faLink}
+                    style={{ color: "#FA5F2F" }}
+                  />
+                </Link>
+              ) : (
+                <></>
+              )}
+              {item.paperUrl ? (
+                <Link
+                  href={item.paperUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ marginLeft: ".5rem" }}
+                >
+                  <FontAwesomeIcon
+                    icon={faFilePdf}
+                    style={{ color: "#df0000" }}
+                  />
+                </Link>
+              ) : (
+                <></>
+              )}
+            </li>
+          ))}
+        </ol>
+      </>
+    );
+  };
+
   return (
     <>
       <div className={styles.main}>
@@ -85,106 +132,19 @@ export default function Home() {
                 <>
                   <h2 key={i}>{year}年</h2>
                   {matchedJournal!.length > 0 ? (
-                    <>
-                      <h3>論文誌</h3>
-                      <ol>
-                        {matchedJournal!.map((item, j) => (
-                          <li key={j}>
-                            <Link
-                              href={`/project/${item.id}`}
-                              className={styles.direct}
-                            >
-                              {item.citation}
-                            </Link>
-                            {item.paperUrl ? (
-                              <Link
-                                href={item.paperUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{ marginLeft: ".5rem" }}
-                              >
-                                <FontAwesomeIcon
-                                  icon={faFilePdf}
-                                  style={{ color: "#df0000" }}
-                                />
-                              </Link>
-                            ) : (
-                              <></>
-                            )}
-                          </li>
-                        ))}
-                      </ol>
-                    </>
+                    <>{displayingThesis("論文誌", matchedJournal)}</>
                   ) : (
                     <></>
                   )}
 
                   {matchedInternal!.length > 0 ? (
-                    <>
-                      <h3>国内会議</h3>
-                      <ol>
-                        {matchedInternal!.map((item, j) => (
-                          <li key={j}>
-                            <Link
-                              href={`/project/${item.id}`}
-                              className={styles.direct}
-                            >
-                              {item.citation}
-                            </Link>
-                            {item.paperUrl ? (
-                              <Link
-                                href={item.paperUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{ marginLeft: ".5rem" }}
-                              >
-                                <FontAwesomeIcon
-                                  icon={faFilePdf}
-                                  style={{ color: "#df0000" }}
-                                />
-                              </Link>
-                            ) : (
-                              <></>
-                            )}
-                          </li>
-                        ))}
-                      </ol>
-                    </>
+                    <>{displayingThesis("国内会議", matchedInternal)}</>
                   ) : (
                     <></>
                   )}
 
                   {matchedExternal!.length > 0 ? (
-                    <>
-                      <h3>国際会議</h3>
-                      <ol>
-                        {matchedExternal!.map((item, j) => (
-                          <li key={j}>
-                            <Link
-                              href={`/project/${item.id}`}
-                              className={styles.direct}
-                            >
-                              {item.citation}
-                            </Link>
-                            {item.paperUrl ? (
-                              <Link
-                                href={item.paperUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{ marginLeft: ".5rem" }}
-                              >
-                                <FontAwesomeIcon
-                                  icon={faFilePdf}
-                                  style={{ color: "#df0000" }}
-                                />
-                              </Link>
-                            ) : (
-                              <></>
-                            )}
-                          </li>
-                        ))}
-                      </ol>
-                    </>
+                    <>{displayingThesis("国際会議", matchedExternal)}</>
                   ) : (
                     <></>
                   )}

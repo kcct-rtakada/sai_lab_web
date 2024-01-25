@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
   faXmark,
-  faClock,
+  faCalendar,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { sai_news } from "@/components/constant";
@@ -19,9 +19,7 @@ export default function Home() {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [selectedSearchMode, setSelectedSearchMode] =
     useState<string>("news_name");
-  const [filteredNews, setFilteredNews] = useState<undefined | News[]>(
-    []
-  );
+  const [filteredNews, setFilteredNews] = useState<undefined | News[]>([]);
   const [userFiltered, setUserFiltered] = useState<boolean>(false);
   const [searchWord, setSearchWord] = useState<string>("");
 
@@ -61,8 +59,8 @@ export default function Home() {
       );
     } else if (selectedSearchMode === "news_year") {
       filteredArray = newsList?.filter((news) =>
-        filterKeywords.some((keyword) =>
-          String(new Date(news.date).getFullYear()) === keyword
+        filterKeywords.some(
+          (keyword) => String(new Date(news.date).getFullYear()) === keyword
         )
       );
     }
@@ -187,11 +185,11 @@ export default function Home() {
                         )}
                       </div>
 
-                      <div>
+                      <div className={styles.text_box}>
                         <div className={styles.title}>{item.title}</div>
                         <div className={styles.date}>
                           <FontAwesomeIcon
-                            icon={faClock}
+                            icon={faCalendar}
                             style={{ marginRight: ".3rem" }}
                           />
                           {`${new Date(item.date).getFullYear()}/${(

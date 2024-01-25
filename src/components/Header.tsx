@@ -101,10 +101,10 @@ export default function Header() {
               )}
               {path !== "/thesis" ? (
                 <Link onClick={() => setIsOpening(false)} href="/thesis">
-                  卒論/修論
+                  学位論文
                 </Link>
               ) : (
-                <p>卒論/修論</p>
+                <p>学位論文</p>
               )}
               {path !== "/award" ? (
                 <Link onClick={() => setIsOpening(false)} href="/award">

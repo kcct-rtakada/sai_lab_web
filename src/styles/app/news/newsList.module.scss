@@ -352,30 +352,39 @@
             }
           }
 
-          .title {
-            margin: 1rem 0.4rem 0.5rem 1rem;
-            font-size: 1.05rem;
-            font-weight: bold;
-            line-height: 1.15;
-          }
-
-          .date {
-            display: block;
-            position: absolute;
-            bottom: 0.7rem;
-            right: 0.7rem;
-            font-weight: bold;
-            line-height: 1.15;
-            text-align: right;
+          .text_box {
+            position: relative;
+            width: calc(100% - 14.2rem);
 
             @include mqUp(sm) {
-              display: block;
-              position: static;
-              text-align: left;
-              margin: 0rem 0.4rem 1.2rem 1rem;
+              width: 100%;
+            }
+
+            .title {
+              margin: 1rem 1rem 0.5rem 1rem;
               font-size: 1.05rem;
               font-weight: bold;
               line-height: 1.15;
+            }
+
+            .date {
+              display: block;
+              position: absolute;
+              bottom: 0.7rem;
+              right: 0.7rem;
+              font-weight: bold;
+              line-height: 1.15;
+              text-align: right;
+
+              @include mqUp(sm) {
+                display: block;
+                position: static;
+                text-align: left;
+                margin: 0rem 0.4rem 1.2rem 1rem;
+                font-size: 1.05rem;
+                font-weight: bold;
+                line-height: 1.15;
+              }
             }
           }
         }

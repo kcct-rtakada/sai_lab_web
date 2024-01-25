@@ -5,7 +5,7 @@ import News from "@/components/DefaultStructure";
 import styles from "@/styles/app/news/news.module.scss";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilePdf, faLink, faClock } from "@fortawesome/free-solid-svg-icons";
+import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { sai_news, sai_projects } from "@/components/constant";
 import parse from "html-react-parser";
 // import SEO from "@/components/SEO";
@@ -56,7 +56,7 @@ export default function Page({ params }: { params: { slug: string } }) {
             <h1 className={styles.title}>{news.title}</h1>
             <div className={styles.date}>
               <FontAwesomeIcon
-                icon={faClock}
+                icon={faCalendar}
                 style={{ marginRight: ".3rem" }}
               />
               {`${new Date(news.date).getFullYear()}/${(

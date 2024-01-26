@@ -1,36 +1,38 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
+// "use client";
 import React, { useState, useEffect } from "react";
 import News from "@/components/DefaultStructure";
 import styles from "@/styles/app/news/news.module.scss";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
-import { sai_news, sai_projects } from "@/components/constant";
+import { sai_news } from "@/components/constant";
 import parse from "html-react-parser";
 // import SEO from "@/components/SEO";
 
-export default function Page({ params }: { params: { slug: string } }) {
-  const [news, setNews] = useState<null | News>(null);
+export default async function Page({ params }: { params: { slug: string } }) {
+  const response = await fetch(sai_news);
+  const newsList: News[] = await response.json();
+  const news: News | undefined = newsList.find((c: { id: string }) => {
+    const cid = String(c.id);
+    return cid === params.slug;
+  });
 
-  useEffect(() => {
-    fetch(sai_news)
-      .then((response) => response.json())
-      .then((data) => {
-        const id: string = String(params.slug);
-        const selectedCompany: News = data.find((c: { id: string }) => {
-          const cid = String(c.id);
-          return cid === params.slug;
-        });
+  // 見つからなかった場合
+  if (!news) {
+    return (
+      <>
+        {/* <SEO pageTitle="Loading" pageDescription={""} /> */}
 
-        if (selectedCompany) {
-          setNews(selectedCompany);
-        } else console.log("Not Found");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [params.slug]);
+        <div className={styles.main}>
+          <div className="loading">
+            <span className="load_1" />
+            <span className="load_2" />
+          </div>
+        </div>
+      </>
+    );
+  }
 
   if (!news) {
     return (

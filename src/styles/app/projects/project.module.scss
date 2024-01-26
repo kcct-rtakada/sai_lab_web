@@ -115,6 +115,7 @@
         padding-right: 1rem;
 
         .url_box_link {
+          position: relative;
           user-select: none;
           -webkit-touch-callout: none;
           -webkit-user-select: none;
@@ -124,11 +125,12 @@
           pointer-events: none;
 
           .url_box {
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
+            position: relative;
+            // justify-content: center;
+            // align-items: center;
+            // text-align: center;
+            // display: flex;
+            // flex-direction: column;
             pointer-events: all;
             display: block;
             width: 4rem;
@@ -137,22 +139,11 @@
             border-style: solid;
             border-width: 0.2rem;
             border-color: rgb(252, 252, 252);
-            // position: absolute;
-            // bottom: -1.4rem;
-            // right: 7rem;
             background-color: #e28e20;
             -webkit-border-radius: 10rem;
             -moz-border-radius: 10rem;
             -ms-border-radius: 10rem;
             -o-border-radius: 10rem;
-
-            svg {
-              width: 2rem;
-              font-size: 3rem;
-              position: relative;
-              top: 0.3rem;
-              left: 0;
-            }
           }
         }
 
@@ -166,6 +157,7 @@
           pointer-events: none;
 
           .pdf_box {
+            position: relative;
             justify-content: center;
             align-items: center;
             text-align: center;
@@ -184,14 +176,6 @@
             -moz-border-radius: 10rem;
             -ms-border-radius: 10rem;
             -o-border-radius: 10rem;
-
-            svg {
-              width: 2rem;
-              font-size: 3rem;
-              position: relative;
-              top: 0.3rem;
-              left: 0.2rem;
-            }
           }
         }
       }
@@ -281,6 +265,7 @@
         column-gap: 1.5rem;
         position: relative;
         margin-top: 1rem;
+        margin-bottom: 1rem;
         justify-content: center;
 
         a {

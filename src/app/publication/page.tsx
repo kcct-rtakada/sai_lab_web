@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
+// "use client";
 import React, { useState, useEffect } from "react";
 import Project from "@/components/DefaultStructure";
 import styles from "@/styles/app/publication/publication.module.scss";
@@ -9,39 +9,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faLink } from "@fortawesome/free-solid-svg-icons";
 // import SEO from "@/components/SEO";
 
-export default function Home() {
-  const [projects, setProjects] = useState<null | Project[]>(null);
-  const [loaded, setLoaded] = useState<boolean>(false);
-
-  useEffect(() => {
-    fetch(sai_projects)
-      .then((response) => response.json())
-      .then((data) => {
-        setProjects(data);
-        setLoaded(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  if (!loaded) {
-    return (
-      <>
-        <div className={styles.main}>
-          <div className={styles.title_box}>
-            <div className={styles.title_area}>
-              <h1 className={styles.page_title}>研究業績</h1>
-            </div>
-          </div>
-          <div className="loading">
-            <span className="load_1" />
-            <span className="load_2" />
-          </div>
-        </div>
-      </>
-    );
-  }
+export default async function Page() {
+  const response = await fetch(sai_projects);
+  const projects: Project[] = await response.json();
 
   const sortedConferencePapers = projects?.filter(
     (element) =>
@@ -77,7 +47,12 @@ export default function Home() {
                 >
                   <FontAwesomeIcon
                     icon={faLink}
-                    style={{ color: "#FA5F2F" }}
+                    style={{
+                      color: "#FA5F2F",
+                      display: "inline-block",
+                      fontSize: "1rem",
+                      width: "1rem",
+                    }}
                   />
                 </Link>
               ) : (
@@ -92,7 +67,12 @@ export default function Home() {
                 >
                   <FontAwesomeIcon
                     icon={faFilePdf}
-                    style={{ color: "#df0000" }}
+                    style={{
+                      color: "#df0000",
+                      display: "inline-block",
+                      fontSize: "1rem",
+                      width: "1rem",
+                    }}
                   />
                 </Link>
               ) : (

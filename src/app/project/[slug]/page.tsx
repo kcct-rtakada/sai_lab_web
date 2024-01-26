@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
+// "use client";
 import React, { useState, useEffect } from "react";
 import Project from "@/components/DefaultStructure";
 import styles from "@/styles/app/projects/project.module.scss";
@@ -8,30 +8,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faLink, faTag } from "@fortawesome/free-solid-svg-icons";
 import { sai_projects } from "@/components/constant";
 import parse from "html-react-parser";
-// import SEO from "@/components/SEO";
 
-export default function Page({ params }: { params: { slug: string } }) {
-  const [project, setProject] = useState<null | Project>(null);
+export default async function Page({ params }: { params: { slug: string } }) {
+  const response = await fetch(sai_projects);
+  const projects: Project[] = await response.json();
+  const project: Project | undefined = projects.find((c: { id: string }) => {
+    const cid = String(c.id);
+    return cid === params.slug;
+  });
 
-  useEffect(() => {
-    fetch(sai_projects)
-      .then((response) => response.json())
-      .then((data) => {
-        const id: string = String(params.slug);
-        const selectedCompany: Project = data.find((c: { id: string }) => {
-          const cid = String(c.id);
-          return cid === params.slug;
-        });
-
-        if (selectedCompany) {
-          setProject(selectedCompany);
-        } else console.log("Not Found");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [params.slug]);
-
+  // 見つからなかった場合
   if (!project) {
     return (
       <>
@@ -47,11 +33,12 @@ export default function Page({ params }: { params: { slug: string } }) {
     );
   }
 
-  const date = new Date(project.date);
+  const date = new Date(project!.date);
 
   const displayDate = `${date.getFullYear()}/${(date.getMonth() + 1)
     .toString()
     .padStart(2, "0")}/${date.getDate().toString().padStart(2, "0")}`;
+  // const project: Project
 
   return (
     <>
@@ -101,7 +88,15 @@ export default function Page({ params }: { params: { slug: string } }) {
                   <div className={styles.url_box}>
                     <FontAwesomeIcon
                       icon={faLink}
-                      style={{ color: "#ffffff" }}
+                      style={{
+                        color: "#ffffff",
+                        position: "absolute",
+                        width: "2rem",
+                        fontSize: "2rem",
+                        top: "1.1rem",
+                        left: ".8rem",
+                        lineHeight: "1",
+                      }}
                     />
                   </div>
                 </Link>
@@ -118,7 +113,15 @@ export default function Page({ params }: { params: { slug: string } }) {
                   <div className={styles.pdf_box}>
                     <FontAwesomeIcon
                       icon={faFilePdf}
-                      style={{ color: "#ffffff" }}
+                      style={{
+                        color: "#ffffff",
+                        position: "absolute",
+                        width: "2rem",
+                        fontSize: "2rem",
+                        top: ".85rem",
+                        left: "1rem",
+                        lineHeight: "1",
+                      }}
                     />
                   </div>
                 </Link>

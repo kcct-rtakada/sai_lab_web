@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
+// "use client";
 import React, { useState, useEffect } from "react";
 import Award from "@/components/DefaultStructure";
 import styles from "@/styles/app/award/award.module.scss";
@@ -7,39 +7,9 @@ import Link from "next/link";
 import { sai_awards } from "@/components/constant";
 // import SEO from "@/components/SEO";
 
-export default function Home() {
-  const [awards, setAwards] = useState<null | Award[]>(null);
-  const [loaded, setLoaded] = useState<boolean>(false);
-
-  useEffect(() => {
-    fetch(sai_awards)
-      .then((response) => response.json())
-      .then((data) => {
-        setAwards(data);
-        setLoaded(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  if (!loaded) {
-    return (
-      <>
-        <div className={styles.main}>
-          <div className={styles.title_box}>
-            <div className={styles.title_area}>
-              <h1 className={styles.page_title}>表彰</h1>
-            </div>
-          </div>
-          <div className="loading">
-            <span className="load_1" />
-            <span className="load_2" />
-          </div>
-        </div>
-      </>
-    );
-  }
+export default async function Page() {
+  const response = await fetch(sai_awards);
+  const awards: Award[] = await response.json();
 
   return (
     <>

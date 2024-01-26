@@ -135,6 +135,10 @@
         @include mqUp(md) {
           padding: 0;
         }
+
+        a::after {
+          display: none;
+        }
       }
 
       .article {

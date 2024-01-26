@@ -51,6 +51,8 @@ export default interface Member {
   englishName: string;
   belonging: string;
   classification: string;
+  homepage: string;
+  githubId: string
 }
 
 export default interface Award {

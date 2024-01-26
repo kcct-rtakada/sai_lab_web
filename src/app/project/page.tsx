@@ -12,6 +12,7 @@ import {
   faXmark,
   faTag,
   faCalendar,
+  faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { sai_projects } from "@/components/constant";
@@ -26,6 +27,8 @@ export default function Home() {
   >([]);
   const [userFiltered, setUserFiltered] = useState<boolean>(false);
   const [searchWord, setSearchWord] = useState<string>("");
+  const [isDisplayingSearchBox, setIsDisplayingSearchBox] =
+    useState<boolean>(true);
 
   useEffect(() => {
     fetch(sai_projects)
@@ -137,7 +140,17 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.list_box}>
-          <div className={styles.search_box}>
+          <div
+            className={`${styles.search_box} ${
+              isDisplayingSearchBox ? styles.opening : ""
+            }`}
+          >
+            <div
+              className={`${styles.circle}`}
+              onClick={() => setIsDisplayingSearchBox(!isDisplayingSearchBox)}
+            >
+              <FontAwesomeIcon icon={faChevronDown} />
+            </div>
             <div className={styles.search_area}>
               <div className={styles.search_box_frame}>
                 <input

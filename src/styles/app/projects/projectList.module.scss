@@ -53,23 +53,54 @@
 
     .search_box {
       width: 100%;
-      height: auto;
-      padding: 1rem;
+      height: 0;
+      padding: 1rem 1rem 2rem 1rem;
       background-color: rgb(250, 250, 250);
       margin-bottom: 1rem;
       position: sticky;
-      top: 0rem;
+      top: -1rem;
       z-index: 1000;
+      transition: all 0.2s;
 
       @include mqUp(sm) {
-        margin-bottom: 0;
-        padding: 1rem 0;
+        margin-bottom: 2rem;
+        // padding: 0;
+      }
+
+      &.open {
+        height: auto;
+      }
+
+      .circle {
+        cursor: pointer;
+        display: block;
+        background-color: #fafafa;
+        width: 5rem;
+        height: 3rem;
+        position: absolute;
+        // bottom: -0.5rem;
+        left: calc((100% - 5rem) / 2);
+        border-radius: 3rem;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        z-index: 10000;
+        svg {
+          width: 1.6rem;
+          font-size: 1.6rem;
+        }
+
+        &:hover {
+          background-color: #f0f0f0;
+        }
       }
 
       .search_area {
         width: min(55rem, 100%);
         margin: 0 auto;
-        display: flex;
+        display: none;
         flex-wrap: wrap;
         row-gap: 1rem;
         justify-content: center;
@@ -214,6 +245,24 @@
             outline: none;
             border-color: rgb(35, 190, 190);
           }
+        }
+      }
+
+      &.opening {
+        height: auto;
+        top: 0;
+
+        @include mqUp(sm) {
+          margin-bottom: 2rem;
+        }
+
+        .search_area {
+          display: flex;
+        }
+
+        .circle {
+          bottom: -1.5rem;
+          transform: rotateZ(180deg);
         }
       }
     }
@@ -388,7 +437,7 @@
             -o-border-radius: 0.5rem;
 
             @include mqUp(sm) {
-            top: calc(100vw * 9 / 16 - 3rem);
+              top: calc(100vw * 9 / 16 - 3rem);
             }
           }
 

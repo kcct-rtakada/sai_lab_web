@@ -1,26 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
-import Image from "next/image";
+// "use client";
 import styles from "@/styles/app/page.module.scss";
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { sai_news } from "@/components/constant";
 import News from "@/components/DefaultStructure";
 
-export default function Home() {
-  const [newsList, setNewsList] = useState<null | News[]>(null);
-  const [newsLoaded, setNewsLoaded] = useState<boolean>(false);
-  useEffect(() => {
-    fetch(sai_news)
-      .then((response) => response.json())
-      .then((data) => {
-        setNewsList(data);
-        setNewsLoaded(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+export default async function Home() {
+  const response = await fetch(sai_news);
+  const newsList: News[] = await response.json();
 
   const listingNum = newsList ? (newsList.length > 5 ? 5 : newsList.length) : 0;
 
@@ -60,30 +47,23 @@ export default function Home() {
       <div className={styles.section}></div>
       <div className={styles.section}>
         <h2 className={styles.section_name}>最新のニュース</h2>
-        {newsLoaded ? (
-          <ul>
-            {newsList?.slice(0, listingNum).map((news, i) => (
-              <li key={i} style={{listStyle: "none"}}>
-                <Link href={`/news/${news.id}`}>
-                  {news.title}-{" "}
-                  {`${new Date(news.date).getFullYear()}/${(
-                    new Date(news.date).getMonth() + 1
-                  )
-                    .toString()
-                    .padStart(2, "0")}/${new Date(news.date)
-                    .getDate()
-                    .toString()
-                    .padStart(2, "0")}`}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div className="loading">
-            <span className="load_1" />
-            <span className="load_2" />
-          </div>
-        )}
+        <ul>
+          {newsList?.slice(0, listingNum).map((news, i) => (
+            <li key={i} style={{ listStyle: "none" }}>
+              <Link href={`/news/${news.id}`}>
+                {news.title}-{" "}
+                {`${new Date(news.date).getFullYear()}/${(
+                  new Date(news.date).getMonth() + 1
+                )
+                  .toString()
+                  .padStart(2, "0")}/${new Date(news.date)
+                  .getDate()
+                  .toString()
+                  .padStart(2, "0")}`}
+              </Link>
+            </li>
+          ))}
+        </ul>
 
         <h2 className={styles.section_name}>Welcome to SAI!!</h2>
         <div className={styles.string_box}>

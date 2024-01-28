@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useState, useEffect } from "react";
@@ -16,6 +17,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { sai_projects } from "@/components/constant";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Home() {
   const [projects, setProjects] = useState<null | Project[]>(null);
@@ -29,6 +31,14 @@ export default function Home() {
   const [searchWord, setSearchWord] = useState<string>("");
   const [isDisplayingSearchBox, setIsDisplayingSearchBox] =
     useState<boolean>(true);
+  const [displayingSearchCondition, setDisplayingSearchCondition] = useState<
+    string | null
+  >(null);
+
+  const router = useRouter();
+  const params = useSearchParams();
+  const initialMode = params.get("mode");
+  const initialQ = params.get("q");
 
   useEffect(() => {
     fetch(sai_projects)
@@ -36,36 +46,64 @@ export default function Home() {
       .then((data) => {
         setProjects(data);
         setLoaded(true);
+
+        if (initialQ) {
+          let mode: string | null = null;
+          if (initialMode === "mode") {
+            mode = "research_name";
+          } else if (initialMode === "author") {
+            mode = "research_author";
+          } else if (initialMode === "keyword") {
+            mode = "research_tag";
+          } else if (initialMode === "year") {
+            mode = "research_year";
+          }
+          searchProjects(initialQ, mode, data);
+          setUserFiltered(true);
+        }
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  const triggerSearchProjects = () => {
-    if (searchWord === "") {
-      setUserFiltered(false);
-      return;
-    }
-
-    const filterKeywords = searchWord.split(/[ 　]+/);
+  const searchProjects = (
+    _searchWord: string,
+    _mode: string | null = null,
+    _projects: Project[] | undefined = undefined
+  ) => {
+    const filterKeywords = _searchWord.split(/[ 　]+/);
+    const mode = _mode ? _mode : selectedSearchMode;
+    const lists = _projects ? _projects : projects;
 
     if (filterKeywords.every((keyword) => keyword === "")) {
       setUserFiltered(false);
+      router.push(`/project/`);
+      setDisplayingSearchCondition(null);
       return;
     }
 
     let filteredArray: Project[] | undefined = [];
 
-    if (selectedSearchMode === "research_name") {
-      filteredArray = projects?.filter((project) =>
+    if (mode === "research_name") {
+      filteredArray = lists?.filter((project) =>
         filterKeywords.some(
           (keyword) =>
             keyword !== "" && project.title.toLowerCase().includes(keyword)
         )
       );
-    } else if (selectedSearchMode === "research_author") {
-      filteredArray = projects?.filter((project) =>
+      setDisplayingSearchCondition(
+        `検索条件: 研究題目(${filterKeywords.map((item, j) => {
+          if (j === 0) return `${item}`;
+          else return ` OR ${item}`;
+        })})`
+      );
+
+      router.push(
+        `/project/?mode=name&q=${filterKeywords.map((item) => item)}`
+      );
+    } else if (mode === "research_author") {
+      filteredArray = lists?.filter((project) =>
         filterKeywords.some((keyword) =>
           project.authors.some(
             (author) =>
@@ -73,19 +111,49 @@ export default function Home() {
           )
         )
       );
-    } else if (selectedSearchMode === "research_tag") {
-      filteredArray = projects?.filter((project) =>
+      setDisplayingSearchCondition(
+        `検索条件: 著者名(${filterKeywords.map((item, j) => {
+          if (j === 0) return `${item}`;
+          else return ` OR ${item}`;
+        })})`
+      );
+
+      router.push(
+        `/project/?mode=author&q=${filterKeywords.map((item) => item)}`
+      );
+    } else if (mode === "research_tag") {
+      filteredArray = lists?.filter((project) =>
         filterKeywords.some((keyword) =>
           project.tags.some(
             (tag) => keyword !== "" && tag.name.toLowerCase().includes(keyword)
           )
         )
       );
-    } else if (selectedSearchMode === "research_year") {
-      filteredArray = projects?.filter((project) =>
+      setDisplayingSearchCondition(
+        `検索条件: キーワード(${filterKeywords.map((item, j) => {
+          if (j === 0) return `${item}`;
+          else return ` OR ${item}`;
+        })})`
+      );
+
+      router.push(
+        `/project/?mode=keyword&q=${filterKeywords.map((item) => item)}`
+      );
+    } else if (mode === "research_year") {
+      filteredArray = lists?.filter((project) =>
         filterKeywords.some(
           (keyword) => String(new Date(project.date).getFullYear()) === keyword
         )
+      );
+      setDisplayingSearchCondition(
+        `検索条件: 発行年(${filterKeywords.map((item, j) => {
+          if (j === 0) return `${item}`;
+          else return ` OR ${item}`;
+        })})`
+      );
+
+      router.push(
+        `/project/?mode=year&q=${filterKeywords.map((item) => item)}`
       );
     }
 
@@ -93,8 +161,22 @@ export default function Home() {
     setUserFiltered(true);
   };
 
+  const triggerSearchProjects = () => {
+    if (searchWord === "") {
+      setUserFiltered(false);
+      router.push(`/project/`);
+      setDisplayingSearchCondition(null);
+      return;
+    }
+    searchProjects(searchWord);
+  };
+
   const triggerSearchInput = (event: React.FormEvent<HTMLInputElement>) => {
-    if (event.currentTarget.value === "") setUserFiltered(false);
+    if (event.currentTarget.value === "") {
+      setUserFiltered(false);
+      setDisplayingSearchCondition(null);
+      router.push(`/project/`);
+    }
 
     setSearchWord(event.currentTarget.value);
   };
@@ -139,6 +221,13 @@ export default function Home() {
             <h1 className={styles.page_title}>プロジェクト</h1>
           </div>
         </div>
+        {displayingSearchCondition ? (
+          <div className={styles.search_condition}>
+            {displayingSearchCondition}
+          </div>
+        ) : (
+          <></>
+        )}
         <div className={styles.list_box}>
           <div
             className={`${styles.search_box} ${
@@ -155,7 +244,7 @@ export default function Home() {
               <div className={styles.search_box_frame}>
                 <input
                   value={searchWord}
-                  placeholder={"クリック/タップして入力"}
+                  placeholder={initialQ ? "クリアはXをクリック/タップ" : "クリック/タップして入力"}
                   type={"text"}
                   className={`${styles.search_input}`}
                   onInput={triggerSearchInput}
@@ -166,6 +255,8 @@ export default function Home() {
                   onClick={() => {
                     setSearchWord("");
                     setUserFiltered(false);
+                    router.push(`/project/`);
+                    setDisplayingSearchCondition(null);
                   }}
                 >
                   <FontAwesomeIcon icon={faXmark} />

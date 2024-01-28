@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useState, useEffect } from "react";
@@ -13,6 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { sai_news } from "@/components/constant";
+import { useRouter, useSearchParams } from "next/navigation";
 // import SEO from "@/components/SEO";
 
 export default function Home() {
@@ -26,25 +28,46 @@ export default function Home() {
   const [isDisplayingSearchBox, setIsDisplayingSearchBox] =
     useState<boolean>(true);
 
+  const [displayingSearchCondition, setDisplayingSearchCondition] = useState<
+    string | null
+  >(null);
+
+  const router = useRouter();
+  const params = useSearchParams();
+  const initialMode = params.get("mode");
+  const initialQ = params.get("q");
+
   useEffect(() => {
     fetch(sai_news)
       .then((response) => response.json())
       .then((data) => {
         setNewsList(data);
         setLoaded(true);
+
+        if (initialQ) {
+          let mode: string | null = null;
+          if (initialMode === "mode") {
+            mode = "news_name";
+          } else if (initialMode === "year") {
+            mode = "news_year";
+          }
+          searchNews(initialQ, mode, data);
+          setUserFiltered(true);
+        }
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  const triggerSearchNews = () => {
-    if (searchWord === "") {
-      setUserFiltered(false);
-      return;
-    }
-
-    const filterKeywords = searchWord.split(/[ 　]+/);
+  const searchNews = (
+    _searchWord: string,
+    _mode: string | null = null,
+    _newsList: News[] | undefined = undefined
+  ) => {
+    const filterKeywords = _searchWord.split(/[ 　]+/);
+    const mode = _mode ? _mode : selectedSearchMode;
+    const lists = _newsList ? _newsList : newsList;
 
     if (filterKeywords.every((keyword) => keyword === "")) {
       setUserFiltered(false);
@@ -53,27 +76,58 @@ export default function Home() {
 
     let filteredArray: News[] | undefined = [];
 
-    if (selectedSearchMode === "news_name") {
-      filteredArray = newsList?.filter((news) =>
+    if (mode === "news_name") {
+      filteredArray = lists?.filter((news) =>
         filterKeywords.some(
           (keyword) =>
             keyword !== "" && news.title.toLowerCase().includes(keyword)
         )
       );
-    } else if (selectedSearchMode === "news_year") {
-      filteredArray = newsList?.filter((news) =>
+      setDisplayingSearchCondition(
+        `検索条件: ニュース名(${filterKeywords.map((item, j) => {
+          if (j === 0) return `${item}`;
+          else return ` OR ${item}`;
+        })})`
+      );
+
+      router.push(`/news/?mode=name&q=${filterKeywords.map((item) => item)}`);
+    } else if (mode === "news_year") {
+      filteredArray = lists?.filter((news) =>
         filterKeywords.some(
           (keyword) => String(new Date(news.date).getFullYear()) === keyword
         )
       );
+      setDisplayingSearchCondition(
+        `検索条件: 公開年(${filterKeywords.map((item, j) => {
+          if (j === 0) return `${item}`;
+          else return ` OR ${item}`;
+        })})`
+      );
+
+      router.push(`/news/?mode=year&q=${filterKeywords.map((item) => item)}`);
     }
 
     setFilteredNews(filteredArray);
     setUserFiltered(true);
   };
 
+  const triggerSearchNews = () => {
+    if (searchWord === "") {
+      setUserFiltered(false);
+      router.push(`/news/`);
+      setDisplayingSearchCondition(null);
+      return;
+    }
+
+    searchNews(searchWord);
+  };
+
   const triggerSearchInput = (event: React.FormEvent<HTMLInputElement>) => {
-    if (event.currentTarget.value === "") setUserFiltered(false);
+    if (event.currentTarget.value === "") {
+      setUserFiltered(false);
+      router.push(`/news/`);
+      setDisplayingSearchCondition(null);
+    }
 
     setSearchWord(event.currentTarget.value);
   };
@@ -118,6 +172,13 @@ export default function Home() {
             <h1 className={styles.page_title}>ニュース</h1>
           </div>
         </div>
+        {displayingSearchCondition ? (
+          <div className={styles.search_condition}>
+            {displayingSearchCondition}
+          </div>
+        ) : (
+          <></>
+        )}
         <div className={styles.list_box}>
           <div
             className={`${styles.search_box} ${
@@ -134,7 +195,7 @@ export default function Home() {
               <div className={styles.search_box_frame}>
                 <input
                   value={searchWord}
-                  placeholder={"クリック/タップして入力"}
+                  placeholder={initialQ ? "クリアはXをクリック/タップ" : "クリック/タップして入力"}
                   type={"text"}
                   className={`${styles.search_input}`}
                   onInput={triggerSearchInput}
@@ -145,6 +206,8 @@ export default function Home() {
                   onClick={() => {
                     setSearchWord("");
                     setUserFiltered(false);
+                    router.push(`/news/`);
+                    setDisplayingSearchCondition(null);
                   }}
                 >
                   <FontAwesomeIcon icon={faXmark} />

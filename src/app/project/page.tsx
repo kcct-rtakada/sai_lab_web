@@ -48,6 +48,7 @@ export default function Home() {
         setLoaded(true);
 
         if (initialQ) {
+          const initialSearchWord = initialQ.replace(",", " ")
           let mode: string | null = null;
           if (initialMode === "mode") {
             mode = "research_name";
@@ -58,7 +59,7 @@ export default function Home() {
           } else if (initialMode === "year") {
             mode = "research_year";
           }
-          searchProjects(initialQ, mode, data);
+          searchProjects(initialSearchWord, mode, data);
           setUserFiltered(true);
         }
       })
@@ -221,13 +222,6 @@ export default function Home() {
             <h1 className={styles.page_title}>プロジェクト</h1>
           </div>
         </div>
-        {displayingSearchCondition ? (
-          <div className={styles.search_condition}>
-            {displayingSearchCondition}
-          </div>
-        ) : (
-          <></>
-        )}
         <div className={styles.list_box}>
           <div
             className={`${styles.search_box} ${
@@ -407,6 +401,13 @@ export default function Home() {
             )}
           </div>
         </div>
+        {displayingSearchCondition ? (
+          <div className={styles.search_condition}>
+            {displayingSearchCondition}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );

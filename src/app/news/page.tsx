@@ -45,13 +45,14 @@ export default function Home() {
         setLoaded(true);
 
         if (initialQ) {
+          const initialSearchWord = initialQ.replace(",", " ")
           let mode: string | null = null;
           if (initialMode === "mode") {
             mode = "news_name";
           } else if (initialMode === "year") {
             mode = "news_year";
           }
-          searchNews(initialQ, mode, data);
+          searchNews(initialSearchWord, mode, data);
           setUserFiltered(true);
         }
       })
@@ -172,13 +173,6 @@ export default function Home() {
             <h1 className={styles.page_title}>ニュース</h1>
           </div>
         </div>
-        {displayingSearchCondition ? (
-          <div className={styles.search_condition}>
-            {displayingSearchCondition}
-          </div>
-        ) : (
-          <></>
-        )}
         <div className={styles.list_box}>
           <div
             className={`${styles.search_box} ${
@@ -195,7 +189,11 @@ export default function Home() {
               <div className={styles.search_box_frame}>
                 <input
                   value={searchWord}
-                  placeholder={initialQ ? "クリアはXをクリック/タップ" : "クリック/タップして入力"}
+                  placeholder={
+                    initialQ
+                      ? "クリアはXをクリック/タップ"
+                      : "クリック/タップして入力"
+                  }
                   type={"text"}
                   className={`${styles.search_input}`}
                   onInput={triggerSearchInput}
@@ -312,6 +310,13 @@ export default function Home() {
             )}
           </div>
         </div>
+        {displayingSearchCondition ? (
+          <div className={styles.search_condition}>
+            {displayingSearchCondition}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );

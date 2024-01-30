@@ -11,6 +11,7 @@ import { faFilePdf, faLink } from "@fortawesome/free-solid-svg-icons";
 
 export default async function Page() {
   const response = await fetch(sai_projects);
+  // const response = await fetch(sai_projects, { cache: 'no-store' });
   const projects: Project[] = await response.json();
 
   const sortedConferencePapers = projects?.filter(

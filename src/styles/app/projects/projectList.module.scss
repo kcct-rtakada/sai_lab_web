@@ -3,13 +3,14 @@
 .main {
   padding-top: 0;
   min-height: calc(100% - 6rem);
+  position: relative;
   // overflow: hidden;
 
   .title_box {
     background-image: linear-gradient(
       to bottom right,
-      rgb(233, 143, 58),
-      rgb(184, 221, 49)
+      rgb(219, 199, 14),
+      rgb(68, 184, 53)
     );
     margin: 0 auto;
 
@@ -28,13 +29,14 @@
   }
 
   .search_condition {
-    position: fixed;
-    left: 1rem;
+    position: sticky;
+    margin-bottom: 1rem;
+    left: 2rem;
     width: calc(100% - 4rem);
     bottom: 1rem;
     z-index: 1500;
     padding: .2rem .5rem;
-    background-color: #fafafa;
+    background-color: #f3edb3;
     border-radius: .25rem;
     font-weight: bold;
     font-size: 1.05rem;

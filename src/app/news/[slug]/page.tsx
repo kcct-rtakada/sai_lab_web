@@ -11,6 +11,7 @@ import parse from "html-react-parser";
 // import SEO from "@/components/SEO";
 
 export default async function Page({ params }: { params: { slug: string } }) {
+  // const response = await fetch(sai_news, { cache: 'no-store' });
   const response = await fetch(sai_news);
   const newsList: News[] = await response.json();
   const news: News | undefined = newsList.find((c: { id: string }) => {
@@ -59,7 +60,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             <div className={styles.date}>
               <FontAwesomeIcon
                 icon={faCalendar}
-                style={{ marginRight: ".3rem" }}
+                style={{display: "inline-block", marginRight: ".3rem", fontSize: "1rem", width: "1rem" }}
               />
               {`${new Date(news.date).getFullYear()}/${(
                 new Date(news.date).getMonth() + 1

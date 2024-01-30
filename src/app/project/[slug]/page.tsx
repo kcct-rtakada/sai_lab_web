@@ -11,6 +11,7 @@ import parse from "html-react-parser";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const response = await fetch(sai_projects);
+  // const response = await fetch(sai_projects, { cache: 'no-store' });
   const projects: Project[] = await response.json();
   const project: Project | undefined = projects.find((c: { id: string }) => {
     const cid = String(c.id);

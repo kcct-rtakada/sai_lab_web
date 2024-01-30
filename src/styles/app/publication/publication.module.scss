@@ -8,9 +8,10 @@
   .title_box {
     background-image: linear-gradient(
       to bottom right,
-      rgb(177, 199, 52),
-      rgb(36, 165, 148)
+      rgb(98, 199, 52),
+      rgb(36, 165, 165)
     );
+    margin: 0 auto;
 
     .title_area {
       width: min(55rem, 100%);
@@ -43,12 +44,6 @@
     @include mqUp(sm) {
       width: 100%;
       padding-top: 0;
-    }
-
-    .page_title {
-      font-size: 2rem;
-      font-weight: bold;
-      margin: 0 auto;
     }
 
     .result_box {

@@ -50,6 +50,10 @@
         line-height: 2.65rem;
         margin-bottom: 1rem;
       }
+
+      .date {
+        font-size: 1rem;
+      }
     }
 
     .main_script {
@@ -146,6 +150,8 @@
       }
 
       .links {
+        margin-top: .5rem;
+        margin-bottom: 1rem;
         li {
           margin-left: 3rem;
           list-style: disc;

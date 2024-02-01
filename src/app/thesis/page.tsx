@@ -23,7 +23,9 @@ export default async function Page() {
   const uniqueYears = Array.from(
     new Set(
       sortedConferencePapers?.flatMap((item) =>
-        new Date(item.date).getFullYear()
+        new Date(item.date).getMonth() > 3
+          ? new Date(item.date).getFullYear()
+          : new Date(item.date).getFullYear() - 1
       )
     )
   );
@@ -100,7 +102,10 @@ export default async function Page() {
           <div className={styles.result_box}>
             {uniqueYears.map((year, i) => {
               const matchedDataWithYear = sortedConferencePapers?.filter(
-                (item) => new Date(item.date).getFullYear() === year
+                (item) =>
+                  (new Date(item.date).getMonth() > 3
+                    ? new Date(item.date).getFullYear()
+                    : new Date(item.date).getFullYear() - 1) === year
               );
               const matched2ndPaper = matchedDataWithYear?.filter((item) =>
                 item.classification.toLowerCase().includes("専攻科特別研究論文")
@@ -110,7 +115,7 @@ export default async function Page() {
               );
               return (
                 <>
-                  <h2>{year}年</h2>
+                  <h2>{year}年度</h2>
                   {matched2ndPaper!.length > 0 ? (
                     <>
                       {displayingThesis(

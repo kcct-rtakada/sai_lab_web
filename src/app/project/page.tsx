@@ -90,7 +90,7 @@ export default function Home() {
       filteredArray = lists?.filter((project) =>
         filterKeywords.some(
           (keyword) =>
-            keyword !== "" && project.title.toLowerCase().includes(keyword)
+            keyword.toLowerCase() !== "" && project.title.toLowerCase().includes(keyword)
         )
       );
       setDisplayingSearchCondition(
@@ -108,7 +108,7 @@ export default function Home() {
         filterKeywords.some((keyword) =>
           project.authors.some(
             (author) =>
-              keyword !== "" && author.name.toLowerCase().includes(keyword)
+              keyword.toLowerCase() !== "" && author.name.toLowerCase().includes(keyword)
           )
         )
       );
@@ -126,7 +126,7 @@ export default function Home() {
       filteredArray = lists?.filter((project) =>
         filterKeywords.some((keyword) =>
           project.tags.some(
-            (tag) => keyword !== "" && tag.name.toLowerCase().includes(keyword)
+            (tag) => keyword.toLowerCase() !== "" && tag.name.toLowerCase().includes(keyword)
           )
         )
       );

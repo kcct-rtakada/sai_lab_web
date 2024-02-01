@@ -10,13 +10,6 @@ export default function Footer() {
       <div className={styles.footer_box}>
         <p>髙田 崚介</p>
         <p>
-          (
-          <a href="mailto:kcct-rtakada@g.kobe-kosen.ac.jp">
-            kcct-rtakada@g.kobe-kosen.ac.jp
-          </a>
-          )
-        </p>
-        <p>
           <Link
             href="https://www.kobe-kosen.ac.jp/"
             target="_blank"

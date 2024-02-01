@@ -158,7 +158,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
             {project.presentationURL ? (
               <>
-                <h2 className={styles.section_name}>Slideshow</h2>
+                <h2 className={styles.section_name}>Misc</h2>
                 <div className={styles.slide_box}>
                   {parse(project.presentationURL)}
                 </div>

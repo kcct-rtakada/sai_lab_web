@@ -198,8 +198,13 @@
           transform-origin: left top;
           transition: transform 0.3s;
         }
+
+        a:focus {
+          outline: none;
+        }
       
-        a:hover::after {
+        a:hover::after,
+        a:focus::after {
           transform: scale(1, 1);
         }
 

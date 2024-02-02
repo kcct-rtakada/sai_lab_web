@@ -259,6 +259,46 @@
           margin: 0 auto;
           width: 100%;
         }
+
+        h1 {
+          font-weight: bold;
+          font-size: 1.6rem;
+        }
+
+        h2 {
+          font-weight: bold;
+          font-size: 1.3rem;
+        }
+
+        h3,
+        h4,
+        h5,
+        h6 {
+          font-weight: bold;
+        }
+
+        a {
+          color: blue;
+          text-decoration: underline;
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+
+        ul {
+          margin-left: 2rem;
+          li {
+            list-style: disc;
+          }
+        }
+
+        ol {
+          margin-left: 2rem;
+          li {
+            list-style: decimal;
+          }
+        }
       }
 
       .images_box {
@@ -286,7 +326,7 @@
             text-align: center;
             display: flex;
             flex-direction: column;
-            padding: .75rem;
+            padding: 0.75rem;
             background-color: rgb(252, 252, 252);
           }
         }

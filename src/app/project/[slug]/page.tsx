@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faLink, faTag } from "@fortawesome/free-solid-svg-icons";
 import { sai_projects } from "@/components/constant";
 import parse from "html-react-parser";
+import Image from "next/image";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const response = await fetch(sai_projects);
@@ -21,16 +22,20 @@ export default async function Page({ params }: { params: { slug: string } }) {
   // 見つからなかった場合
   if (!project) {
     return (
-      <>
-        {/* <SEO pageTitle="Loading" pageDescription={""} /> */}
-
-        <div className={styles.main}>
-          <div className="loading">
-            <span className="load_1" />
-            <span className="load_2" />
+      <div className={styles.main}>
+        <div className="notfound">
+          <div className="notfound_text">
+            このページの詳細が見つかりませんでした。
+            <br />
+            まだ反映されていない可能性があるので、
+            <br />
+            時間を空けてから再度アクセスしてください。
+          </div>
+          <div className="notfound_img_box">
+            <Image src="/sai_logo.png" alt="sai_logo" fill sizes="4rem" />
           </div>
         </div>
-      </>
+      </div>
     );
   }
 

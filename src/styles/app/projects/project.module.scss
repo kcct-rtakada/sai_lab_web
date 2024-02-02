@@ -1,13 +1,14 @@
 @import "../../global/responsive.scss";
 
 .main {
-  min-height: calc(100% - 8rem);
+  min-height: calc(100% - 6rem);
   padding-top: 0;
   // overflow: hidden;
 
   .project {
     width: 100%;
     // height: calc(100vh - 5rem);
+    padding-top: 2rem;
     position: relative;
     user-select: text;
     -webkit-user-select: text;
@@ -15,8 +16,12 @@
     -moz-user-select: text;
     -ms-user-select: text;
 
+    @include mqUp(md) {
+      padding-top: 0;
+    }
+
     .project_card {
-      margin-top: 2rem;
+      margin-top: 0;
       margin-bottom: 1.5rem;
       margin-left: auto;
       margin-right: auto;

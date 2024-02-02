@@ -49,6 +49,7 @@ export default function Home() {
 
         if (initialQ) {
           const initialSearchWord = initialQ.replace(",", " ")
+          setSearchWord(initialSearchWord)
           let mode: string | null = null;
           if (initialMode === "mode") {
             mode = "research_name";
@@ -90,7 +91,7 @@ export default function Home() {
       filteredArray = lists?.filter((project) =>
         filterKeywords.some(
           (keyword) =>
-            keyword.toLowerCase() !== "" && project.title.toLowerCase().includes(keyword)
+            keyword.toLowerCase() !== "" && project.title.toLowerCase().includes(keyword.toLowerCase())
         )
       );
       setDisplayingSearchCondition(
@@ -108,7 +109,7 @@ export default function Home() {
         filterKeywords.some((keyword) =>
           project.authors.some(
             (author) =>
-              keyword.toLowerCase() !== "" && author.name.toLowerCase().includes(keyword)
+              keyword.toLowerCase() !== "" && author.name.toLowerCase().includes(keyword.toLowerCase())
           )
         )
       );
@@ -126,7 +127,7 @@ export default function Home() {
       filteredArray = lists?.filter((project) =>
         filterKeywords.some((keyword) =>
           project.tags.some(
-            (tag) => keyword.toLowerCase() !== "" && tag.name.toLowerCase().includes(keyword)
+            (tag) => keyword.toLowerCase() !== "" && tag.name.toLowerCase().includes(keyword.toLowerCase())
           )
         )
       );

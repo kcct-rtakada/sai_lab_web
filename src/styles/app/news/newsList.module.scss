@@ -29,17 +29,27 @@
 
   .search_condition {
     position: sticky;
+    margin-top: 1rem;
     margin-bottom: 1rem;
     left: 2rem;
     width: calc(100% - 4rem);
     bottom: 1rem;
     z-index: 1500;
-    padding: .2rem .5rem;
+    padding: 0.2rem 0.5rem;
     background-color: #b3f3e8;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
     font-weight: bold;
     font-size: 1.05rem;
     filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+
+    @include mqUp(sm) {
+      width: 100%;
+      border-radius: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      bottom: 0;
+      filter: none;
+    }
   }
 
   .list_box {

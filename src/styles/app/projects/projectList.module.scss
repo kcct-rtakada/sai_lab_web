@@ -30,17 +30,27 @@
 
   .search_condition {
     position: sticky;
+    margin-top: 1rem;
     margin-bottom: 1rem;
     left: 2rem;
     width: calc(100% - 4rem);
     bottom: 1rem;
     z-index: 1500;
-    padding: .2rem .5rem;
+    padding: 0.2rem 0.5rem;
     background-color: #f3edb3;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
     font-weight: bold;
     font-size: 1.05rem;
     filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+
+    @include mqUp(sm) {
+      width: 100%;
+      border-radius: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      bottom: 0;
+      filter: none;
+    }
   }
 
   .list_box {
@@ -92,7 +102,7 @@
         position: absolute;
         // bottom: -0.5rem;
         left: calc((100% - 5rem) / 2);
-        border-radius: .5rem .5rem 3rem 3rem;
+        border-radius: 0.5rem 0.5rem 3rem 3rem;
         justify-content: center;
         align-items: center;
         text-align: center;
@@ -276,7 +286,7 @@
         .circle {
           bottom: -1.5rem;
           transform: rotateZ(180deg);
-          border-radius: .5rem;
+          border-radius: 0.5rem;
         }
       }
     }
@@ -287,10 +297,20 @@
       position: relative;
       width: min(55rem, 100%);
       margin: 0 auto;
+      justify-content: center;
+      flex-direction: row;
+      row-gap: 2rem;
+      column-gap: 2rem;
+      margin-top: 2.5rem;
+      padding-bottom: 2rem;
 
-      @include mqUp(xl) {
-        justify-content: center;
-        flex-direction: row;
+      @include mqDown(lg) {
+        width: 90%;
+      }
+
+      @include mqUp(sm) {
+        row-gap: 0;
+        padding-bottom: 0;
       }
 
       .project_link {
@@ -300,7 +320,6 @@
           width: 23rem;
           height: 23rem;
           background-color: rgb(253, 253, 253);
-          margin: 1rem;
           position: relative;
           border-radius: 0.25rem;
           overflow: hidden;
@@ -319,7 +338,7 @@
           @include mqUp(sm) {
             margin: 0;
             width: 100%;
-            height: 24rem;
+            height: auto;
             filter: none;
             border-radius: 0;
             -webkit-border-radius: 0;
@@ -350,7 +369,7 @@
 
             @include mqUp(sm) {
               width: 100%;
-              height: 24rem;
+              height: calc(100vw * 9 / 16 - 1rem);
             }
           }
 

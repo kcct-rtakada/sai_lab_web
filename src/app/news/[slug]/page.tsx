@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { sai_news } from "@/components/constant";
 import parse from "html-react-parser";
+import Image from "next/image";
 // import SEO from "@/components/SEO";
 
 export default async function Page({ params }: { params: { slug: string } }) {
@@ -22,31 +23,20 @@ export default async function Page({ params }: { params: { slug: string } }) {
   // 見つからなかった場合
   if (!news) {
     return (
-      <>
-        {/* <SEO pageTitle="Loading" pageDescription={""} /> */}
-
-        <div className={styles.main}>
-          <div className="loading">
-            <span className="load_1" />
-            <span className="load_2" />
+      <div className={styles.main}>
+        <div className="notfound">
+          <div className="notfound_text">
+            このページの詳細が見つかりませんでした。
+            <br />
+            まだ反映されていない可能性があるので、
+            <br />
+            時間を空けてから再度アクセスしてください。
+          </div>
+          <div className="notfound_img_box">
+            <Image src="/sai_logo.png" alt="sai_logo" fill sizes="4rem" />
           </div>
         </div>
-      </>
-    );
-  }
-
-  if (!news) {
-    return (
-      <>
-        {/* <SEO pageTitle="Loading" pageDescription={""} /> */}
-
-        <div className={styles.main}>
-          <div className="loading">
-            <span className="load_1" />
-            <span className="load_2" />
-          </div>
-        </div>
-      </>
+      </div>
     );
   }
 

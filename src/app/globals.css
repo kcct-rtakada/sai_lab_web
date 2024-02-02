@@ -40,8 +40,10 @@ main {
   overflow-x: hidden;
 }
 
-main.main {
-  margin-top: 4rem;
+div.main {
+  padding-top: 0;
+  min-height: calc(100% - 6rem);
+  position: relative;
 }
 
 footer {
@@ -253,4 +255,30 @@ body main *::-webkit-scrollbar-thumb:hover {
     -ms-transform: rotateZ(360deg);
     -o-transform: rotateZ(360deg);
   }
+}
+
+.notfound {
+  user-select: none;
+  width: 100%;
+  height: auto;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.notfound .notfound_text {
+  margin-top: 1.1rem;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.notfound .notfound_img_box {
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+  pointer-events: none;
 }

@@ -81,7 +81,7 @@ export default function Home() {
       filteredArray = lists?.filter((news) =>
         filterKeywords.some(
           (keyword) =>
-            keyword.toLowerCase() !== "" && news.title.toLowerCase().includes(keyword)
+            keyword.toLowerCase() !== "" && news.title.toLowerCase().includes(keyword.toLowerCase())
         )
       );
       setDisplayingSearchCondition(

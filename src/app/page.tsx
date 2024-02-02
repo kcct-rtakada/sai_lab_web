@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const [newsList, setNewsList] = useState<null | News[]>(null);
   const [newsLoaded, setNewsLoaded] = useState<boolean>(false);
-  const [usingJapanese, setUsingJapanese] = useState<boolean>(false);
+  const [usingJapanese, setUsingJapanese] = useState<boolean>(true);
 
   useEffect(() => {
     fetch(sai_news)

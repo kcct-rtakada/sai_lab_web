@@ -48,7 +48,7 @@ export default function Home() {
         setLoaded(true);
 
         if (initialQ) {
-          const initialSearchWord = initialQ.replace(",", " ")
+          const initialSearchWord = initialQ.replace(/,/g, " ")
           setSearchWord(initialSearchWord)
           let mode: string | null = null;
           if (initialMode === "mode") {

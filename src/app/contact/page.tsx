@@ -4,12 +4,13 @@ import Image from "next/image";
 import styles from "@/styles/app/contact/contact.module.scss";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import parse from "html-react-parser";
 
 export default function Home() {
   const [usingJapanese, setUsingJapanese] = useState<boolean>(true);
 
   const displayString = (japaneseString: string, englishString: string) => {
-    return <>{usingJapanese ? japaneseString : englishString}</>;
+    return <>{usingJapanese ? parse(japaneseString) : parse(englishString)}</>;
   };
 
   return (
@@ -23,19 +24,40 @@ export default function Home() {
       </div>
       <div className={styles.main_script}>
         <h2>{displayString("コンタクト", "Contact")}</h2>
-        <p>研究室への</p>
+        <p>{displayString("研究室への", "If you are:")}</p>
         <ul>
-          <li>SAIへの配属希望・研究室説明希望</li>
-          <li>他学科・他学年学生だけど研究に興味がある</li>
-          <li>共同研究依頼</li>
-          <li>取材依頼</li>
+          <li>
+            {displayString(
+              "SAIへの配属希望・研究室説明希望",
+              "willing to apply to the Lab or wishing for an information session"
+            )}
+          </li>
+          <li>
+            {displayString(
+              "他学科・他学年学生だけど研究に興味がある",
+              "interested in experimenting though you belong in a different department or grade"
+            )}
+          </li>
+          <li>
+            {displayString(
+              "共同研究依頼",
+              "requesting for a cooperative research"
+            )}
+          </li>
+          <li>{displayString("取材依頼", "requesting for an interview")}</li>
         </ul>
         <p>
-          また、指導教員（髙田）個人への連絡は
-          <a href="mailto:kcct-rtakada@g.kobe-kosen.ac.jp">
-            kcct-rtakada@g.kobe-kosen.ac.jp
-          </a>
-          でも受け付けています。
+          {displayString(
+            "等があれば下記フォームよりお気軽にご連絡ください。",
+            "feel free to contact from the form below."
+          )}
+        </p>
+        <p>
+          {displayString(
+            `また、指導教員（髙田）個人への連絡は
+          <a href="mailto:kcct-rtakada@g.kobe-kosen.ac.jp">kcct-rtakada@g.kobe-kosen.ac.jp</a>でも受け付けています。`,
+            `Direct contact to the supervisor(Takada) is also available through <a href="mailto:kcct-rtakada@g.kobe-kosen.ac.jp">kcct-rtakada@g.kobe-kosen.ac.jp</a>.`
+          )}
         </p>
         <h2>{displayString("アクセス", "Access")}</h2>
         <p>
@@ -44,11 +66,18 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            神戸高専アクセス情報：https://www.kobe-kosen.ac.jp/common/access_campus_map.html
+            {displayString(
+              "神戸高専アクセス情報：",
+              "Access information for KCCT: "
+            )}
+            https://www.kobe-kosen.ac.jp/common/access_campus_map.html
           </Link>
         </p>
         <p>
-          上記ウェブページのキャンパスマップ内⑦にある「電子工学科棟3F」で活動しております。
+          {displayString(
+            "上記ウェブページのキャンパスマップ内⑦にある「電子工学科棟3F」で活動しております。",
+            "We are located on the 3rd floor of ⑦「電子工学科棟」on the Campus Map in the webpage above."
+          )}
         </p>
         <h2>{displayString("フォーム", "Contact Form")}</h2>
         <p>

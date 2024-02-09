@@ -3,6 +3,7 @@ import "normalize.css";
 // import { Inter } from 'next/font/google'
 import "./globals.css";
 import Footer from "@/components/Footer";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 // const inter = Inter({ subsets: ['latin'] })
 
@@ -19,6 +20,7 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
         <meta name="theme-color" content="#fafafa" />
+        <GoogleAnalytics gaId="G-EKY6C0HPHX" />
         <meta
           name="msapplication-square70x70logo"
           content="/site-tile-70x70.png"

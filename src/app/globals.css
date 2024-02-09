@@ -80,6 +80,42 @@ body main *::-webkit-scrollbar-thumb:hover {
   border-radius: 2rem;
 }
 
+.unique-type0 span{
+  background-color: rgb(240, 57, 142) !important;
+}
+
+.unique-type1 span{
+  background-color: rgb(203, 57, 240) !important;
+}
+
+.unique-type2 span{
+  background-color: rgb(75, 64, 219) !important;
+}
+
+.unique-type3 span{
+  background-color: rgb(15, 193, 199) !important;
+}
+
+.unique-type4 span{
+  background-color: rgb(70, 170, 91) !important;
+}
+
+.unique-type5 span{
+  background-color: rgb(112, 194, 46) !important;
+}
+
+.unique-type6 span{
+  background-color: rgb(156, 190, 0) !important;
+}
+
+.unique-type7 span{
+  background-color: rgb(223, 90, 37) !important;
+}
+
+.unique-type8 span{
+  background-color: rgb(240, 48, 48) !important;
+}
+
 
 .loading {
   width: min(30vw, 30vh);

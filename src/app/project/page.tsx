@@ -215,6 +215,9 @@ export default function Home() {
 
   const displayArray = userFiltered ? filteredProjects : projects;
 
+  const uniqueTypes = Array.from(new Set(projects!.flatMap(item => item.type)))
+  console.log(uniqueTypes)
+
   return (
     <>
       <div className={styles.main}>
@@ -307,7 +310,7 @@ export default function Home() {
                         )}
                       </div>
                       {item.type ? (
-                        <div className={styles.type}>
+                        <div className={`${styles.type} unique-type${uniqueTypes.findIndex((type) => type === item.type)}`}>
                           <span>{item.type}</span>
                         </div>
                       ) : (

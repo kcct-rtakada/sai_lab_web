@@ -203,10 +203,18 @@ export default function Home() {
             <br />
             {displayString("人の一挙手一投足をセンシングする", "Human Sensing")}
           </div>
-          <span className={`${styles.circle} ${usingJapanese ? "" : styles.active}`} />
-          <span className={`${styles.circle} ${usingJapanese ? "" : styles.active}`} />
-          <span className={`${styles.circle} ${usingJapanese ? "" : styles.active}`} />
-          <span className={`${styles.circle} ${usingJapanese ? "" : styles.active}`} />
+          <span
+            className={`${styles.circle} ${usingJapanese ? "" : styles.active}`}
+          />
+          <span
+            className={`${styles.circle} ${usingJapanese ? "" : styles.active}`}
+          />
+          <span
+            className={`${styles.circle} ${usingJapanese ? "" : styles.active}`}
+          />
+          <span
+            className={`${styles.circle} ${usingJapanese ? "" : styles.active}`}
+          />
         </div>
 
         <h3>

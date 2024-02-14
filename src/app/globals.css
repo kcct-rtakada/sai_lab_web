@@ -2,9 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 * {
   color-scheme: light;
   line-height: 1.5;
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 html {

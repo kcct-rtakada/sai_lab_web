@@ -1,8 +1,19 @@
 import ProjectsViewer from "@/components/ProjectsViewer";
 import Project from "@/components/DefaultStructure";
 import { sai_projects } from "@/components/constant";
+import SEO from "@/components/SEO";
+import type { Metadata } from "next";
 
-export default async function Home() {
+export async function generateMetadata(): Promise<Metadata> {
+  return SEO({
+    title: "Project",
+    description: "SAI (髙田研究室)のプロジェクト一覧",
+    url: `https://sai.ac/project`,
+    imageUrl: undefined,
+  });
+}
+
+export default async function ProjectList() {
   const response = await fetch(sai_projects);
   const projects: Project[] = await response.json();
 

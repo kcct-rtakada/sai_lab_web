@@ -1,15 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
-// "use client";
-import React, { useState, useEffect } from "react";
 import Project from "@/components/DefaultStructure";
 import styles from "@/styles/app/publication/publication.module.scss";
 import Link from "next/link";
 import { sai_projects } from "@/components/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faLink } from "@fortawesome/free-solid-svg-icons";
-// import SEO from "@/components/SEO";
+import SEO from "@/components/SEO";
+import type { Metadata } from "next";
 
-export default async function Page() {
+export async function generateMetadata(): Promise<Metadata> {
+  return SEO({
+    title: "Publication",
+    description: "SAI (髙田研究室)の研究業績",
+    url: `https://sai.ac/publication`,
+    imageUrl: undefined,
+  });
+}
+
+export default async function Publication() {
   const response = await fetch(sai_projects);
   const projects: Project[] = await response.json();
 

@@ -9,15 +9,44 @@ import { faFilePdf, faLink, faTag } from "@fortawesome/free-solid-svg-icons";
 import { sai_projects } from "@/components/constant";
 import parse from "html-react-parser";
 import Image from "next/image";
+import SEO from "@/components/SEO";
+import type { Metadata } from "next";
+import { cache } from "react";
 
-export default async function Page({ params }: { params: { slug: string } }) {
+const getProject = cache(async (slug: string) => {
   const response = await fetch(sai_projects);
-  // const response = await fetch(sai_projects, { cache: 'no-store' });
   const projects: Project[] = await response.json();
   const project: Project | undefined = projects.find((c: { id: string }) => {
     const cid = String(c.id);
-    return cid === params.slug;
+    return cid === slug;
   });
+  return project;
+});
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const project = await getProject(params.slug);
+  if (!project)
+    return SEO({
+      title: "Undefined",
+      description: "No Project",
+      url: `https://sai.ac/project/${params.slug}`,
+      imageUrl: undefined,
+    });
+  else
+    return SEO({
+      title: project.title,
+      description: project.abstract,
+      url: `https://sai.ac/project/${params.slug}`,
+      imageUrl: undefined,
+    });
+}
+
+export default async function Page({ params }: { params: { slug: string } }) {
+  const project = await getProject(params.slug);
 
   // 見つからなかった場合
   if (!project) {

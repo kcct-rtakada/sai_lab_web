@@ -1,17 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
-// "use client";
-import React, { useState, useEffect } from "react";
 import Project from "@/components/DefaultStructure";
 import styles from "@/styles/app/thesis/thesis.module.scss";
 import Link from "next/link";
 import { sai_projects } from "@/components/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faLink } from "@fortawesome/free-solid-svg-icons";
-// import SEO from "@/components/SEO";
+import SEO from "@/components/SEO";
+import type { Metadata } from "next";
 
-export default async function Page() {
+export async function generateMetadata(): Promise<Metadata> {
+  return SEO({
+    title: "Thesis",
+    description: "SAI (髙田研究室)での学位論文",
+    url: `https://sai.ac/thesis`,
+    imageUrl: undefined,
+  });
+}
+
+export default async function Thesis() {
   const response = await fetch(sai_projects);
-  // const response = await fetch(sai_projects, { cache: 'no-store' });
   const projects: Project[] = await response.json();
 
   const sortedConferencePapers = projects?.filter(

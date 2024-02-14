@@ -9,16 +9,51 @@ import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { sai_news } from "@/components/constant";
 import parse from "html-react-parser";
 import Image from "next/image";
-// import SEO from "@/components/SEO";
+import SEO from "@/components/SEO";
+import type { Metadata } from "next";
+import { cache } from "react";
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  // const response = await fetch(sai_news, { cache: 'no-store' });
+const getNews = cache(async (slug: string) => {
   const response = await fetch(sai_news);
   const newsList: News[] = await response.json();
   const news: News | undefined = newsList.find((c: { id: string }) => {
     const cid = String(c.id);
-    return cid === params.slug;
+    return cid === slug;
   });
+  return news;
+});
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const news = await getNews(params.slug);
+  if (!news)
+    return SEO({
+      title: "Undefined",
+      description: "No News",
+      url: `https://sai.ac/news/${params.slug}`,
+      imageUrl: undefined,
+    });
+  else
+    return SEO({
+      title: news.title,
+      description: `SAI (髙田研究室)のニュース(${new Date(
+        news.date
+      ).getFullYear()}/${(new Date(news.date).getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}/${new Date(news.date)
+        .getDate()
+        .toString()
+        .padStart(2, "0")})`,
+      url: `https://sai.ac/project/${params.slug}`,
+      imageUrl: undefined,
+    });
+}
+
+export default async function Page({ params }: { params: { slug: string } }) {
+  const news = await getNews(params.slug);
 
   // 見つからなかった場合
   if (!news) {
@@ -50,7 +85,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
             <div className={styles.date}>
               <FontAwesomeIcon
                 icon={faCalendar}
-                style={{display: "inline-block", marginRight: ".3rem", fontSize: "1rem", width: "1rem" }}
+                style={{
+                  display: "inline-block",
+                  marginRight: ".3rem",
+                  fontSize: "1rem",
+                  width: "1rem",
+                }}
               />
               {`${new Date(news.date).getFullYear()}/${(
                 new Date(news.date).getMonth() + 1

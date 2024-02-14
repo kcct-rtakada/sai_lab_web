@@ -1,13 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-// "use client";
-import React, { useState, useEffect } from "react";
 import Award from "@/components/DefaultStructure";
 import styles from "@/styles/app/award/award.module.scss";
 import Link from "next/link";
 import { sai_awards } from "@/components/constant";
-// import SEO from "@/components/SEO";
+import SEO from "@/components/SEO";
+import type { Metadata } from "next";
 
-export default async function Page() {
+export async function generateMetadata(): Promise<Metadata> {
+  return SEO({
+    title: "Award",
+    description: "SAI (髙田研究室)での表彰",
+    url: `https://sai.ac/award`,
+    imageUrl: undefined,
+  });
+}
+
+export default async function Award() {
   const response = await fetch(sai_awards);
   const awards: Award[] = await response.json();
 

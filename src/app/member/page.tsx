@@ -1,6 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-// "use client";
-import React, { useState, useEffect } from "react";
 import Member from "@/components/DefaultStructure";
 import styles from "@/styles/app/member/member.module.scss";
 import Link from "next/link";
@@ -8,8 +6,19 @@ import { sai_members } from "@/components/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faEarthAmericas } from "@fortawesome/free-solid-svg-icons";
+import SEO from "@/components/SEO";
+import type { Metadata } from "next";
 
-export default async function Page() {
+export async function generateMetadata(): Promise<Metadata> {
+  return SEO({
+    title: "Member",
+    description: "SAI (髙田研究室)のメンバー一覧",
+    url: `https://sai.ac/member`,
+    imageUrl: undefined,
+  });
+}
+
+export default async function Member() {
   const response = await fetch(sai_members);
   const members: Member[] = await response.json();
 

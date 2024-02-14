@@ -12,20 +12,6 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head prefix="og: http://ogp.me/ns#">
-        <title>SAI</title>
-        <meta
-          name="description"
-          content="神戸市立工業高等専門学校 電子工学科 髙田研究室(SAI)"
-        />
-        <meta charSet="utf-8" />
-        <meta property="og:site_name" content="SAI (髙田研究室)" />
-        <meta property="og:title" content="SAI" />
-        <meta property="og:description" content="神戸市立工業高等専門学校 電子工学科 髙田研究室(SAI)" />
-        <meta property="og:url" content="https://sai.ac" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://sai.ac/sai_default_thumbnail.webp" />
-        <meta name="twitter:card" content="summary" />
-        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
         <meta name="theme-color" content="#fafafa" />
         <GoogleAnalytics gaId="G-EKY6C0HPHX" />
         <meta

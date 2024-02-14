@@ -1,12 +1,12 @@
 {
-	"name":				"",
-	"short_name":		"",
-	"description":		"",
+	"name":				"SAI (髙田研究室)",
+	"short_name":		"SAI",
+	"description":		"神戸市立工業高等専門学校 電子工学科 髙田研究室(SAI)",
 	"start_url":		"/",
 	"display":			"standalone",
 	"orientation":		"any",
 	"background_color":	"#fff",
-	"theme_color":		"#fff",
+	"theme_color":		"#fafafa",
 	"icons": [
 		{
 			"src": "/android-chrome-36x36.png",

@@ -254,10 +254,11 @@
       .slide_box {
         width: 100%;
         margin: 1rem 0;
+        padding: 0 .5rem;
 
         iframe {
           margin: 0 auto;
-          width: 100%;
+          width: calc(100% - 2rem);
         }
 
         h1 {

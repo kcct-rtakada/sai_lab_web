@@ -19,6 +19,16 @@ export default async function Award() {
   const response = await fetch(sai_awards);
   const awards: Award[] = await response.json();
 
+  const uniqueYears = Array.from(
+    new Set(
+      awards?.flatMap((item) =>
+        new Date(item.date).getMonth() > 3
+          ? new Date(item.date).getFullYear()
+          : new Date(item.date).getFullYear() - 1
+      )
+    )
+  );
+
   return (
     <>
       <div className={styles.main}>
@@ -29,38 +39,56 @@ export default async function Award() {
         </div>
         <div className={styles.list_box}>
           <div className={styles.result_box}>
-            <ul>
-              {awards!.map((award, i) => {
-                const date = new Date(award.date);
+            {uniqueYears.map((year, i) => {
+              const matchedDataWithYear = awards?.filter(
+                (item) =>
+                  (new Date(item.date).getMonth() > 3
+                    ? new Date(item.date).getFullYear()
+                    : new Date(item.date).getFullYear() - 1) === year
+              );
 
-                const displayDate = `${date.getFullYear()}/${(
-                  date.getMonth() + 1
-                )
-                  .toString()
-                  .padStart(2, "0")}/${(date.getDate() + 1)
-                  .toString()
-                  .padStart(2, "0")}`;
-                return (
-                  <li key={i}>
-                    {award.link ? (
-                      <Link
-                        href={award.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >{`${award.organization ? `${award.organization}` : ``}${
-                        award.competition ? `, ${award.competition}` : ``
-                      }, ${award.award}, ${
-                        award.person
-                      } (${displayDate})`}</Link>
-                    ) : (
-                      `${award.organization ? `${award.organization}` : ``}${
-                        award.competition ? `, ${award.competition}` : ``
-                      }, ${award.award}, ${award.person} (${displayDate})`
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
+              return (
+                <>
+                  <h2 key={`year${i}`}>{year}年度</h2>
+                  <ul key={`ul${i}`}>
+                    {matchedDataWithYear!.map((award, j) => {
+                      const date = new Date(award.date);
+
+                      const displayDate = `${date.getFullYear()}/${(
+                        date.getMonth() + 1
+                      )
+                        .toString()
+                        .padStart(2, "0")}/${(date.getDate() + 1)
+                        .toString()
+                        .padStart(2, "0")}`;
+                      return (
+                        <li key={j}>
+                          {award.link ? (
+                            <Link
+                              href={award.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >{`${
+                              award.organization ? `${award.organization}` : ``
+                            }${
+                              award.competition ? `, ${award.competition}` : ``
+                            }, ${award.award}, ${
+                              award.person
+                            } (${displayDate})`}</Link>
+                          ) : (
+                            `${
+                              award.organization ? `${award.organization}` : ``
+                            }${
+                              award.competition ? `, ${award.competition}` : ``
+                            }, ${award.award}, ${award.person} (${displayDate})`
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </>
+              );
+            })}
           </div>
         </div>
       </div>

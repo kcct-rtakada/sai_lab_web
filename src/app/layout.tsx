@@ -1,14 +1,18 @@
+"use client";
 import Header from "@/components/Header";
 import "normalize.css";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { useRef } from "react";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const containerRef = useRef(null);
   return (
     <html lang="ja">
       <head prefix="og: http://ogp.me/ns#">
@@ -242,9 +246,10 @@ export default function RootLayout({
       </head>
       <body>
         <Header />
-        <main>
+        <main ref={containerRef}>
           {children}
           <Footer />
+          <ScrollToTopButton containerRef={containerRef} />
         </main>
       </body>
     </html>

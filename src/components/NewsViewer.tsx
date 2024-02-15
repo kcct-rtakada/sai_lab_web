@@ -24,6 +24,7 @@ export default function NewsViewer(props: Props) {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [selectedSearchMode, setSelectedSearchMode] =
     useState<string>("news_name");
+  const [selectedYear, setSelectedYear] = useState<number>(0);
   const [filteredNews, setFilteredNews] = useState<undefined | News[]>([]);
   const [userFiltered, setUserFiltered] = useState<boolean>(false);
   const [searchWord, setSearchWord] = useState<string>("");
@@ -45,6 +46,7 @@ export default function NewsViewer(props: Props) {
 
       if (initialQ) {
         const initialSearchWord = initialQ.replace(/,/g, " ");
+        setSearchWord(initialSearchWord);
         let mode: string | null = null;
         if (initialMode === "mode") {
           mode = "news_name";
@@ -142,6 +144,12 @@ export default function NewsViewer(props: Props) {
     setSelectedSearchMode(selectedOptionValue);
   };
 
+  const triggerYearSelection = (event: { target: { value: string } }) => {
+    const selectedOptionValue = event.target.value;
+
+    setSelectedYear(Number(selectedOptionValue));
+  };
+
   if (!loaded) {
     return (
       <>
@@ -162,6 +170,16 @@ export default function NewsViewer(props: Props) {
 
   const displayArray = userFiltered ? filteredNews : newsList;
 
+  const uniqueYears = Array.from(
+    new Set(
+      displayArray?.flatMap((item) =>
+        new Date(item.date).getMonth() > 3
+          ? new Date(item.date).getFullYear()
+          : new Date(item.date).getFullYear() - 1
+      )
+    )
+  );
+
   return (
     <>
       <div className={styles.main}>
@@ -181,6 +199,23 @@ export default function NewsViewer(props: Props) {
               onClick={() => setIsDisplayingSearchBox(!isDisplayingSearchBox)}
             >
               <FontAwesomeIcon icon={faChevronDown} />
+            </div>
+            <div className={styles.years_list_box}>
+              <p>表示年度</p>
+              <select
+                className={styles.year_select}
+                onChange={triggerYearSelection}
+                name="year_filtering"
+              >
+                <option key={`year0`} value={0}>
+                  すべて
+                </option>
+                {uniqueYears.map((year, i) => (
+                  <option key={`year${i}`} value={year}>
+                    {year}年度
+                  </option>
+                ))}
+              </select>
             </div>
             <div className={styles.search_area}>
               <div className={styles.search_box_frame}>
@@ -230,54 +265,78 @@ export default function NewsViewer(props: Props) {
               </select>
             </div>
           </div>
-          <div className={styles.result_box}>
+          <div className={`${styles.result_box} ${
+              isDisplayingSearchBox ? styles.opening : ""
+            }`}>
             {displayArray ? (
               displayArray.length > 0 ? (
-                displayArray!.map((item, i) => (
-                  <Link
-                    key={i}
-                    href={`/news/${item.id}`}
-                    className={styles.news_link}
-                  >
-                    <div className={styles.news}>
-                      <div className={styles.thumbnail_box}>
-                        {item.thumbnailURL ? (
-                          <img
-                            src={item.thumbnailURL}
-                            alt="thumbnail"
-                            className={styles.thumbnail}
-                            loading="lazy"
-                          />
-                        ) : (
-                          <img
-                            src="/sai_default_thumbnail.webp"
-                            alt="thumbnail"
-                            className={styles.thumbnail}
-                            loading="lazy"
-                          />
-                        )}
-                      </div>
-
-                      <div className={styles.text_box}>
-                        <div className={styles.title}>{item.title}</div>
-                        <div className={styles.date}>
-                          <FontAwesomeIcon
-                            icon={faCalendar}
-                            style={{ marginRight: ".3rem" }}
-                          />
-                          {`${new Date(item.date).getFullYear()}/${(
-                            new Date(item.date).getMonth() + 1
-                          )
-                            .toString()
-                            .padStart(2, "0")}/${new Date(item.date)
-                            .getDate()
-                            .toString()
-                            .padStart(2, "0")}`}
+                uniqueYears.map((year, i) => {
+                  if (selectedYear !== 0 && year !== selectedYear)
+                    return <span key={`dYear${i}`}></span>;
+                  const matchedDataWithYear = displayArray?.filter(
+                    (item) =>
+                      (new Date(item.date).getMonth() > 3
+                        ? new Date(item.date).getFullYear()
+                        : new Date(item.date).getFullYear() - 1) === year
+                  );
+                  return (
+                    <React.Fragment key={`dYear${i}`}>
+                      <div key={`dYear${i}`} className={styles.news_link}>
+                        <div
+                          key={`dYear${i}`}
+                          className={`${styles.news} ${styles.year}`}
+                        >
+                          <p key={`dYear${i}`}>{year}年度</p>
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                ))
+                      {matchedDataWithYear!.map((item, j) => (
+                        <Link
+                          key={j}
+                          href={`/news/${item.id}`}
+                          className={styles.news_link}
+                        >
+                          <div className={styles.news}>
+                            <div className={styles.thumbnail_box}>
+                              {item.thumbnailURL ? (
+                                <img
+                                  src={item.thumbnailURL}
+                                  alt="thumbnail"
+                                  className={styles.thumbnail}
+                                  loading="lazy"
+                                />
+                              ) : (
+                                <img
+                                  src="/sai_default_thumbnail.webp"
+                                  alt="thumbnail"
+                                  className={styles.thumbnail}
+                                  loading="lazy"
+                                />
+                              )}
+                            </div>
+
+                            <div className={styles.text_box}>
+                              <div className={styles.title}>{item.title}</div>
+                              <div className={styles.date}>
+                                <FontAwesomeIcon
+                                  icon={faCalendar}
+                                  style={{ marginRight: ".3rem" }}
+                                />
+                                {`${new Date(item.date).getFullYear()}/${(
+                                  new Date(item.date).getMonth() + 1
+                                )
+                                  .toString()
+                                  .padStart(2, "0")}/${new Date(item.date)
+                                  .getDate()
+                                  .toString()
+                                  .padStart(2, "0")}`}
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+                      ))}
+                    </React.Fragment>
+                  );
+                })
               ) : (
                 <div className={styles.notfound}>
                   <div className={styles.notfound_text}>

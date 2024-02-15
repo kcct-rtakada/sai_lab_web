@@ -73,49 +73,49 @@ export default function Header() {
             <ul>
               {path !== "/news" ? (
                 <Link onClick={() => setIsOpening(false)} href="/news">
-                  ニュース
+                  <li>ニュース</li>
                 </Link>
               ) : (
                 <p>ニュース</p>
               )}
               {path !== "/member" ? (
                 <Link onClick={() => setIsOpening(false)} href="/member">
-                  メンバー
+                  <li>メンバー</li>
                 </Link>
               ) : (
                 <p>メンバー</p>
               )}
               {path !== "/project" ? (
                 <Link onClick={() => setIsOpening(false)} href="/project">
-                  プロジェクト
+                  <li>プロジェクト</li>
                 </Link>
               ) : (
                 <p>プロジェクト</p>
               )}
               {path !== "/publication" ? (
                 <Link onClick={() => setIsOpening(false)} href="/publication">
-                  研究業績
+                  <li>研究業績</li>
                 </Link>
               ) : (
                 <p>研究業績</p>
               )}
               {path !== "/thesis" ? (
                 <Link onClick={() => setIsOpening(false)} href="/thesis">
-                  学位論文
+                  <li>学位論文</li>
                 </Link>
               ) : (
                 <p>学位論文</p>
               )}
               {path !== "/award" ? (
                 <Link onClick={() => setIsOpening(false)} href="/award">
-                  表彰
+                  <li>表彰</li>
                 </Link>
               ) : (
                 <p>表彰</p>
               )}
               {path !== "/contact" ? (
                 <Link onClick={() => setIsOpening(false)} href="/contact">
-                  コンタクト
+                  <li>コンタクト</li>
                 </Link>
               ) : (
                 <p>コンタクト</p>

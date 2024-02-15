@@ -101,7 +101,7 @@
         position: absolute;
         // bottom: -0.5rem;
         left: calc((100% - 5rem) / 2);
-        border-radius: .5rem .5rem 3rem 3rem;
+        border-radius: 0.5rem 0.5rem 3rem 3rem;
         justify-content: center;
         align-items: center;
         text-align: center;
@@ -119,6 +119,77 @@
         }
       }
 
+      .years_list_box {
+        // display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0rem;
+        background-color: rgb(206, 243, 243);
+        z-index: 15000;
+        padding: 1rem;
+        justify-content: left;
+        align-items: normal;
+        display: none;
+        flex-direction: column;
+        user-select: none;
+
+        @include mqUp(lg) {
+          padding: 0;
+          height: 3rem;
+          width: 7rem;
+          left: 1rem;
+          top: initial;
+          bottom: -5rem;
+          border-radius: 0.25rem;
+          padding: 0;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          flex-direction: column;
+          background-color: #fafafa;
+          border-style: solid;
+          border-width: 0.11rem;
+          border-color: #e4e4e4;
+          filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+        }
+
+        & > p {
+          font-size: 1.1rem;
+          text-align: left;
+          font-weight: bold;
+          user-select: none;
+
+          @include mqUp(lg) {
+            display: none;
+          }
+        }
+
+        .year_select {
+          display: block;
+          border-style: solid;
+          border-width: 0.1rem;
+          border-color: rgb(223, 223, 223);
+          width: 6rem;
+          height: 2rem;
+          cursor: pointer;
+
+          @include mqUp(lg) {
+            width: 5.5rem;
+          }
+
+          &:hover {
+            border-color: rgb(35, 190, 190);
+          }
+
+          &:active,
+          &:focus {
+            outline: none;
+            border-color: rgb(35, 190, 190);
+          }
+        }
+      }
+
       .search_area {
         width: min(55rem, 100%);
         margin: 0 auto;
@@ -126,6 +197,7 @@
         flex-wrap: wrap;
         row-gap: 1rem;
         justify-content: center;
+        user-select: none;
 
         .search_box_frame {
           width: auto;
@@ -282,10 +354,14 @@
           display: flex;
         }
 
+        .years_list_box {
+          display: flex;
+        }
+
         .circle {
           bottom: -1.5rem;
           transform: rotateZ(180deg);
-          border-radius: .5rem;
+          border-radius: 0.5rem;
         }
       }
     }
@@ -302,12 +378,43 @@
         flex-direction: row;
       }
 
+      @include mqUp(sm) {
+        width: 100%;
+      }
+
+      &.opening {
+        margin-top: 4rem;
+        @include mqUp(sm) {
+          margin-top: 6rem;
+        }
+      }
+
+      &:not(.opening) {
+        @include mqUp(sm) {
+          margin-top: 3rem;
+        }
+      }
+
       .news_link {
         pointer-events: none;
+        width: calc(100% - 2rem);
+        height: 8rem;
+        display: inline-block;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        // display: flex;
+        flex-direction: column;
+
+        @include mqUp(sm) {
+          width: 100%;
+          height: auto;
+        }
         // position: relative;
         .news {
           pointer-events: auto;
-          width: calc(100% - 2rem);
+          width: 100%;
           height: 8rem;
           background-color: rgb(253, 253, 253);
           margin: 1rem;
@@ -317,6 +424,10 @@
           display: flex;
           filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
           transition: all 0.15s;
+          justify-content: initial;
+          align-items: initial;
+          text-align: initial;
+          flex-direction: initial;
           -webkit-border-radius: 0.25rem;
           -moz-border-radius: 0.25rem;
           -ms-border-radius: 0.25rem;
@@ -363,6 +474,47 @@
             @include mqUp(sm) {
               width: 100%;
               height: 100%;
+            }
+          }
+
+          &.year {
+            margin-top: 2rem;
+            height: 4rem;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            // background-color: #dffaf6;
+            background-image: linear-gradient(
+              to bottom right,
+              #e9fffc,
+              rgb(211, 241, 247)
+            );
+
+            &::after {
+              display: none;
+            }
+
+            @include mqUp(sm) {
+              margin: 0 auto;
+            }
+
+            &:hover {
+              filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+              -webkit-filter: drop-shadow(
+                0.1rem 0.1rem 0.2rem rgb(228, 228, 228)
+              );
+
+              @include mqUp(sm) {
+                filter: none;
+                margin: 0 auto;
+              }
+            }
+
+            & > p {
+              font-size: 1.5rem;
+              font-weight: bold;
             }
           }
 

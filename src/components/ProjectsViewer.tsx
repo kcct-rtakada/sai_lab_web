@@ -27,6 +27,7 @@ export default function ProjectsViewer(props: Props) {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [selectedSearchMode, setSelectedSearchMode] =
     useState<string>("research_name");
+  const [selectedYear, setSelectedYear] = useState<number>(0);
   const [filteredProjects, setFilteredProjects] = useState<
     undefined | Project[]
   >([]);
@@ -196,6 +197,12 @@ export default function ProjectsViewer(props: Props) {
     setSelectedSearchMode(selectedOptionValue);
   };
 
+  const triggerYearSelection = (event: { target: { value: string } }) => {
+    const selectedOptionValue = event.target.value;
+
+    setSelectedYear(Number(selectedOptionValue));
+  };
+
   if (!loaded) {
     return (
       <>
@@ -220,6 +227,16 @@ export default function ProjectsViewer(props: Props) {
     new Set(projects!.flatMap((item) => item.type))
   );
 
+  const uniqueYears = Array.from(
+    new Set(
+      displayArray?.flatMap((item) =>
+        new Date(item.date).getMonth() > 3
+          ? new Date(item.date).getFullYear()
+          : new Date(item.date).getFullYear() - 1
+      )
+    )
+  );
+
   return (
     <>
       <div className={styles.main}>
@@ -239,6 +256,23 @@ export default function ProjectsViewer(props: Props) {
               onClick={() => setIsDisplayingSearchBox(!isDisplayingSearchBox)}
             >
               <FontAwesomeIcon icon={faChevronDown} />
+            </div>
+            <div className={styles.years_list_box}>
+              <p>表示年度</p>
+              <select
+                className={styles.year_select}
+                onChange={triggerYearSelection}
+                name="year_filtering"
+              >
+                <option key={`year0`} value={0}>
+                  すべて
+                </option>
+                {uniqueYears.map((year, i) => (
+                  <option key={`year${i}`} value={year}>
+                    {year}年度
+                  </option>
+                ))}
+              </select>
             </div>
             <div className={styles.search_area}>
               <div className={styles.search_box_frame}>
@@ -290,104 +324,153 @@ export default function ProjectsViewer(props: Props) {
               </select>
             </div>
           </div>
-          <div className={styles.result_box}>
+          <div
+            className={`${styles.result_box} ${
+              isDisplayingSearchBox ? styles.opening : ""
+            }`}
+          >
             {displayArray ? (
               displayArray.length > 0 ? (
-                displayArray!.map((item, i) => (
-                  <Link
-                    key={i}
-                    href={`/project/${item.id}`}
-                    className={styles.project_link}
-                  >
-                    <div className={styles.project}>
-                      <div className={styles.thumbnail_box}>
-                        {item.thumbnailURL ? (
-                          <img
-                            src={item.thumbnailURL}
-                            alt="thumbnail"
-                            className={styles.thumbnail}
-                            loading="lazy"
-                          />
-                        ) : (
-                          <img
-                            src="/sai_default_thumbnail.webp"
-                            alt="thumbnail"
-                            className={styles.thumbnail}
-                            loading="lazy"
-                          />
-                        )}
-                      </div>
-                      {item.type ? (
+                uniqueYears.map((year, i) => {
+                  if (selectedYear !== 0 && year !== selectedYear)
+                    return <span key={`dYear${i}`}></span>;
+                  const matchedDataWithYear = displayArray?.filter(
+                    (item) =>
+                      (new Date(item.date).getMonth() > 3
+                        ? new Date(item.date).getFullYear()
+                        : new Date(item.date).getFullYear() - 1) === year
+                  );
+                  return (
+                    <React.Fragment key={`dYear${i}`}>
+                      <div key={`dYear${i}`} className={styles.project_link}>
                         <div
-                          className={`${
-                            styles.type
-                          } unique-type${uniqueTypes.findIndex(
-                            (type) => type === item.type
-                          )}`}
+                          key={`dYear${i}`}
+                          className={`${styles.project} ${styles.year}`}
                         >
-                          <span>{item.type}</span>
+                          <p key={`dYear${i}`}>{year}年度</p>
                         </div>
+                      </div>
+                      {matchedDataWithYear!.length > 0 ? (
+                        matchedDataWithYear.map((project, j) => (
+                          <Link
+                            key={`dProj${j}`}
+                            href={`/project/${project.id}`}
+                            className={styles.project_link}
+                          >
+                            <div className={styles.project}>
+                              <div className={styles.thumbnail_box}>
+                                {project.thumbnailURL ? (
+                                  <img
+                                    src={project.thumbnailURL}
+                                    alt="thumbnail"
+                                    className={styles.thumbnail}
+                                    loading="lazy"
+                                  />
+                                ) : (
+                                  <img
+                                    src="/sai_default_thumbnail.webp"
+                                    alt="thumbnail"
+                                    className={styles.thumbnail}
+                                    loading="lazy"
+                                  />
+                                )}
+                              </div>
+                              {project.type ? (
+                                <div
+                                  className={`${
+                                    styles.type
+                                  } unique-type${uniqueTypes.findIndex(
+                                    (type) => type === project.type
+                                  )}`}
+                                >
+                                  <span>{project.type}</span>
+                                </div>
+                              ) : (
+                                <></>
+                              )}
+                              <div className={styles.date}>
+                                <FontAwesomeIcon
+                                  icon={faCalendar}
+                                  style={{ marginRight: ".3rem" }}
+                                />
+                                {`${
+                                  new Date(project.date).getMonth() > 3
+                                    ? new Date(project.date).getFullYear()
+                                    : new Date(project.date).getFullYear() - 1
+                                }年度`}
+                              </div>
+                              <div className={styles.description_area}>
+                                <div className={styles.title}>
+                                  {project.title}
+                                </div>
+                                <div className={styles.authors}>
+                                  {project.authors.map((author, k) => (
+                                    <span
+                                      className={styles.author}
+                                      key={`dProjAuthor${k}`}
+                                    >
+                                      <div>
+                                        <FontAwesomeIcon
+                                          icon={faUser}
+                                          style={{ color: "#222" }}
+                                        />
+                                      </div>
+                                      <p>{author.name}</p>
+                                    </span>
+                                  ))}
+                                </div>
+                                {project.tags.length > 0 ? (
+                                  <div className={styles.tags}>
+                                    {project.tags.map((tag, k) => (
+                                      <span key={`dProjTag${k}`}>
+                                        <FontAwesomeIcon
+                                          icon={faTag}
+                                          style={{ color: "#8a8a8a" }}
+                                        />
+                                        {tag.name}
+                                      </span>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  <></>
+                                )}
+                                <div className={styles.book}>
+                                  <div>
+                                    <FontAwesomeIcon
+                                      icon={faBookOpen}
+                                      style={{ color: "#222" }}
+                                    />
+                                  </div>
+                                  <p>
+                                    {`${
+                                      project.bookTitle
+                                        ? `${project.bookTitle}`
+                                        : ``
+                                    }${
+                                      project.volume
+                                        ? `, Vol.${project.volume}`
+                                        : ``
+                                    }${
+                                      project.number
+                                        ? `, ${project.number}`
+                                        : ``
+                                    }${
+                                      project.pageStart && project.pageEnd
+                                        ? `, pp.${project.pageStart}-${project.pageEnd}`
+                                        : ``
+                                    }`}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </Link>
+                        ))
                       ) : (
                         <></>
                       )}
-                      <div className={styles.date}>
-                        <FontAwesomeIcon
-                          icon={faCalendar}
-                          style={{ marginRight: ".3rem" }}
-                        />
-                        {`${new Date(item.date).getFullYear()}`}
-                      </div>
-                      <div className={styles.description_area}>
-                        <div className={styles.title}>{item.title}</div>
-                        <div className={styles.authors}>
-                          {item.authors.map((author, j) => (
-                            <span className={styles.author} key={j}>
-                              <div>
-                                <FontAwesomeIcon
-                                  icon={faUser}
-                                  style={{ color: "#222" }}
-                                />
-                              </div>
-                              <p>{author.name}</p>
-                            </span>
-                          ))}
-                        </div>
-                        {item.tags.length > 0 ? (
-                          <div className={styles.tags}>
-                            {item.tags.map((tag, j) => (
-                              <span key={j}>
-                                <FontAwesomeIcon
-                                  icon={faTag}
-                                  style={{ color: "#8a8a8a" }}
-                                />
-                                {tag.name}
-                              </span>
-                            ))}
-                          </div>
-                        ) : (
-                          <></>
-                        )}
-                        <div className={styles.book}>
-                          <div>
-                            <FontAwesomeIcon
-                              icon={faBookOpen}
-                              style={{ color: "#222" }}
-                            />
-                          </div>
-                          <p>
-                            {`${item.bookTitle ? `${item.bookTitle}` : ``}${
-                              item.volume ? `, Vol.${item.volume}` : ``
-                            }${item.number ? `, ${item.number}` : ``}${
-                              item.pageStart && item.pageEnd
-                                ? `, pp.${item.pageStart}-${item.pageEnd}`
-                                : ``
-                            }`}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                ))
+                    </React.Fragment>
+                  );
+                })
               ) : (
                 <div className={styles.notfound}>
                   <div className={styles.notfound_text}>

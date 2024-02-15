@@ -1,0 +1,52 @@
+.scrollToTopButton {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  background-color: #c8f7f3;
+  color: black;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+  z-index: 10000;
+  filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  border-style: solid;
+  border-width: 0.15rem;
+  border-color: #bbebe7;
+
+  &.visible {
+    transform: translateY(0);
+  }
+  &.hidden {
+    transform: translateY(5.5rem);
+  }
+
+  &:hover {
+    background-color: #bbebe7;
+  }
+
+  &::after {
+    position: relative;
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    content: "";
+    border-style: solid;
+    border-width: 0.15rem 0.15rem 0 0;
+    border-color: black;
+    border-radius: 0 .2rem 0 0;
+    top: 0.25rem;
+    left: 0;
+    transform: rotateZ(-45deg);
+  }
+}

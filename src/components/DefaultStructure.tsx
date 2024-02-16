@@ -43,6 +43,7 @@ export default interface News {
   article: string;
   thumbnailURL: string;
   links: Link[];
+  additionalImageURL: AdditionalImage[];
 }
 
 export default interface Member {

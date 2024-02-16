@@ -126,7 +126,12 @@
         position: absolute;
         top: 0;
         left: 0rem;
-        background-color: rgb(206, 243, 243);
+        // background-color: rgb(165, 243, 243);
+        background-image: linear-gradient(
+              to bottom right,
+              rgb(165, 243, 243),
+              rgb(208, 248, 248)
+            );
         z-index: 15000;
         padding: 1rem;
         justify-content: left;
@@ -150,7 +155,7 @@
           flex-direction: column;
           background-color: #fafafa;
           border-style: solid;
-          border-width: .11rem;
+          border-width: 0.11rem;
           border-color: #e4e4e4;
           filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
         }
@@ -174,6 +179,7 @@
           width: 6rem;
           height: 2rem;
           cursor: pointer;
+          background-color: white;
 
           @include mqUp(lg) {
             width: 5.5rem;

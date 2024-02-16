@@ -125,6 +125,27 @@ export default async function Page({ params }: { params: { slug: string } }) {
             ) : (
               <></>
             )}
+            {news.additionalImageURL.length > 0 ? (
+              <>
+                <h2 className={styles.section_name}>Images</h2>
+                <div className={styles.images_box}>
+                  {news.additionalImageURL.map((item, j) => (
+                    <Link
+                      href={`${item.name}`}
+                      key={j}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <div className={styles.image} key={j}>
+                        <img src={item.name} key={j} alt={`img_${j}`} />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
             {news.links.length > 0 ? (
               <>
                 <h2 className={styles.section_name}>関連リンク</h2>

@@ -331,6 +331,10 @@
             background-color: rgb(252, 252, 252);
           }
         }
+
+        a::after {
+          display: none;
+        }
       }
 
       .book_card {

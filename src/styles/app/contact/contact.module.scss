@@ -3,7 +3,6 @@
 .main {
   padding-top: 0;
   min-height: calc(100% - 6rem);
-  // overflow: hidden;
 
   a {
     color: rgb(21, 21, 212);
@@ -23,10 +22,22 @@
     transform: scale(0, 1);
     transform-origin: left top;
     transition: transform 0.3s;
+    -webkit-transition: transform 0.3s;
+    -moz-transition: transform 0.3s;
+    -ms-transition: transform 0.3s;
+    -o-transition: transform 0.3s;
+    -webkit-transform: scale(0, 1);
+    -moz-transform: scale(0, 1);
+    -ms-transform: scale(0, 1);
+    -o-transform: scale(0, 1);
   }
 
   a:hover::after {
     transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
+    -moz-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -o-transform: scale(1, 1);
   }
 
   .title_box {
@@ -70,29 +81,35 @@
       left: 0;
       margin-top: 2rem;
       margin-bottom: 1rem;
-      // background-color: rgb(233, 246, 250);
       z-index: 1150;
       display: flex;
-  
+
       button {
         font-size: 1.15rem;
         font-weight: bold;
-        // margin-left: .25rem;
         width: 5.5rem;
         height: 100%;
         appearance: none;
         background-image: linear-gradient(
-            to bottom right,
-            rgb(116, 236, 230),
-            rgb(195, 253, 245)
-          );
+          to bottom right,
+          rgb(116, 236, 230),
+          rgb(195, 253, 245)
+        );
         border-style: solid;
-        border-radius: .2rem;
-        border-width: .1rem;
+        border-radius: 0.2rem;
+        border-width: 0.1rem;
         border-color: rgb(197, 197, 197);
-        transition: all .2s;
+        transition: all 0.2s;
         filter: drop-shadow(0rem 0.2rem 0.2rem rgb(230, 230, 230));
-  
+        -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        -ms-transition: all 0.2s;
+        -o-transition: all 0.2s;
+        -webkit-border-radius: 0.2rem;
+        -moz-border-radius: 0.2rem;
+        -ms-border-radius: 0.2rem;
+        -o-border-radius: 0.2rem;
+
         &:hover {
           background-image: linear-gradient(
             to bottom left,
@@ -106,17 +123,25 @@
     iframe {
       width: calc(100% - 2rem);
       border-style: solid;
-      border-width: .15rem;
+      border-width: 0.15rem;
       border-color: rgb(230, 230, 230);
-      border-radius: .5rem;
+      border-radius: 0.5rem;
       overflow: hidden;
       margin: 1.5rem 1rem 0 1rem;
+      -webkit-border-radius: 0.5rem;
+      -moz-border-radius: 0.5rem;
+      -ms-border-radius: 0.5rem;
+      -o-border-radius: 0.5rem;
 
       @include mqUp(md) {
         width: 100%;
         border-radius: 0;
         border-color: transparent;
         margin: 1.5rem 0 0 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        -ms-border-radius: 0;
+        -o-border-radius: 0;
       }
     }
 
@@ -126,7 +151,7 @@
     }
 
     ul {
-      margin: .7rem 0;
+      margin: 0.7rem 0;
       li {
         list-style: disc;
         margin: 0 2.5rem 0 3rem;

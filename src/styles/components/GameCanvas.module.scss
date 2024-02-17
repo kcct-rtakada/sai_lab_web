@@ -1,0 +1,177 @@
+@import "../global/responsive.scss";
+
+.main {
+  // display: block;
+  padding-bottom: 4rem;
+  width: 100%;
+  height: calc(100vh - 4rem);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(30deg, #a7dcf5, #eeacda, #c2fa82);
+  background-size: 200% 200%;
+  animation-name: moving_gradient;
+  animation-duration: 10s;
+  animation-delay: 0;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+
+  @keyframes moving_gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  canvas {
+    display: block;
+    background-color: #fafafa;
+    border-style: solid;
+    border-width: 0.1rem 0.1rem 0.15rem 0.1rem;
+    border-color: transparent transparent red transparent;
+  }
+
+  .splash_box {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: calc((100% - 5rem) / 2 - 5rem);
+    height: 5rem;
+    background-color: #bbebe7;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+    border-style: solid;
+    border-width: 0.2rem 0;
+    border-color: #7bd8d0;
+    overflow: hidden;
+    z-index: 5500;
+    animation-name: zoom_bar;
+    animation-duration: 0.5s;
+    animation-delay: 0;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    filter: drop-shadow(0 0.25rem 0.1rem rgba(92, 92, 92, 0.808));
+    -webkit-filter: drop-shadow(0 0.25rem 0.1rem rgba(92, 92, 92, 0.808));
+
+    @include mqUp(sm) {
+      height: 10rem;
+    }
+
+    @keyframes zoom_bar {
+      0% {
+        width: 0;
+      }
+
+      100% {
+        width: 100%;
+      }
+    }
+
+    .return_button {
+      margin: 0;
+      position: absolute;
+      left: 1rem;
+      background-color: #fafafa;
+      border-radius: 0.3rem;
+      cursor: pointer;
+      pointer-events: auto;
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      z-index: 6000;
+      font-size: 1.1rem;
+      border-style: solid;
+      border-width: 0.2rem;
+      border-color: #7bd8d0;
+      white-space: nowrap;
+      -webkit-border-radius: 0.3rem;
+      -moz-border-radius: 0.3rem;
+      -ms-border-radius: 0.3rem;
+      -o-border-radius: 0.3rem;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+
+      @include mqUp(sm) {
+        position: relative;
+        left: 0;
+      }
+    }
+
+    .splash_text {
+      text-align: center;
+      font-size: calc(min(min(8vw, 4.5vh), 3.5rem));
+      width: 100%;
+      font-weight: bold;
+      animation-name: zoom_text;
+      animation-duration: 0.5s;
+      animation-delay: 0;
+      animation-timing-function: ease-out;
+      animation-fill-mode: forwards;
+      color: #05554e;
+      white-space: nowrap;
+      position: relative;
+      z-index: 5750;
+
+      @keyframes zoom_text {
+        0% {
+          transform: scale(0%) rotateZ(-360deg);
+          -webkit-transform: scale(0%) rotateZ(-360deg);
+          filter: blur(0.15rem);
+          -webkit-filter: blur(0.15rem);
+        }
+
+        100% {
+          transform: scale(100%) rotateZ(0deg);
+          -webkit-transform: scale(100%) rotateZ(0deg);
+          filter: blur(0);
+          -webkit-filter: blur(0);
+        }
+      }
+    }
+  }
+
+  .start_button {
+    height: 3rem;
+    width: 7rem;
+    margin-top: 0.5rem;
+    background-color: #f1fffe;
+    color: black;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+    z-index: 10000;
+    filter: drop-shadow(0.1rem 0.1rem 0.1rem rgb(49, 49, 49));
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    font-weight: bold;
+    flex-direction: column;
+    border-style: solid;
+    border-width: 0.15rem;
+    border-color: #bbebe7;
+    transition: background-color 0.2s;
+    -webkit-transition: transform 0.25s ease;
+    -moz-transition: transform 0.25s ease;
+    -ms-transition: transform 0.25s ease;
+    -o-transition: transform 0.25s ease;
+    -webkit-filter: drop-shadow(0.1rem 0.1rem 0.1rem rgb(49, 49, 49));
+
+    &:hover {
+      background-color: #dbebea;
+    }
+  }
+}

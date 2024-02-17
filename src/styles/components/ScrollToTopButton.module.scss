@@ -23,12 +23,29 @@
   border-style: solid;
   border-width: 0.15rem;
   border-color: #bbebe7;
+  -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+  -webkit-transition: transform 0.25s ease;
+  -moz-transition: transform 0.25s ease;
+  -ms-transition: transform 0.25s ease;
+  -o-transition: transform 0.25s ease;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
 
   &.visible {
     transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
   }
   &.hidden {
     transform: translateY(5.5rem);
+    -webkit-transform: translateY(5.5rem);
+    -moz-transform: translateY(5.5rem);
+    -ms-transform: translateY(5.5rem);
+    -o-transform: translateY(5.5rem);
   }
 
   &:hover {
@@ -44,9 +61,17 @@
     border-style: solid;
     border-width: 0.15rem 0.15rem 0 0;
     border-color: black;
-    border-radius: 0 .2rem 0 0;
+    border-radius: 0 0.2rem 0 0;
     top: 0.25rem;
     left: 0;
     transform: rotateZ(-45deg);
+    -webkit-transform: rotateZ(-45deg);
+    -moz-transform: rotateZ(-45deg);
+    -ms-transform: rotateZ(-45deg);
+    -o-transform: rotateZ(-45deg);
+    -webkit-border-radius: 0 0.2rem 0 0;
+    -moz-border-radius: 0 0.2rem 0 0;
+    -ms-border-radius: 0 0.2rem 0 0;
+    -o-border-radius: 0 0.2rem 0 0;
   }
 }

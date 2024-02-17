@@ -3,7 +3,6 @@
 .main {
   padding-top: 0;
   min-height: calc(100% - 6rem);
-  // overflow: hidden;
 
   .title_box {
     background-image: linear-gradient(
@@ -41,6 +40,11 @@
     font-weight: bold;
     font-size: 1.05rem;
     filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+    -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+    -webkit-border-radius: 0.25rem;
+    -moz-border-radius: 0.25rem;
+    -ms-border-radius: 0.25rem;
+    -o-border-radius: 0.25rem;
 
     @include mqUp(sm) {
       width: 100%;
@@ -49,6 +53,11 @@
       margin-bottom: 0;
       bottom: 0;
       filter: none;
+      -webkit-filter: none;
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      -ms-border-radius: 0;
+      -o-border-radius: 0;
     }
   }
 
@@ -85,7 +94,6 @@
 
       @include mqUp(sm) {
         margin-bottom: 2rem;
-        // padding: 0;
       }
 
       &.open {
@@ -99,7 +107,6 @@
         width: 5rem;
         height: 3rem;
         position: absolute;
-        // bottom: -0.5rem;
         left: calc((100% - 5rem) / 2);
         border-radius: 0.5rem 0.5rem 3rem 3rem;
         justify-content: center;
@@ -108,6 +115,10 @@
         display: flex;
         flex-direction: column;
         z-index: 10000;
+        -webkit-border-radius: 0.5rem 0.5rem 3rem 3rem;
+        -moz-border-radius: 0.5rem 0.5rem 3rem 3rem;
+        -ms-border-radius: 0.5rem 0.5rem 3rem 3rem;
+        -o-border-radius: 0.5rem 0.5rem 3rem 3rem;
         svg {
           width: 1.6rem;
           font-size: 1.6rem;
@@ -120,17 +131,15 @@
       }
 
       .years_list_box {
-        // display: block;
         height: 100%;
         position: absolute;
         top: 0;
         left: 0rem;
-        // background-color: rgb(165, 243, 243);
         background-image: linear-gradient(
-              to bottom right,
-              rgb(165, 243, 243),
-              rgb(208, 248, 248)
-            );
+          to bottom right,
+          rgb(165, 243, 243),
+          rgb(208, 248, 248)
+        );
         z-index: 15000;
         padding: 1rem;
         justify-content: left;
@@ -157,6 +166,7 @@
           border-width: 0.11rem;
           border-color: #e4e4e4;
           filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+          -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
         }
 
         & > p {
@@ -232,6 +242,10 @@
             -moz-border-radius: 2rem 0 0 2rem;
             -ms-border-radius: 2rem 0 0 2rem;
             -o-border-radius: 2rem 0 0 2rem;
+            -webkit-transition: all 0.1s;
+            -moz-transition: all 0.1s;
+            -ms-transition: all 0.1s;
+            -o-transition: all 0.1s;
 
             @include mqUp(sm) {
               width: 100%;
@@ -257,7 +271,6 @@
             right: 0;
             width: 2.5rem;
             height: 2.5rem;
-            // padding: -2rem;
             background-color: transparent;
             justify-content: center;
             align-items: center;
@@ -300,6 +313,10 @@
           height: 2.5rem;
           border-radius: 0 2rem 2rem 0;
           transition: all 0.1s;
+          -webkit-border-radius: 0 2rem 2rem 0;
+          -moz-border-radius: 0 2rem 2rem 0;
+          -ms-border-radius: 0 2rem 2rem 0;
+          -o-border-radius: 0 2rem 2rem 0;
 
           @include mqUp(sm) {
             width: 15%;
@@ -368,6 +385,14 @@
           bottom: -1.5rem;
           transform: rotateZ(180deg);
           border-radius: 0.5rem;
+          -webkit-transform: rotateZ(180deg);
+          -moz-transform: rotateZ(180deg);
+          -ms-transform: rotateZ(180deg);
+          -o-transform: rotateZ(180deg);
+          -webkit-border-radius: 0.5rem;
+          -moz-border-radius: 0.5rem;
+          -ms-border-radius: 0.5rem;
+          -o-border-radius: 0.5rem;
         }
       }
     }
@@ -377,7 +402,7 @@
       flex-wrap: wrap;
       position: relative;
       width: min(55rem, 100%);
-      margin: 0 auto;
+      margin: 0 auto 2rem auto;
 
       @include mqUp(xl) {
         justify-content: center;
@@ -386,6 +411,7 @@
 
       @include mqUp(sm) {
         width: 100%;
+        margin-bottom: 0;
       }
 
       &.opening {
@@ -410,14 +436,12 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        // display: flex;
         flex-direction: column;
 
         @include mqUp(sm) {
           width: 100%;
           height: auto;
         }
-        // position: relative;
         .news {
           pointer-events: auto;
           width: 100%;
@@ -455,6 +479,7 @@
             -moz-border-radius: 0;
             -ms-border-radius: 0;
             -o-border-radius: 0;
+            -webkit-filter: none;
           }
 
           &::after {
@@ -491,7 +516,6 @@
             text-align: center;
             display: flex;
             flex-direction: column;
-            // background-color: #dffaf6;
             background-image: linear-gradient(
               to bottom right,
               #e9fffc,
@@ -570,6 +594,7 @@
               width: 100%;
               height: calc(100vw * 9 / 16 - 1rem);
               filter: none;
+              -webkit-filter: none;
             }
 
             .thumbnail {

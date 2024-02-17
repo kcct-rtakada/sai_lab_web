@@ -3,7 +3,6 @@
 .main {
   padding-top: 0;
   min-height: calc(100% - 6rem);
-  // overflow: hidden;
 
   a {
     font-weight: bold;
@@ -23,11 +22,23 @@
     transform: scale(0, 1);
     transform-origin: left top;
     transition: transform 0.3s;
-  }
+    -webkit-transition: transform 0.3s;
+    -moz-transition: transform 0.3s;
+    -ms-transition: transform 0.3s;
+    -o-transition: transform 0.3s;
+    -webkit-transform: scale(0, 1);
+    -moz-transform: scale(0, 1);
+    -ms-transform: scale(0, 1);
+    -o-transform: scale(0, 1);
+}
 
   a:hover::after {
     transform: scale(1, 1);
-  }
+    -webkit-transform: scale(1, 1);
+    -moz-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -o-transform: scale(1, 1);
+}
 
 
   .title_box {
@@ -56,7 +67,7 @@
     width: min(55rem, 100%);
     margin: 0 auto;
     padding: 2rem;
-    user-select: none;
+    user-select: text;
     -webkit-user-select: text;
     -khtml-user-select: text;
     -moz-user-select: text;

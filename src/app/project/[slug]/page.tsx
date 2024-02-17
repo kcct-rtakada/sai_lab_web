@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 // "use client";
-import React, { useState, useEffect } from "react";
 import Project from "@/components/DefaultStructure";
 import styles from "@/styles/app/projects/project.module.scss";
 import Link from "next/link";

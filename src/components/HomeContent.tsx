@@ -5,33 +5,55 @@ import Link from "next/link";
 import { sai_news } from "@/components/constant";
 import News from "@/components/DefaultStructure";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import Game from "./Game/GameBase";
 
 export default function HomeContent() {
   const [newsList, setNewsList] = useState<null | News[]>(null);
   const [newsLoaded, setNewsLoaded] = useState<boolean>(false);
   const [usingJapanese, setUsingJapanese] = useState<boolean>(true);
+  const [clickedLogoCount, setClickedLogoCount] = useState<number>(0);
+
+  const canvasRef = useRef(null);
 
   useEffect(() => {
-    fetch(sai_news)
-      .then((response) => response.json())
-      .then((data) => {
-        setNewsList(data);
-        setNewsLoaded(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    if (!newsLoaded) {
+      fetch(sai_news)
+        .then((response) => response.json())
+        .then((data) => {
+          setNewsList(data);
+          setNewsLoaded(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    if (canvasRef) {
+    }
+  }, [canvasRef, newsLoaded]);
 
   const displayString = (japaneseString: string, englishString: string) => {
     return <>{usingJapanese ? japaneseString : englishString}</>;
+  };
+
+  const resetClickingCount = () => {
+    setClickedLogoCount(0);
   };
 
   const listingNum = newsList ? (newsList.length > 5 ? 5 : newsList.length) : 0;
 
   return (
     <div className={styles.main}>
+      <div
+        className={`${styles.egg_canvas} ${
+          clickedLogoCount >= 7 ? styles.open : ""
+        }`}
+      >
+        <div>
+          <Game resetFunc={resetClickingCount} />
+        </div>
+      </div>
       <div className={styles.img_box}>
         <div className={styles.animation_box}>
           <div>
@@ -59,7 +81,11 @@ export default function HomeContent() {
             <p>差異</p>
           </div>
           <div>
-            <img src="/sai_logo.png" alt="sai" />
+            <img
+              onClick={() => setClickedLogoCount(clickedLogoCount + 1)}
+              src="/sai_logo.png"
+              alt="sai"
+            />
           </div>
         </div>
         <div className={styles.top_images}>

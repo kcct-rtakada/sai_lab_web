@@ -47,7 +47,7 @@ export default function HomeContent() {
     <div className={styles.main}>
       <div
         className={`${styles.egg_canvas} ${
-          clickedLogoCount >= 7 ? styles.open : ""
+          clickedLogoCount >= 3 ? styles.open : ""
         }`}
       >
         <div>

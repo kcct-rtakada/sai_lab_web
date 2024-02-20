@@ -3,12 +3,10 @@ import React, { useState } from "react";
 import styles from "@/styles/components/Header.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
-  const [isJapanese, setIsJapanese] = useState<boolean>(true);
   const [isOpening, setIsOpening] = useState<boolean>(false);
-  const router = useRouter();
   const path = usePathname();
 
   return (
@@ -32,7 +30,7 @@ export default function Header() {
                 </p>
               </Link>
             ) : (
-              <span>
+              <a href="/">
                 <Image
                   src="/sai_logo.png"
                   alt="SAI LOGO"
@@ -45,7 +43,7 @@ export default function Header() {
                   <br />
                   髙田研究室
                 </p>
-              </span>
+              </a>
             )}
           </div>
           <input

@@ -327,7 +327,14 @@ export default function HomeContent() {
           </Link>
         </p>
         <div className={styles.language_switching_box}>
-          <button onClick={() => setUsingJapanese(!usingJapanese)}>
+          <button
+            title={
+              usingJapanese
+                ? "Switch from Japanese to English"
+                : "英語から日本語へ切り替える"
+            }
+            onClick={() => setUsingJapanese(!usingJapanese)}
+          >
             {usingJapanese ? <>日-&gt;EN</> : <>EN-&gt;日</>}
           </button>
         </div>

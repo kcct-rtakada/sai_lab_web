@@ -41,6 +41,7 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
   const [splashText, setSplashText] = useState<string | null>(
     "ボタンを押して開始"
   );
+  const mainRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameVarRef = useRef<GameObj>({
     ball: {
@@ -146,7 +147,7 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
     if (ball.pos.y + ball.sp.y < ball.radius) {
       ball.sp.y *= -1;
     } else if (ball.pos.y + ball.sp.y > canvas.height - ball.radius) {
-      if (ball.pos.x > paddle.x && ball.pos.x < paddle.x + paddle.size.x) {
+      if (ball.pos.x > paddle.x - paddle.size.x / 15 && ball.pos.x < paddle.x + paddle.size.x + paddle.size.x / 15) {
         const xPositionRate =
           (ball.pos.x - (paddle.x + paddle.size.x / 2)) / (paddle.size.x / 2);
 
@@ -240,6 +241,8 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
   useEffect(() => {
     const canvas = canvasRef.current as HTMLCanvasElement;
     if (!canvas || canvas == null) return;
+    const mainDiv = mainRef.current as HTMLDivElement;
+    if (!mainDiv || mainDiv == null) return;
 
     if (
       (!isRunning && initialized) ||
@@ -476,12 +479,12 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
       }
     }
 
-    canvas.addEventListener("mousemove", mouseMoveHandler);
-    canvas.addEventListener("touchmove", touchMoveHandler);
+    mainDiv.addEventListener("mousemove", mouseMoveHandler);
+    mainDiv.addEventListener("touchmove", touchMoveHandler);
 
     return () => {
-      canvas.removeEventListener("mousemove", mouseMoveHandler);
-      canvas.removeEventListener("touchmove", touchMoveHandler);
+      mainDiv.removeEventListener("mousemove", mouseMoveHandler);
+      mainDiv.removeEventListener("touchmove", touchMoveHandler);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialized, isRunning]);
@@ -533,7 +536,7 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
   }
 
   return (
-    <div className={styles.main}>
+    <div className={styles.main} ref={mainRef}>
       <canvas
         className={`${isRunning ? styles.running : ""}`}
         ref={canvasRef}
@@ -565,6 +568,7 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
             if (!isRunning) startGame();
             else endGame();
           }}
+          title={isRunning ? "ゲームを終了する" : "ゲームを開始する"}
         >
           {isRunning ? "ゲーム終了" : "ゲーム開始"}
         </button>

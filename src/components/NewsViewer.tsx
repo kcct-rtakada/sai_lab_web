@@ -194,15 +194,17 @@ export default function NewsViewer(props: Props) {
               isDisplayingSearchBox ? styles.opening : ""
             }`}
           >
-            <div
+            <button
+              title={isDisplayingSearchBox ? "折りたたむ" : "展開する"}
               className={`${styles.circle}`}
               onClick={() => setIsDisplayingSearchBox(!isDisplayingSearchBox)}
             >
               <FontAwesomeIcon icon={faChevronDown} />
-            </div>
+            </button>
             <div className={styles.years_list_box}>
               <p>表示年度</p>
               <select
+                title="表示年度を選択"
                 className={styles.year_select}
                 onChange={triggerYearSelection}
                 name="year_filtering"
@@ -220,6 +222,7 @@ export default function NewsViewer(props: Props) {
             <div className={styles.search_area}>
               <div className={styles.search_box_frame}>
                 <input
+                  title="検索条件を入力"
                   value={searchWord}
                   placeholder={
                     initialQ
@@ -232,6 +235,7 @@ export default function NewsViewer(props: Props) {
                   onKeyDown={handleEnterKeyPress}
                 />
                 <button
+                  title="検索条件をクリア"
                   className={styles.search_clear_button}
                   onClick={() => {
                     setSearchWord("");
@@ -244,6 +248,7 @@ export default function NewsViewer(props: Props) {
                 </button>
               </div>
               <button
+                title="検索する"
                 id="header-search-click"
                 className={`
                 ${styles.search_button}`}
@@ -256,6 +261,7 @@ export default function NewsViewer(props: Props) {
               </button>
 
               <select
+                title="検索カテゴリを選択"
                 className={styles.search_select}
                 onChange={triggerSearchModeSelection}
                 name="search_type"
@@ -265,9 +271,11 @@ export default function NewsViewer(props: Props) {
               </select>
             </div>
           </div>
-          <div className={`${styles.result_box} ${
+          <div
+            className={`${styles.result_box} ${
               isDisplayingSearchBox ? styles.opening : ""
-            }`}>
+            }`}
+          >
             {displayArray ? (
               displayArray.length > 0 ? (
                 uniqueYears.map((year, i) => {

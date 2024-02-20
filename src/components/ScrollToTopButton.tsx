@@ -33,6 +33,7 @@ export default function ScrollToTopButton({ containerRef }: any) {
 
   return (
     <button
+      title="ページ上部へ戻る"
       className={`${styles.scrollToTopButton} ${
         isVisible ? styles.visible : styles.hidden
       }`}

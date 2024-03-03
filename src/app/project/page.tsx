@@ -16,6 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ProjectList() {
   const response = await fetch(sai_projects);
   const projects: Project[] = await response.json();
+  const filteredProjects = projects.filter((item) => item.id !== "");
 
-  return <ProjectsViewer _projects={projects} />;
+  return <ProjectsViewer _projects={filteredProjects} />;
 }

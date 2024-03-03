@@ -143,7 +143,7 @@ body main *::-webkit-scrollbar-thumb:hover {
   height: min(5.5vw, 5.5vh);
   background-color: rgba(253, 253, 253, 0.75);
   border-radius: min(.7vw, .7vh);
-  z-index: 1000;
+  z-index: 450;
   -webkit-border-radius: min(.7vw, .7vh);
   -moz-border-radius: min(.7vw, .7vh);
   -ms-border-radius: min(.7vw, .7vh);
@@ -158,7 +158,7 @@ body main *::-webkit-scrollbar-thumb:hover {
   position: absolute;
   top: min(11vw, 11vh);
   left: min(6vw, 6vh);
-  z-index: 1100;
+  z-index: 500;
 }
 
 .loading>span {

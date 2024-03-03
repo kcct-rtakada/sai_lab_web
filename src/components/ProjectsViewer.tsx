@@ -4,15 +4,12 @@
 import React, { useState, useEffect } from "react";
 import Project from "@/components/DefaultStructure";
 import styles from "@/styles/app/projects/projectList.module.scss";
-import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ProjectCard from "./ProjectCard";
+import ProjectGroupCard from "./ProjectGroupCard";
 import {
-  faUser,
-  faBookOpen,
   faMagnifyingGlass,
   faXmark,
-  faTag,
-  faCalendar,
   faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
@@ -20,6 +17,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
   _projects: Project[];
+}
+
+interface ProjectsAndColors {
+  project: Project;
+  uniqueColorNumber: number;
 }
 
 export default function ProjectsViewer(props: Props) {
@@ -75,6 +77,8 @@ export default function ProjectsViewer(props: Props) {
     const filterKeywords = _searchWord.split(/[ 　]+/);
     const mode = _mode ? _mode : selectedSearchMode;
     const lists = _projects ? _projects : projects;
+
+    setSelectedYear(0);
 
     if (filterKeywords.every((keyword) => keyword === "")) {
       setUserFiltered(false);
@@ -265,6 +269,7 @@ export default function ProjectsViewer(props: Props) {
                 className={styles.year_select}
                 onChange={triggerYearSelection}
                 name="year_filtering"
+                value={selectedYear}
               >
                 <option key={`year0`} value={0}>
                   すべて
@@ -296,6 +301,7 @@ export default function ProjectsViewer(props: Props) {
                   className={styles.search_clear_button}
                   onClick={() => {
                     setSearchWord("");
+                    setSelectedYear(0);
                     setUserFiltered(false);
                     router.push(`/project/`);
                     setDisplayingSearchCondition(null);
@@ -338,6 +344,24 @@ export default function ProjectsViewer(props: Props) {
             {displayArray ? (
               displayArray.length > 0 ? (
                 uniqueYears.map((year, i) => {
+                  function groupByThumbnail(array: Project[]) {
+                    var grouped: { [name: string]: Project[] } = {};
+                    array.forEach((item) => {
+                      if (item.thumbnailURL !== "" || item.thumbnailURL) {
+                        if (!grouped[item.thumbnailURL]) {
+                          grouped[item.thumbnailURL] = [];
+                        }
+                        grouped[item.thumbnailURL].push(item);
+                      } else {
+                        if (!grouped[item.id]) {
+                          grouped[item.id] = [];
+                        }
+                        grouped[item.id].push(item);
+                      }
+                    });
+                    return grouped;
+                  }
+
                   if (selectedYear !== 0 && year !== selectedYear)
                     return <span key={`dYear${i}`}></span>;
                   const matchedDataWithYear = displayArray?.filter(
@@ -346,6 +370,9 @@ export default function ProjectsViewer(props: Props) {
                         ? new Date(item.date).getFullYear()
                         : new Date(item.date).getFullYear() - 1) === year
                   );
+
+                  const groupedArray = groupByThumbnail(matchedDataWithYear);
+
                   return (
                     <React.Fragment key={`dYear${i}`}>
                       <div key={`dYear${i}`} className={styles.project_link}>
@@ -357,120 +384,38 @@ export default function ProjectsViewer(props: Props) {
                         </div>
                       </div>
                       {matchedDataWithYear!.length > 0 ? (
-                        matchedDataWithYear.map((project, j) => (
-                          <Link
-                            key={`dProj${j}`}
-                            href={`/project/${project.id}`}
-                            className={styles.project_link}
-                          >
-                            <div className={styles.project}>
-                              <div className={styles.thumbnail_box}>
-                                {project.thumbnailURL ? (
-                                  <img
-                                    src={project.thumbnailURL}
-                                    alt="thumbnail"
-                                    className={styles.thumbnail}
-                                    loading="lazy"
-                                  />
-                                ) : (
-                                  <img
-                                    src="/sai_default_thumbnail.webp"
-                                    alt="thumbnail"
-                                    className={styles.thumbnail}
-                                    loading="lazy"
-                                  />
-                                )}
-                              </div>
-                              {project.type ? (
-                                <div
-                                  className={`${
-                                    styles.type
-                                  } unique-type${uniqueTypes.findIndex(
-                                    (type) => type === project.type
-                                  )}`}
-                                >
-                                  <span>{project.type}</span>
-                                </div>
-                              ) : (
-                                <></>
-                              )}
-                              <div className={styles.date}>
-                                <FontAwesomeIcon
-                                  icon={faCalendar}
-                                  style={{ marginRight: ".3rem" }}
+                        <React.Fragment>
+                          {Object.keys(groupedArray).map((key, j) => {
+                            if (groupedArray[key].length == 1) {
+                              return (
+                                <ProjectCard
+                                  key={j}
+                                  project={groupedArray[key][0]}
+                                  uniqueColorNumber={uniqueTypes.findIndex(
+                                    (type) => type === groupedArray[key][0].type
+                                  )}
                                 />
-                                {`${
-                                  new Date(project.date).getMonth() > 3
-                                    ? new Date(project.date).getFullYear()
-                                    : new Date(project.date).getFullYear() - 1
-                                }年度`}
-                              </div>
-                              <div className={styles.description_area}>
-                                <div className={styles.title}>
-                                  {project.title}
-                                </div>
-                                <div className={styles.authors}>
-                                  {project.authors.map((author, k) => (
-                                    <span
-                                      className={styles.author}
-                                      key={`dProjAuthor${k}`}
-                                    >
-                                      <div>
-                                        <FontAwesomeIcon
-                                          icon={faUser}
-                                          style={{ color: "#222" }}
-                                        />
-                                      </div>
-                                      <p>{author.name}</p>
-                                    </span>
-                                  ))}
-                                </div>
-                                {project.tags.length > 0 ? (
-                                  <div className={styles.tags}>
-                                    {project.tags.map((tag, k) => (
-                                      <span key={`dProjTag${k}`}>
-                                        <FontAwesomeIcon
-                                          icon={faTag}
-                                          style={{ color: "#8a8a8a" }}
-                                        />
-                                        {tag.name}
-                                      </span>
-                                    ))}
-                                  </div>
-                                ) : (
-                                  <></>
-                                )}
-                                <div className={styles.book}>
-                                  <div>
-                                    <FontAwesomeIcon
-                                      icon={faBookOpen}
-                                      style={{ color: "#222" }}
-                                    />
-                                  </div>
-                                  <p>
-                                    {`${
-                                      project.bookTitle
-                                        ? `${project.bookTitle}`
-                                        : ``
-                                    }${
-                                      project.volume
-                                        ? `, Vol.${project.volume}`
-                                        : ``
-                                    }${
-                                      project.number
-                                        ? `, ${project.number}`
-                                        : ``
-                                    }${
-                                      project.pageStart && project.pageEnd
-                                        ? `, pp.${project.pageStart}-${project.pageEnd}`
-                                        : ``
-                                    }`}
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          </Link>
-                        ))
+                              );
+                            } else {
+                              const projectAndColors: ProjectsAndColors[] = [];
+                              groupedArray[key].forEach((project) => {
+                                projectAndColors.push({
+                                  project: project,
+                                  uniqueColorNumber: uniqueTypes.findIndex(
+                                    (type) => type === project.type
+                                  ),
+                                });
+                              });
+
+                              return (
+                                <ProjectGroupCard
+                                  key={j}
+                                  projectsAndColors={projectAndColors}
+                                />
+                              );
+                            }
+                          })}
+                        </React.Fragment>
                       ) : (
                         <></>
                       )}

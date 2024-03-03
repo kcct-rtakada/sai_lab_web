@@ -68,6 +68,8 @@ export default function NewsViewer(props: Props) {
     const mode = _mode ? _mode : selectedSearchMode;
     const lists = _newsList ? _newsList : newsList;
 
+    setSelectedYear(0);
+
     if (filterKeywords.every((keyword) => keyword === "")) {
       setUserFiltered(false);
       return;
@@ -208,6 +210,7 @@ export default function NewsViewer(props: Props) {
                 className={styles.year_select}
                 onChange={triggerYearSelection}
                 name="year_filtering"
+                value={selectedYear}
               >
                 <option key={`year0`} value={0}>
                   すべて
@@ -239,6 +242,7 @@ export default function NewsViewer(props: Props) {
                   className={styles.search_clear_button}
                   onClick={() => {
                     setSearchWord("");
+                    setSelectedYear(0);
                     setUserFiltered(false);
                     router.push(`/news/`);
                     setDisplayingSearchCondition(null);

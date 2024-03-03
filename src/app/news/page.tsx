@@ -16,6 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function NewsList() {
   const response = await fetch(sai_news);
   const newsList: News[] = await response.json();
+  const filteredNews = newsList.filter((item) => item.id !== "");
 
-  return <NewsViewer _newsList={newsList} />;
+  return <NewsViewer _newsList={filteredNews} />;
 }

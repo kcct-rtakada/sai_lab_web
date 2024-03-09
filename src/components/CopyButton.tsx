@@ -17,7 +17,6 @@ export default function CopyButton({ text }: { text: string }) {
       setCopied(true);
     } catch (e) {
       console.error(e);
-      alert(e);
     }
   };
 

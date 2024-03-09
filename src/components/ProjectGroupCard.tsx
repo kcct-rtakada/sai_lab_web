@@ -96,7 +96,7 @@ export default function ProjectGroupCard({
               />
             )}
             <div className={`${styles.type}`}>
-              <span>グループ</span>
+              <span>{projectsAndColors[0].project.type}等</span>
             </div>
             <div className={styles.date}>
               <FontAwesomeIcon

@@ -16,6 +16,9 @@ export default function ProjectCard({
   project: Project;
   uniqueColorNumber: number;
 }) {
+  const japanTime = new Date(
+    new Date(project.date).toLocaleString("en-US", { timeZone: "Asia/Tokyo" })
+  );
   return (
     <Link href={`/project/${project.id}`} className={styles.project_link}>
       <div className={`${styles.project} ${styles.border}`}>
@@ -46,9 +49,9 @@ export default function ProjectCard({
         <div className={styles.date}>
           <FontAwesomeIcon icon={faCalendar} style={{ marginRight: ".3rem" }} />
           {`${
-            new Date(project.date).getMonth() > 3
-              ? new Date(project.date).getFullYear()
-              : new Date(project.date).getFullYear() - 1
+            japanTime.getMonth() > 3
+              ? japanTime.getFullYear()
+              : japanTime.getFullYear() - 1
           }年度`}
         </div>
         <div className={styles.description_area}>

@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-// "use client";
 import News from "@/components/DefaultStructure";
 import styles from "@/styles/app/news/news.module.scss";
 import Link from "next/link";
@@ -35,20 +34,22 @@ export async function generateMetadata({
       url: `https://sai.ac/news/${params.slug}`,
       imageUrl: undefined,
     });
-  else
+  else {
+    const japanTime = new Date(
+      new Date(news.date).toLocaleString("en-US", { timeZone: "Asia/Tokyo" })
+    );
+
     return SEO({
       title: news.title,
-      description: `SAI (髙田研究室)のニュース(${new Date(
-        news.date
-      ).getFullYear()}/${(new Date(news.date).getMonth() + 1)
+      description: `SAI (髙田研究室)のニュース(${japanTime.getFullYear()}/${(
+        japanTime.getMonth() + 1
+      )
         .toString()
-        .padStart(2, "0")}/${new Date(news.date)
-        .getDate()
-        .toString()
-        .padStart(2, "0")})`,
+        .padStart(2, "0")}/${japanTime.getDate().toString().padStart(2, "0")})`,
       url: `https://sai.ac/project/${params.slug}`,
       imageUrl: undefined,
     });
+  }
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
@@ -74,6 +75,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
     );
   }
 
+  const japanTime = new Date(
+    new Date(news.date).toLocaleString("en-US", { timeZone: "Asia/Tokyo" })
+  );
+
   return (
     <>
       {/* <SEO pageTitle={project.name} pageDescription={""} /> */}
@@ -91,11 +96,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
                   width: "1rem",
                 }}
               />
-              {`${new Date(news.date).getFullYear()}/${(
-                new Date(news.date).getMonth() + 1
-              )
+              {`${japanTime.getFullYear()}/${(japanTime.getMonth() + 1)
                 .toString()
-                .padStart(2, "0")}/${new Date(news.date)
+                .padStart(2, "0")}/${japanTime
                 .getDate()
                 .toString()
                 .padStart(2, "0")}`}

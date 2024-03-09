@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-// "use client";
 import Project from "@/components/DefaultStructure";
 import styles from "@/styles/app/projects/project.module.scss";
 import Link from "next/link";
@@ -11,6 +10,7 @@ import Image from "next/image";
 import SEO from "@/components/SEO";
 import type { Metadata } from "next";
 import { cache } from "react";
+import CopyButton from "@/components/CopyButton";
 
 const getProject = cache(async (slug: string) => {
   const response = await fetch(sai_projects);
@@ -67,16 +67,16 @@ export default async function Page({ params }: { params: { slug: string } }) {
     );
   }
 
-  const date = new Date(project!.date);
+  const japanTime = new Date(
+    new Date(project!.date).toLocaleString("en-US", { timeZone: "Asia/Tokyo" })
+  );
 
-  const displayDate = `${date.getFullYear()}/${(date.getMonth() + 1)
+  const displayDate = `${japanTime.getFullYear()}/${(japanTime.getMonth() + 1)
     .toString()
-    .padStart(2, "0")}/${date.getDate().toString().padStart(2, "0")}`;
-  // const project: Project
+    .padStart(2, "0")}/${japanTime.getDate().toString().padStart(2, "0")}`;
 
   return (
     <>
-      {/* <SEO pageTitle={project.name} pageDescription={""} /> */}
       <div className={styles.main}>
         <section className={styles.project}>
           <div className={styles.project_card}>
@@ -189,11 +189,44 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <></>
             )}
 
-            {project.presentationURL ? (
+            {project.posterHTML ? (
+              <>
+                <h2 className={styles.section_name}>Poster</h2>
+                <div className={styles.slide_box}>
+                  {parse(project.posterHTML)}
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
+
+            {project.presentationHTML ? (
+              <>
+                <h2 className={styles.section_name}>Presentation</h2>
+                <div className={styles.slide_box}>
+                  {parse(project.presentationHTML)}
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
+
+            {project.documentHTML ? (
+              <>
+                <h2 className={styles.section_name}>Document</h2>
+                <div className={styles.slide_box}>
+                  {parse(project.presentationHTML)}
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
+
+            {project.freeHTML ? (
               <>
                 <h2 className={styles.section_name}>Misc</h2>
                 <div className={styles.slide_box}>
-                  {parse(project.presentationURL)}
+                  {parse(project.freeHTML)}
                 </div>
               </>
             ) : (
@@ -248,7 +281,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
                   </div>
                 </div>
               </div>
-              <h3 className={styles.information_section_title}>Citation</h3>
+              <h3 className={styles.information_section_title}>
+                Citation&nbsp;
+                <CopyButton text={project.citation} />
+              </h3>
               <div>{project.citation}</div>
             </div>
           </div>

@@ -49,7 +49,7 @@
         -ms-border-radius: 0;
         -o-border-radius: 0;
         -webkit-filter: drop-shadow(0rem 0.2rem 0.2rem rgb(230, 230, 230));
-}
+      }
 
       .type {
         margin-bottom: 0.5rem;
@@ -248,7 +248,7 @@
       .slide_box {
         width: 100%;
         margin: 1rem 0;
-        padding: 0 .5rem;
+        padding: 0 0.5rem;
 
         iframe {
           margin: 0 auto;
@@ -338,7 +338,7 @@
         margin-right: auto;
         width: 100%;
         padding: 2rem;
-        color: rgb(30, 30, 30);
+        color: #1e1e1e;
         background-image: linear-gradient(
           to bottom right,
           rgb(250, 237, 194),
@@ -376,6 +376,10 @@
             width: 50%;
             text-align: left;
           }
+        }
+
+        .copy_icon {
+          cursor: pointer;
         }
       }
     }

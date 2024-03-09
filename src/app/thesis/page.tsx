@@ -29,11 +29,16 @@ export default async function Thesis() {
 
   const uniqueYears = Array.from(
     new Set(
-      sortedConferencePapers?.flatMap((item) =>
-        new Date(item.date).getMonth() > 3
-          ? new Date(item.date).getFullYear()
-          : new Date(item.date).getFullYear() - 1
-      )
+      sortedConferencePapers?.flatMap((item) => {
+        const japanTime = new Date(
+          new Date(item.date).toLocaleString("en-US", {
+            timeZone: "Asia/Tokyo",
+          })
+        );
+        return japanTime.getMonth() > 3
+          ? japanTime.getFullYear()
+          : japanTime.getFullYear() - 1;
+      })
     )
   );
 
@@ -109,10 +114,18 @@ export default async function Thesis() {
           <div className={styles.result_box}>
             {uniqueYears.map((year, i) => {
               const matchedDataWithYear = sortedConferencePapers?.filter(
-                (item) =>
-                  (new Date(item.date).getMonth() > 3
-                    ? new Date(item.date).getFullYear()
-                    : new Date(item.date).getFullYear() - 1) === year
+                (item) => {
+                  const japanTime = new Date(
+                    new Date(item.date).toLocaleString("en-US", {
+                      timeZone: "Asia/Tokyo",
+                    })
+                  );
+                  return (
+                    (japanTime.getMonth() > 3
+                      ? japanTime.getFullYear()
+                      : japanTime.getFullYear() - 1) === year
+                  );
+                }
               );
               const matched2ndPaper = matchedDataWithYear?.filter((item) =>
                 item.classification.toLowerCase().includes("専攻科特別研究論文")

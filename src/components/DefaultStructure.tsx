@@ -32,7 +32,10 @@ export default interface Project {
   citation: string;
   paperUrl: string;
   thumbnailURL: string;
-  presentationURL: string;
+  presentationHTML: string;
+  documentHTML: string;
+  posterHTML: string;
+  freeHTML: string;
   additionalImageURL: AdditionalImage[];
 }
 

@@ -96,7 +96,14 @@ export default function NewsViewer(props: Props) {
     } else if (mode === "news_year") {
       filteredArray = lists?.filter((news) =>
         filterKeywords.some(
-          (keyword) => String(new Date(news.date).getFullYear()) === keyword
+          (keyword) =>
+            String(
+              new Date(
+                new Date(news.date).toLocaleString("en-US", {
+                  timeZone: "Asia/Tokyo",
+                })
+              ).getFullYear()
+            ) === keyword
         )
       );
       setDisplayingSearchCondition(
@@ -174,11 +181,16 @@ export default function NewsViewer(props: Props) {
 
   const uniqueYears = Array.from(
     new Set(
-      displayArray?.flatMap((item) =>
-        new Date(item.date).getMonth() > 3
-          ? new Date(item.date).getFullYear()
-          : new Date(item.date).getFullYear() - 1
-      )
+      displayArray?.flatMap((item) => {
+        const japanTime = new Date(
+          new Date(item.date).toLocaleString("en-US", {
+            timeZone: "Asia/Tokyo",
+          })
+        );
+        return japanTime.getMonth() > 3
+          ? japanTime.getFullYear()
+          : japanTime.getFullYear() - 1;
+      })
     )
   );
 
@@ -285,12 +297,18 @@ export default function NewsViewer(props: Props) {
                 uniqueYears.map((year, i) => {
                   if (selectedYear !== 0 && year !== selectedYear)
                     return <span key={`dYear${i}`}></span>;
-                  const matchedDataWithYear = displayArray?.filter(
-                    (item) =>
-                      (new Date(item.date).getMonth() > 3
-                        ? new Date(item.date).getFullYear()
-                        : new Date(item.date).getFullYear() - 1) === year
-                  );
+                  const matchedDataWithYear = displayArray?.filter((item) => {
+                    const japanTime = new Date(
+                      new Date(item.date).toLocaleString("en-US", {
+                        timeZone: "Asia/Tokyo",
+                      })
+                    );
+                    return (
+                      (japanTime.getMonth() > 3
+                        ? japanTime.getFullYear()
+                        : japanTime.getFullYear() - 1) === year
+                    );
+                  });
                   return (
                     <React.Fragment key={`dYear${i}`}>
                       <div key={`dYear${i}`} className={styles.news_link}>
@@ -301,51 +319,58 @@ export default function NewsViewer(props: Props) {
                           <p key={`dYear${i}`}>{year}年度</p>
                         </div>
                       </div>
-                      {matchedDataWithYear!.map((item, j) => (
-                        <Link
-                          key={j}
-                          href={`/news/${item.id}`}
-                          className={styles.news_link}
-                        >
-                          <div className={styles.news}>
-                            <div className={styles.thumbnail_box}>
-                              {item.thumbnailURL ? (
-                                <img
-                                  src={item.thumbnailURL}
-                                  alt="thumbnail"
-                                  className={styles.thumbnail}
-                                  loading="lazy"
-                                />
-                              ) : (
-                                <img
-                                  src="/sai_default_thumbnail.webp"
-                                  alt="thumbnail"
-                                  className={styles.thumbnail}
-                                  loading="lazy"
-                                />
-                              )}
-                            </div>
+                      {matchedDataWithYear!.map((item, j) => {
+                        const japanTime = new Date(
+                          new Date(item.date).toLocaleString("en-US", {
+                            timeZone: "Asia/Tokyo",
+                          })
+                        );
+                        return (
+                          <Link
+                            key={j}
+                            href={`/news/${item.id}`}
+                            className={styles.news_link}
+                          >
+                            <div className={styles.news}>
+                              <div className={styles.thumbnail_box}>
+                                {item.thumbnailURL ? (
+                                  <img
+                                    src={item.thumbnailURL}
+                                    alt="thumbnail"
+                                    className={styles.thumbnail}
+                                    loading="lazy"
+                                  />
+                                ) : (
+                                  <img
+                                    src="/sai_default_thumbnail.webp"
+                                    alt="thumbnail"
+                                    className={styles.thumbnail}
+                                    loading="lazy"
+                                  />
+                                )}
+                              </div>
 
-                            <div className={styles.text_box}>
-                              <div className={styles.title}>{item.title}</div>
-                              <div className={styles.date}>
-                                <FontAwesomeIcon
-                                  icon={faCalendar}
-                                  style={{ marginRight: ".3rem" }}
-                                />
-                                {`${new Date(item.date).getFullYear()}/${(
-                                  new Date(item.date).getMonth() + 1
-                                )
-                                  .toString()
-                                  .padStart(2, "0")}/${new Date(item.date)
-                                  .getDate()
-                                  .toString()
-                                  .padStart(2, "0")}`}
+                              <div className={styles.text_box}>
+                                <div className={styles.title}>{item.title}</div>
+                                <div className={styles.date}>
+                                  <FontAwesomeIcon
+                                    icon={faCalendar}
+                                    style={{ marginRight: ".3rem" }}
+                                  />
+                                  {`${japanTime.getFullYear()}/${(
+                                    japanTime.getMonth() + 1
+                                  )
+                                    .toString()
+                                    .padStart(2, "0")}/${japanTime
+                                    .getDate()
+                                    .toString()
+                                    .padStart(2, "0")}`}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </Link>
-                      ))}
+                          </Link>
+                        );
+                      })}
                     </React.Fragment>
                   );
                 })

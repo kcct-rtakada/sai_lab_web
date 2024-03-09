@@ -150,7 +150,14 @@ export default function ProjectsViewer(props: Props) {
     } else if (mode === "research_year") {
       filteredArray = lists?.filter((project) =>
         filterKeywords.some(
-          (keyword) => String(new Date(project.date).getFullYear()) === keyword
+          (keyword) =>
+            String(
+              new Date(
+                new Date(project.date).toLocaleString("en-US", {
+                  timeZone: "Asia/Tokyo",
+                })
+              ).getFullYear()
+            ) === keyword
         )
       );
       setDisplayingSearchCondition(
@@ -233,11 +240,16 @@ export default function ProjectsViewer(props: Props) {
 
   const uniqueYears = Array.from(
     new Set(
-      displayArray?.flatMap((item) =>
-        new Date(item.date).getMonth() > 3
-          ? new Date(item.date).getFullYear()
-          : new Date(item.date).getFullYear() - 1
-      )
+      displayArray?.flatMap((item) => {
+        const japanTime = new Date(
+          new Date(item.date).toLocaleString("en-US", {
+            timeZone: "Asia/Tokyo",
+          })
+        );
+        return japanTime.getMonth() > 3
+          ? japanTime.getFullYear()
+          : japanTime.getFullYear() - 1;
+      })
     )
   );
 
@@ -364,12 +376,18 @@ export default function ProjectsViewer(props: Props) {
 
                   if (selectedYear !== 0 && year !== selectedYear)
                     return <span key={`dYear${i}`}></span>;
-                  const matchedDataWithYear = displayArray?.filter(
-                    (item) =>
-                      (new Date(item.date).getMonth() > 3
-                        ? new Date(item.date).getFullYear()
-                        : new Date(item.date).getFullYear() - 1) === year
-                  );
+                  const matchedDataWithYear = displayArray?.filter((item) => {
+                    const japanTime = new Date(
+                      new Date(item.date).toLocaleString("en-US", {
+                        timeZone: "Asia/Tokyo",
+                      })
+                    );
+                    return (
+                      (japanTime.getMonth() > 3
+                        ? japanTime.getFullYear()
+                        : japanTime.getFullYear() - 1) === year
+                    );
+                  });
 
                   const groupedArray = groupByThumbnail(matchedDataWithYear);
 
@@ -463,6 +481,4 @@ export default function ProjectsViewer(props: Props) {
       </div>
     </>
   );
-
-  return <></>;
 }

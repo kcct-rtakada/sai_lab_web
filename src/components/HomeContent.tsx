@@ -104,21 +104,26 @@ export default function HomeContent() {
         </h2>
         {newsLoaded ? (
           <ul>
-            {newsList?.slice(0, listingNum).map((news, i) => (
-              <li key={i} style={{ listStyle: "none" }}>
-                <Link href={`/news/${news.id}`}>
-                  {news.title}-{" "}
-                  {`${new Date(news.date).getFullYear()}/${(
-                    new Date(news.date).getMonth() + 1
-                  )
-                    .toString()
-                    .padStart(2, "0")}/${new Date(news.date)
-                    .getDate()
-                    .toString()
-                    .padStart(2, "0")}`}
-                </Link>
-              </li>
-            ))}
+            {newsList?.slice(0, listingNum).map((news, i) => {
+              const japanTime = new Date(
+                new Date(news.date).toLocaleString("en-US", {
+                  timeZone: "Asia/Tokyo",
+                })
+              );
+              return (
+                <li key={i} style={{ listStyle: "none" }}>
+                  <Link href={`/news/${news.id}`}>
+                    {news.title}-{" "}
+                    {`${japanTime.getFullYear()}/${(japanTime.getMonth() + 1)
+                      .toString()
+                      .padStart(2, "0")}/${japanTime
+                      .getDate()
+                      .toString()
+                      .padStart(2, "0")}`}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         ) : (
           <div className="loading">

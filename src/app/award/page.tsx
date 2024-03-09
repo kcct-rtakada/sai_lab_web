@@ -21,11 +21,16 @@ export default async function Award() {
 
   const uniqueYears = Array.from(
     new Set(
-      awards?.flatMap((item) =>
-        new Date(item.date).getMonth() > 3
-          ? new Date(item.date).getFullYear()
-          : new Date(item.date).getFullYear() - 1
-      )
+      awards?.flatMap((item) => {
+        const japanTime = new Date(
+          new Date(item.date).toLocaleString("en-US", {
+            timeZone: "Asia/Tokyo",
+          })
+        );
+        return japanTime.getMonth() > 3
+          ? japanTime.getFullYear()
+          : japanTime.getFullYear() - 1;
+      })
     )
   );
 
@@ -40,25 +45,35 @@ export default async function Award() {
         <div className={styles.list_box}>
           <div className={styles.result_box}>
             {uniqueYears.map((year, i) => {
-              const matchedDataWithYear = awards?.filter(
-                (item) =>
-                  (new Date(item.date).getMonth() > 3
-                    ? new Date(item.date).getFullYear()
-                    : new Date(item.date).getFullYear() - 1) === year
-              );
+              const matchedDataWithYear = awards?.filter((item) => {
+                const japanTime = new Date(
+                  new Date(item.date).toLocaleString("en-US", {
+                    timeZone: "Asia/Tokyo",
+                  })
+                );
+                return (
+                  (japanTime.getMonth() > 3
+                    ? japanTime.getFullYear()
+                    : japanTime.getFullYear() - 1) === year
+                );
+              });
 
               return (
                 <>
                   <h2 key={`year${i}`}>{year}年度</h2>
                   <ul key={`ul${i}`}>
                     {matchedDataWithYear!.map((award, j) => {
-                      const date = new Date(award.date);
+                      const japanTime = new Date(
+                        new Date(award.date).toLocaleString("en-US", {
+                          timeZone: "Asia/Tokyo",
+                        })
+                      );
 
-                      const displayDate = `${date.getFullYear()}/${(
-                        date.getMonth() + 1
+                      const displayDate = `${japanTime.getFullYear()}/${(
+                        japanTime.getMonth() + 1
                       )
                         .toString()
-                        .padStart(2, "0")}/${date
+                        .padStart(2, "0")}/${japanTime
                         .getDate()
                         .toString()
                         .padStart(2, "0")}`;

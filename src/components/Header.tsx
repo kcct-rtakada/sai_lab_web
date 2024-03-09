@@ -70,53 +70,81 @@ export default function Header() {
           >
             <ul>
               {path !== "/news" ? (
-                <Link onClick={() => setIsOpening(false)} href="/news">
-                  <li>ニュース</li>
-                </Link>
+                <li>
+                  <Link onClick={() => setIsOpening(false)} href="/news">
+                    ニュース
+                  </Link>
+                </li>
               ) : (
-                <p>ニュース</p>
+                <li>
+                  <p>ニュース</p>
+                </li>
               )}
               {path !== "/member" ? (
-                <Link onClick={() => setIsOpening(false)} href="/member">
-                  <li>メンバー</li>
-                </Link>
+                <li>
+                  <Link onClick={() => setIsOpening(false)} href="/member">
+                    メンバー{" "}
+                  </Link>
+                </li>
               ) : (
-                <p>メンバー</p>
+                <li>
+                  <p>メンバー</p>
+                </li>
               )}
               {path !== "/project" ? (
-                <Link onClick={() => setIsOpening(false)} href="/project">
-                  <li>プロジェクト</li>
-                </Link>
+                <li>
+                  <Link onClick={() => setIsOpening(false)} href="/project">
+                    プロジェクト
+                  </Link>
+                </li>
               ) : (
-                <p>プロジェクト</p>
+                <li>
+                  <p>プロジェクト</p>
+                </li>
               )}
               {path !== "/publication" ? (
-                <Link onClick={() => setIsOpening(false)} href="/publication">
-                  <li>研究業績</li>
-                </Link>
+                <li>
+                  <Link onClick={() => setIsOpening(false)} href="/publication">
+                    研究業績
+                  </Link>
+                </li>
               ) : (
-                <p>研究業績</p>
+                <li>
+                  <p>研究業績</p>
+                </li>
               )}
               {path !== "/thesis" ? (
-                <Link onClick={() => setIsOpening(false)} href="/thesis">
-                  <li>学位論文</li>
-                </Link>
+                <li>
+                  <Link onClick={() => setIsOpening(false)} href="/thesis">
+                    学位論文
+                  </Link>
+                </li>
               ) : (
-                <p>学位論文</p>
+                <li>
+                  <p>学位論文</p>
+                </li>
               )}
               {path !== "/award" ? (
-                <Link onClick={() => setIsOpening(false)} href="/award">
-                  <li>表彰</li>
-                </Link>
+                <li>
+                  <Link onClick={() => setIsOpening(false)} href="/award">
+                    表彰
+                  </Link>
+                </li>
               ) : (
-                <p>表彰</p>
+                <li>
+                  <p>表彰</p>
+                </li>
               )}
               {path !== "/contact" ? (
-                <Link onClick={() => setIsOpening(false)} href="/contact">
-                  <li>コンタクト</li>
-                </Link>
+                <li>
+                  <Link onClick={() => setIsOpening(false)} href="/contact">
+                    コンタクト
+                  </Link>
+                </li>
               ) : (
-                <p>コンタクト</p>
+                <li>
+                  <p>コンタクト</p>
+                </li>
               )}
             </ul>
           </div>

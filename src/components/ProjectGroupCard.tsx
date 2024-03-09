@@ -30,6 +30,8 @@ export default function ProjectGroupCard({
   const [isFolderHovered, setIsFolderHovered] = useState<boolean>(false);
   const [isFolderActive, setIsFolderActive] = useState<boolean>(false);
 
+  const isUsingPhone = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
   const uniqueTags = Array.from(
     new Set(
       projectsAndColors.flatMap((item) =>
@@ -53,11 +55,19 @@ export default function ProjectGroupCard({
   )
     currentFolderIcon = faFolderOpen;
 
+  const japanTimeOfLeader = new Date(
+    new Date(projectsAndColors[0].project.date).toLocaleString("en-US", {
+      timeZone: "Asia/Tokyo",
+    })
+  );
+
   return (
     <React.Fragment>
       <div className={styles.project_link}>
         <button
-          className={`${styles.project} ${styles.border}`}
+          className={`${styles.project} ${styles.border} ${styles.group} ${
+            isOpen ? styles.open : ""
+          }`}
           onClick={() => {
             setIsOpen(!isOpen);
             setIsFolderActive(false);
@@ -94,10 +104,9 @@ export default function ProjectGroupCard({
                 style={{ marginRight: ".3rem" }}
               />
               {`${
-                new Date(projectsAndColors[0].project.date).getMonth() > 3
-                  ? new Date(projectsAndColors[0].project.date).getFullYear()
-                  : new Date(projectsAndColors[0].project.date).getFullYear() -
-                    1
+                japanTimeOfLeader.getMonth() > 3
+                  ? japanTimeOfLeader.getFullYear()
+                  : japanTimeOfLeader.getFullYear() - 1
               }年度`}
             </div>
           </div>
@@ -138,124 +147,136 @@ export default function ProjectGroupCard({
                 <span className={styles.icon_box}>
                   <FontAwesomeIcon
                     icon={currentFolderIcon}
-                    style={{ color: "#8a8a8a", marginRight: ".2rem" }}
+                    style={{
+                      color: `${isOpen ? "#0BAF8E" : "#8a8a8a"}`,
+                      marginRight: ".2rem",
+                    }}
                   />
                 </span>
-                {!isOpen ? "クリックして展開" : "クリックして格納"}
+                {!isOpen
+                  ? `${isUsingPhone ? "タップ" : "クリック"}して展開`
+                  : `${isUsingPhone ? "タップ" : "クリック"}して格納`}
               </p>
             </div>
           </div>
         </button>
       </div>
       {isOpen ? (
-        projectsAndColors.map((projectAndColor, i) => (
-          <Link
-            href={`/project/${projectAndColor.project.id}`}
-            className={styles.project_link}
-            key={i}
-          >
-            <div className={styles.project}>
-              <div className={styles.thumbnail_box}>
-                {projectAndColor.project.thumbnailURL ? (
-                  <img
-                    src={projectAndColor.project.thumbnailURL}
-                    alt="thumbnail"
-                    className={styles.thumbnail}
-                    loading="lazy"
-                  />
-                ) : (
-                  <img
-                    src="/sai_default_thumbnail.webp"
-                    alt="thumbnail"
-                    className={styles.thumbnail}
-                    loading="lazy"
-                  />
-                )}
-              </div>
-              {projectAndColor.project.type ? (
-                <div
-                  className={`${styles.type} unique-type${projectAndColor.uniqueColorNumber}`}
-                >
-                  <span>{projectAndColor.project.type}</span>
+        projectsAndColors.map((projectAndColor, i) => {
+          const japanTime = new Date(
+            new Date(projectAndColor.project.date).toLocaleString("en-US", {
+              timeZone: "Asia/Tokyo",
+            })
+          );
+          return (
+            <Link
+              href={`/project/${projectAndColor.project.id}`}
+              className={styles.project_link}
+              key={i}
+            >
+              <div className={`${styles.project} ${styles.in_group}`}>
+                <div className={styles.thumbnail_box}>
+                  {projectAndColor.project.thumbnailURL ? (
+                    <img
+                      src={projectAndColor.project.thumbnailURL}
+                      alt="thumbnail"
+                      className={styles.thumbnail}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <img
+                      src="/sai_default_thumbnail.webp"
+                      alt="thumbnail"
+                      className={styles.thumbnail}
+                      loading="lazy"
+                    />
+                  )}
                 </div>
-              ) : (
-                <></>
-              )}
-              <div className={styles.date}>
-                <FontAwesomeIcon
-                  icon={faCalendar}
-                  style={{ marginRight: ".3rem" }}
-                />
-                {`${
-                  new Date(projectAndColor.project.date).getMonth() > 3
-                    ? new Date(projectAndColor.project.date).getFullYear()
-                    : new Date(projectAndColor.project.date).getFullYear() - 1
-                }年度`}
-              </div>
-              <div className={styles.description_area}>
-                <div className={styles.title}>
-                  {projectAndColor.project.title}
-                </div>
-                <div className={styles.authors}>
-                  {projectAndColor.project.authors.map((author, k) => (
-                    <span className={styles.author} key={`dProjAuthor${k}`}>
-                      <div>
-                        <FontAwesomeIcon
-                          icon={faUser}
-                          style={{ color: "#222" }}
-                        />
-                      </div>
-                      <p>{author.name}</p>
-                    </span>
-                  ))}
-                </div>
-                {projectAndColor.project.tags.length > 0 ? (
-                  <div className={styles.tags}>
-                    {projectAndColor.project.tags.map((tag, k) => (
-                      <span key={`dProjTag${k}`}>
-                        <FontAwesomeIcon
-                          icon={faTag}
-                          style={{ color: "#8a8a8a" }}
-                        />
-                        {tag.name}
-                      </span>
-                    ))}
+                {projectAndColor.project.type ? (
+                  <div
+                    className={`${styles.type} unique-type${projectAndColor.uniqueColorNumber}`}
+                  >
+                    <span>{projectAndColor.project.type}</span>
                   </div>
                 ) : (
                   <></>
                 )}
-                <div className={styles.book}>
-                  <div>
-                    <FontAwesomeIcon
-                      icon={faBookOpen}
-                      style={{ color: "#222" }}
-                    />
+                <div className={styles.date}>
+                  <FontAwesomeIcon
+                    icon={faCalendar}
+                    style={{ marginRight: ".3rem" }}
+                  />
+                  {`${
+                    japanTime.getMonth() > 3
+                      ? japanTime.getFullYear()
+                      : japanTime.getFullYear() - 1
+                  }年度`}
+                </div>
+                <div className={styles.description_area}>
+                  <div className={styles.title}>
+                    {projectAndColor.project.title}
                   </div>
-                  <p>
-                    {`${
-                      projectAndColor.project.bookTitle
-                        ? `${projectAndColor.project.bookTitle}`
-                        : ``
-                    }${
-                      projectAndColor.project.volume
-                        ? `, Vol.${projectAndColor.project.volume}`
-                        : ``
-                    }${
-                      projectAndColor.project.number
-                        ? `, ${projectAndColor.project.number}`
-                        : ``
-                    }${
-                      projectAndColor.project.pageStart &&
-                      projectAndColor.project.pageEnd
-                        ? `, pp.${projectAndColor.project.pageStart}-${projectAndColor.project.pageEnd}`
-                        : ``
-                    }`}
-                  </p>
+                  <div className={styles.authors}>
+                    {projectAndColor.project.authors.map((author, k) => (
+                      <span className={styles.author} key={`dProjAuthor${k}`}>
+                        <div>
+                          <FontAwesomeIcon
+                            icon={faUser}
+                            style={{ color: "#222" }}
+                          />
+                        </div>
+                        <p>{author.name}</p>
+                      </span>
+                    ))}
+                  </div>
+                  {projectAndColor.project.tags.length > 0 ? (
+                    <div className={styles.tags}>
+                      {projectAndColor.project.tags.map((tag, k) => (
+                        <span key={`dProjTag${k}`}>
+                          <FontAwesomeIcon
+                            icon={faTag}
+                            style={{ color: "#8a8a8a" }}
+                          />
+                          {tag.name}
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                  <div className={styles.book}>
+                    <div>
+                      <FontAwesomeIcon
+                        icon={faBookOpen}
+                        style={{ color: "#222" }}
+                      />
+                    </div>
+                    <p>
+                      {`${
+                        projectAndColor.project.bookTitle
+                          ? `${projectAndColor.project.bookTitle}`
+                          : ``
+                      }${
+                        projectAndColor.project.volume
+                          ? `, Vol.${projectAndColor.project.volume}`
+                          : ``
+                      }${
+                        projectAndColor.project.number
+                          ? `, ${projectAndColor.project.number}`
+                          : ``
+                      }${
+                        projectAndColor.project.pageStart &&
+                        projectAndColor.project.pageEnd
+                          ? `, pp.${projectAndColor.project.pageStart}-${projectAndColor.project.pageEnd}`
+                          : ``
+                      }`}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Link>
-        ))
+            </Link>
+          );
+        })
       ) : (
         <></>
       )}

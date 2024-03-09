@@ -468,6 +468,25 @@
             border-color: #eaeaea;
           }
 
+          &.group {
+            user-select: none;
+            &.open {
+              background-color: rgb(245, 245, 245);
+            }
+          }
+
+          &.in_group {
+            border-style: solid;
+            border-color: #0baf8e;
+            border-width: 0.05rem;
+
+            @include mqUp(sm) {
+              border-style: none;
+              border-width: 0;
+              border-color: transparent;
+            }
+          }
+
           @include mqUp(sm) {
             margin: 0;
             width: 100%;

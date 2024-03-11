@@ -3,6 +3,7 @@
 .main {
   min-height: calc(100% - 6rem);
   padding-top: 0;
+  position: relative;
 
   .project {
     width: 100%;
@@ -188,6 +189,7 @@
       margin: 0 auto;
       padding: 2rem 1.5rem;
       font-size: 1.05rem;
+      line-height: 1.65;
 
       @include mqUp(md) {
         padding: 2rem 0 0 0;
@@ -380,6 +382,287 @@
 
         .copy_icon {
           cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .r_sidebar {
+    background-color: #fafafa;
+    position: static;
+    user-select: none;
+    width: 100%;
+    margin: 0 auto;
+    pointer-events: none;
+
+    @include mqDown(xx) {
+      position: fixed;
+      top: 4rem;
+      width: calc((100% - min(55rem, 100%)) / 2 - 3rem);
+      max-width: 35rem;
+      height: calc(100% - 4rem);
+      overflow: hidden;
+    }
+
+    .side_content_area {
+      width: min(55rem, 100%);
+      margin: 0 auto;
+      padding: 1.2rem 1rem;
+      position: relative;
+      height: 100%;
+
+      .section_title {
+        font-size: 1.15rem;
+        font-weight: bold;
+        margin-top: 0.5rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .r_projects {
+        margin: 0;
+        justify-content: center;
+        flex-direction: row;
+        position: relative;
+        width: 100%;
+        padding: 0;
+
+        @include mqDown(xx) {
+          overflow-y: auto;
+          max-height: calc(100% - 12.5rem);
+        }
+
+        .r_project_link {
+          pointer-events: none;
+
+          .r_project {
+            color: #222;
+            pointer-events: all;
+            width: 100%;
+            position: relative;
+            margin: 0.5rem 0 1rem 0;
+            background-color: rgb(253, 253, 253);
+            border-style: solid;
+            border-width: 0.05rem 0.05rem 0.05rem 0;
+            border-color: #e0e0e0;
+            padding: 0.25rem 0.25rem 0.25rem 0.7rem;
+            transition: all 0.15s;
+            -webkit-transition: all 0.15s;
+            -moz-transition: all 0.15s;
+            -ms-transition: all 0.15s;
+            -o-transition: all 0.15s;
+
+            &::before {
+              position: absolute;
+              display: block;
+              content: "";
+              background-color: rgb(55, 77, 199);
+              top: 0;
+              left: 0;
+              height: 100%;
+              width: 0.4rem;
+            }
+
+            &:hover {
+              border-color: rgb(55, 77, 199);
+            }
+
+            .title {
+              margin: 0.4rem 0.4rem 0.1rem 0.4rem;
+              font-size: 1.05rem;
+              font-weight: bold;
+              line-height: 1.15;
+            }
+
+            .authors {
+              margin: 0 0.4rem;
+              font-size: 0.8rem;
+
+              .author {
+                display: inline-block;
+                margin-right: 0.3rem;
+                margin-bottom: 0;
+                background-color: rgb(244, 253, 255);
+                border-radius: 0.3rem;
+                padding: 0.05rem 0.2rem;
+                line-height: 1.2;
+                font-size: 0.8rem;
+                -webkit-border-radius: 0.3rem;
+                -moz-border-radius: 0.3rem;
+                -ms-border-radius: 0.3rem;
+                -o-border-radius: 0.3rem;
+
+                div {
+                  display: inline-block;
+                  border-right: 1rem;
+                  width: 0.8rem;
+                  font-size: 0.8rem;
+                }
+
+                p {
+                  margin-left: 0.2rem;
+                  margin-right: 0.2rem;
+                  display: inline-block;
+                }
+              }
+            }
+
+            .tags {
+              font-size: 0.8rem;
+              margin: 0.2rem 0.5rem 0.2rem 0.7rem;
+
+              span {
+                display: inline-block;
+                margin-right: 0.5rem;
+                position: relative;
+
+                svg {
+                  width: 0.8rem;
+                  height: 0.8rem;
+                  font-size: 0.8rem;
+                  display: inline-block;
+                  margin-right: 0.15rem;
+                  position: relative;
+                  top: 0.07rem;
+                }
+              }
+            }
+
+            .book {
+              font-size: 0.7rem;
+              margin: 0.1rem 0.4rem 0.1rem 0.5rem;
+
+              div {
+                display: inline;
+                border-right: 1rem;
+                width: 0.8rem;
+                font-size: 0.8rem;
+              }
+
+              p {
+                margin-left: 0.4rem;
+                margin-right: 0.2rem;
+                display: inline;
+              }
+            }
+          }
+        }
+      }
+
+      .see_more {
+        font-size: 1.1rem;
+        display: block;
+        margin-top: 0.5rem;
+        padding: 0.2rem 0.5rem;
+        background-color: #fafafa;
+        border-style: solid;
+        border-width: 0 0 0.05rem 0;
+        border-color: black;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        pointer-events: all;
+
+        @include mqDown(xx) {
+          border-color: transparent;
+        }
+
+        &:hover,
+        &:active {
+          outline: none;
+          border-color: #222;
+        }
+      }
+    }
+  }
+
+  .l_sidebar {
+    background-color: #fafafa;
+    user-select: none;
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    width: calc((100% - min(55rem, 100%)) / 2 - 3rem);
+    max-width: 35rem;
+    height: calc(100% - 4rem);
+    overflow: hidden;
+    display: none;
+    z-index: 500;
+    pointer-events: none;
+
+    svg.polygon1 {
+      position: absolute;
+      width: 110%;
+      left: -5rem;
+      bottom: -0.2rem;
+      z-index: 505;
+      .svg_polygon_1 {
+        fill: #ececec;
+        stroke-width: 0px;
+        transition: all 0.1s;
+        pointer-events: fill;
+        -webkit-transition: all 0.1s;
+        -moz-transition: all 0.1s;
+        -ms-transition: all 0.1s;
+        -o-transition: all 0.1s;
+
+        &:hover {
+          fill: #bbbbbb;
+          &:nth-child(3n + 1) {
+            fill: rgb(216, 95, 95);
+          }
+          &:nth-child(3n + 2) {
+            fill: rgb(106, 184, 106);
+          }
+          &:nth-child(3n) {
+            fill: rgb(121, 121, 197);
+          }
+        }
+      }
+    }
+
+    @include mqDown(xx) {
+      display: block;
+    }
+
+    .side_content_area {
+      width: min(55rem, 100%);
+      margin: 0 auto;
+      padding: 1.2rem 1rem;
+      position: relative;
+      height: 100%;
+      z-index: 510;
+
+      .section_title {
+        font-size: 1.15rem;
+        font-weight: bold;
+        margin-top: 0.5rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .l_index {
+        width: 100%;
+        display: block;
+        position: relative;
+        z-index: 520;
+        font-size: 1.15rem;
+        pointer-events: all;
+
+        .link_box {
+          display: block;
+          padding: 0.2rem 0.5rem;
+          border-radius: 0.2rem;
+          -webkit-border-radius: 0.2rem;
+          -moz-border-radius: 0.2rem;
+          -ms-border-radius: 0.2rem;
+          -o-border-radius: 0.2rem;
+
+          &:hover {
+            background-color: #ececec;
+          }
+
+          &.h2 {
+            padding-left: 2.5rem;
+          }
         }
       }
     }

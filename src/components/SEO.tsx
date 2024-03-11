@@ -23,8 +23,9 @@ export default function SEO(info: Props): Metadata {
     viewport: {
       width: "device-width",
       initialScale: 1,
-      maximumScale: 1,
     },
+    themeColor: "#fafafa",
+    manifest: "/manifest.json",
     openGraph: {
       title: title ? title : `SAI`,
       description: displayingDescription,

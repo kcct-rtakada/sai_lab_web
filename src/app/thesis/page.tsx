@@ -107,7 +107,7 @@ export default async function Thesis() {
       <div className={styles.main}>
         <div className={styles.title_box}>
           <div className={styles.title_area}>
-            <h1 className={styles.page_title}>卒論/修論</h1>
+            <h1 className={styles.page_title}>学位論文</h1>
           </div>
         </div>
         <div className={styles.list_box}>

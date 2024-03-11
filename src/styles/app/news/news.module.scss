@@ -162,6 +162,26 @@
 
       .article {
         padding: 0.4rem 0.8rem 1rem 0.8rem;
+        line-height: 1.65;
+
+        ul {
+          margin-top: 0.3rem;
+          margin-left: 2rem;
+          margin-bottom: 0.3rem;
+
+          li {
+            list-style: disc;
+          }
+        }
+        ol {
+          margin-top: 0.3rem;
+          margin-left: 2rem;
+          margin-bottom: 0.3rem;
+
+          li {
+            list-style: decimal;
+          }
+        }
       }
 
       .images_box {

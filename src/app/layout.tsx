@@ -16,7 +16,6 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head prefix="og: http://ogp.me/ns#">
-        <meta name="theme-color" content="#fafafa" />
         <GoogleAnalytics gaId="G-EKY6C0HPHX" />
         <meta
           name="msapplication-square70x70logo"
@@ -242,7 +241,6 @@ export default function RootLayout({
           sizes="32x32"
           href="/icon-32x32.png"
         />
-        <link rel="manifest" href="/manifest.json" />
       </head>
       <body>
         <Header />

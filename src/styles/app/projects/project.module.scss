@@ -3,6 +3,7 @@
 .main {
   min-height: calc(100% - 6rem);
   padding-top: 0;
+  position: relative;
 
   .project {
     width: 100%;
@@ -188,6 +189,7 @@
       margin: 0 auto;
       padding: 2rem 1.5rem;
       font-size: 1.05rem;
+      line-height: 1.65;
 
       @include mqUp(md) {
         padding: 2rem 0 0 0;
@@ -387,15 +389,15 @@
 
   .r_sidebar {
     background-color: #fafafa;
-    position: relative;
+    position: static;
     user-select: none;
     width: 100%;
     margin: 0 auto;
+    pointer-events: none;
 
     @include mqDown(xx) {
       position: fixed;
       top: 4rem;
-      right: 0;
       width: calc((100% - min(55rem, 100%)) / 2 - 3rem);
       max-width: 35rem;
       height: calc(100% - 4rem);
@@ -558,6 +560,7 @@
         text-align: center;
         margin-left: auto;
         margin-right: auto;
+        pointer-events: all;
 
         @include mqDown(xx) {
           border-color: transparent;
@@ -567,6 +570,99 @@
         &:active {
           outline: none;
           border-color: #222;
+        }
+      }
+    }
+  }
+
+  .l_sidebar {
+    background-color: #fafafa;
+    user-select: none;
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    width: calc((100% - min(55rem, 100%)) / 2 - 3rem);
+    max-width: 35rem;
+    height: calc(100% - 4rem);
+    overflow: hidden;
+    display: none;
+    z-index: 500;
+    pointer-events: none;
+
+    svg.polygon1 {
+      position: absolute;
+      width: 110%;
+      left: -5rem;
+      bottom: -0.2rem;
+      z-index: 505;
+      .svg_polygon_1 {
+        fill: #ececec;
+        stroke-width: 0px;
+        transition: all 0.1s;
+        pointer-events: fill;
+        -webkit-transition: all 0.1s;
+        -moz-transition: all 0.1s;
+        -ms-transition: all 0.1s;
+        -o-transition: all 0.1s;
+
+        &:hover {
+          fill: #bbbbbb;
+          &:nth-child(3n + 1) {
+            fill: rgb(216, 95, 95);
+          }
+          &:nth-child(3n + 2) {
+            fill: rgb(106, 184, 106);
+          }
+          &:nth-child(3n) {
+            fill: rgb(121, 121, 197);
+          }
+        }
+      }
+    }
+
+    @include mqDown(xx) {
+      display: block;
+    }
+
+    .side_content_area {
+      width: min(55rem, 100%);
+      margin: 0 auto;
+      padding: 1.2rem 1rem;
+      position: relative;
+      height: 100%;
+      z-index: 510;
+
+      .section_title {
+        font-size: 1.15rem;
+        font-weight: bold;
+        margin-top: 0.5rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .l_index {
+        width: 100%;
+        display: block;
+        position: relative;
+        z-index: 520;
+        font-size: 1.15rem;
+        pointer-events: all;
+
+        .link_box {
+          display: block;
+          padding: 0.2rem 0.5rem;
+          border-radius: 0.2rem;
+          -webkit-border-radius: 0.2rem;
+          -moz-border-radius: 0.2rem;
+          -ms-border-radius: 0.2rem;
+          -o-border-radius: 0.2rem;
+
+          &:hover {
+            background-color: #ececec;
+          }
+
+          &.h2 {
+            padding-left: 2.5rem;
+          }
         }
       }
     }

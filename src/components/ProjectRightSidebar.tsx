@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Project from "./DefaultStructure";
 import styles from "@/styles/app/projects/project.module.scss";
 import MiniSearchArea from "@/components/MiniSearchArea";
@@ -15,6 +15,49 @@ export default function ProjectRightSidebar({
   const [displayingNum, setDisplayingNum] = useState<number>(
     filteredProjects.length > 4 ? 4 : filteredProjects.length
   );
+  const [isUsingPhone, setIsUsingPhone] = useState<boolean>(false);
+  const [scrollbarWidth, setScrollbarWidth] = useState<number>(0);
+  const [scrollbarAppeared, setScrollbarAppeared] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsUsingPhone(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+
+    function getScrollbarWidth() {
+      const outer = document.createElement("div");
+      outer.style.visibility = "hidden";
+      outer.style.overflow = "scroll";
+
+      document.body.appendChild(outer);
+
+      const inner = document.createElement("div");
+      outer.appendChild(inner);
+
+      const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+
+      outer.parentNode?.removeChild(outer);
+
+      return scrollbarWidth;
+    }
+
+    function updateScrollbarWidth() {
+      const width = getScrollbarWidth();
+      setScrollbarWidth(width);
+
+      const outerDiv = document.getElementById("top_main");
+      if (outerDiv) {
+        const scrollbarVisible = outerDiv.scrollHeight > outerDiv.clientHeight;
+        setScrollbarAppeared(scrollbarVisible);
+      }
+    }
+
+    updateScrollbarWidth();
+
+    window.addEventListener("resize", updateScrollbarWidth);
+
+    return () => {
+      window.removeEventListener("resize", updateScrollbarWidth);
+    };
+  }, []);
 
   const addDisplayingNum = () => {
     setDisplayingNum(
@@ -25,7 +68,13 @@ export default function ProjectRightSidebar({
   };
 
   return (
-    <div className={styles.r_sidebar}>
+    <div
+      className={`${styles.r_sidebar} ${
+        isUsingPhone ? "" : styles.using_computer
+      }`}
+      style={{ right: `${scrollbarAppeared ? scrollbarWidth : 0}px` }}
+      id="r_sidebar"
+    >
       <div className={styles.side_content_area}>
         <p className={styles.section_title}>プロジェクト検索</p>
         <MiniSearchArea />

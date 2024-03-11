@@ -246,7 +246,7 @@ export default function RootLayout({
       </head>
       <body>
         <Header />
-        <main ref={containerRef}>
+        <main ref={containerRef} id="top_main">
           {children}
           <Footer />
           <ScrollToTopButton containerRef={containerRef} />

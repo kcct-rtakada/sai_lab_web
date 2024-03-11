@@ -1,15 +1,16 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 
 export default function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState<boolean>(false);
+  const [isUsingPhone, setIsUsingPhone] = useState<boolean>(false);
 
-  if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-    return null;
-  }
+  useEffect(() => {
+    setIsUsingPhone(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+  }, []);
 
   const copyText = async (text: string) => {
     try {
@@ -20,22 +21,23 @@ export default function CopyButton({ text }: { text: string }) {
     }
   };
 
+  if (isUsingPhone) return null;
   return (
     <React.Fragment>
-      <FontAwesomeIcon
-        icon={!copied ? faCopy : faCheck}
-        style={{
-          display: "inline-block",
-          color: `${!copied ? "#1e1e1e" : "#014923"}`,
-          fontSize: "1rem",
-          width: "1rem",
-          cursor: "pointer",
-          transition: "color 0.15s",
-          WebkitTransition: "color 0.15s",
-        }}
-        title="Copy citation"
-        onClick={() => copyText(text)}
-      />
+      <button onClick={() => copyText(text)} title="Copy citation">
+        <FontAwesomeIcon
+          icon={!copied ? faCopy : faCheck}
+          style={{
+            display: "inline-block",
+            color: `${!copied ? "#1e1e1e" : "#014923"}`,
+            fontSize: "1rem",
+            width: "1rem",
+            cursor: "pointer",
+            transition: "color 0.15s",
+            WebkitTransition: "color 0.15s",
+          }}
+        />
+      </button>
       <p
         style={{
           userSelect: "none",

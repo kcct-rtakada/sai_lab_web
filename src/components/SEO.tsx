@@ -23,7 +23,6 @@ export default function SEO(info: Props): Metadata {
     viewport: {
       width: "device-width",
       initialScale: 1,
-      maximumScale: 1,
     },
     openGraph: {
       title: title ? title : `SAI`,

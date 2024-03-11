@@ -40,6 +40,7 @@ export default function ProjectsViewer(props: Props) {
   const [displayingSearchCondition, setDisplayingSearchCondition] = useState<
     string | null
   >(null);
+  const [isUsingPhone, setIsUsingPhone] = useState<boolean>(false);
 
   const router = useRouter();
   const params = useSearchParams();
@@ -47,6 +48,7 @@ export default function ProjectsViewer(props: Props) {
   const initialQ = params.get("q");
 
   useEffect(() => {
+    setIsUsingPhone(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
     if (projects) {
       setLoaded(true);
 
@@ -300,8 +302,8 @@ export default function ProjectsViewer(props: Props) {
                   value={searchWord}
                   placeholder={
                     initialQ
-                      ? "クリアはXをクリック/タップ"
-                      : "クリック/タップして入力"
+                      ? `クリアはXを${isUsingPhone ? "タップ" : "クリック"}`
+                      : `${isUsingPhone ? "タップ" : "クリック"}して入力`
                   }
                   type={"text"}
                   className={`${styles.search_input}`}

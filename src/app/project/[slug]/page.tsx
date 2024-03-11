@@ -3,23 +3,37 @@ import Project from "@/components/DefaultStructure";
 import styles from "@/styles/app/projects/project.module.scss";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilePdf, faLink, faTag } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFilePdf,
+  faLink,
+  faTag,
+  faUser,
+  faBookOpen,
+} from "@fortawesome/free-solid-svg-icons";
 import { sai_projects } from "@/components/constant";
 import parse from "html-react-parser";
 import Image from "next/image";
 import SEO from "@/components/SEO";
 import type { Metadata } from "next";
-import { cache } from "react";
+import React, { cache } from "react";
 import CopyButton from "@/components/CopyButton";
+import MiniSearchArea from "@/components/MiniSearchArea";
+import ProjectRightSidebar from "@/components/ProjectRightSidebar";
 
 const getProject = cache(async (slug: string) => {
   const response = await fetch(sai_projects);
   const projects: Project[] = await response.json();
-  const project: Project | undefined = projects.find((c: { id: string }) => {
-    const cid = String(c.id);
-    return cid === slug;
-  });
-  return project;
+  const filteredProjects = projects.filter((item) => item.id !== "");
+  const project: Project | undefined = filteredProjects.find(
+    (c: { id: string }) => {
+      const cid = String(c.id);
+      return cid === slug;
+    }
+  );
+  return {
+    project: project,
+    projects: filteredProjects,
+  };
 });
 
 export async function generateMetadata({
@@ -27,7 +41,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const project = await getProject(params.slug);
+  const { project } = await getProject(params.slug);
   if (!project)
     return SEO({
       title: "Undefined",
@@ -45,7 +59,19 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const project = await getProject(params.slug);
+  const { project, projects } = await getProject(params.slug);
+
+  const filteredRelativeProject = projects.filter(
+    (item) =>
+      project!.tags.some(
+        (tag) =>
+          item.tags.some(
+            (itemTag) =>
+              tag.name !== "" &&
+              itemTag.name.toLowerCase().includes(tag.name.toLowerCase())
+          ) || project?.title.toLowerCase().includes(item.title.toLowerCase())
+      ) && project!.id !== item.id
+  );
 
   // 見つからなかった場合
   if (!project) {
@@ -288,6 +314,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <div>{project.citation}</div>
             </div>
           </div>
+          <ProjectRightSidebar filteredProjects={filteredRelativeProject} />
         </section>
       </div>
     </>

@@ -1,0 +1,164 @@
+@import "../global/responsive.scss";
+
+.search_area {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+  justify-content: center;
+  user-select: none;
+
+  .search_box_frame {
+    width: auto;
+    position: relative;
+    display: flex;
+
+    @include mqDown(xx) {
+      width: 50%;
+    }
+
+    .search_input {
+      background-color: rgb(255, 255, 255);
+      height: 2.5rem;
+      width: 10rem;
+      position: relative;
+      appearance: none;
+      -webkit-appearance: none;
+      border-style: solid;
+      border-width: 0.1rem;
+      border-color: #dcdcdc transparent #dcdcdc #dcdcdc;
+      border-radius: 2rem 0 0 2rem;
+      padding: 0 2.5rem 0 1rem;
+      transition: all 0.1s;
+      opacity: 1;
+      -webkit-border-radius: 2rem 0 0 2rem;
+      -moz-border-radius: 2rem 0 0 2rem;
+      -ms-border-radius: 2rem 0 0 2rem;
+      -o-border-radius: 2rem 0 0 2rem;
+      -webkit-transition: all 0.1s;
+      -moz-transition: all 0.1s;
+      -ms-transition: all 0.1s;
+      -o-transition: all 0.1s;
+
+      @include mqDown(xx) {
+        width: 100%;
+      }
+
+      &:hover {
+        border-color: rgb(35, 190, 190) transparent rgb(35, 190, 190)
+          rgb(35, 190, 190);
+      }
+
+      &:active,
+      &:focus {
+        outline: none;
+        border-color: rgb(35, 190, 190) transparent rgb(35, 190, 190)
+          rgb(35, 190, 190);
+      }
+    }
+
+    .search_clear_button {
+      position: absolute;
+      appearance: none;
+      -webkit-appearance: none;
+      right: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+      background-color: transparent;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+
+      @include mqDown(xx) {
+        width: 20%;
+      }
+
+      &:hover,
+      &:focus {
+        outline: none;
+      }
+
+      svg {
+        color: #aaa;
+      }
+
+      &:hover svg,
+      &:focus svg {
+        color: #333;
+        width: 1rem;
+        height: 1rem;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .search_button {
+    background-color: rgb(35, 190, 190);
+    border-style: solid;
+    border-color: rgb(35, 190, 190);
+    border-width: 0.1rem;
+    margin-right: 1rem;
+    display: block;
+    cursor: pointer;
+    width: 3.5rem;
+    height: 2.5rem;
+    border-radius: 0 2rem 2rem 0;
+    transition: all 0.1s;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    -ms-transition: all 0.1s;
+    -o-transition: all 0.1s;
+    -webkit-border-radius: 0 2rem 2rem 0;
+    -moz-border-radius: 0 2rem 2rem 0;
+    -ms-border-radius: 0 2rem 2rem 0;
+    -o-border-radius: 0 2rem 2rem 0;
+
+    @include mqDown(xx) {
+      width: 15%;
+      margin-right: 2.5%;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: rgb(34, 161, 161);
+      border-color: rgb(34, 161, 161);
+      outline: none;
+    }
+
+    .search_magnify {
+      position: relative;
+      left: -0.1rem;
+      top: 0.1rem;
+      color: white;
+      width: 1.4rem;
+      font-size: 1.4rem;
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  .search_select {
+    border-style: solid;
+    border-width: 0.1rem;
+    border-color: rgb(223, 223, 223);
+    width: 6rem;
+    cursor: pointer;
+
+    @include mqDown(xx) {
+      width: 25%;
+    }
+
+    &:hover {
+      border-color: rgb(35, 190, 190);
+    }
+
+    &:active,
+    &:focus {
+      outline: none;
+      border-color: rgb(35, 190, 190);
+    }
+  }
+}

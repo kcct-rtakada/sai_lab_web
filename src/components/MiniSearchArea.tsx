@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import styles from "@/styles/components/MiniSearchArea.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function MiniSearchArea() {
   const [selectedSearchMode, setSelectedSearchMode] =

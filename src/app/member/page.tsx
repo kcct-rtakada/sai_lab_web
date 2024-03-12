@@ -5,7 +5,10 @@ import Link from "next/link";
 import { sai_members } from "@/components/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { faEarthAmericas } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEarthAmericas,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import SEO from "@/components/SEO";
 import type { Metadata } from "next";
 
@@ -49,12 +52,59 @@ export default async function Member() {
           <div key={i} className={styles.member}>
             <div className="left">
               <div className={styles.name}>
-                {item.name}
+                <span
+                  title={`${
+                    item.otherName
+                      ? "異体字等: " +
+                        item.otherName
+                          .match(/\([^()]+\)/g)
+                          ?.flatMap((match) => match.split(","))
+                          .flatMap((match) => match.slice(1, -1))
+                          .map((match) => match.replace(/[ 　]+/g, " "))
+                          .join(",")
+                      : ""
+                  }`}
+                >
+                  {item.name}
+                </span>
+                <Link
+                  href={`/project?mode=author&q=${item.name.replace(
+                    /[ 　]+/,
+                    ""
+                  )},${item.englishName.replace(
+                    /[ 　]+/,
+                    ""
+                  )},${item.englishName
+                    .split(/[ 　]+/)
+                    .reverse()
+                    .join("")}${
+                    item.otherName
+                      ? `,${item.otherName
+                          .match(/\([^()]+\)/g)
+                          ?.flatMap((match) => match.split(","))
+                          .flatMap((match) => match.slice(1, -1))
+                          .map((match) => match.replace(/[ 　]+/g, ""))
+                          .join(",")}`
+                      : ""
+                  }`}
+                  title="プロジェクトを検索"
+                >
+                  <FontAwesomeIcon
+                    icon={faMagnifyingGlass}
+                    style={{
+                      display: "inline-block",
+                      marginLeft: ".5rem",
+                      fontSize: "1.2rem",
+                      width: "1.2rem",
+                    }}
+                  />
+                </Link>
                 {item.homepage ? (
                   <Link
                     target="_blank"
                     rel="noopener noreferrer"
                     href={`${item.homepage}`}
+                    title="個人ホームページ"
                     style={{ marginLeft: ".5rem" }}
                   >
                     <FontAwesomeIcon
@@ -75,6 +125,7 @@ export default async function Member() {
                     rel="noopener noreferrer"
                     href={`https://github.com/${item.githubId}`}
                     style={{ marginLeft: ".5rem" }}
+                    title={`GitHub(${item.githubId})`}
                   >
                     <FontAwesomeIcon
                       icon={faGithub}

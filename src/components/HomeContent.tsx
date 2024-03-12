@@ -7,6 +7,8 @@ import News from "@/components/DefaultStructure";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import Game from "./Game/GameBase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
 export default function HomeContent() {
   const [newsList, setNewsList] = useState<null | News[]>(null);
@@ -340,7 +342,35 @@ export default function HomeContent() {
             }
             onClick={() => setUsingJapanese(!usingJapanese)}
           >
-            {usingJapanese ? <>日-&gt;EN</> : <>EN-&gt;日</>}
+            {usingJapanese ? (
+              <>
+                日
+                <FontAwesomeIcon
+                  icon={faArrowRightLong}
+                  style={{
+                    margin: "0 .15rem",
+                    fontSize: "1.15rem",
+                    width: "1.15rem",
+                    display: "inline-block",
+                  }}
+                />
+                EN
+              </>
+            ) : (
+              <>
+                EN
+                <FontAwesomeIcon
+                  icon={faArrowRightLong}
+                  style={{
+                    margin: "0 .15rem",
+                    fontSize: "1.15rem",
+                    width: "1.15rem",
+                    display: "inline-block",
+                  }}
+                />
+                日
+              </>
+            )}
           </button>
         </div>
       </div>

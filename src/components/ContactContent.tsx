@@ -4,6 +4,9 @@ import styles from "@/styles/app/contact/contact.module.scss";
 import { useState } from "react";
 import Link from "next/link";
 import parse from "html-react-parser";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
+
 
 export default function ContactContent() {
   const [usingJapanese, setUsingJapanese] = useState<boolean>(true);
@@ -109,7 +112,35 @@ export default function ContactContent() {
             }
             onClick={() => setUsingJapanese(!usingJapanese)}
           >
-            {usingJapanese ? <>日-&gt;EN</> : <>EN-&gt;日</>}
+            {usingJapanese ? (
+              <>
+                日
+                <FontAwesomeIcon
+                  icon={faArrowRightLong}
+                  style={{
+                    margin: "0 .15rem",
+                    fontSize: "1.15rem",
+                    width: "1.15rem",
+                    display: "inline-block",
+                  }}
+                />
+                EN
+              </>
+            ) : (
+              <>
+                EN
+                <FontAwesomeIcon
+                  icon={faArrowRightLong}
+                  style={{
+                    margin: "0 .15rem",
+                    fontSize: "1.15rem",
+                    width: "1.15rem",
+                    display: "inline-block",
+                  }}
+                />
+                日
+              </>
+            )}
           </button>
         </div>
       </div>

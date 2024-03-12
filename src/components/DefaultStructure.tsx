@@ -53,10 +53,11 @@ export default interface Member {
   id: string;
   name: string;
   englishName: string;
+  otherName: string;
   belonging: string;
   classification: string;
   homepage: string;
-  githubId: string
+  githubId: string;
 }
 
 export default interface Award {

@@ -115,7 +115,16 @@ export default function ProjectsViewer(props: Props) {
           project.authors.some(
             (author) =>
               keyword.toLowerCase() !== "" &&
-              author.name.toLowerCase().includes(keyword.toLowerCase())
+              (author.name
+                .toLowerCase()
+                .replace(/[ 　]+/, "")
+                .includes(keyword.toLowerCase()) ||
+                author.name
+                  .toLowerCase()
+                  .split(/[ 　]+/)
+                  .reverse()
+                  .join("")
+                  .includes(keyword.toLowerCase()))
           )
         )
       );

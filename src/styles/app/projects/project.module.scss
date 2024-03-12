@@ -200,7 +200,7 @@
         font-size: 1.6rem;
         line-height: 1.8;
         top: 0;
-        position: sticky;
+        position: relative;
         z-index: 1000;
         padding-left: 1rem;
         border-radius: 0 0 0.5rem 0.5rem;
@@ -255,6 +255,12 @@
         iframe {
           margin: 0 auto;
           width: calc(100% - 2rem);
+        }
+
+        &.poster {
+          iframe {
+            height: calc((min(55rem, 100vw) - 2rem) * 1.41);
+          }
         }
 
         h1 {
@@ -576,14 +582,13 @@
   }
 
   .l_sidebar {
-    background-color: #fafafa;
+    background-color: transparent;
     user-select: none;
     position: fixed;
-    top: 4rem;
-    left: 0;
-    width: calc((100% - min(55rem, 100%)) / 2 - 3rem);
-    max-width: 35rem;
-    height: calc(100% - 4rem);
+    top: 5.5rem;
+    left: calc((100% - min(55rem, 100%)) / 2 - 20rem);
+    width: 18rem;
+    height: calc(100% - 13rem);
     overflow: hidden;
     display: none;
     z-index: 500;
@@ -591,12 +596,12 @@
 
     svg.polygon1 {
       position: absolute;
-      width: 110%;
+      width: 130%;
       left: -5rem;
-      bottom: -0.2rem;
+      bottom: -4rem;
       z-index: 505;
       .svg_polygon_1 {
-        fill: #ececec;
+        fill: #f0f0f0;
         stroke-width: 0px;
         transition: all 0.1s;
         pointer-events: fill;
@@ -616,7 +621,9 @@
           &:nth-child(3n) {
             fill: rgb(121, 121, 197);
           }
-        }
+          filter: drop-shadow(.1rem .1rem .2rem #cccccc);
+          -webkit-filter: drop-shadow(.1rem .1rem .2rem #cccccc);
+}
       }
     }
 
@@ -641,6 +648,8 @@
 
       .l_index {
         width: 100%;
+        max-height: calc(100% - 3rem);
+        overflow-y: auto;
         display: block;
         position: relative;
         z-index: 520;

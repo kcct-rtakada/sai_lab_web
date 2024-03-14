@@ -85,13 +85,13 @@
         filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
         margin-bottom: 1rem;
         border-radius: 0.3rem;
-        padding: 0.2rem 0.8rem;
         display: flex;
         justify-content: space-between;
         position: relative;
         width: min(40rem, 100%);
         margin-left: auto;
         margin-right: auto;
+        height: 3.6rem;
         -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
         -webkit-border-radius: 0.3rem;
         -moz-border-radius: 0.3rem;
@@ -108,16 +108,64 @@
           -o-border-radius: 0;
         }
 
-        .left {
-          text-align: left;
-          display: block;
-          width: calc(50% - 0.8rem);
+        .member_content {
+          display: flex;
+          justify-content: space-between;
+          position: relative;
+          width: calc(100% - 2.5rem);
+          height: 100%;
+          overflow-y: auto;
+
+          .left {
+            text-align: left;
+            display: block;
+            padding: 0.2rem 0 0.2rem 0.8rem;
+          }
+
+          .middle {
+            padding: 0.2rem 0.8rem 0.2rem 0;
+          }
         }
 
         .right {
-          text-align: right;
-          display: block;
-          width: calc(50% - 0.8rem);
+          width: 2.5rem;
+          height: 100%;
+          background-color: rgb(105, 115, 248);
+          position: relative;
+          pointer-events: all;
+          border-radius: 0 0.3rem 0.3rem 0;
+          -webkit-border-radius: 0 0.3rem 0.3rem 0;
+          -moz-border-radius: 0 0.3rem 0.3rem 0;
+          -ms-border-radius: 0 0.3rem 0.3rem 0;
+          -o-border-radius: 0 0.3rem 0.3rem 0;
+          transition: all 0.2s;
+          -webkit-transition: all 0.2s;
+          -moz-transition: all 0.2s;
+          -ms-transition: all 0.2s;
+          -o-transition: all 0.2s;
+
+          &:hover {
+            background-color: rgb(65, 75, 221);
+          }
+
+          @include mqUp(sm) {
+            border-radius: 0;
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            -ms-border-radius: 0;
+            -o-border-radius: 0;
+          }
+
+          .search_link {
+            display: block;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+          }
         }
 
         .name {

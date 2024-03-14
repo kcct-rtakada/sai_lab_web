@@ -50,101 +50,107 @@ export default async function Member() {
         <h2>{name}</h2>
         {members!.map((item, i) => (
           <div key={i} className={styles.member}>
-            <div className="left">
-              <div className={styles.name}>
-                <span
-                  title={`${
-                    item.otherName
-                      ? "異体字等: " +
-                        item.otherName
-                          .match(/\([^()]+\)/g)
-                          ?.flatMap((match) => match.split(","))
-                          .flatMap((match) => match.slice(1, -1))
-                          .map((match) => match.replace(/[ 　]+/g, " "))
-                          .join(",")
-                      : ""
-                  }`}
-                >
-                  {item.name}
-                </span>
-                <Link
-                  href={`/project?mode=author&q=${item.name.replace(
-                    /[ 　]+/,
-                    ""
-                  )},${item.englishName.replace(
-                    /[ 　]+/,
-                    ""
-                  )},${item.englishName
-                    .split(/[ 　]+/)
-                    .reverse()
-                    .join("")}${
-                    item.otherName
-                      ? `,${item.otherName
-                          .match(/\([^()]+\)/g)
-                          ?.flatMap((match) => match.split(","))
-                          .flatMap((match) => match.slice(1, -1))
-                          .map((match) => match.replace(/[ 　]+/g, ""))
-                          .join(",")}`
-                      : ""
-                  }`}
-                  title="プロジェクトを検索"
-                >
-                  <FontAwesomeIcon
-                    icon={faMagnifyingGlass}
-                    style={{
-                      display: "inline-block",
-                      marginLeft: ".5rem",
-                      fontSize: "1.2rem",
-                      width: "1.2rem",
-                    }}
-                  />
-                </Link>
-                {item.homepage ? (
-                  <Link
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={`${item.homepage}`}
-                    title="個人ホームページ"
-                    style={{ marginLeft: ".5rem" }}
+            <div className={styles.member_content}>
+              <div className={styles.left}>
+                <div className={styles.name}>
+                  <span
+                    title={`${
+                      item.otherName
+                        ? "異体字等: " +
+                          item.otherName
+                            .match(/\([^()]+\)/g)
+                            ?.flatMap((match) => match.split(","))
+                            .flatMap((match) => match.slice(1, -1))
+                            .map((match) => match.replace(/[ 　]+/g, " "))
+                            .join(",")
+                        : ""
+                    }`}
                   >
-                    <FontAwesomeIcon
-                      icon={faEarthAmericas}
-                      style={{
-                        display: "inline-block",
-                        fontSize: "1.2rem",
-                        width: "1.2rem",
-                      }}
-                    />
-                  </Link>
-                ) : (
-                  <></>
-                )}
-                {item.githubId ? (
-                  <Link
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={`https://github.com/${item.githubId}`}
-                    style={{ marginLeft: ".5rem" }}
-                    title={`GitHub(${item.githubId})`}
-                  >
-                    <FontAwesomeIcon
-                      icon={faGithub}
-                      style={{
-                        display: "inline-block",
-                        fontSize: "1.2rem",
-                        width: "1.2rem",
-                      }}
-                    />
-                  </Link>
-                ) : (
-                  <></>
-                )}
+                    {item.name}
+                  </span>
+                  {item.homepage ? (
+                    <Link
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={`${item.homepage}`}
+                      title="個人ホームページ"
+                      style={{ marginLeft: ".6rem" }}
+                    >
+                      <FontAwesomeIcon
+                        icon={faEarthAmericas}
+                        style={{
+                          display: "inline-block",
+                          fontSize: "1.2rem",
+                          width: "1.2rem",
+                        }}
+                      />
+                    </Link>
+                  ) : (
+                    <></>
+                  )}
+                  {item.githubId ? (
+                    <Link
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={`https://github.com/${item.githubId}`}
+                      title={`GitHub(${item.githubId})`}
+                      style={{ marginLeft: ".6rem" }}
+                    >
+                      <FontAwesomeIcon
+                        icon={faGithub}
+                        style={{
+                          display: "inline-block",
+                          fontSize: "1.2rem",
+                          width: "1.2rem",
+                        }}
+                      />
+                    </Link>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+                <div className={styles.english_name}>{item.englishName}</div>
               </div>
-              <div className={styles.english_name}>{item.englishName}</div>
+              <div className={styles.middle}>
+                <div className={styles.belonging}>{item.belonging}</div>
+                <div className={styles.classification}>
+                  {item.classification}
+                </div>
+              </div>
             </div>
-            <div className="right">
-              <div className={styles.belonging}>{item.belonging}</div>
-              <div className={styles.classification}>{item.classification}</div>
+
+            <div className={styles.right}>
+              <Link
+                href={`/project?mode=author&q=${item.name.replace(
+                  /[ 　]+/,
+                  ""
+                )},${item.englishName.replace(/[ 　]+/, "")},${item.englishName
+                  .split(/[ 　]+/)
+                  .reverse()
+                  .join("")}${
+                  item.otherName
+                    ? `,${item.otherName
+                        .match(/\([^()]+\)/g)
+                        ?.flatMap((match) => match.split(","))
+                        .flatMap((match) => match.slice(1, -1))
+                        .map((match) => match.replace(/[ 　]+/g, ""))
+                        .join(",")}`
+                    : ""
+                }`}
+                className={styles.search_link}
+                title="プロジェクトを検索"
+              >
+                <FontAwesomeIcon
+                  icon={faMagnifyingGlass}
+                  style={{
+                    color: "white",
+                    fill: "white",
+                    display: "block",
+                    fontSize: "1.2rem",
+                    width: "1.2rem",
+                  }}
+                />
+              </Link>
             </div>
           </div>
         ))}

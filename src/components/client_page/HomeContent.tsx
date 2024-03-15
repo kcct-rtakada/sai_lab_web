@@ -6,7 +6,7 @@ import { sai_news } from "@/components/constant";
 import News from "@/components/DefaultStructure";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
-import Game from "../game/GameBase";
+import Game from "@/components/game/GameBase"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 

@@ -402,6 +402,7 @@
       column-gap: 2rem;
       margin-top: 2.5rem;
       padding-bottom: 2rem;
+      pointer-events: all;
 
       @include mqDown(lg) {
         width: 90%;

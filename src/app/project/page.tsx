@@ -1,7 +1,7 @@
-import ProjectsViewer from "@/components/ProjectsViewer";
+import ProjectsViewer from "@/components/project_list/ProjectsViewer";
 import Project from "@/components/DefaultStructure";
 import { sai_projects } from "@/components/constant";
-import SEO from "@/components/SEO";
+import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {

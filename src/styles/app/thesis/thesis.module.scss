@@ -36,8 +36,8 @@
     -ms-user-select: text;
     position: relative;
 
-    @include mqUp(xl) {
-      padding: 2rem 0;
+    @include mqUp(xx) {
+      padding: 0 0 2rem 0;
     }
 
     @include mqUp(sm) {
@@ -69,7 +69,7 @@
       }
 
       h2 {
-        margin-left: .2rem;
+        margin-left: 0.2rem;
         text-align: left;
         font-weight: bold;
         font-size: 1.2rem;
@@ -78,6 +78,10 @@
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
         background-image: linear-gradient(to right, white, rgb(245, 255, 255));
+
+        @include mqUp(xl) {
+          scroll-margin-top: 5rem;
+        }
 
         &::before {
           display: inline-block;

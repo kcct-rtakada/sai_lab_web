@@ -1,6 +1,6 @@
-import SEO from "@/components/SEO";
+import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
-import HomeContent from "@/components/HomeContent";
+import HomeContent from "@/components/client_page/HomeContent";
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({

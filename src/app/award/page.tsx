@@ -3,8 +3,9 @@ import Award from "@/components/DefaultStructure";
 import styles from "@/styles/app/award/award.module.scss";
 import Link from "next/link";
 import { sai_awards } from "@/components/constant";
-import SEO from "@/components/SEO";
+import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
+import YearListSidebar from "@/components/client_parts/YearListSidebar";
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
@@ -42,6 +43,7 @@ export default async function Award() {
             <h1 className={styles.page_title}>表彰</h1>
           </div>
         </div>
+        <YearListSidebar pageName="表彰" years={uniqueYears} />
         <div className={styles.list_box}>
           <div className={styles.result_box}>
             {uniqueYears.map((year, i) => {
@@ -60,7 +62,9 @@ export default async function Award() {
 
               return (
                 <>
-                  <h2 key={`year${i}`}>{year}年度</h2>
+                  <h2 key={`year${i}`} id={String(year)}>
+                    {year}年度
+                  </h2>
                   <ul key={`ul${i}`}>
                     {matchedDataWithYear!.map((award, j) => {
                       const japanTime = new Date(
@@ -111,5 +115,3 @@ export default async function Award() {
     </>
   );
 }
-
-// https://script.google.com/macros/s/AKfycbyghZzjroYK8o4rRH2eVByK5id4Obxn3GqoyF7iJL9Ap8MjZCnA5GPbpAtpGle1Vo_8/exec

@@ -80,9 +80,9 @@
       left: 0;
       z-index: 1150;
       display: flex;
-      margin-bottom: 1rem;
+      margin: 1rem 0;
       user-select: none;
-  
+
       button {
         font-size: 1.15rem;
         font-weight: bold;
@@ -109,7 +109,7 @@
         -moz-border-radius: 1rem;
         -ms-border-radius: 1rem;
         -o-border-radius: 1rem;
-  
+
         &:hover {
           background-image: linear-gradient(
             to bottom left,

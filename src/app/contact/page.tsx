@@ -1,6 +1,6 @@
-import SEO from "@/components/SEO";
+import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
-import ContactContent from "@/components/ContactContent";
+import ContactContent from "@/components/client_page/ContactContent";
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
@@ -12,5 +12,5 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function Contact() {
-  return <ContactContent />
+  return <ContactContent />;
 }

@@ -200,7 +200,7 @@
         font-size: 1.6rem;
         line-height: 1.8;
         top: 0;
-        position: relative;
+        position: sticky;
         z-index: 1000;
         padding-left: 1rem;
         border-radius: 0 0 0.5rem 0.5rem;
@@ -209,6 +209,10 @@
         -moz-border-radius: 0 0 0.5rem 0.5rem;
         -ms-border-radius: 0 0 0.5rem 0.5rem;
         -o-border-radius: 0 0 0.5rem 0.5rem;
+
+        @include mqDown(xx) {
+          position: relative;
+        }
 
         &::before {
           display: inline-block;
@@ -621,9 +625,9 @@
           &:nth-child(3n) {
             fill: rgb(121, 121, 197);
           }
-          filter: drop-shadow(.1rem .1rem .2rem #cccccc);
-          -webkit-filter: drop-shadow(.1rem .1rem .2rem #cccccc);
-}
+          filter: drop-shadow(0.1rem 0.1rem 0.2rem #cccccc);
+          -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem #cccccc);
+        }
       }
     }
 

@@ -1,7 +1,7 @@
 import News from "@/components/DefaultStructure";
 import { sai_news } from "@/components/constant";
-import NewsViewer from "@/components/NewsViewer";
-import SEO from "@/components/SEO";
+import NewsViewer from "@/components/news_list/NewsViewer";
+import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {

@@ -1,11 +1,11 @@
 "use client";
-import Header from "@/components/Header";
+import Header from "@/components/common/Header";
 import "normalize.css";
 import "./globals.css";
-import Footer from "@/components/Footer";
+import Footer from "@/components/common/Footer";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { useRef } from "react";
-import ScrollToTopButton from "@/components/ScrollToTopButton";
+import ScrollToTopButton from "@/components/common/ScrollToTopButton";
 
 export default function RootLayout({
   children,

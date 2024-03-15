@@ -7,7 +7,7 @@ import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { sai_news } from "@/components/constant";
 import parse from "html-react-parser";
 import Image from "next/image";
-import SEO from "@/components/SEO";
+import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
 import { cache } from "react";
 

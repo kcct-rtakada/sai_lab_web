@@ -5,8 +5,9 @@ import Link from "next/link";
 import { sai_projects } from "@/components/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faLink } from "@fortawesome/free-solid-svg-icons";
-import SEO from "@/components/SEO";
+import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
+import YearListSidebar from "@/components/client_parts/YearListSidebar";
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
@@ -110,6 +111,7 @@ export default async function Thesis() {
             <h1 className={styles.page_title}>学位論文</h1>
           </div>
         </div>
+        <YearListSidebar pageName="学位論文" years={uniqueYears} />
         <div className={styles.list_box}>
           <div className={styles.result_box}>
             {uniqueYears.map((year, i) => {
@@ -135,7 +137,9 @@ export default async function Thesis() {
               );
               return (
                 <>
-                  <h2>{year}年度</h2>
+                  <h2 key={i} id={String(year)}>
+                    {year}年度
+                  </h2>
                   {matched2ndPaper!.length > 0 ? (
                     <>
                       {displayingThesis(

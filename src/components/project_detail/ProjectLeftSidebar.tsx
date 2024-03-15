@@ -1,10 +1,9 @@
 "use client";
 import styles from "@/styles/app/projects/project.module.scss";
-import Project from "./DefaultStructure";
+import Project from "../DefaultStructure";
 import Link from "next/link";
 
 export default function ProjectLeftSidebar({ project }: { project: Project }) {
-
   return (
     <div className={styles.l_sidebar}>
       <div className={styles.side_content_area}>

@@ -7,12 +7,12 @@ import { faFilePdf, faLink, faTag } from "@fortawesome/free-solid-svg-icons";
 import { sai_projects } from "@/components/constant";
 import parse from "html-react-parser";
 import Image from "next/image";
-import SEO from "@/components/SEO";
+import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
 import React, { cache } from "react";
-import CopyButton from "@/components/CopyButton";
-import ProjectRightSidebar from "@/components/ProjectRightSidebar";
-import ProjectLeftSidebar from "@/components/ProjectLeftSidebar";
+import CopyButton from "@/components/client_parts/CopyButton";
+import ProjectRightSidebar from "@/components/project_detail/ProjectRightSidebar";
+import ProjectLeftSidebar from "@/components/project_detail/ProjectLeftSidebar";
 
 const getProject = cache(async (slug: string) => {
   const response = await fetch(sai_projects);

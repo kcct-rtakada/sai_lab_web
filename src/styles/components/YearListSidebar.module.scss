@@ -1,0 +1,203 @@
+@import "../global/responsive.scss";
+
+.l_sidebar {
+  background-color: transparent;
+  user-select: none;
+  position: fixed;
+  top: 10.5rem;
+  left: calc((100% - min(55rem, 100%)) / 2 - 20rem);
+  width: 18rem;
+  height: calc(100% - 18rem);
+  overflow: hidden;
+  display: block;
+  z-index: 500;
+  pointer-events: none;
+
+  @include mqUp(xx) {
+    cursor: pointer;
+    pointer-events: all;
+    width: 3.5rem;
+    height: 3.5rem;
+    background-color: rgb(236, 163, 26);
+    margin-top: 1rem;
+    top: 1rem;
+    left: 1rem;
+    position: sticky;
+    overflow: visible;
+    border-radius: 3.5rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    -webkit-border-radius: 3.5rem;
+    -moz-border-radius: 3.5rem;
+    -ms-border-radius: 3.5rem;
+    -o-border-radius: 3.5rem;
+    filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(200, 200, 200));
+    -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(200, 200, 200));
+    transition: background-color 0.15s;
+    -webkit-transition: background-color 0.15s;
+    -moz-transition: background-color 0.15s;
+    -ms-transition: background-color 0.15s;
+    -o-transition: background-color 0.15s;
+
+    &:hover,
+    &:focus {
+      background-color: rgb(218, 148, 20);
+    }
+
+    &.open {
+      cursor: default;
+      pointer-events: all;
+      justify-content: initial;
+      align-items: initial;
+      text-align: initial;
+      display: block;
+      flex-direction: initial;
+      background-color: transparent;
+
+      .icon_box {
+        display: none;
+      }
+    }
+  }
+
+  svg.polygon1 {
+    position: absolute;
+    width: 130%;
+    left: -5rem;
+    bottom: -4rem;
+    z-index: 505;
+
+    @include mqUp(xx) {
+      display: none;
+    }
+
+    .svg_polygon_1 {
+      fill: #f0f0f0;
+      stroke-width: 0px;
+      transition: all 0.1s;
+      pointer-events: fill;
+      -webkit-transition: all 0.1s;
+      -moz-transition: all 0.1s;
+      -ms-transition: all 0.1s;
+      -o-transition: all 0.1s;
+
+      &:hover {
+        fill: #bbbbbb;
+        &:nth-child(3n + 1) {
+          fill: rgb(216, 95, 95);
+        }
+        &:nth-child(3n + 2) {
+          fill: rgb(106, 184, 106);
+        }
+        &:nth-child(3n) {
+          fill: rgb(121, 121, 197);
+        }
+        filter: drop-shadow(0.1rem 0.1rem 0.2rem #cccccc);
+        -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem #cccccc);
+      }
+    }
+  }
+
+  .side_content_area {
+    width: min(55rem, 100%);
+    margin: 0 auto;
+    padding: 1.2rem 1rem;
+    position: relative;
+    height: 100%;
+    z-index: 510;
+
+    @include mqUp(xx) {
+      display: none;
+
+      &.open {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        background-color: #fafafa;
+        width: min(70vw, 20rem);
+        height: auto;
+        max-height: calc(100vh - 12rem);
+        border-radius: 0.5rem;
+        filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(200, 200, 200));
+        -webkit-border-radius: 0.5rem;
+        -moz-border-radius: 0.5rem;
+        -ms-border-radius: 0.5rem;
+        -o-border-radius: 0.5rem;
+        -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(200, 200, 200));
+      }
+    }
+
+    .close_icon_box {
+      display: none;
+
+      .close_button {
+        width: 2.5rem;
+        height: 2.5rem;
+        background-color: #e0e0e0;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        border-radius: 1.25rem;
+        -webkit-border-radius: 1.25rem;
+        -moz-border-radius: 1.25rem;
+        -ms-border-radius: 1.25rem;
+        -o-border-radius: 1.25rem;
+        transition: background-color 0.15s;
+        -webkit-transition: background-color 0.15s;
+        -moz-transition: background-color 0.15s;
+        -ms-transition: background-color 0.15s;
+        -o-transition: background-color 0.15s;
+
+        &:hover {
+          background-color: #d4d4d4;
+        }
+      }
+
+      @include mqUp(xx) {
+        display: block;
+      }
+    }
+
+    .section_title {
+      font-size: 1.15rem;
+      font-weight: bold;
+      margin-top: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .l_index {
+      width: 100%;
+      max-height: calc(100% - 3rem);
+      overflow-y: auto;
+      display: block;
+      position: relative;
+      z-index: 520;
+      font-size: 1.15rem;
+      pointer-events: all;
+
+      .link_box {
+        display: block;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.2rem;
+        -webkit-border-radius: 0.2rem;
+        -moz-border-radius: 0.2rem;
+        -ms-border-radius: 0.2rem;
+        -o-border-radius: 0.2rem;
+
+        &:hover {
+          background-color: #ececec;
+        }
+
+        &.h2 {
+          padding-left: 2.5rem;
+        }
+      }
+    }
+  }
+}

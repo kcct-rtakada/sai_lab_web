@@ -101,6 +101,9 @@
         @include mqUp(sm) {
           margin: 0;
           filter: none;
+          display: flex;
+          height: auto;
+          position: relative;
           border-radius: 0;
           -webkit-border-radius: 0;
           -moz-border-radius: 0;
@@ -114,7 +117,6 @@
           position: relative;
           width: calc(100% - 2.5rem);
           height: 100%;
-          overflow-y: auto;
 
           .left {
             text-align: left;
@@ -129,7 +131,7 @@
 
         .right {
           width: 2.5rem;
-          height: 100%;
+          height: initial;
           background-color: rgb(105, 115, 248);
           position: relative;
           pointer-events: all;
@@ -149,6 +151,7 @@
           }
 
           @include mqUp(sm) {
+            width: 3.6rem;
             border-radius: 0;
             -webkit-border-radius: 0;
             -moz-border-radius: 0;

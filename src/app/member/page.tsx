@@ -9,7 +9,7 @@ import {
   faEarthAmericas,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
-import SEO from "@/components/SEO";
+import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {

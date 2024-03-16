@@ -390,7 +390,7 @@ export default function ProjectsViewer(props: Props) {
                   }
 
                   if (selectedYear !== 0 && year !== selectedYear)
-                    return <span key={`dYear${i}`}></span>;
+                    return <React.Fragment key={i} />;
                   const matchedDataWithYear = displayArray?.filter((item) => {
                     const japanTime = new Date(
                       new Date(item.date).toLocaleString("en-US", {

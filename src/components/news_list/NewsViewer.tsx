@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useState, useEffect } from "react";
-import News from "@/components/DefaultStructure";
+import { News } from "@/components/DefaultStructure";
 import styles from "@/styles/app/news/newsList.module.scss";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -219,22 +219,24 @@ export default function NewsViewer(props: Props) {
             </button>
             <div className={styles.years_list_box}>
               <p>表示年度</p>
-              <select
-                title="表示年度を選択"
-                className={styles.year_select}
-                onChange={triggerYearSelection}
-                name="year_filtering"
-                value={selectedYear}
-              >
-                <option key={`year0`} value={0}>
-                  すべて
-                </option>
-                {uniqueYears.map((year, i) => (
-                  <option key={`year${i}`} value={year}>
-                    {year}年度
+              <div className={styles.select_box}>
+                <select
+                  title="表示年度を選択"
+                  className={styles.year_select}
+                  onChange={triggerYearSelection}
+                  name="year_filtering"
+                  value={selectedYear}
+                >
+                  <option key={`year0`} value={0}>
+                    すべて
                   </option>
-                ))}
-              </select>
+                  {uniqueYears.map((year, i) => (
+                    <option key={`year${i}`} value={year}>
+                      {year}年度
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div className={styles.search_area}>
               <div className={styles.search_box_frame}>
@@ -277,16 +279,17 @@ export default function NewsViewer(props: Props) {
                   className={styles.search_magnify}
                 />
               </button>
-
-              <select
-                title="検索カテゴリを選択"
-                className={styles.search_select}
-                onChange={triggerSearchModeSelection}
-                name="search_type"
-              >
-                <option value="news_name">記事名</option>
-                <option value="news_year">公開年</option>
-              </select>
+              <div className={styles.select_box}>
+                <select
+                  title="検索カテゴリを選択"
+                  className={styles.search_select}
+                  onChange={triggerSearchModeSelection}
+                  name="search_type"
+                >
+                  <option value="news_name">記事名</option>
+                  <option value="news_year">公開年</option>
+                </select>
+              </div>
             </div>
           </div>
           <div

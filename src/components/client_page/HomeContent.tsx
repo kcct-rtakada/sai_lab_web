@@ -2,38 +2,16 @@
 "use client";
 import styles from "@/styles/app/page.module.scss";
 import Link from "next/link";
-import { sai_news } from "@/components/constant";
-import News from "@/components/DefaultStructure";
+import { News } from "@/components/DefaultStructure";
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
-import Game from "@/components/game/GameBase"
+import { useState } from "react";
+import Game from "@/components/game/GameBase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
-export default function HomeContent() {
-  const [newsList, setNewsList] = useState<null | News[]>(null);
-  const [newsLoaded, setNewsLoaded] = useState<boolean>(false);
+export default function HomeContent({ newsList }: { newsList: News[] }) {
   const [usingJapanese, setUsingJapanese] = useState<boolean>(true);
   const [clickedLogoCount, setClickedLogoCount] = useState<number>(0);
-
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    if (!newsLoaded) {
-      fetch(sai_news)
-        .then((response) => response.json())
-        .then((data) => {
-          setNewsList(data);
-          setNewsLoaded(true);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-
-    if (canvasRef) {
-    }
-  }, [canvasRef, newsLoaded]);
 
   const displayString = (japaneseString: string, englishString: string) => {
     return <>{usingJapanese ? japaneseString : englishString}</>;
@@ -104,36 +82,28 @@ export default function HomeContent() {
         <h2 className={styles.section_name}>
           {displayString("最新のニュース", "Latest News")}
         </h2>
-        {newsLoaded ? (
-          <ul>
-            {newsList?.slice(0, listingNum).map((news, i) => {
-              const japanTime = new Date(
-                new Date(news.date).toLocaleString("en-US", {
-                  timeZone: "Asia/Tokyo",
-                })
-              );
-              return (
-                <li key={i} style={{ listStyle: "none" }}>
-                  <Link href={`/news/${news.id}`}>
-                    {news.title}-{" "}
-                    {`${japanTime.getFullYear()}/${(japanTime.getMonth() + 1)
-                      .toString()
-                      .padStart(2, "0")}/${japanTime
-                      .getDate()
-                      .toString()
-                      .padStart(2, "0")}`}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        ) : (
-          <div className="loading">
-            <span className="load_1" />
-            <span className="load_2" />
-          </div>
-        )}
-
+        <ul>
+          {newsList?.slice(0, listingNum).map((news, i) => {
+            const japanTime = new Date(
+              new Date(news.date).toLocaleString("en-US", {
+                timeZone: "Asia/Tokyo",
+              })
+            );
+            return (
+              <li key={i} style={{ listStyle: "none" }}>
+                <Link href={`/news/${news.id}`}>
+                  {news.title}-{" "}
+                  {`${japanTime.getFullYear()}/${(japanTime.getMonth() + 1)
+                    .toString()
+                    .padStart(2, "0")}/${japanTime
+                    .getDate()
+                    .toString()
+                    .padStart(2, "0")}`}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
         <h2 className={styles.section_name}>Welcome to SAI!!</h2>
         <div className={styles.string_box}>
           <p>

@@ -1,13 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-import Project from "@/components/DefaultStructure";
+import { Project } from "@/components/DefaultStructure";
 import styles from "@/styles/app/publication/publication.module.scss";
 import Link from "next/link";
-import { sai_projects } from "@/components/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faLink } from "@fortawesome/free-solid-svg-icons";
 import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
 import YearListSidebar from "@/components/client_parts/YearListSidebar";
+import React from "react";
+import { fetchProjects } from "@/components/GASFetch";
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
@@ -19,10 +20,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Publication() {
-  const response = await fetch(sai_projects);
+  const response = await fetchProjects();
   const projects: Project[] = await response.json();
+  const filteredProjects = projects.filter((item) => item.id !== "");
 
-  const sortedConferencePapers = projects?.filter(
+  const sortedConferencePapers = filteredProjects?.filter(
     (element) =>
       element.classification.toLowerCase().includes("国内会議") ||
       element.classification.toLowerCase().includes("国際会議") ||
@@ -46,7 +48,7 @@ export default async function Publication() {
 
   const displayingThesis = (name: string, arrays: Project[] | undefined) => {
     return (
-      <>
+      <React.Fragment>
         <h3>{name}</h3>
         <ol>
           {arrays!.map((item, j) => (
@@ -97,12 +99,12 @@ export default async function Publication() {
             </li>
           ))}
         </ol>
-      </>
+      </React.Fragment>
     );
   };
 
   return (
-    <>
+    <React.Fragment>
       <div className={styles.main}>
         <div className={styles.title_box}>
           <div className={styles.title_area}>
@@ -137,33 +139,39 @@ export default async function Publication() {
                 item.classification.toLowerCase().includes("論文誌")
               );
               return (
-                <>
+                <React.Fragment key={i}>
                   <h2 key={i} id={String(year)}>
                     {year}年度
                   </h2>
                   {matchedJournal!.length > 0 ? (
-                    <>{displayingThesis("論文誌", matchedJournal)}</>
+                    <React.Fragment>
+                      {displayingThesis("論文誌", matchedJournal)}
+                    </React.Fragment>
                   ) : (
                     <></>
                   )}
 
                   {matchedInternal!.length > 0 ? (
-                    <>{displayingThesis("国内会議", matchedInternal)}</>
+                    <React.Fragment>
+                      {displayingThesis("国内会議", matchedInternal)}
+                    </React.Fragment>
                   ) : (
                     <></>
                   )}
 
                   {matchedExternal!.length > 0 ? (
-                    <>{displayingThesis("国際会議", matchedExternal)}</>
+                    <React.Fragment>
+                      {displayingThesis("国際会議", matchedExternal)}
+                    </React.Fragment>
                   ) : (
                     <></>
                   )}
-                </>
+                </React.Fragment>
               );
             })}
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 }

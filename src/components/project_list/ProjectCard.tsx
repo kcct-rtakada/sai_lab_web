@@ -6,7 +6,7 @@ import {
   faTag,
   faCalendar,
 } from "@fortawesome/free-solid-svg-icons";
-import Project from "@/components/DefaultStructure";
+import { Project } from "@/components/DefaultStructure";
 import styles from "@/styles/app/projects/projectList.module.scss";
 import Link from "next/link";
 export default function ProjectCard({

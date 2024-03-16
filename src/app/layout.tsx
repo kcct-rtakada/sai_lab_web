@@ -6,6 +6,7 @@ import Footer from "@/components/common/Footer";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { useRef } from "react";
 import ScrollToTopButton from "@/components/common/ScrollToTopButton";
+import NextTopLoader from "nextjs-toploader";
 
 export default function RootLayout({
   children,
@@ -16,7 +17,9 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head prefix="og: http://ogp.me/ns#">
+        <meta name="theme-color" content="#fafafa" />
         <GoogleAnalytics gaId="G-EKY6C0HPHX" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="msapplication-square70x70logo"
           content="/site-tile-70x70.png"
@@ -243,6 +246,14 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <NextTopLoader
+          color="#6973f8"
+          template='<div style="height: .15rem;" class="bar" role="bar"><div class="peg"></div></div> 
+                    <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
+          shadow={false}
+          showSpinner={false}
+          zIndex={20000}
+        />
         <Header />
         <main ref={containerRef} id="top_main">
           {children}

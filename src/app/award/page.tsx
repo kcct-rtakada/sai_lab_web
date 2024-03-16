@@ -1,11 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import Award from "@/components/DefaultStructure";
+import { Award } from "@/components/DefaultStructure";
 import styles from "@/styles/app/award/award.module.scss";
 import Link from "next/link";
-import { sai_awards } from "@/components/constant";
 import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
 import YearListSidebar from "@/components/client_parts/YearListSidebar";
+import React from "react";
+import { fetchAwards } from "@/components/GASFetch";
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
@@ -17,12 +18,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Award() {
-  const response = await fetch(sai_awards);
+  const response = await fetchAwards();
   const awards: Award[] = await response.json();
+  const filteredAwards = awards.filter((item) => item.id !== "");
 
   const uniqueYears = Array.from(
     new Set(
-      awards?.flatMap((item) => {
+      filteredAwards?.flatMap((item) => {
         const japanTime = new Date(
           new Date(item.date).toLocaleString("en-US", {
             timeZone: "Asia/Tokyo",
@@ -36,7 +38,7 @@ export default async function Award() {
   );
 
   return (
-    <>
+    <React.Fragment>
       <div className={styles.main}>
         <div className={styles.title_box}>
           <div className={styles.title_area}>
@@ -47,7 +49,7 @@ export default async function Award() {
         <div className={styles.list_box}>
           <div className={styles.result_box}>
             {uniqueYears.map((year, i) => {
-              const matchedDataWithYear = awards?.filter((item) => {
+              const matchedDataWithYear = filteredAwards?.filter((item) => {
                 const japanTime = new Date(
                   new Date(item.date).toLocaleString("en-US", {
                     timeZone: "Asia/Tokyo",
@@ -61,7 +63,7 @@ export default async function Award() {
               });
 
               return (
-                <>
+                <React.Fragment key={i}>
                   <h2 key={`year${i}`} id={String(year)}>
                     {year}年度
                   </h2>
@@ -106,12 +108,12 @@ export default async function Award() {
                       );
                     })}
                   </ul>
-                </>
+                </React.Fragment>
               );
             })}
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 }

@@ -20,11 +20,6 @@ export default function SEO(info: Props): Metadata {
     description: displayingDescription,
     icons: "/favicon.ico",
     keywords: ["SAI", "髙田 崚介", "高田 崚介", "神戸高専", "電子工学科"],
-    viewport: {
-      width: "device-width",
-      initialScale: 1,
-    },
-    themeColor: "#fafafa",
     manifest: "/manifest.json",
     openGraph: {
       title: title ? title : `SAI`,

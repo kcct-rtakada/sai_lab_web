@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useState, useEffect } from "react";
-import Project from "@/components/DefaultStructure";
+import { Project } from "@/components/DefaultStructure";
 import styles from "@/styles/app/projects/projectList.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProjectCard from "./ProjectCard";
@@ -287,22 +287,24 @@ export default function ProjectsViewer(props: Props) {
             </button>
             <div className={styles.years_list_box}>
               <p>表示年度</p>
-              <select
-                title="表示年度を選択"
-                className={styles.year_select}
-                onChange={triggerYearSelection}
-                name="year_filtering"
-                value={selectedYear}
-              >
-                <option key={`year0`} value={0}>
-                  すべて
-                </option>
-                {uniqueYears.map((year, i) => (
-                  <option key={`year${i}`} value={year}>
-                    {year}年度
+              <div className={styles.select_box}>
+                <select
+                  title="表示年度を選択"
+                  className={styles.year_select}
+                  onChange={triggerYearSelection}
+                  name="year_filtering"
+                  value={selectedYear}
+                >
+                  <option key={`year0`} value={0}>
+                    すべて
                   </option>
-                ))}
-              </select>
+                  {uniqueYears.map((year, i) => (
+                    <option key={`year${i}`} value={year}>
+                      {year}年度
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div className={styles.search_area}>
               <div className={styles.search_box_frame}>
@@ -346,17 +348,19 @@ export default function ProjectsViewer(props: Props) {
                 />
               </button>
 
-              <select
-                title="検索カテゴリを選択"
-                className={styles.search_select}
-                onChange={triggerSearchModeSelection}
-                name="search_type"
-              >
-                <option value="research_name">研究題目</option>
-                <option value="research_author">著者</option>
-                <option value="research_tag">キーワード</option>
-                <option value="research_year">発行年</option>
-              </select>
+              <div className={styles.select_box}>
+                <select
+                  title="検索カテゴリを選択"
+                  className={styles.search_select}
+                  onChange={triggerSearchModeSelection}
+                  name="search_type"
+                >
+                  <option value="research_name">研究題目</option>
+                  <option value="research_author">著者</option>
+                  <option value="research_tag">キーワード</option>
+                  <option value="research_year">発行年</option>
+                </select>
+              </div>
             </div>
           </div>
           <div

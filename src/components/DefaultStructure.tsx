@@ -14,7 +14,7 @@ export interface Link {
   name: string;
 }
 
-export default interface Project {
+export interface Project {
   id: string;
   classification: string;
   type: string;
@@ -39,7 +39,7 @@ export default interface Project {
   additionalImageURL: AdditionalImage[];
 }
 
-export default interface News {
+export interface News {
   id: string;
   date: Date;
   title: string;
@@ -49,7 +49,7 @@ export default interface News {
   additionalImageURL: AdditionalImage[];
 }
 
-export default interface Member {
+export interface Member {
   id: string;
   name: string;
   englishName: string;
@@ -60,7 +60,7 @@ export default interface Member {
   githubId: string;
 }
 
-export default interface Award {
+export interface Award {
   id: string;
   organization: string;
   competition: string;

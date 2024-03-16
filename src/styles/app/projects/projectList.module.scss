@@ -177,28 +177,68 @@
           }
         }
 
-        .year_select {
-          display: block;
-          border-style: solid;
-          border-width: 0.1rem;
-          border-color: rgb(223, 223, 223);
+        .select_box {
           width: 6rem;
           height: 2rem;
-          cursor: pointer;
-          background-color: white;
+          position: relative;
+          pointer-events: all;
 
           @include mqUp(lg) {
             width: 5.5rem;
           }
 
-          &:hover {
+          &::after {
+            position: absolute;
+            content: "";
+            width: 0.5rem;
+            height: 0.5rem;
+            border-style: solid;
+            border-width: 0 0 0.1rem 0.1rem;
+            border-color: black;
+            right: 0.75rem;
+            top: 0.6rem;
+            pointer-events: none;
+            transform: rotateZ(-45deg);
+            -webkit-transform: rotateZ(-45deg);
+            -moz-transform: rotateZ(-45deg);
+            -ms-transform: rotateZ(-45deg);
+            -o-transform: rotateZ(-45deg);
+          }
+
+          &:hover::after,
+          &:focus::after {
             border-color: rgb(35, 190, 190);
           }
 
-          &:active,
-          &:focus {
-            outline: none;
-            border-color: rgb(35, 190, 190);
+          .year_select {
+            display: block;
+            border-style: solid;
+            border-width: 0.1rem;
+            border-color: rgb(223, 223, 223);
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            appearance: none;
+            background-color: white;
+            color: black;
+            padding-left: 0.25rem;
+            padding-right: 1.7rem;
+            border-radius: 0.5rem;
+            -webkit-border-radius: 0.5rem;
+            -moz-border-radius: 0.5rem;
+            -ms-border-radius: 0.5rem;
+            -o-border-radius: 0.5rem;
+            position: relative;
+
+            &:hover {
+              border-color: rgb(35, 190, 190);
+            }
+
+            &:active,
+            &:focus {
+              outline: none;
+              border-color: rgb(35, 190, 190);
+            }
           }
         }
       }
@@ -343,25 +383,69 @@
           }
         }
 
-        .search_select {
-          border-style: solid;
-          border-width: 0.1rem;
-          border-color: rgb(223, 223, 223);
+        .select_box {
           width: 6rem;
-          cursor: pointer;
+          height: 2.5rem;
+          position: relative;
 
           @include mqUp(sm) {
             width: 25%;
           }
 
-          &:hover {
+          &::after {
+            position: absolute;
+            content: "";
+            width: 0.5rem;
+            height: 0.5rem;
+            border-style: solid;
+            border-width: 0 0 0.1rem 0.1rem;
+            border-color: black;
+            right: 0.75rem;
+            top: 0.9rem;
+            pointer-events: none;
+            transform: rotateZ(-45deg);
+            -webkit-transform: rotateZ(-45deg);
+            -moz-transform: rotateZ(-45deg);
+            -ms-transform: rotateZ(-45deg);
+            -o-transform: rotateZ(-45deg);
+          }
+
+          &:hover::after,
+          &:focus::after {
             border-color: rgb(35, 190, 190);
           }
 
-          &:active,
-          &:focus {
-            outline: none;
-            border-color: rgb(35, 190, 190);
+          .search_select {
+            border-style: solid;
+            border-width: 0.1rem;
+            border-color: rgb(223, 223, 223);
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            appearance: none;
+            background-color: white;
+            color: black;
+            padding-left: 0.25rem;
+            padding-right: 1.7rem;
+            border-radius: 0.5rem;
+            -webkit-border-radius: 0.5rem;
+            -moz-border-radius: 0.5rem;
+            -ms-border-radius: 0.5rem;
+            -o-border-radius: 0.5rem;
+            position: relative;
+            &:hover {
+              border-color: rgb(35, 190, 190);
+            }
+
+            &:active,
+            &:focus {
+              outline: none;
+              border-color: rgb(35, 190, 190);
+            }
+
+            &::-ms-expand {
+              display: none;
+            }
           }
         }
       }

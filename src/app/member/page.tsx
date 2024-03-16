@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import Member from "@/components/DefaultStructure";
+import { Member } from "@/components/DefaultStructure";
 import styles from "@/styles/app/member/member.module.scss";
 import Link from "next/link";
-import { sai_members } from "@/components/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import {
@@ -11,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
+import { fetchMembers } from "@/components/GASFetch";
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
@@ -22,8 +22,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Member() {
-  const response = await fetch(sai_members);
-  const members: Member[] = await response.json();
+  const response = await fetchMembers();
+  const originalMembers: Member[] = await response.json();
+  const members = originalMembers.filter((item) => item.id !== "");
 
   const sortedMemberWithTeacher = members?.filter((element) =>
     element.belonging.toLowerCase().includes("教員")

@@ -1,20 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-import News from "@/components/DefaultStructure";
+import { News } from "@/components/DefaultStructure";
 import styles from "@/styles/app/news/news.module.scss";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
-import { sai_news } from "@/components/constant";
 import parse from "html-react-parser";
 import Image from "next/image";
 import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
 import { cache } from "react";
+import { fetchNews } from "@/components/GASFetch";
 
 const getNews = cache(async (slug: string) => {
-  const response = await fetch(sai_news);
+  const response = await fetchNews();
   const newsList: News[] = await response.json();
-  const news: News | undefined = newsList.find((c: { id: string }) => {
+  const filteredNews = newsList.filter((item) => item.id !== "");
+  const news: News | undefined = filteredNews.find((c: { id: string }) => {
     const cid = String(c.id);
     return cid === slug;
   });

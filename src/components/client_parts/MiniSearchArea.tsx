@@ -117,17 +117,19 @@ export default function MiniSearchArea() {
           />
         </button>
 
-        <select
-          title="検索カテゴリを選択"
-          className={styles.search_select}
-          onChange={triggerSearchModeSelection}
-          name="search_type"
-        >
-          <option value="research_name">研究題目</option>
-          <option value="research_author">著者</option>
-          <option value="research_tag">キーワード</option>
-          <option value="research_year">発行年</option>
-        </select>
+        <div className={styles.select_box}>
+          <select
+            title="検索カテゴリを選択"
+            className={styles.search_select}
+            onChange={triggerSearchModeSelection}
+            name="search_type"
+          >
+            <option value="research_name">研究題目</option>
+            <option value="research_author">著者</option>
+            <option value="research_tag">キーワード</option>
+            <option value="research_year">発行年</option>
+          </select>
+        </div>
       </div>
     </React.Fragment>
   );

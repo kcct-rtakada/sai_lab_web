@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Project from "../DefaultStructure";
+import { Project } from "../DefaultStructure";
 import styles from "@/styles/app/projects/project.module.scss";
 import MiniSearchArea from "@/components/client_parts/MiniSearchArea";
 import Link from "next/link";

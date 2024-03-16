@@ -1,8 +1,9 @@
-import News from "@/components/DefaultStructure";
-import { sai_news } from "@/components/constant";
+import { News } from "@/components/DefaultStructure";
 import NewsViewer from "@/components/news_list/NewsViewer";
 import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
+import { fetchNews } from "@/components/GASFetch";
+import { Suspense } from "react";
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
@@ -14,9 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function NewsList() {
-  const response = await fetch(sai_news);
+  const response = await fetchNews();
   const newsList: News[] = await response.json();
   const filteredNews = newsList.filter((item) => item.id !== "");
 
-  return <NewsViewer _newsList={filteredNews} />;
+  return (
+    <Suspense>
+      <NewsViewer _newsList={filteredNews} />
+    </Suspense>
+  );
 }

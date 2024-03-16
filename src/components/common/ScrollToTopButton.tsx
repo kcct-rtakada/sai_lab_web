@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import styles from "@/styles/components/ScrollToTopButton.module.scss";
 

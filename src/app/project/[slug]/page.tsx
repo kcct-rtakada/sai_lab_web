@@ -1,10 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import Project from "@/components/DefaultStructure";
+import { Project } from "@/components/DefaultStructure";
 import styles from "@/styles/app/projects/project.module.scss";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faLink, faTag } from "@fortawesome/free-solid-svg-icons";
-import { sai_projects } from "@/components/constant";
 import parse from "html-react-parser";
 import Image from "next/image";
 import SEO from "@/components/common/SEO";
@@ -13,9 +12,10 @@ import React, { cache } from "react";
 import CopyButton from "@/components/client_parts/CopyButton";
 import ProjectRightSidebar from "@/components/project_detail/ProjectRightSidebar";
 import ProjectLeftSidebar from "@/components/project_detail/ProjectLeftSidebar";
+import { fetchProjects } from "@/components/GASFetch";
 
 const getProject = cache(async (slug: string) => {
-  const response = await fetch(sai_projects);
+  const response = await fetchProjects();
   const projects: Project[] = await response.json();
   const filteredProjects = projects.filter((item) => item.id !== "");
   const project: Project | undefined = filteredProjects.find(

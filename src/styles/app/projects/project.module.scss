@@ -245,6 +245,10 @@
         @include mqUp(md) {
           padding: 0;
         }
+
+        img {
+          width: 100%;
+        }
       }
 
       .abstract {
@@ -257,6 +261,7 @@
         padding: 0 0.5rem;
 
         iframe {
+          display: block;
           margin: 0 auto;
           width: calc(100% - 2rem);
         }
@@ -335,6 +340,10 @@
             flex-direction: column;
             padding: 0.75rem;
             background-color: rgb(252, 252, 252);
+
+            img {
+              width: 100%;
+            }
           }
         }
 

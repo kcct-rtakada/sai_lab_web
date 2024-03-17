@@ -3,6 +3,7 @@
 .main {
   min-height: calc(100% - 6rem);
   padding-top: 0;
+  position: relative;
 
   .project {
     width: 100%;
@@ -19,7 +20,7 @@
     }
 
     .project_card {
-      margin-top: 2rem;
+      margin-top: 0;
       margin-bottom: 1.5rem;
       margin-left: auto;
       margin-right: auto;
@@ -48,6 +49,7 @@
         -moz-border-radius: 0;
         -ms-border-radius: 0;
         -o-border-radius: 0;
+        -webkit-filter: drop-shadow(0rem 0.2rem 0.2rem rgb(230, 230, 230));
       }
 
       .title {
@@ -158,6 +160,10 @@
         a::after {
           display: none;
         }
+
+        img {
+          width: 100%;
+        }
       }
 
       .article {
@@ -181,6 +187,11 @@
           li {
             list-style: decimal;
           }
+        }
+
+        iframe {
+          display: block;
+          margin: 0 auto;
         }
       }
 
@@ -211,6 +222,10 @@
             flex-direction: column;
             padding: 0.75rem;
             background-color: rgb(252, 252, 252);
+
+            img {
+              width: 100%;
+            }
           }
         }
 

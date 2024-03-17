@@ -23,11 +23,15 @@ export default function Header() {
                   sizes="4rem"
                   priority={false}
                 />
-                <p>
-                  神戸高専
-                  <br />
-                  髙田研究室
-                </p>
+                <div className={styles.top_text_box}>
+                  <div>
+                    <p>
+                      神戸高専
+                      <br />
+                      髙田研究室
+                    </p>
+                  </div>
+                </div>
               </Link>
             ) : (
               <a href="/">
@@ -38,11 +42,15 @@ export default function Header() {
                   sizes="4rem"
                   priority={false}
                 />
-                <p>
-                  神戸高専
-                  <br />
-                  髙田研究室
-                </p>
+                <div className={styles.top_text_box}>
+                  <div>
+                    <p>
+                      神戸高専
+                      <br />
+                      髙田研究室
+                    </p>
+                  </div>
+                </div>
               </a>
             )}
           </div>

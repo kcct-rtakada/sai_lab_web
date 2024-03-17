@@ -44,15 +44,27 @@
           height: 4rem;
         }
 
-        p {
-          font-family: "Klee One";
-          position: absolute;
-          left: 4.2rem;
-          top: 0.85rem;
-          font-size: 1.15rem;
-          line-height: 1;
-          font-weight: 600;
-          white-space: nowrap;
+        .top_text_box {
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          height: 4rem;
+          position: relative;
+          left: 4rem;
+          width: 6rem;
+
+          p {
+            text-align: left;
+            font-family: "Klee One";
+            left: 4.2rem;
+            top: 0;
+            font-size: 1.15rem;
+            line-height: 1;
+            font-weight: 600;
+            white-space: nowrap;
+          }
         }
       }
     }

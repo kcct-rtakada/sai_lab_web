@@ -306,7 +306,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <div className={styles.flex_box}>
                 <div>
                   <h3 className={styles.information_section_title}>Date</h3>
-                  <div>{String(displayDate)}</div>
+                  <div>
+                    <time dateTime={japanTime.toISOString()}>
+                      {String(displayDate)}
+                    </time>
+                  </div>
                 </div>
                 <div>
                   <h3 className={styles.information_section_title}>Pages</h3>

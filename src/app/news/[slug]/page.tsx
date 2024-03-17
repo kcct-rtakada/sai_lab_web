@@ -97,12 +97,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
                   width: "1rem",
                 }}
               />
-              {`${japanTime.getFullYear()}/${(japanTime.getMonth() + 1)
-                .toString()
-                .padStart(2, "0")}/${japanTime
-                .getDate()
-                .toString()
-                .padStart(2, "0")}`}
+              <time dateTime={japanTime.toISOString()}>
+                {`${japanTime.getFullYear()}/${(japanTime.getMonth() + 1)
+                  .toString()
+                  .padStart(2, "0")}/${japanTime
+                  .getDate()
+                  .toString()
+                  .padStart(2, "0")}`}
+              </time>
             </div>
           </div>
 

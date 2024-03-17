@@ -113,7 +113,7 @@ export default function ContactContent() {
             onClick={() => setUsingJapanese(!usingJapanese)}
           >
             {usingJapanese ? (
-              <>
+              <span>
                 日
                 <FontAwesomeIcon
                   icon={faArrowRightLong}
@@ -125,9 +125,9 @@ export default function ContactContent() {
                   }}
                 />
                 EN
-              </>
+              </span>
             ) : (
-              <>
+              <span>
                 EN
                 <FontAwesomeIcon
                   icon={faArrowRightLong}
@@ -139,7 +139,7 @@ export default function ContactContent() {
                   }}
                 />
                 日
-              </>
+              </span>
             )}
           </button>
         </div>

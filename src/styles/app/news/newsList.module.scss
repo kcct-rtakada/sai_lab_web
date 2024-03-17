@@ -351,6 +351,11 @@
           cursor: pointer;
           width: 3.5rem;
           height: 2.5rem;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
           border-radius: 0 2rem 2rem 0;
           transition: all 0.1s;
           -webkit-border-radius: 0 2rem 2rem 0;

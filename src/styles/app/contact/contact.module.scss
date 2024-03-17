@@ -94,6 +94,11 @@
           rgb(116, 236, 230),
           rgb(195, 253, 245)
         );
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
         border-style: solid;
         border-radius: 1rem;
         border-width: 0.1rem;

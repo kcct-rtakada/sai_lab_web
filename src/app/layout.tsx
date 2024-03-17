@@ -1,6 +1,6 @@
 "use client";
 import Header from "@/components/common/Header";
-import "normalize.css";
+import "destyle.css";
 import "./globals.css";
 import Footer from "@/components/common/Footer";
 import { GoogleAnalytics } from "@next/third-parties/google";

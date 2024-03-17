@@ -313,7 +313,7 @@ export default function HomeContent({ newsList }: { newsList: News[] }) {
             onClick={() => setUsingJapanese(!usingJapanese)}
           >
             {usingJapanese ? (
-              <>
+              <span>
                 日
                 <FontAwesomeIcon
                   icon={faArrowRightLong}
@@ -325,9 +325,9 @@ export default function HomeContent({ newsList }: { newsList: News[] }) {
                   }}
                 />
                 EN
-              </>
+              </span>
             ) : (
-              <>
+              <span>
                 EN
                 <FontAwesomeIcon
                   icon={faArrowRightLong}
@@ -339,7 +339,7 @@ export default function HomeContent({ newsList }: { newsList: News[] }) {
                   }}
                 />
                 日
-              </>
+              </span>
             )}
           </button>
         </div>

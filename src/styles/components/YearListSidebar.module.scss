@@ -1,4 +1,5 @@
 @import "../global/responsive.scss";
+@import "../global/variables.scss";
 
 .l_sidebar {
   background-color: transparent;
@@ -18,7 +19,7 @@
     pointer-events: all;
     width: 3.5rem;
     height: 3.5rem;
-    background-color: rgb(236, 163, 26);
+    background-color: $c-y_list_bg;
     margin-top: 1rem;
     top: 1rem;
     left: 1rem;
@@ -34,8 +35,8 @@
     -moz-border-radius: 3.5rem;
     -ms-border-radius: 3.5rem;
     -o-border-radius: 3.5rem;
-    filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(200, 200, 200));
-    -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(200, 200, 200));
+    filter: drop-shadow(0.1rem 0.1rem 0.2rem $c-y_list_shadow);
+    -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem $c-y_list_shadow);
     transition: background-color 0.15s;
     -webkit-transition: background-color 0.15s;
     -moz-transition: background-color 0.15s;
@@ -44,7 +45,7 @@
 
     &:hover,
     &:focus {
-      background-color: rgb(218, 148, 20);
+      background-color: $c-y_list_bg_hover;
     }
 
     &.open {
@@ -75,7 +76,7 @@
     }
 
     .svg_polygon_1 {
-      fill: #f0f0f0;
+      fill: $c-y_list_p;
       stroke-width: 0px;
       transition: all 0.1s;
       pointer-events: fill;
@@ -85,18 +86,18 @@
       -o-transition: all 0.1s;
 
       &:hover {
-        fill: #bbbbbb;
+        fill: $c-y_list_p_hover;
         &:nth-child(3n + 1) {
-          fill: rgb(216, 95, 95);
+          fill: $c-y_list_p_hover_r;
         }
         &:nth-child(3n + 2) {
-          fill: rgb(106, 184, 106);
+          fill: $c-y_list_p_hover_g;
         }
         &:nth-child(3n) {
-          fill: rgb(121, 121, 197);
+          fill: $c-y_list_p_hover_b;
         }
-        filter: drop-shadow(0.1rem 0.1rem 0.2rem #cccccc);
-        -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem #cccccc);
+        filter: drop-shadow(0.1rem 0.1rem 0.2rem $c-y_list_p_shadow);
+        -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem $c-y_list_p_shadow);
       }
     }
   }
@@ -117,17 +118,17 @@
         top: 0;
         left: 0;
         display: block;
-        background-color: #fafafa;
+        background-color: $c-y_list_menu_bg;
         width: min(70vw, 20rem);
         height: auto;
         max-height: calc(100vh - 12rem);
         border-radius: 0.5rem;
-        filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(200, 200, 200));
+        filter: drop-shadow(0.1rem 0.1rem 0.2rem $c-y_list_menu_shadow);
         -webkit-border-radius: 0.5rem;
         -moz-border-radius: 0.5rem;
         -ms-border-radius: 0.5rem;
         -o-border-radius: 0.5rem;
-        -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(200, 200, 200));
+        -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem $c-y_list_menu_shadow);
       }
     }
 
@@ -137,7 +138,7 @@
       .close_button {
         width: 2.5rem;
         height: 2.5rem;
-        background-color: #e0e0e0;
+        background-color: $c-y_list_menu_close;
         justify-content: center;
         align-items: center;
         text-align: center;
@@ -155,7 +156,7 @@
         -o-transition: background-color 0.15s;
 
         &:hover {
-          background-color: #d4d4d4;
+          background-color: $c-y_list_menu_close_hover;
         }
       }
 
@@ -191,7 +192,7 @@
         -o-border-radius: 0.2rem;
 
         &:hover {
-          background-color: #ececec;
+          background-color: $c-y_list_index_hover;
         }
 
         &.h2 {

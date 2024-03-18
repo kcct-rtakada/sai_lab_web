@@ -1,4 +1,5 @@
 @import "../global/responsive.scss";
+@import "../global/variables.scss";
 @import url("https://fonts.googleapis.com/css2?family=Yuji+Syuku&display=swap");
 
 .main {
@@ -62,8 +63,8 @@
       appearance: none;
       background-image: linear-gradient(
         to bottom right,
-        rgb(116, 236, 230),
-        rgb(195, 253, 245)
+        $c-lang_sw_bg_from,
+        $c-lang_sw_bg_to
       );
       justify-content: center;
       align-items: center;
@@ -73,10 +74,10 @@
       border-style: solid;
       border-radius: 1rem;
       border-width: 0.1rem;
-      border-color: rgb(123, 221, 221);
+      border-color: $c-lang_sw_border;
       transition: all 0.2s;
-      filter: drop-shadow(0rem 0.2rem 0.2rem rgb(230, 230, 230));
-      -webkit-filter: drop-shadow(0rem 0.2rem 0.2rem rgb(230, 230, 230));
+      filter: drop-shadow(0rem 0.2rem 0.2rem $c-lang_sw_shadow);
+      -webkit-filter: drop-shadow(0rem 0.2rem 0.2rem $c-lang_sw_shadow);
       -webkit-transition: all 0.2s;
       -moz-transition: all 0.2s;
       -ms-transition: all 0.2s;
@@ -89,15 +90,15 @@
       &:hover {
         background-image: linear-gradient(
           to bottom left,
-          rgb(116, 236, 230),
-          rgb(195, 253, 245)
+          $c-lang_sw_bg_from,
+          $c-lang_sw_bg_to
         );
       }
     }
   }
 
   .img_box {
-    background-color: rgb(230, 230, 230);
+    background-color: #e6e6e6;
     width: 100%;
     height: 30rem;
     max-height: calc(100vh - 4rem);
@@ -149,7 +150,7 @@
       top: 0;
       left: 0;
       height: 100%;
-      background-color: rgb(35, 35, 35);
+      background-color: #232323;
       animation-duration: 0.4s;
       animation-delay: 5.8s;
       animation-fill-mode: forwards;
@@ -309,7 +310,7 @@
     padding: 0 1rem 1rem 1rem;
 
     a {
-      color: rgb(21, 21, 212);
+      color: $c-base_link_text;
       text-decoration: none;
       font-weight: bold;
       position: relative;
@@ -322,7 +323,7 @@
       content: "";
       width: 100%;
       height: 2px;
-      background: rgb(21, 21, 212);
+      background: $c-base_link_text;
       transform: scale(0, 1);
       transform-origin: left top;
       transition: transform 0.3s;
@@ -352,7 +353,7 @@
       width: 100%;
       border-style: solid;
       border-width: 0 0 0.1rem 0;
-      border-color: rgb(233, 111, 217);
+      border-color: #e96fd9;
 
       @include mqUp(sm) {
         font-size: 8vw;
@@ -366,7 +367,7 @@
 
     .string_box {
       padding: 1rem;
-      background-color: rgb(247, 247, 247);
+      background-color: #f7f7f7;
     }
 
     p {
@@ -399,7 +400,11 @@
       top: 3.5rem;
       margin-top: 0.5rem;
       margin-bottom: 0.5rem;
-      background-image: linear-gradient(to right, white, rgb(245, 255, 255));
+      background-image: linear-gradient(
+        to right,
+        $c-base_section_bg_from,
+        $c-base_section_bg_to
+      );
 
       &::before {
         display: inline-block;
@@ -411,8 +416,8 @@
         content: "";
         background-image: linear-gradient(
           to bottom right,
-          rgb(86, 231, 195),
-          rgb(128, 172, 255)
+          $c-base_section_bar_from,
+          $c-base_section_bar_to
         );
       }
     }
@@ -420,7 +425,7 @@
     .quote {
       border-style: solid;
       border-width: 0 0 0 0.25rem;
-      border-color: rgb(221, 221, 221);
+      border-color: #dddddd;
       padding-left: 0.5rem;
       margin-left: 1rem;
     }
@@ -452,7 +457,7 @@
         height: min(25vw, 10rem);
         top: calc(50% - min(25vw, 10rem) / 2);
         left: calc(50% - min(25vw, 10rem) / 2);
-        background-color: aqua;
+        background-color: white;
         z-index: 100;
         border-radius: min(25vw, 10rem);
         transform: none;
@@ -473,7 +478,7 @@
 
       .circle:nth-child(5) {
         display: block;
-        background-color: rgba(255, 197, 111, 0.5);
+        background-color: #ffc56f80;
         transform: translateX(calc(-1 * min(7.5vw, 3rem)))
           translateY(calc(-1 * min(7.5vw, 3rem)));
         -webkit-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
@@ -499,7 +504,7 @@
       }
       .circle:nth-child(6) {
         display: block;
-        background-color: rgba(110, 255, 255, 0.5);
+        background-color: #6effff80;
         transform: translateX(calc(1 * min(7.5vw, 3rem)))
           translateY(calc(-1 * min(7.5vw, 3rem)));
         -webkit-transform: translateX(calc(1 * min(7.5vw, 3rem)))
@@ -525,7 +530,7 @@
       }
       .circle:nth-child(7) {
         display: block;
-        background-color: rgba(105, 255, 150, 0.5);
+        background-color: #69ff9680;
         transform: translateX(calc(-1 * min(7.5vw, 3rem)))
           translateY(calc(1 * min(7.5vw, 3rem)));
         -webkit-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
@@ -552,7 +557,7 @@
       }
       .circle:nth-child(8) {
         display: block;
-        background-color: rgba(228, 122, 255, 0.5);
+        background-color: #e47aff80;
         transform: translateX(calc(1 * min(7.5vw, 3rem)))
           translateY(calc(1 * min(7.5vw, 3rem)));
         -webkit-transform: translateX(calc(1 * min(7.5vw, 3rem)))

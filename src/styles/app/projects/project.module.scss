@@ -1,4 +1,5 @@
 @import "../../global/responsive.scss";
+@import "../../global/variables.scss";
 
 .main {
   min-height: calc(100% - 6rem);
@@ -27,15 +28,11 @@
       width: min(55rem, 100%);
       padding: 2rem;
       color: rgb(30, 30, 30);
-      background-image: linear-gradient(
-        to bottom right,
-        rgb(182, 252, 234),
-        rgb(253, 245, 171)
-      );
+      background-image: linear-gradient(to bottom right, #b6fcea, #fdf5ab);
       border-radius: 1rem;
       position: relative;
-      filter: drop-shadow(0.5rem 0.3rem 0.5rem rgb(230, 230, 230));
-      -webkit-filter: drop-shadow(0.5rem 0.3rem 0.5rem rgb(230, 230, 230));
+      filter: drop-shadow(0.5rem 0.3rem 0.5rem #e6e6e6);
+      -webkit-filter: drop-shadow(0.5rem 0.3rem 0.5rem #e6e6e6);
       -webkit-border-radius: 1rem;
       -moz-border-radius: 1rem;
       -ms-border-radius: 1rem;
@@ -44,22 +41,22 @@
       @include mqUp(md) {
         border-radius: 0;
         margin-top: 0rem;
-        filter: drop-shadow(0rem 0.2rem 0.2rem rgb(230, 230, 230));
+        filter: drop-shadow(0rem 0.2rem 0.2rem #e6e6e6);
         -webkit-border-radius: 0;
         -moz-border-radius: 0;
         -ms-border-radius: 0;
         -o-border-radius: 0;
-        -webkit-filter: drop-shadow(0rem 0.2rem 0.2rem rgb(230, 230, 230));
+        -webkit-filter: drop-shadow(0rem 0.2rem 0.2rem #e6e6e6);
       }
 
       .type {
         margin-bottom: 0.5rem;
         span {
           display: inline-block;
-          background-color: rgb(240, 57, 118);
+          background-color: #f03976;
           padding: 0.2rem 0.4rem;
           border-radius: 0.5rem;
-          color: rgb(248, 248, 248);
+          color: #f8f8f8;
           -webkit-border-radius: 0.5rem;
           -moz-border-radius: 0.5rem;
           -ms-border-radius: 0.5rem;
@@ -81,7 +78,7 @@
           display: inline-block;
           margin-right: 0.3rem;
           margin-bottom: 0.35rem;
-          background-color: rgba(255, 255, 255, 0.39);
+          background-color: #ffffff63;
           border-radius: 0.3rem;
           padding: 0.05rem 0.2rem;
           -webkit-border-radius: 0.3rem;
@@ -141,7 +138,7 @@
             border-radius: 10rem;
             border-style: solid;
             border-width: 0.2rem;
-            border-color: rgb(252, 252, 252);
+            border-color: #fcfcfc;
             background-color: #e28e20;
             -webkit-border-radius: 10rem;
             -moz-border-radius: 10rem;
@@ -173,8 +170,8 @@
             border-radius: 10rem;
             border-style: solid;
             border-width: 0.2rem;
-            border-color: rgb(252, 252, 252);
-            background-color: rgb(226, 45, 32);
+            border-color: #fcfcfc;
+            background-color: #e22d20;
             -webkit-border-radius: 10rem;
             -moz-border-radius: 10rem;
             -ms-border-radius: 10rem;
@@ -204,7 +201,11 @@
         z-index: 1000;
         padding-left: 1rem;
         border-radius: 0 0 0.5rem 0.5rem;
-        background-image: linear-gradient(to right, white, rgb(245, 255, 255));
+        background-image: linear-gradient(
+          to right,
+          $c-base_section_bg_from,
+          $c-base_section_bg_to
+        );
         -webkit-border-radius: 0 0 0.5rem 0.5rem;
         -moz-border-radius: 0 0 0.5rem 0.5rem;
         -ms-border-radius: 0 0 0.5rem 0.5rem;
@@ -224,8 +225,8 @@
           content: "";
           background-image: linear-gradient(
             to bottom right,
-            rgb(86, 231, 195),
-            rgb(128, 172, 255)
+            $c-base_section_bar_from,
+            $c-base_section_bar_to
           );
         }
       }
@@ -234,7 +235,7 @@
         padding: 1rem;
         width: 90%;
         margin: 0 auto;
-        background-color: rgb(245, 245, 245);
+        background-color: $c-detail_thumbnail_box;
         margin-bottom: 1rem;
         justify-content: center;
         align-items: center;
@@ -290,7 +291,7 @@
         }
 
         a {
-          color: blue;
+          color: $c-base_link_text;
           text-decoration: underline;
 
           &:hover {
@@ -339,7 +340,7 @@
             display: flex;
             flex-direction: column;
             padding: 0.75rem;
-            background-color: rgb(252, 252, 252);
+            background-color: $c-detail_image_box;
 
             img {
               width: 100%;
@@ -360,14 +361,10 @@
         width: 100%;
         padding: 2rem;
         color: #1e1e1e;
-        background-image: linear-gradient(
-          to bottom right,
-          rgb(250, 237, 194),
-          rgb(255, 234, 250)
-        );
+        background-image: linear-gradient(to bottom right, #faedc2, #ffeafa);
         border-radius: 1rem;
-        filter: drop-shadow(0.5rem 0.3rem 0.5rem rgb(230, 230, 230));
-        -webkit-filter: drop-shadow(0.5rem 0.3rem 0.5rem rgb(230, 230, 230));
+        filter: drop-shadow(0.5rem 0.3rem 0.5rem #e6e6e6);
+        -webkit-filter: drop-shadow(0.5rem 0.3rem 0.5rem #e6e6e6);
         -webkit-border-radius: 1rem;
         -moz-border-radius: 1rem;
         -ms-border-radius: 1rem;
@@ -459,7 +456,7 @@
             width: 100%;
             position: relative;
             margin: 0.5rem 0 1rem 0;
-            background-color: rgb(253, 253, 253);
+            background-color: #fdfdfd;
             border-style: solid;
             border-width: 0.05rem 0.05rem 0.05rem 0;
             border-color: #e0e0e0;
@@ -474,7 +471,7 @@
               position: absolute;
               display: block;
               content: "";
-              background-color: rgb(55, 77, 199);
+              background-color: #374dc7;
               top: 0;
               left: 0;
               height: 100%;
@@ -482,7 +479,7 @@
             }
 
             &:hover {
-              border-color: rgb(55, 77, 199);
+              border-color: #374dc7;
             }
 
             .title {
@@ -500,7 +497,7 @@
                 display: inline-block;
                 margin-right: 0.3rem;
                 margin-bottom: 0;
-                background-color: rgb(244, 253, 255);
+                background-color: #f4fdff;
                 border-radius: 0.3rem;
                 padding: 0.05rem 0.2rem;
                 line-height: 1.2;
@@ -614,7 +611,7 @@
       bottom: -4rem;
       z-index: 505;
       .svg_polygon_1 {
-        fill: #f0f0f0;
+        fill: $c-y_list_p;
         stroke-width: 0px;
         transition: all 0.1s;
         pointer-events: fill;
@@ -624,18 +621,18 @@
         -o-transition: all 0.1s;
 
         &:hover {
-          fill: #bbbbbb;
+          fill: $c-y_list_p_hover;
           &:nth-child(3n + 1) {
-            fill: rgb(216, 95, 95);
+            fill: $c-y_list_p_hover_r;
           }
           &:nth-child(3n + 2) {
-            fill: rgb(106, 184, 106);
+            fill: $c-y_list_p_hover_g;
           }
           &:nth-child(3n) {
-            fill: rgb(121, 121, 197);
+            fill: $c-y_list_p_hover_b;
           }
-          filter: drop-shadow(0.1rem 0.1rem 0.2rem #cccccc);
-          -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem #cccccc);
+          filter: drop-shadow(0.1rem 0.1rem 0.2rem $c-y_list_p_shadow);
+          -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem $c-y_list_p_shadow);
         }
       }
     }
@@ -679,7 +676,7 @@
           -o-border-radius: 0.2rem;
 
           &:hover {
-            background-color: #ececec;
+            background-color: $c-y_list_index_hover;
           }
 
           &.h2 {

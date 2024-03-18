@@ -1,9 +1,10 @@
 @import "../global/responsive.scss";
+@import "../global/variables.scss";
 
 .footer_box {
   width: 100%;
   height: 6rem;
-  background-color: rgb(250, 250, 250);
+  background-color: $c-base_tile;
   justify-content: center;
   align-items: center;
   text-align: center;

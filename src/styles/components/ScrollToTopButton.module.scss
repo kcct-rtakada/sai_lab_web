@@ -1,3 +1,5 @@
+@import "../global/variables.scss";
+
 .scrollToTopButton {
   position: fixed;
   bottom: 2rem;
@@ -14,7 +16,7 @@
   cursor: pointer;
   transition: transform 0.25s ease;
   z-index: 10000;
-  filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+  filter: drop-shadow(0.1rem 0.1rem 0.2rem $c-scroll_top_shadow);
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -22,8 +24,8 @@
   flex-direction: column;
   border-style: solid;
   border-width: 0.15rem;
-  border-color: #bbebe7;
-  -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+  border-color: $c-scroll_top_border;
+  -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem $c-scroll_top_shadow);
   -webkit-transition: transform 0.25s ease;
   -moz-transition: transform 0.25s ease;
   -ms-transition: transform 0.25s ease;
@@ -49,7 +51,7 @@
   }
 
   &:hover {
-    background-color: #bbebe7;
+    background-color: $c-scroll_top_border;
   }
 
   &::after {
@@ -60,7 +62,7 @@
     content: "";
     border-style: solid;
     border-width: 0.15rem 0.15rem 0 0;
-    border-color: black;
+    border-color: $c-scroll_top_arrow;
     border-radius: 0 0.2rem 0 0;
     top: 0.25rem;
     left: 0;

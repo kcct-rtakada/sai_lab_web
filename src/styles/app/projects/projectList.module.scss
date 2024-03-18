@@ -1,4 +1,5 @@
 @import "../../global/responsive.scss";
+@import "../../global/variables.scss";
 
 .main {
   padding-top: 0;
@@ -6,11 +7,7 @@
   position: relative;
 
   .title_box {
-    background-image: linear-gradient(
-      to bottom right,
-      rgb(219, 199, 14),
-      rgb(68, 184, 53)
-    );
+    background-image: linear-gradient(to bottom right, #dbc70e, #44b835);
     margin: 0 auto;
 
     .title_area {
@@ -21,7 +18,7 @@
         font-size: 2rem;
         font-weight: bold;
         padding: 1.5rem 3rem;
-        color: rgb(253, 253, 253);
+        color: $c-base_title_text;
         margin: 0 auto;
       }
     }
@@ -40,12 +37,12 @@
     border-radius: 0.25rem;
     font-weight: bold;
     font-size: 1.05rem;
-    filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+    filter: drop-shadow(0.1rem 0.1rem 0.2rem #e4e4e4);
     -webkit-border-radius: 0.25rem;
     -moz-border-radius: 0.25rem;
     -ms-border-radius: 0.25rem;
     -o-border-radius: 0.25rem;
-    -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+    -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem #e4e4e4);
 
     @include mqUp(sm) {
       width: 100%;
@@ -81,8 +78,8 @@
       width: 100%;
       height: 0;
       padding: 1rem 1rem 2rem 1rem;
-      background-color: rgb(250, 250, 250);
-      margin-bottom: 1rem;
+      background-color: $c-base_tile;
+      margin-bottom: 3rem;
       position: sticky;
       top: -1rem;
       z-index: 1000;
@@ -99,7 +96,7 @@
       .circle {
         cursor: pointer;
         display: block;
-        background-color: #f0f0f0;
+        background-color: $c-search_box_sw_bg;
         width: 5rem;
         height: 3rem;
         position: absolute;
@@ -115,7 +112,6 @@
         -moz-border-radius: 0.5rem 0.5rem 3rem 3rem;
         -ms-border-radius: 0.5rem 0.5rem 3rem 3rem;
         -o-border-radius: 0.5rem 0.5rem 3rem 3rem;
-
         svg {
           width: 1.6rem;
           font-size: 1.6rem;
@@ -123,7 +119,7 @@
 
         &:hover,
         &:active {
-          background-color: #e7e7e7;
+          background-color: $c-search_box_sw_bg_hover;
         }
       }
 
@@ -134,8 +130,8 @@
         left: 0rem;
         background-image: linear-gradient(
           to bottom right,
-          rgb(165, 243, 243),
-          rgb(208, 248, 248)
+          $c-sort_year_bg_from,
+          $c-sort_year_bg_to
         );
         z-index: 15000;
         padding: 1rem;
@@ -161,9 +157,9 @@
           background-color: #fafafa;
           border-style: solid;
           border-width: 0.11rem;
-          border-color: #e4e4e4;
-          filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
-          -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+          border-color: $c-sort_year_shadow;
+          filter: drop-shadow(0.1rem 0.1rem 0.2rem $c-sort_year_shadow);
+          -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem $c-sort_year_shadow);
         }
 
         & > p {
@@ -194,7 +190,7 @@
             height: 0.5rem;
             border-style: solid;
             border-width: 0 0 0.1rem 0.1rem;
-            border-color: black;
+            border-color: $c-search_type_dropdown;
             right: 0.75rem;
             top: 0.6rem;
             pointer-events: none;
@@ -207,19 +203,19 @@
 
           &:hover::after,
           &:focus::after {
-            border-color: rgb(35, 190, 190);
+            border-color: $c-search_border_hover;
           }
 
           .year_select {
             display: block;
             border-style: solid;
             border-width: 0.1rem;
-            border-color: rgb(223, 223, 223);
+            border-color: $c-search_border;
             width: 100%;
             height: 100%;
             cursor: pointer;
             appearance: none;
-            background-color: white;
+            background-color: $c-search_bg;
             color: black;
             padding-left: 0.25rem;
             padding-right: 1.7rem;
@@ -231,13 +227,13 @@
             position: relative;
 
             &:hover {
-              border-color: rgb(35, 190, 190);
+              border-color: $c-search_border_hover;
             }
 
             &:active,
             &:focus {
               outline: none;
-              border-color: rgb(35, 190, 190);
+              border-color: $c-search_border_hover;
             }
           }
         }
@@ -262,7 +258,7 @@
           }
 
           .search_input {
-            background-color: rgb(255, 255, 255);
+            background-color: $c-search_bg;
             height: 2.5rem;
             width: 12.5rem;
             position: relative;
@@ -270,7 +266,8 @@
             -webkit-appearance: none;
             border-style: solid;
             border-width: 0.1rem;
-            border-color: #dcdcdc transparent #dcdcdc #dcdcdc;
+            border-color: $c-search_border transparent $c-search_border
+              $c-search_border;
             border-radius: 2rem 0 0 2rem;
             padding: 0 2.5rem 0 1rem;
             transition: all 0.1s;
@@ -289,15 +286,15 @@
             }
 
             &:hover {
-              border-color: rgb(35, 190, 190) transparent rgb(35, 190, 190)
-                rgb(35, 190, 190);
+              border-color: $c-search_border_hover transparent
+                $c-search_border_hover $c-search_border_hover;
             }
 
             &:active,
             &:focus {
               outline: none;
-              border-color: rgb(35, 190, 190) transparent rgb(35, 190, 190)
-                rgb(35, 190, 190);
+              border-color: $c-search_border_hover transparent
+                $c-search_border_hover $c-search_border_hover;
             }
           }
 
@@ -325,12 +322,12 @@
             }
 
             svg {
-              color: #aaa;
+              color: $c-search_clear;
             }
 
             &:hover svg,
             &:focus svg {
-              color: #333;
+              color: $c-search_clear_hover;
               width: 1rem;
               height: 1rem;
               font-size: 1rem;
@@ -339,9 +336,9 @@
         }
 
         .search_button {
-          background-color: rgb(35, 190, 190);
+          background-color: $c-search_button;
           border-style: solid;
-          border-color: rgb(35, 190, 190);
+          border-color: $c-search_button;
           border-width: 0.1rem;
           margin-right: 1rem;
           display: block;
@@ -355,10 +352,6 @@
           flex-direction: column;
           border-radius: 0 2rem 2rem 0;
           transition: all 0.1s;
-          -webkit-transition: all 0.1s;
-          -moz-transition: all 0.1s;
-          -ms-transition: all 0.1s;
-          -o-transition: all 0.1s;
           -webkit-border-radius: 0 2rem 2rem 0;
           -moz-border-radius: 0 2rem 2rem 0;
           -ms-border-radius: 0 2rem 2rem 0;
@@ -371,8 +364,8 @@
 
           &:hover,
           &:focus {
-            background-color: rgb(34, 161, 161);
-            border-color: rgb(34, 161, 161);
+            background-color: $c-search_button_hover;
+            border-color: $c-search_button_hover;
             outline: none;
           }
 
@@ -380,7 +373,7 @@
             position: relative;
             left: -0.1rem;
             top: 0.1rem;
-            color: white;
+            color: $c-search_magnify;
             width: 1.4rem;
             font-size: 1.4rem;
             padding: 0;
@@ -404,7 +397,7 @@
             height: 0.5rem;
             border-style: solid;
             border-width: 0 0 0.1rem 0.1rem;
-            border-color: black;
+            border-color: $c-search_type_dropdown;
             right: 0.75rem;
             top: 0.9rem;
             pointer-events: none;
@@ -417,18 +410,18 @@
 
           &:hover::after,
           &:focus::after {
-            border-color: rgb(35, 190, 190);
+            border-color: $c-search_border_hover;
           }
 
           .search_select {
             border-style: solid;
             border-width: 0.1rem;
-            border-color: rgb(223, 223, 223);
+            border-color: $c-search_border;
             width: 100%;
             height: 100%;
             cursor: pointer;
             appearance: none;
-            background-color: white;
+            background-color: $c-search_bg;
             color: black;
             padding-left: 0.25rem;
             padding-right: 1.7rem;
@@ -439,13 +432,13 @@
             -o-border-radius: 0.5rem;
             position: relative;
             &:hover {
-              border-color: rgb(35, 190, 190);
+              border-color: $c-search_border_hover;
             }
 
             &:active,
             &:focus {
               outline: none;
-              border-color: rgb(35, 190, 190);
+              border-color: $c-search_border_hover;
             }
 
             &::-ms-expand {
@@ -475,6 +468,14 @@
           bottom: -1.5rem;
           transform: rotateZ(180deg);
           border-radius: 0.5rem;
+          -webkit-transform: rotateZ(180deg);
+          -moz-transform: rotateZ(180deg);
+          -ms-transform: rotateZ(180deg);
+          -o-transform: rotateZ(180deg);
+          -webkit-border-radius: 0.5rem;
+          -moz-border-radius: 0.5rem;
+          -ms-border-radius: 0.5rem;
+          -o-border-radius: 0.5rem;
         }
       }
     }
@@ -531,11 +532,11 @@
           pointer-events: auto;
           width: 23rem;
           height: 23rem;
-          background-color: rgb(253, 253, 253);
+          background-color: #fdfdfd;
           position: relative;
           border-radius: 0.25rem;
           overflow: hidden;
-          filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+          filter: drop-shadow(0.1rem 0.1rem 0.2rem #e4e4e4);
           transition: all 0.15s;
           justify-content: initial;
           align-items: initial;
@@ -546,7 +547,7 @@
           -moz-border-radius: 0.25rem;
           -ms-border-radius: 0.25rem;
           -o-border-radius: 0.25rem;
-          -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
+          -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem #e4e4e4);
           -webkit-transition: all 0.15s;
           -moz-transition: all 0.15s;
           -ms-transition: all 0.15s;
@@ -561,7 +562,7 @@
           &.group {
             user-select: none;
             &.open {
-              background-color: rgb(245, 245, 245);
+              background-color: #f5f5f5;
             }
           }
 
@@ -601,7 +602,7 @@
             border-radius: 0.25rem;
             top: 0;
             left: 0;
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: #ffffff4d;
             opacity: 0;
             transition: all 0.15s;
             -webkit-transition: all 0.15s;
@@ -629,7 +630,7 @@
             background-image: linear-gradient(
               to bottom right,
               #e9fffc,
-              rgb(211, 241, 247)
+              #d3f1f7
             );
 
             &::after {
@@ -637,10 +638,8 @@
             }
 
             &:hover {
-              filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
-              -webkit-filter: drop-shadow(
-                0.1rem 0.1rem 0.2rem rgb(228, 228, 228)
-              );
+              filter: drop-shadow(0.1rem 0.1rem 0.2rem #e4e4e4);
+              -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem #e4e4e4);
 
               @include mqUp(sm) {
                 filter: none;
@@ -655,10 +654,8 @@
           }
 
           &:hover {
-            filter: drop-shadow(0.1rem 0.1rem 0.5rem rgb(228, 228, 228));
-            -webkit-filter: drop-shadow(
-              0.1rem 0.1rem 0.5rem rgb(228, 228, 228)
-            );
+            filter: drop-shadow(0.1rem 0.1rem 0.5rem #e4e4e4);
+            -webkit-filter: drop-shadow(0.1rem 0.1rem 0.5rem #e4e4e4);
             @include mqUp(sm) {
               filter: none;
               -webkit-filter: none;
@@ -678,8 +675,8 @@
             height: 12.93rem;
             background-image: linear-gradient(
               to bottom right,
-              rgb(255, 251, 246),
-              rgb(253, 253, 253)
+              #fffbf6,
+              #fdfdfd
             );
             position: relative;
             overflow: hidden;
@@ -717,13 +714,13 @@
             span {
               font-size: 0.9rem;
               display: inline-block;
-              background-color: rgb(122, 122, 122);
+              background-color: #7a7a7a;
               padding: 0.1rem 0.4rem;
               line-height: 1.2;
               border-radius: 0.5rem;
-              color: rgb(253, 253, 253);
+              color: #fdfdfd;
               border-style: solid;
-              border-color: rgb(253, 253, 253);
+              border-color: #fdfdfd;
               border-width: 0.1rem;
               -webkit-border-radius: 0.5rem;
               -moz-border-radius: 0.5rem;
@@ -739,13 +736,13 @@
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
             display: inline-block;
-            background-color: rgb(230, 230, 230);
+            background-color: #e6e6e6;
             padding: 0.1rem 0.4rem;
             line-height: 1.2;
             border-radius: 0.5rem;
-            color: rgb(0, 0, 0);
+            color: #000000;
             border-style: solid;
-            border-color: rgb(253, 253, 253);
+            border-color: #fdfdfd;
             border-width: 0.1rem;
             -webkit-border-radius: 0.5rem;
             -moz-border-radius: 0.5rem;
@@ -776,7 +773,7 @@
                 display: inline-block;
                 margin-right: 0.3rem;
                 margin-bottom: 0;
-                background-color: rgb(244, 253, 255);
+                background-color: #f4fdff;
                 border-radius: 0.3rem;
                 padding: 0.05rem 0.2rem;
                 line-height: 1.2;

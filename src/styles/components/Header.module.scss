@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap");
 
 @import "../global/responsive.scss";
+@import "../global/variables.scss";
 
 // ヘッダー記述部
 .fixed_header {
@@ -10,7 +11,7 @@
   top: 0;
   left: 0;
   height: 4rem;
-  background-color: #fafafa;
+  background-color: $c-base_tile;
   z-index: 10000;
 
   user-select: none;
@@ -86,7 +87,7 @@
       -o-transition: all 0.1s;
 
       &:hover {
-        background-color: rgb(230, 230, 230);
+        background-color: $c-base_tile_hover;
       }
 
       &:hover span:nth-child(1) {
@@ -103,7 +104,7 @@
       span {
         width: 1.75rem;
         height: 0.2rem;
-        background-color: rgb(29, 29, 29);
+        background-color: $c-base_texture_black;
         display: block;
         position: absolute;
         border-radius: 1rem;
@@ -137,11 +138,11 @@
     @include mqUp(lg) {
       .opening.link_box {
         height: 19rem;
-        border-color: rgb(202, 202, 202);
+        border-color: #cacaca;
       }
 
       .opening.hamburger_button {
-        background-color: rgb(230, 230, 230);
+        background-color: $c-base_tile_hover;
 
         span:nth-child(1) {
           top: 1.75rem;
@@ -173,7 +174,7 @@
         top: 4rem;
         height: 0;
         overflow: hidden;
-        background-color: rgb(250, 250, 250, 0.8);
+        background-color: #fafafacc;
         backdrop-filter: blur(0.75rem);
         z-index: 15000;
         width: 100%;
@@ -207,7 +208,7 @@
           content: "";
           width: 100%;
           height: 2px;
-          background: rgb(146, 146, 146);
+          background-color: $c-header_hover_line;
           transform: scale(0, 1);
           transform-origin: left top;
           transition: transform 0.3s;

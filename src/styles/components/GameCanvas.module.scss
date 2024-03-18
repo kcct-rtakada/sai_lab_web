@@ -60,8 +60,8 @@
     animation-delay: 0;
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;
-    filter: drop-shadow(0 0.25rem 0.1rem rgba(92, 92, 92, 0.808));
-    -webkit-filter: drop-shadow(0 0.25rem 0.1rem rgba(92, 92, 92, 0.808));
+    filter: drop-shadow(0 0.25rem 0.1rem #5c5c5cce);
+    -webkit-filter: drop-shadow(0 0.25rem 0.1rem #5c5c5cce);
 
     @include mqUp(sm) {
       height: 10rem;
@@ -152,7 +152,7 @@
     cursor: pointer;
     transition: transform 0.25s ease;
     z-index: 10000;
-    filter: drop-shadow(0.1rem 0.1rem 0.1rem rgb(49, 49, 49));
+    filter: drop-shadow(0.1rem 0.1rem 0.1rem #313131);
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -167,7 +167,7 @@
     -moz-transition: transform 0.25s ease;
     -ms-transition: transform 0.25s ease;
     -o-transition: transform 0.25s ease;
-    -webkit-filter: drop-shadow(0.1rem 0.1rem 0.1rem rgb(49, 49, 49));
+    -webkit-filter: drop-shadow(0.1rem 0.1rem 0.1rem #313131);
 
     &:hover {
       background-color: #dbebea;

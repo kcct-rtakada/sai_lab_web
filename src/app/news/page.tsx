@@ -18,8 +18,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function NewsList() {
   const response = await fetchNews();
   const newsList: News[] = await response.json();
+  // 空要素がある場合は取り除く
   const filteredNews = newsList.filter((item) => item.id !== "");
 
+  // クライアントコンポーネントで描画
   return (
     <Suspense
       fallback={

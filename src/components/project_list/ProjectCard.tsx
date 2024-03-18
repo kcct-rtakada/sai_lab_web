@@ -23,6 +23,7 @@ export default function ProjectCard({
     <Link href={`/project/${project.id}`} className={styles.project_link}>
       <div className={`${styles.project} ${styles.border}`}>
         <div className={styles.thumbnail_box}>
+          {/* 画像がない場合はデフォルト画像 */}
           {project.thumbnailURL ? (
             <img
               src={project.thumbnailURL}
@@ -83,6 +84,7 @@ export default function ProjectCard({
               <FontAwesomeIcon icon={faBookOpen} style={{ color: "#222" }} />
             </div>
             <p>
+              {/* 手動で形成する */}
               {`${project.bookTitle ? `${project.bookTitle}` : ``}${
                 project.volume ? `, Vol.${project.volume}` : ``
               }${project.number ? `, ${project.number}` : ``}${

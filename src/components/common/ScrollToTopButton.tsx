@@ -8,6 +8,7 @@ export default function ScrollToTopButton({ containerRef }: any) {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = containerRef.current.scrollTop;
+      // 300px下がるまで表示させない
       if (scrollTop > 300) {
         setIsVisible(true);
       } else {

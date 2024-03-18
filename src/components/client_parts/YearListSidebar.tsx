@@ -16,6 +16,7 @@ export default function YearListSidebar({
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // 本コンテンツ以外に触れたら、メニューを折りたたませる
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (divRef.current && !divRef.current.contains(event.target as Node)) {
         setIsOpening(false);
@@ -83,6 +84,7 @@ export default function YearListSidebar({
                 {pageName}
               </Link>
             </li>
+            {/* 数字を文字列へ変換しながら表示する */}
             {years.map((year, i) => (
               <li key={i}>
                 <Link

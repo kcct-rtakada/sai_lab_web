@@ -47,6 +47,7 @@ export default function ProjectsViewer(props: Props) {
   const initialMode = params.get("mode");
   const initialQ = params.get("q");
 
+  // タップ/クリックの表示を切り替え
   useEffect(() => {
     setIsUsingPhone(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
     if (projects) {
@@ -76,12 +77,14 @@ export default function ProjectsViewer(props: Props) {
     _mode: string | null = null,
     _projects: Project[] | undefined = undefined
   ) => {
+    // スペースごとにキーワード化
     const filterKeywords = _searchWord.split(/[ 　]+/);
     const mode = _mode ? _mode : selectedSearchMode;
     const lists = _projects ? _projects : projects;
 
     setSelectedYear(0);
 
+    // スペースしか入力がない場合はリセット
     if (filterKeywords.every((keyword) => keyword === "")) {
       setUserFiltered(false);
       router.push(`/project/`);
@@ -92,6 +95,7 @@ export default function ProjectsViewer(props: Props) {
     let filteredArray: Project[] | undefined = [];
 
     if (mode === "research_name") {
+      // タイトルの部分一致
       filteredArray = lists?.filter((project) =>
         filterKeywords.some(
           (keyword) =>
@@ -110,6 +114,7 @@ export default function ProjectsViewer(props: Props) {
         `/project/?mode=name&q=${filterKeywords.map((item) => item)}`
       );
     } else if (mode === "research_author") {
+      // 名前のスペースを詰めて、そのまま、または順番を入れ替えた場合の文字列で部分一致
       filteredArray = lists?.filter((project) =>
         filterKeywords.some((keyword) =>
           project.authors.some(
@@ -139,6 +144,7 @@ export default function ProjectsViewer(props: Props) {
         `/project/?mode=author&q=${filterKeywords.map((item) => item)}`
       );
     } else if (mode === "research_tag") {
+      // キーワードの部分一致
       filteredArray = lists?.filter((project) =>
         filterKeywords.some((keyword) =>
           project.tags.some(
@@ -159,6 +165,7 @@ export default function ProjectsViewer(props: Props) {
         `/project/?mode=keyword&q=${filterKeywords.map((item) => item)}`
       );
     } else if (mode === "research_year") {
+      // 年の一致
       filteredArray = lists?.filter((project) =>
         filterKeywords.some(
           (keyword) =>
@@ -187,6 +194,7 @@ export default function ProjectsViewer(props: Props) {
     setUserFiltered(true);
   };
 
+  // 空文字ならリセット
   const triggerSearchProjects = () => {
     if (searchWord === "") {
       setUserFiltered(false);
@@ -197,6 +205,7 @@ export default function ProjectsViewer(props: Props) {
     searchProjects(searchWord);
   };
 
+  // 検索時に空文字ならリセット
   const triggerSearchInput = (event: React.FormEvent<HTMLInputElement>) => {
     if (event.currentTarget.value === "") {
       setUserFiltered(false);
@@ -207,24 +216,28 @@ export default function ProjectsViewer(props: Props) {
     setSearchWord(event.currentTarget.value);
   };
 
+  // エンターキー押した場合
   const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       triggerSearchProjects();
     }
   };
 
+  // 検索条件を記憶
   const triggerSearchModeSelection = (event: { target: { value: string } }) => {
     const selectedOptionValue = event.target.value;
 
     setSelectedSearchMode(selectedOptionValue);
   };
 
+  // 表示年度を切り替え
   const triggerYearSelection = (event: { target: { value: string } }) => {
     const selectedOptionValue = event.target.value;
 
     setSelectedYear(Number(selectedOptionValue));
   };
 
+  // レイアウトシフト対策
   if (!loaded) {
     return (
       <>
@@ -243,12 +256,15 @@ export default function ProjectsViewer(props: Props) {
     );
   }
 
+  // 表示対象の切り替え
   const displayArray = userFiltered ? filteredProjects : projects;
 
+  // 種類リストを作成する
   const uniqueTypes = Array.from(
     new Set(projects!.flatMap((item) => item.type))
   );
 
+  // 年度リストを作成する
   const uniqueYears = Array.from(
     new Set(
       displayArray?.flatMap((item) => {
@@ -369,17 +385,22 @@ export default function ProjectsViewer(props: Props) {
             }`}
           >
             {displayArray ? (
+              // 検索結果が1件以上あるか
               displayArray.length > 0 ? (
                 uniqueYears.map((year, i) => {
+                  // 年度ごとにグループ化
                   function groupByThumbnail(array: Project[]) {
                     var grouped: { [name: string]: Project[] } = {};
+                    // サムネイルパスが一致した場合にグループ化する
                     array.forEach((item) => {
                       if (item.thumbnailURL !== "" || item.thumbnailURL) {
+                        // キーが無い場合は作成
                         if (!grouped[item.thumbnailURL]) {
                           grouped[item.thumbnailURL] = [];
                         }
                         grouped[item.thumbnailURL].push(item);
                       } else {
+                        // デフォルトサムネイルの場合
                         if (!grouped[item.id]) {
                           grouped[item.id] = [];
                         }
@@ -389,6 +410,7 @@ export default function ProjectsViewer(props: Props) {
                     return grouped;
                   }
 
+                  // 表示年度と一致するか
                   if (selectedYear !== 0 && year !== selectedYear)
                     return <React.Fragment key={i} />;
                   const matchedDataWithYear = displayArray?.filter((item) => {
@@ -397,6 +419,7 @@ export default function ProjectsViewer(props: Props) {
                         timeZone: "Asia/Tokyo",
                       })
                     );
+                    // 年度を計算
                     return (
                       (japanTime.getMonth() > 3
                         ? japanTime.getFullYear()
@@ -419,6 +442,7 @@ export default function ProjectsViewer(props: Props) {
                       {matchedDataWithYear!.length > 0 ? (
                         <React.Fragment>
                           {Object.keys(groupedArray).map((key, j) => {
+                            // 一致するものが無かった場合
                             if (groupedArray[key].length == 1) {
                               return (
                                 <ProjectCard
@@ -430,6 +454,7 @@ export default function ProjectsViewer(props: Props) {
                                 />
                               );
                             } else {
+                              // 種類リストからインデックスを取得
                               const projectAndColors: ProjectsAndColors[] = [];
                               groupedArray[key].forEach((project) => {
                                 projectAndColors.push({

@@ -24,16 +24,22 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Member() {
   const response = await fetchMembers();
   const originalMembers: Member[] = await response.json();
+  // 空要素がある場合は取り除く
   const members = originalMembers.filter((item) => item.id !== "");
 
+  // 教員の抽出
   const sortedMemberWithTeacher = members?.filter((element) =>
     element.belonging.toLowerCase().includes("教員")
   );
+
+  // 卒業生と修了生の抽出
   const sortedMemberWithGraduation = members?.filter(
     (element) =>
       element.belonging.toLowerCase().includes("卒") ||
       element.belonging.toLowerCase().includes("修")
   );
+
+  // 上2つに当てはまらなかったメンバーを抽出
   const sortedEnrolledMember = members?.filter((element) => {
     return (
       !sortedMemberWithGraduation?.some(
@@ -45,6 +51,7 @@ export default async function Member() {
     );
   });
 
+  // 上の3つのグループをそれぞれ関数で描画する
   const displayingMember = (name: string, members: Member[] | undefined) => {
     return (
       <div className={styles.result_box}>
@@ -54,6 +61,8 @@ export default async function Member() {
             <div className={styles.member_content}>
               <div className={styles.left}>
                 <div className={styles.name}>
+                  {/* ()で括られた文字列の中身をリスト化し、","で結合する。*/}
+                  {/* 全角スペースは半角スペースに置き換える。 */}
                   <span
                     title={`${
                       item.otherName
@@ -121,6 +130,9 @@ export default async function Member() {
             </div>
 
             <div className={styles.right}>
+              {/* プロジェクトページで検索させる */}
+              {/* 名前・英語名のスペースを詰める。英語は順序を入れ替えたものも用意 */}
+              {/* 異体字等も同様に検索対象に含める */}
               <Link
                 href={`/project?mode=author&q=${item.name.replace(
                   /[ 　]+/,

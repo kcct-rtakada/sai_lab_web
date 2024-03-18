@@ -25,6 +25,7 @@ export default function ProjectGroupCard({
 }: {
   projectsAndColors: ProjectsAndColors[];
 }) {
+  // 展開/折り畳みで表示量を調整する
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const [isFolderHovered, setIsFolderHovered] = useState<boolean>(false);
@@ -32,6 +33,7 @@ export default function ProjectGroupCard({
 
   const isUsingPhone = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
+  // タグリストを生成
   const uniqueTags = Array.from(
     new Set(
       projectsAndColors.flatMap((item) =>
@@ -40,6 +42,7 @@ export default function ProjectGroupCard({
     )
   );
 
+  // 著者リストを生成、仕様上、First Authorが0インデックスに入る
   const uniqueAuthors = Array.from(
     new Set(
       projectsAndColors.flatMap((item) =>
@@ -55,6 +58,7 @@ export default function ProjectGroupCard({
   )
     currentFolderIcon = faFolderOpen;
 
+  // 年度が共通なので0インデックス目で計算
   const japanTimeOfLeader = new Date(
     new Date(projectsAndColors[0].project.date).toLocaleString("en-US", {
       timeZone: "Asia/Tokyo",
@@ -116,6 +120,7 @@ export default function ProjectGroupCard({
             </div>
             <div className={styles.authors}>
               <span className={styles.author}>
+                {/* First Authorのみ表示 */}
                 <div>
                   <FontAwesomeIcon icon={faUser} style={{ color: "#222" }} />
                 </div>
@@ -161,6 +166,7 @@ export default function ProjectGroupCard({
           </div>
         </button>
       </div>
+      {/* 展開時のみ表示 */}
       {isOpen ? (
         projectsAndColors.map((projectAndColor, i) => {
           const japanTime = new Date(
@@ -193,6 +199,7 @@ export default function ProjectGroupCard({
                   )}
                 </div>
                 {projectAndColor.project.type ? (
+                  // propsより、type毎に割り当てられた色をセットする
                   <div
                     className={`${styles.type} unique-type${projectAndColor.uniqueColorNumber}`}
                   >

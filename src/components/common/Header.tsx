@@ -9,12 +9,14 @@ export default function Header() {
   const [isOpening, setIsOpening] = useState<boolean>(false);
   const path = usePathname();
 
+  // 全てのリンクで自身のページに居る時と居ない時で表示を変える
   return (
     <header>
       <nav className={styles.fixed_header}>
         <div className={styles.header_contents}>
           <div className={styles.icon_box}>
             {path != "/" ? (
+              // 通常遷移
               <Link onClick={() => setIsOpening(false)} href="/">
                 <Image
                   src="/sai_logo.png"
@@ -34,6 +36,7 @@ export default function Header() {
                 </div>
               </Link>
             ) : (
+              // リロードさせる
               <a href="/">
                 <Image
                   src="/sai_logo.png"
@@ -67,6 +70,7 @@ export default function Header() {
               isOpening ? styles.opening : ""
             }`}
           >
+            {/* ハンバーガーメニュー */}
             <div>
               <span />
               <span />

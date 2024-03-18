@@ -11,6 +11,7 @@ import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 export default function ContactContent() {
   const [usingJapanese, setUsingJapanese] = useState<boolean>(true);
 
+  // 2言語の切り替えを行う
   const displayString = (japaneseString: string, englishString: string) => {
     return <>{usingJapanese ? parse(japaneseString) : parse(englishString)}</>;
   };
@@ -96,6 +97,7 @@ export default function ContactContent() {
             https://forms.gle/JngM8dAN5b6yAtBv9
           </Link>
         </p>
+        {/* Google Formの埋め込み */}
         <iframe
           src="https://docs.google.com/forms/d/e/1FAIpQLSeP-U1M1MeJIp4b5wBAlDmgptdyLxOWacAZVLIPezzGssslhw/viewform?embedded=true"
           width="640"

@@ -15,13 +15,11 @@ export default function ProjectRightSidebar({
   const [displayingNum, setDisplayingNum] = useState<number>(
     filteredProjects.length > 4 ? 4 : filteredProjects.length
   );
-  const [isUsingPhone, setIsUsingPhone] = useState<boolean>(false);
   const [scrollbarWidth, setScrollbarWidth] = useState<number>(0);
   const [scrollbarAppeared, setScrollbarAppeared] = useState<boolean>(false);
 
   useEffect(() => {
-    setIsUsingPhone(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
-
+    // スクロールバーの幅を実際に要素を生成して算出する
     function getScrollbarWidth() {
       const outer = document.createElement("div");
       outer.style.visibility = "hidden";
@@ -39,6 +37,7 @@ export default function ProjectRightSidebar({
       return scrollbarWidth;
     }
 
+    // リサイズした場合に更新
     function updateScrollbarWidth() {
       const width = getScrollbarWidth();
       setScrollbarWidth(width);
@@ -68,10 +67,9 @@ export default function ProjectRightSidebar({
   };
 
   return (
+    // スクロールバーの幅だけずらす
     <div
-      className={`${styles.r_sidebar} ${
-        isUsingPhone ? "" : styles.using_computer
-      }`}
+      className={`${styles.r_sidebar}`}
       style={{ right: `${scrollbarAppeared ? scrollbarWidth : 0}px` }}
       id="r_sidebar"
     >
@@ -79,6 +77,7 @@ export default function ProjectRightSidebar({
         <p className={styles.section_title}>プロジェクト検索</p>
         <MiniSearchArea />
         {filteredProjects.length > 0 ? (
+          // propsから関連プロジェクトの配列をそのまま表示
           <React.Fragment>
             <p className={styles.section_title}>
               関連プロジェクト({filteredProjects.length}件)

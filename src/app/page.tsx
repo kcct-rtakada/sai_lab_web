@@ -13,9 +13,12 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
+// 日本語英語ボタン有
 export default async function Home() {
   const response = await fetchNews();
   const newsList: News[] = await response.json();
+  // 空要素がある場合は取り除く
   const filteredNews = newsList.filter((item) => item.id !== "");
+  // クライアントコンポーネントにより描画
   return <HomeContent newsList={filteredNews} />;
 }

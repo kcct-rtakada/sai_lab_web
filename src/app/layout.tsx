@@ -20,6 +20,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#fafafa" />
         <GoogleAnalytics gaId="G-EKY6C0HPHX" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        {/* アイコンを設定 */}
         <meta
           name="msapplication-square70x70logo"
           content="/site-tile-70x70.png"
@@ -246,6 +247,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        {/* ページ読み込み時に上部で表示する */}
         <NextTopLoader
           color="#6973f8"
           template='<div style="height: .15rem;" class="bar" role="bar"><div class="peg"></div></div> 
@@ -257,6 +259,7 @@ export default function RootLayout({
         <Header />
         <main ref={containerRef} id="top_main">
           {children}
+          {/* フッターはスクロール対象 */}
           <Footer />
           <ScrollToTopButton containerRef={containerRef} />
         </main>

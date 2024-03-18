@@ -11,18 +11,22 @@ export default function MiniSearchArea() {
   const [searchWord, setSearchWord] = useState<string>("");
   const [isUsingPhone, setIsUsingPhone] = useState<boolean>(false);
 
+  // タップ/クリックの表示を切り替える
   useEffect(() => {
     setIsUsingPhone(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
   }, []);
 
   const router = useRouter();
 
+  // 文字列の入力
   const triggerSearchInput = (event: React.FormEvent<HTMLInputElement>) => {
     setSearchWord(event.currentTarget.value);
   };
 
+  // エンターキーの押下
   const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      // 空文字の場合、何もしない
       if (searchWord === "") return;
       searchProjects(searchWord);
     }
@@ -32,6 +36,7 @@ export default function MiniSearchArea() {
     searchProjects(searchWord);
   };
 
+  // モード切替を記録する
   const triggerSearchModeSelection = (event: { target: { value: string } }) => {
     const selectedOptionValue = event.target.value;
 
@@ -42,10 +47,12 @@ export default function MiniSearchArea() {
     const filterKeywords = _searchWord.split(/[ 　]+/);
     const mode = _mode ? _mode : selectedSearchMode;
 
+    // スペースしか入力されていない場合
     if (filterKeywords.every((keyword) => keyword === "")) {
       return;
     }
 
+    // 検索させる
     if (mode === "research_name") {
       router.push(
         `/project/?mode=name&q=${filterKeywords.map((item) => item)}`

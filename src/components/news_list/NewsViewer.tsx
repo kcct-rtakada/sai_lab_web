@@ -38,9 +38,11 @@ export default function NewsViewer(props: Props) {
 
   const router = useRouter();
   const params = useSearchParams();
+  // 2つのパラメータがあるかチェック
   const initialMode = params.get("mode");
   const initialQ = params.get("q");
 
+  // タップ/クリックの表示を切り替え
   useEffect(() => {
     setIsUsingPhone(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
     if (newsList) {
@@ -66,12 +68,14 @@ export default function NewsViewer(props: Props) {
     _mode: string | null = null,
     _newsList: News[] | undefined = undefined
   ) => {
+    // スペースごとにキーワード化
     const filterKeywords = _searchWord.split(/[ 　]+/);
     const mode = _mode ? _mode : selectedSearchMode;
     const lists = _newsList ? _newsList : newsList;
 
     setSelectedYear(0);
 
+    // スペースのみで検索なら取り消し
     if (filterKeywords.every((keyword) => keyword === "")) {
       setUserFiltered(false);
       return;
@@ -80,6 +84,7 @@ export default function NewsViewer(props: Props) {
     let filteredArray: News[] | undefined = [];
 
     if (mode === "news_name") {
+      // タイトルの部分一致
       filteredArray = lists?.filter((news) =>
         filterKeywords.some(
           (keyword) =>
@@ -96,6 +101,7 @@ export default function NewsViewer(props: Props) {
 
       router.push(`/news/?mode=name&q=${filterKeywords.map((item) => item)}`);
     } else if (mode === "news_year") {
+      // 年の一致
       filteredArray = lists?.filter((news) =>
         filterKeywords.some(
           (keyword) =>
@@ -122,6 +128,7 @@ export default function NewsViewer(props: Props) {
     setUserFiltered(true);
   };
 
+  // 空文字ならリセット
   const triggerSearchNews = () => {
     if (searchWord === "") {
       setUserFiltered(false);
@@ -133,6 +140,7 @@ export default function NewsViewer(props: Props) {
     searchNews(searchWord);
   };
 
+  // 文字を更新、空ならリセット
   const triggerSearchInput = (event: React.FormEvent<HTMLInputElement>) => {
     if (event.currentTarget.value === "") {
       setUserFiltered(false);
@@ -143,24 +151,28 @@ export default function NewsViewer(props: Props) {
     setSearchWord(event.currentTarget.value);
   };
 
+  // エンターキーで検索
   const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       triggerSearchNews();
     }
   };
 
+  // 検索条件を記憶
   const triggerSearchModeSelection = (event: { target: { value: string } }) => {
     const selectedOptionValue = event.target.value;
 
     setSelectedSearchMode(selectedOptionValue);
   };
 
+  // 年度選択を適用
   const triggerYearSelection = (event: { target: { value: string } }) => {
     const selectedOptionValue = event.target.value;
 
     setSelectedYear(Number(selectedOptionValue));
   };
 
+  // レイアウトシフト対策
   if (!loaded) {
     return (
       <>
@@ -179,8 +191,10 @@ export default function NewsViewer(props: Props) {
     );
   }
 
+  // 表示対象の切り替え
   const displayArray = userFiltered ? filteredNews : newsList;
 
+  // 年度リストを作成する
   const uniqueYears = Array.from(
     new Set(
       displayArray?.flatMap((item) => {
@@ -300,6 +314,7 @@ export default function NewsViewer(props: Props) {
             {displayArray ? (
               displayArray.length > 0 ? (
                 uniqueYears.map((year, i) => {
+                  // 年度が選択されているかどうか
                   if (selectedYear !== 0 && year !== selectedYear)
                     return <span key={`dYear${i}`}></span>;
                   const matchedDataWithYear = displayArray?.filter((item) => {
@@ -308,6 +323,7 @@ export default function NewsViewer(props: Props) {
                         timeZone: "Asia/Tokyo",
                       })
                     );
+                    // 該当年度か判定
                     return (
                       (japanTime.getMonth() > 3
                         ? japanTime.getFullYear()
@@ -338,6 +354,7 @@ export default function NewsViewer(props: Props) {
                           >
                             <div className={styles.news}>
                               <div className={styles.thumbnail_box}>
+                                {/* 画像がない場合はデフォルト画像 */}
                                 {item.thumbnailURL ? (
                                   <img
                                     src={item.thumbnailURL}

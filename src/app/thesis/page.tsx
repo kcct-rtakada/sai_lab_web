@@ -22,14 +22,17 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Thesis() {
   const response = await fetchProjects();
   const projects: Project[] = await response.json();
+  // 空要素がある場合は取り除く
   const filteredProjects = projects.filter((item) => item.id !== "");
 
+  // 本科卒業論文 または 専攻科特別研究論文 のみをこのページでは表示する
   const sortedConferencePapers = filteredProjects?.filter(
     (element) =>
       element.classification.toLowerCase().includes("本科卒業論文") ||
       element.classification.toLowerCase().includes("専攻科特別研究論文")
   );
 
+  // 年度リストを作成する
   const uniqueYears = Array.from(
     new Set(
       sortedConferencePapers?.flatMap((item) => {
@@ -45,6 +48,7 @@ export default async function Thesis() {
     )
   );
 
+  // 種類単位のプロジェクト(研究業績)を関数で描画
   const displayingThesis = (name: string, arrays: Project[] | undefined) => {
     return (
       <React.Fragment>
@@ -124,6 +128,7 @@ export default async function Thesis() {
                       timeZone: "Asia/Tokyo",
                     })
                   );
+                  // 年度を計算
                   return (
                     (japanTime.getMonth() > 3
                       ? japanTime.getFullYear()
@@ -131,6 +136,7 @@ export default async function Thesis() {
                   );
                 }
               );
+              // 年度内で種類ごとに抽出
               const matched2ndPaper = matchedDataWithYear?.filter((item) =>
                 item.classification.toLowerCase().includes("専攻科特別研究論文")
               );

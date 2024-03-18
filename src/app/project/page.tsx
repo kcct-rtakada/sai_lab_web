@@ -18,8 +18,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ProjectList() {
   const response = await fetchProjects();
   const projects: Project[] = await response.json();
+  // 空要素がある場合は取り除く
   const filteredProjects = projects.filter((item) => item.id !== "");
 
+  // クライアントコンポーネントで描画
   return (
     <Suspense
       fallback={

@@ -20,8 +20,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Award() {
   const response = await fetchAwards();
   const awards: Award[] = await response.json();
+  // 空要素がある場合は取り除く
   const filteredAwards = awards.filter((item) => item.id !== "");
 
+  // 年度リストを作成する
   const uniqueYears = Array.from(
     new Set(
       filteredAwards?.flatMap((item) => {
@@ -55,6 +57,7 @@ export default async function Award() {
                     timeZone: "Asia/Tokyo",
                   })
                 );
+                // 年度による仕分け
                 return (
                   (japanTime.getMonth() > 3
                     ? japanTime.getFullYear()
@@ -75,6 +78,7 @@ export default async function Award() {
                         })
                       );
 
+                      // 日付を表示用にフォーマット
                       const displayDate = `${japanTime.getFullYear()}/${(
                         japanTime.getMonth() + 1
                       )

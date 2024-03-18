@@ -11,9 +11,11 @@ import type { Metadata } from "next";
 import { cache } from "react";
 import { fetchNews } from "@/components/GASFetch";
 
+// ニュース取得・一致判定を行う
 const getNews = cache(async (slug: string) => {
   const response = await fetchNews();
   const newsList: News[] = await response.json();
+  // 空要素がある場合は取り除く
   const filteredNews = newsList.filter((item) => item.id !== "");
   const news: News | undefined = filteredNews.find((c: { id: string }) => {
     const cid = String(c.id);
@@ -40,6 +42,7 @@ export async function generateMetadata({
       new Date(news.date).toLocaleString("en-US", { timeZone: "Asia/Tokyo" })
     );
 
+    // 日付のmetaにのせる
     return SEO({
       title: news.title,
       description: `SAI (髙田研究室)のニュース(${japanTime.getFullYear()}/${(
@@ -82,7 +85,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      {/* <SEO pageTitle={project.name} pageDescription={""} /> */}
       <div className={styles.main}>
         <section className={styles.project}>
           <div className={styles.project_card}>
@@ -123,6 +125,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <></>
             )}
 
+            {/* 記事本文はstringからHTML要素へパース */}
             {news.article ? (
               <>
                 <div className={styles.article}>{parse(news.article)}</div>

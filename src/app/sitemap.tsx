@@ -17,6 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
   const baseURL = "https://sai.ac/";
 
+  // 固定ページ
   const staticPaths = [
     {
       url: "https://sai.ac",
@@ -70,6 +71,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const dynamicPaths: any[] = [];
 
+  // ニュースとプロジェクトのリストをsitemapに追加
   filteredProjects.forEach((item) => {
     dynamicPaths.push({
       url: baseURL + "project/" + item.id,

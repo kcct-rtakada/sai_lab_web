@@ -13,14 +13,17 @@ export default function HomeContent({ newsList }: { newsList: News[] }) {
   const [usingJapanese, setUsingJapanese] = useState<boolean>(true);
   const [clickedLogoCount, setClickedLogoCount] = useState<number>(0);
 
+  // 2言語の切り替えを行う
   const displayString = (japaneseString: string, englishString: string) => {
     return <>{usingJapanese ? japaneseString : englishString}</>;
   };
 
+  // 特別ウインドウから退出する
   const resetClickingCount = () => {
     setClickedLogoCount(0);
   };
 
+  // 表示件数を最大5件にする
   const listingNum = newsList ? (newsList.length > 5 ? 5 : newsList.length) : 0;
 
   return (
@@ -35,6 +38,7 @@ export default function HomeContent({ newsList }: { newsList: News[] }) {
         </div>
       </div>
       <div className={styles.img_box}>
+        {/* ロード時のアニメーション要素 */}
         <div className={styles.animation_box}>
           <div>
             <p>細</p>
@@ -72,6 +76,7 @@ export default function HomeContent({ newsList }: { newsList: News[] }) {
           <div className={styles.top_img_box}>
             <Image src="/sai_top_img.png" alt="top_img" fill sizes="100%" />
           </div>
+          {/* 後ろの透過用 */}
           <div className={styles.back_img_box}>
             <Image src="/sai_top_img.png" alt="top_img" fill sizes="100%" />
           </div>
@@ -84,6 +89,7 @@ export default function HomeContent({ newsList }: { newsList: News[] }) {
         </h2>
         <ul>
           {newsList?.slice(0, listingNum).map((news, i) => {
+            // 日本時間に合わせる
             const japanTime = new Date(
               new Date(news.date).toLocaleString("en-US", {
                 timeZone: "Asia/Tokyo",
@@ -283,9 +289,9 @@ export default function HomeContent({ newsList }: { newsList: News[] }) {
         <p>
           {displayString("メールアドレス", "Email Address")}
           <br />
-          <Link href="mailto:kcct-rtakada@g.kobe-kosen.ac.jp">
+          <a href="mailto:kcct-rtakada@g.kobe-kosen.ac.jp">
             kcct-rtakada@g.kobe-kosen.ac.jp
-          </Link>
+          </a>
         </p>
         <p>
           {displayString("問い合わせフォーム", "Contact Form")}

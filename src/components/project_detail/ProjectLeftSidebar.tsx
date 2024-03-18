@@ -3,6 +3,7 @@ import styles from "@/styles/app/projects/project.module.scss";
 import { Project } from "../DefaultStructure";
 import Link from "next/link";
 
+// miscの内容も考慮し、固定化した目次を作成
 export default function ProjectLeftSidebar({ project }: { project: Project }) {
   return (
     <div className={styles.l_sidebar}>

@@ -22,6 +22,7 @@ export default function SEO(info: Props): Metadata {
     keywords: ["SAI", "髙田 崚介", "高田 崚介", "神戸高専", "電子工学科"],
     manifest: "/manifest.json",
     openGraph: {
+      // titleにサイト名は基本つけない
       title: title ? title : `SAI`,
       description: displayingDescription,
       url: displayingURL,

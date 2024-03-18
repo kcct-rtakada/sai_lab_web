@@ -9,6 +9,7 @@ export default function CopyButton({ text }: { text: string }) {
   const [isUsingPhone, setIsUsingPhone] = useState<boolean>(false);
 
   useEffect(() => {
+    // スマホ機種では表示させない
     setIsUsingPhone(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
   }, []);
 

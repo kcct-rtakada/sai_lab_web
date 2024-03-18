@@ -11,6 +11,8 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
+// 日本語英語ボタン有
 export default function Contact() {
+  // クライアントコンポーネントで描画
   return <ContactContent />;
 }

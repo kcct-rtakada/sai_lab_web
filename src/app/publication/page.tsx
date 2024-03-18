@@ -22,8 +22,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Publication() {
   const response = await fetchProjects();
   const projects: Project[] = await response.json();
+  // 空要素がある場合は取り除く
   const filteredProjects = projects.filter((item) => item.id !== "");
 
+  // 国内会議 または 国際会議 または 論文誌 のみをこのページでは表示する
   const sortedConferencePapers = filteredProjects?.filter(
     (element) =>
       element.classification.toLowerCase().includes("国内会議") ||
@@ -31,6 +33,7 @@ export default async function Publication() {
       element.classification.toLowerCase().includes("論文誌")
   );
 
+  // 年度リストを作成する
   const uniqueYears = Array.from(
     new Set(
       sortedConferencePapers?.flatMap((item) => {
@@ -46,7 +49,11 @@ export default async function Publication() {
     )
   );
 
-  const displayingThesis = (name: string, arrays: Project[] | undefined) => {
+  // 種類単位のプロジェクト(研究業績)を関数で描画
+  const displayingPublication = (
+    name: string,
+    arrays: Project[] | undefined
+  ) => {
     return (
       <React.Fragment>
         <h3>{name}</h3>
@@ -122,6 +129,7 @@ export default async function Publication() {
                       timeZone: "Asia/Tokyo",
                     })
                   );
+                  // 年度を計算
                   return (
                     (japanTime.getMonth() > 3
                       ? japanTime.getFullYear()
@@ -129,6 +137,7 @@ export default async function Publication() {
                   );
                 }
               );
+              // 年度内で種類ごとに抽出
               const matchedInternal = matchedDataWithYear?.filter((item) =>
                 item.classification.toLowerCase().includes("国内会議")
               );
@@ -145,7 +154,7 @@ export default async function Publication() {
                   </h2>
                   {matchedJournal!.length > 0 ? (
                     <React.Fragment>
-                      {displayingThesis("論文誌", matchedJournal)}
+                      {displayingPublication("論文誌", matchedJournal)}
                     </React.Fragment>
                   ) : (
                     <></>
@@ -153,7 +162,7 @@ export default async function Publication() {
 
                   {matchedInternal!.length > 0 ? (
                     <React.Fragment>
-                      {displayingThesis("国内会議", matchedInternal)}
+                      {displayingPublication("国内会議", matchedInternal)}
                     </React.Fragment>
                   ) : (
                     <></>
@@ -161,7 +170,7 @@ export default async function Publication() {
 
                   {matchedExternal!.length > 0 ? (
                     <React.Fragment>
-                      {displayingThesis("国際会議", matchedExternal)}
+                      {displayingPublication("国際会議", matchedExternal)}
                     </React.Fragment>
                   ) : (
                     <></>

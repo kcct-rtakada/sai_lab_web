@@ -14,9 +14,11 @@ import ProjectRightSidebar from "@/components/project_detail/ProjectRightSidebar
 import ProjectLeftSidebar from "@/components/project_detail/ProjectLeftSidebar";
 import { fetchProjects } from "@/components/GASFetch";
 
+// プロジェクト取得・一致判定を行う
 const getProject = cache(async (slug: string) => {
   const response = await fetchProjects();
   const projects: Project[] = await response.json();
+  // 空要素がある場合は取り除く
   const filteredProjects = projects.filter((item) => item.id !== "");
   const project: Project | undefined = filteredProjects.find(
     (c: { id: string }) => {
@@ -55,6 +57,7 @@ export async function generateMetadata({
 export default async function Page({ params }: { params: { slug: string } }) {
   const { project, projects } = await getProject(params.slug);
 
+  // キーワードの部分一致またはタイトルの部分一致の場合、関連プロジェクトとなる
   const filteredRelativeProject = projects.filter(
     (item) =>
       project?.tags.some(
@@ -91,6 +94,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     new Date(project!.date).toLocaleString("en-US", { timeZone: "Asia/Tokyo" })
   );
 
+  // 時間を表示用にフォーマット
   const displayDate = `${japanTime.getFullYear()}/${(japanTime.getMonth() + 1)
     .toString()
     .padStart(2, "0")}/${japanTime.getDate().toString().padStart(2, "0")}`;
@@ -211,6 +215,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <></>
             )}
 
+            {/* stringからHTML要素にパース */}
             {project.posterHTML ? (
               <>
                 <h2 id="poster" className={styles.section_name}>
@@ -224,6 +229,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <></>
             )}
 
+            {/* stringからHTML要素にパース */}
             {project.presentationHTML ? (
               <>
                 <h2 id="presentation" className={styles.section_name}>
@@ -237,6 +243,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <></>
             )}
 
+            {/* stringからHTML要素にパース */}
             {project.documentHTML ? (
               <>
                 <h2 id="document" className={styles.section_name}>
@@ -250,6 +257,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <></>
             )}
 
+            {/* stringからHTML要素にパース */}
             {project.freeHTML ? (
               <>
                 <h2 id="misc" className={styles.section_name}>
@@ -326,7 +334,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <div>{project.citation}</div>
             </div>
           </div>
+          {/* 左サイドバー(目次) */}
           <ProjectLeftSidebar project={project} />
+          {/* 右サイドバー(検索・関連プロジェクト) */}
           <ProjectRightSidebar filteredProjects={filteredRelativeProject} />
         </section>
       </div>

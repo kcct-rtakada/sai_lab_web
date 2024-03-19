@@ -41,7 +41,7 @@ export default async function Thesis() {
             timeZone: "Asia/Tokyo",
           })
         );
-        return japanTime.getMonth() > 3
+        return japanTime.getMonth() + 1 > 3
           ? japanTime.getFullYear()
           : japanTime.getFullYear() - 1;
       })
@@ -130,7 +130,7 @@ export default async function Thesis() {
                   );
                   // 年度を計算
                   return (
-                    (japanTime.getMonth() > 3
+                    (japanTime.getMonth() + 1 > 3
                       ? japanTime.getFullYear()
                       : japanTime.getFullYear() - 1) === year
                   );

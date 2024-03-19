@@ -50,7 +50,7 @@ export default function ProjectCard({
         <div className={styles.date}>
           <FontAwesomeIcon icon={faCalendar} style={{ marginRight: ".3rem" }} />
           {`${
-            japanTime.getMonth() > 3
+            japanTime.getMonth() + 1 > 3
               ? japanTime.getFullYear()
               : japanTime.getFullYear() - 1
           }年度`}

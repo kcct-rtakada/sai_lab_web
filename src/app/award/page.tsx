@@ -32,7 +32,7 @@ export default async function Award() {
             timeZone: "Asia/Tokyo",
           })
         );
-        return japanTime.getMonth() > 3
+        return japanTime.getMonth() + 1 > 3
           ? japanTime.getFullYear()
           : japanTime.getFullYear() - 1;
       })
@@ -59,7 +59,7 @@ export default async function Award() {
                 );
                 // 年度による仕分け
                 return (
-                  (japanTime.getMonth() > 3
+                  (japanTime.getMonth() + 1 > 3
                     ? japanTime.getFullYear()
                     : japanTime.getFullYear() - 1) === year
                 );

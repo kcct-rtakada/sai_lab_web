@@ -108,7 +108,7 @@ export default function ProjectGroupCard({
                 style={{ marginRight: ".3rem" }}
               />
               {`${
-                japanTimeOfLeader.getMonth() > 3
+                japanTimeOfLeader.getMonth() + 1 > 3
                   ? japanTimeOfLeader.getFullYear()
                   : japanTimeOfLeader.getFullYear() - 1
               }年度`}
@@ -214,7 +214,7 @@ export default function ProjectGroupCard({
                     style={{ marginRight: ".3rem" }}
                   />
                   {`${
-                    japanTime.getMonth() > 3
+                    japanTime.getMonth() + 1 > 3
                       ? japanTime.getFullYear()
                       : japanTime.getFullYear() - 1
                   }年度`}

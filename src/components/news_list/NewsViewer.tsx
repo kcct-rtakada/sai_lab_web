@@ -203,7 +203,7 @@ export default function NewsViewer(props: Props) {
             timeZone: "Asia/Tokyo",
           })
         );
-        return japanTime.getMonth() > 3
+        return japanTime.getMonth() + 1 > 3
           ? japanTime.getFullYear()
           : japanTime.getFullYear() - 1;
       })
@@ -325,7 +325,7 @@ export default function NewsViewer(props: Props) {
                     );
                     // 該当年度か判定
                     return (
-                      (japanTime.getMonth() > 3
+                      (japanTime.getMonth() + 1 > 3
                         ? japanTime.getFullYear()
                         : japanTime.getFullYear() - 1) === year
                     );

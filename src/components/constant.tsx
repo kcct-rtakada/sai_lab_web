@@ -5,3 +5,5 @@ export const sai_members = "https://script.google.com/macros/s/AKfycbzXF1O27UIhQ
 export const sai_awards = "https://script.google.com/macros/s/AKfycby72FtmqUDIcO-hVHiahvpvD2_cNaXZD9q_WniBeUr8YsaSjrwm3wXn63-M48r3BEwWBw/exec"
 
 export const sai_news = "https://script.google.com/macros/s/AKfycbwZdJd0gov7nPMMXXBh_q7btSZuS-K93LAy5sjRFEGgnpK3DlrRYee2st2Wv7GVjwCo/exec"
+
+export const sai_publications = "https://script.google.com/macros/s/AKfycby3CH7Emzj_LyT6UU62sEu0Ht5dDX7cEc3uuPKD8ORs3G5YZuAFRZpEMe8qXB75TqbV/exec"

@@ -26,16 +26,18 @@ export default async function Award() {
   // 年度リストを作成する
   const uniqueYears = Array.from(
     new Set(
-      filteredAwards?.flatMap((item) => {
-        const japanTime = new Date(
-          new Date(item.date).toLocaleString("en-US", {
-            timeZone: "Asia/Tokyo",
-          })
-        );
-        return japanTime.getMonth() + 1 > 3
-          ? japanTime.getFullYear()
-          : japanTime.getFullYear() - 1;
-      })
+      filteredAwards
+        ?.flatMap((item) => {
+          const japanTime = new Date(
+            new Date(item.date).toLocaleString("en-US", {
+              timeZone: "Asia/Tokyo",
+            })
+          );
+          return japanTime.getMonth() + 1 > 3
+            ? japanTime.getFullYear()
+            : japanTime.getFullYear() - 1;
+        })
+        .sort((a, b) => b - a)
     )
   );
 

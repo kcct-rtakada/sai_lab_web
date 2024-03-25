@@ -39,6 +39,17 @@ export interface Project {
   additionalImageURL: AdditionalImage[];
 }
 
+export interface Publication {
+  id: string;
+  classification: string;
+  author: string;
+  title: string;
+  publisher: string;
+  date: Date;
+  url: string;
+  additionalURL: string;
+}
+
 export interface News {
   id: string;
   date: Date;

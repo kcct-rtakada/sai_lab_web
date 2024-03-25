@@ -1,4 +1,4 @@
-import { sai_awards, sai_members, sai_news, sai_projects } from "./constant";
+import { sai_awards, sai_members, sai_news, sai_projects, sai_publications } from "./constant";
 
 // 8時間ごと
 export async function fetchAwards() {
@@ -12,6 +12,14 @@ export async function fetchAwards() {
 export async function fetchProjects() {
   const response = await fetch(sai_projects, {
     next: { revalidate: 3600 },
+  });
+  return response;
+}
+
+// 30分ごと
+export async function fetchPublications() {
+  const response = await fetch(sai_publications, {
+    next: { revalidate: 1800 },
   });
   return response;
 }

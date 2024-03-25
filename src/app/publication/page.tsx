@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { Project } from "@/components/DefaultStructure";
+import { Project, Publication } from "@/components/DefaultStructure";
 import styles from "@/styles/app/publication/publication.module.scss";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +8,7 @@ import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
 import YearListSidebar from "@/components/client_parts/YearListSidebar";
 import React from "react";
-import { fetchProjects } from "@/components/GASFetch";
+import { fetchProjects, fetchPublications } from "@/components/GASFetch";
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
@@ -19,11 +19,16 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default async function Publication() {
-  const response = await fetchProjects();
-  const projects: Project[] = await response.json();
+export default async function PagePublication() {
+  const projectResponse = await fetchProjects();
+  const projects: Project[] = await projectResponse.json();
   // 空要素がある場合は取り除く
   const filteredProjects = projects.filter((item) => item.id !== "");
+
+  const publicationsResponse = await fetchPublications();
+  const publications: Publication[] = await publicationsResponse.json();
+  // 空要素がある場合は取り除く
+  const filteredPublications = publications.filter((item) => item.id !== "");
 
   // 国内会議 または 国際会議 または 論文誌 のみをこのページでは表示する
   const sortedConferencePapers = filteredProjects?.filter(
@@ -33,27 +38,120 @@ export default async function Publication() {
       element.classification.toLowerCase().includes("論文誌")
   );
 
+  //
+  const sortedPublications = filteredPublications?.filter(
+    (element) =>
+      element.classification.toLowerCase().includes("記事") ||
+      element.classification.toLowerCase().includes("出版") ||
+      element.classification.toLowerCase().includes("講演") ||
+      element.classification.toLowerCase().includes("報道")
+  );
+
   // 年度リストを作成する
   const uniqueYears = Array.from(
     new Set(
-      sortedConferencePapers?.flatMap((item) => {
-        const japanTime = new Date(
-          new Date(item.date).toLocaleString("en-US", {
-            timeZone: "Asia/Tokyo",
+      sortedConferencePapers
+        ?.flatMap((item) => {
+          const japanTime = new Date(
+            new Date(item.date).toLocaleString("en-US", {
+              timeZone: "Asia/Tokyo",
+            })
+          );
+          return japanTime.getMonth() + 1 > 3
+            ? japanTime.getFullYear()
+            : japanTime.getFullYear() - 1;
+        })
+        .concat(
+          sortedPublications?.flatMap((item) => {
+            const japanTime = new Date(
+              new Date(item.date).toLocaleString("en-US", {
+                timeZone: "Asia/Tokyo",
+              })
+            );
+            return japanTime.getMonth() + 1 > 3
+              ? japanTime.getFullYear()
+              : japanTime.getFullYear() - 1;
           })
-        );
-        return japanTime.getMonth() + 1 > 3
-          ? japanTime.getFullYear()
-          : japanTime.getFullYear() - 1;
-      })
+        )
+        .sort((a, b) => b - a)
     )
   );
 
-  // 種類単位のプロジェクト(研究業績)を関数で描画
-  const displayingPublication = (
+  const displayingPublications = (
     name: string,
-    arrays: Project[] | undefined
+    arrays: Publication[] | undefined
   ) => {
+    return (
+      <React.Fragment>
+        <h3>{name}</h3>
+        <ol>
+          {arrays!.map((item, j) => {
+            const japanTime = new Date(
+              new Date(item.date).toLocaleString("en-US", {
+                timeZone: "Asia/Tokyo",
+              })
+            );
+
+            return (
+              <li key={j}>
+                {item.url ? (
+                  <Link
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.direct}
+                  >
+                    {`${item.author}, ${item.title}, ${
+                      item.publisher
+                    }(${japanTime.getFullYear()}/${(japanTime.getMonth() + 1)
+                      .toString()
+                      .padStart(2, "0")}/${japanTime
+                      .getDate()
+                      .toString()
+                      .padStart(2, "0")})`}
+                  </Link>
+                ) : (
+                  <span>
+                    {`${item.author}, ${item.title}, ${
+                      item.publisher
+                    }(${japanTime.getFullYear()}/${(japanTime.getMonth() + 1)
+                      .toString()
+                      .padStart(2, "0")}/${japanTime
+                      .getDate()
+                      .toString()
+                      .padStart(2, "0")})`}
+                  </span>
+                )}
+                {item.additionalURL ? (
+                  <Link
+                    href={item.additionalURL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ marginLeft: ".5rem" }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faLink}
+                      style={{
+                        color: "#FA5F2F",
+                        display: "inline-block",
+                        fontSize: "1rem",
+                        width: "1rem",
+                      }}
+                    />
+                  </Link>
+                ) : (
+                  <></>
+                )}
+              </li>
+            );
+          })}
+        </ol>
+      </React.Fragment>
+    );
+  };
+
+  // 種類単位のプロジェクト(研究業績)を関数で描画
+  const displayingProjects = (name: string, arrays: Project[] | undefined) => {
     return (
       <React.Fragment>
         <h3>{name}</h3>
@@ -122,7 +220,22 @@ export default async function Publication() {
         <div className={styles.list_box}>
           <div className={styles.result_box}>
             {uniqueYears.map((year, i) => {
-              const matchedDataWithYear = sortedConferencePapers?.filter(
+              const matchedProjectsWithYear = sortedConferencePapers?.filter(
+                (item) => {
+                  const japanTime = new Date(
+                    new Date(item.date).toLocaleString("en-US", {
+                      timeZone: "Asia/Tokyo",
+                    })
+                  );
+                  // 年度を計算
+                  return (
+                    (japanTime.getMonth() + 1 > 3
+                      ? japanTime.getFullYear()
+                      : japanTime.getFullYear() - 1) === year
+                  );
+                }
+              );
+              const matchedPublicationsWithYear = sortedPublications?.filter(
                 (item) => {
                   const japanTime = new Date(
                     new Date(item.date).toLocaleString("en-US", {
@@ -138,14 +251,25 @@ export default async function Publication() {
                 }
               );
               // 年度内で種類ごとに抽出
-              const matchedInternal = matchedDataWithYear?.filter((item) =>
+              const matchedInternal = matchedProjectsWithYear?.filter((item) =>
                 item.classification.toLowerCase().includes("国内会議")
               );
-              const matchedExternal = matchedDataWithYear?.filter((item) =>
+              const matchedExternal = matchedProjectsWithYear?.filter((item) =>
                 item.classification.toLowerCase().includes("国際会議")
               );
-              const matchedJournal = matchedDataWithYear?.filter((item) =>
+              const matchedJournal = matchedProjectsWithYear?.filter((item) =>
                 item.classification.toLowerCase().includes("論文誌")
+              );
+              const matchedCoverage = matchedPublicationsWithYear?.filter(
+                (item) => item.classification.toLowerCase().includes("報道")
+              );
+              const matchedSpeech = matchedPublicationsWithYear?.filter(
+                (item) => item.classification.toLowerCase().includes("講演")
+              );
+              const matchedArticle = matchedPublicationsWithYear?.filter(
+                (item) =>
+                  item.classification.toLowerCase().includes("記事") ||
+                  item.classification.toLowerCase().includes("出版")
               );
               return (
                 <React.Fragment key={i}>
@@ -154,7 +278,7 @@ export default async function Publication() {
                   </h2>
                   {matchedJournal!.length > 0 ? (
                     <React.Fragment>
-                      {displayingPublication("論文誌", matchedJournal)}
+                      {displayingProjects("論文誌", matchedJournal)}
                     </React.Fragment>
                   ) : (
                     <></>
@@ -162,7 +286,7 @@ export default async function Publication() {
 
                   {matchedInternal!.length > 0 ? (
                     <React.Fragment>
-                      {displayingPublication("国内会議", matchedInternal)}
+                      {displayingProjects("国内会議", matchedInternal)}
                     </React.Fragment>
                   ) : (
                     <></>
@@ -170,7 +294,31 @@ export default async function Publication() {
 
                   {matchedExternal!.length > 0 ? (
                     <React.Fragment>
-                      {displayingPublication("国際会議", matchedExternal)}
+                      {displayingProjects("国際会議", matchedExternal)}
+                    </React.Fragment>
+                  ) : (
+                    <></>
+                  )}
+
+                  {matchedCoverage!.length > 0 ? (
+                    <React.Fragment>
+                      {displayingPublications("報道", matchedCoverage)}
+                    </React.Fragment>
+                  ) : (
+                    <></>
+                  )}
+
+                  {matchedSpeech!.length > 0 ? (
+                    <React.Fragment>
+                      {displayingPublications("講演", matchedSpeech)}
+                    </React.Fragment>
+                  ) : (
+                    <></>
+                  )}
+
+                  {matchedArticle!.length > 0 ? (
+                    <React.Fragment>
+                      {displayingPublications("記事・出版", matchedArticle)}
                     </React.Fragment>
                   ) : (
                     <></>

@@ -108,6 +108,7 @@
         display: flex;
         flex-direction: column;
         z-index: 10000;
+        user-select: none;
         -webkit-border-radius: 0.5rem 0.5rem 3rem 3rem;
         -moz-border-radius: 0.5rem 0.5rem 3rem 3rem;
         -ms-border-radius: 0.5rem 0.5rem 3rem 3rem;

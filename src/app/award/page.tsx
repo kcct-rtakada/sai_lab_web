@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 import YearListSidebar from "@/components/client_parts/YearListSidebar";
 import React from "react";
 import { fetchAwards } from "@/components/GASFetch";
+import { CalcFiscalYear, ConvertToJST, DisplayDefaultDateString } from "@/components/JSTConverter";
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
@@ -17,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default async function Award() {
+export default async function DisplayAward() {
   const response = await fetchAwards();
   const awards: Award[] = await response.json();
   // 空要素がある場合は取り除く
@@ -28,14 +29,8 @@ export default async function Award() {
     new Set(
       filteredAwards
         ?.flatMap((item) => {
-          const japanTime = new Date(
-            new Date(item.date).toLocaleString("en-US", {
-              timeZone: "Asia/Tokyo",
-            })
-          );
-          return japanTime.getMonth() + 1 > 3
-            ? japanTime.getFullYear()
-            : japanTime.getFullYear() - 1;
+          const japanTime = ConvertToJST(item.date);
+          return CalcFiscalYear(japanTime);
         })
         .sort((a, b) => b - a)
     )
@@ -54,17 +49,9 @@ export default async function Award() {
           <div className={styles.result_box}>
             {uniqueYears.map((year, i) => {
               const matchedDataWithYear = filteredAwards?.filter((item) => {
-                const japanTime = new Date(
-                  new Date(item.date).toLocaleString("en-US", {
-                    timeZone: "Asia/Tokyo",
-                  })
-                );
+                const japanTime = ConvertToJST(item.date);
                 // 年度による仕分け
-                return (
-                  (japanTime.getMonth() + 1 > 3
-                    ? japanTime.getFullYear()
-                    : japanTime.getFullYear() - 1) === year
-                );
+                return CalcFiscalYear(japanTime) === year;
               });
 
               return (
@@ -74,21 +61,10 @@ export default async function Award() {
                   </h2>
                   <ul key={`ul${i}`}>
                     {matchedDataWithYear!.map((award, j) => {
-                      const japanTime = new Date(
-                        new Date(award.date).toLocaleString("en-US", {
-                          timeZone: "Asia/Tokyo",
-                        })
-                      );
+                      const japanTime = ConvertToJST(award.date);
 
                       // 日付を表示用にフォーマット
-                      const displayDate = `${japanTime.getFullYear()}/${(
-                        japanTime.getMonth() + 1
-                      )
-                        .toString()
-                        .padStart(2, "0")}/${japanTime
-                        .getDate()
-                        .toString()
-                        .padStart(2, "0")}`;
+                      const displayDate = DisplayDefaultDateString(japanTime);
                       return (
                         <li key={j}>
                           {award.link ? (

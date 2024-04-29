@@ -9,6 +9,7 @@ import {
 import { Project } from "@/components/DefaultStructure";
 import styles from "@/styles/app/projects/projectList.module.scss";
 import Link from "next/link";
+import { CalcFiscalYear, ConvertToJST } from "../JSTConverter";
 export default function ProjectCard({
   project,
   uniqueColorNumber,
@@ -16,9 +17,7 @@ export default function ProjectCard({
   project: Project;
   uniqueColorNumber: number;
 }) {
-  const japanTime = new Date(
-    new Date(project.date).toLocaleString("en-US", { timeZone: "Asia/Tokyo" })
-  );
+  const japanTime = ConvertToJST(project.date);
   return (
     <Link href={`/project/${project.id}`} className={styles.project_link}>
       <div className={`${styles.project} ${styles.border}`}>
@@ -49,11 +48,7 @@ export default function ProjectCard({
         )}
         <div className={styles.date}>
           <FontAwesomeIcon icon={faCalendar} style={{ marginRight: ".3rem" }} />
-          {`${
-            japanTime.getMonth() + 1 > 3
-              ? japanTime.getFullYear()
-              : japanTime.getFullYear() - 1
-          }年度`}
+          {`${CalcFiscalYear(japanTime)}年度`}
         </div>
         <div className={styles.description_area}>
           <div className={styles.title}>{project.title}</div>

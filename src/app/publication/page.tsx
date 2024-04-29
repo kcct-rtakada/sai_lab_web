@@ -9,6 +9,11 @@ import type { Metadata } from "next";
 import YearListSidebar from "@/components/client_parts/YearListSidebar";
 import React from "react";
 import { fetchProjects, fetchPublications } from "@/components/GASFetch";
+import {
+  CalcFiscalYear,
+  ConvertToJST,
+  DisplayDefaultDateString,
+} from "@/components/JSTConverter";
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
@@ -103,23 +108,13 @@ export default async function PagePublication() {
                   >
                     {`${item.author}, ${item.title}, ${
                       item.publisher
-                    }(${japanTime.getFullYear()}/${(japanTime.getMonth() + 1)
-                      .toString()
-                      .padStart(2, "0")}/${japanTime
-                      .getDate()
-                      .toString()
-                      .padStart(2, "0")})`}
+                    }(${DisplayDefaultDateString(japanTime)})`}
                   </Link>
                 ) : (
                   <span>
                     {`${item.author}, ${item.title}, ${
                       item.publisher
-                    }(${japanTime.getFullYear()}/${(japanTime.getMonth() + 1)
-                      .toString()
-                      .padStart(2, "0")}/${japanTime
-                      .getDate()
-                      .toString()
-                      .padStart(2, "0")})`}
+                    }(${DisplayDefaultDateString(japanTime)})`}
                   </span>
                 )}
                 {item.additionalURL ? (
@@ -222,32 +217,16 @@ export default async function PagePublication() {
             {uniqueYears.map((year, i) => {
               const matchedProjectsWithYear = sortedConferencePapers?.filter(
                 (item) => {
-                  const japanTime = new Date(
-                    new Date(item.date).toLocaleString("en-US", {
-                      timeZone: "Asia/Tokyo",
-                    })
-                  );
+                  const japanTime = ConvertToJST(item.date);
                   // 年度を計算
-                  return (
-                    (japanTime.getMonth() + 1 > 3
-                      ? japanTime.getFullYear()
-                      : japanTime.getFullYear() - 1) === year
-                  );
+                  return CalcFiscalYear(japanTime) === year;
                 }
               );
               const matchedPublicationsWithYear = sortedPublications?.filter(
                 (item) => {
-                  const japanTime = new Date(
-                    new Date(item.date).toLocaleString("en-US", {
-                      timeZone: "Asia/Tokyo",
-                    })
-                  );
+                  const japanTime = ConvertToJST(item.date);
                   // 年度を計算
-                  return (
-                    (japanTime.getMonth() + 1 > 3
-                      ? japanTime.getFullYear()
-                      : japanTime.getFullYear() - 1) === year
-                  );
+                  return CalcFiscalYear(japanTime) === year;
                 }
               );
               // 年度内で種類ごとに抽出

@@ -15,6 +15,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@next/third-parties": "^14.1.0",
+    "@vercel/speed-insights": "^1.0.10",
     "destyle.css": "^4.0.1",
     "html-react-parser": "^5.1.1",
     "next": "14.1.3",

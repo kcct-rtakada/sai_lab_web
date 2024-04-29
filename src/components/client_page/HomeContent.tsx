@@ -8,6 +8,7 @@ import { useState } from "react";
 import Game from "@/components/game/GameBase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
+import { ConvertToJST, DisplayDefaultDateString } from "@/components/JSTConverter";
 
 export default function HomeContent({ newsList }: { newsList: News[] }) {
   const [usingJapanese, setUsingJapanese] = useState<boolean>(true);
@@ -90,21 +91,12 @@ export default function HomeContent({ newsList }: { newsList: News[] }) {
         <ul>
           {newsList?.slice(0, listingNum).map((news, i) => {
             // 日本時間に合わせる
-            const japanTime = new Date(
-              new Date(news.date).toLocaleString("en-US", {
-                timeZone: "Asia/Tokyo",
-              })
-            );
+            const japanTime = ConvertToJST(news.date);
             return (
               <li key={i} style={{ listStyle: "none" }}>
                 <Link href={`/news/${news.id}`}>
                   {news.title}-{" "}
-                  {`${japanTime.getFullYear()}/${(japanTime.getMonth() + 1)
-                    .toString()
-                    .padStart(2, "0")}/${japanTime
-                    .getDate()
-                    .toString()
-                    .padStart(2, "0")}`}
+                  {`${DisplayDefaultDateString(japanTime)}`}
                 </Link>
               </li>
             );

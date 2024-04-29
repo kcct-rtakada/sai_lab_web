@@ -10,6 +10,10 @@ import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
 import { cache } from "react";
 import { fetchNews } from "@/components/GASFetch";
+import {
+  ConvertToJST,
+  DisplayDefaultDateString,
+} from "@/components/JSTConverter";
 
 // ニュース取得・一致判定を行う
 const getNews = cache(async (slug: string) => {
@@ -38,18 +42,14 @@ export async function generateMetadata({
       imageUrl: undefined,
     });
   else {
-    const japanTime = new Date(
-      new Date(news.date).toLocaleString("en-US", { timeZone: "Asia/Tokyo" })
-    );
+    const japanTime = ConvertToJST(news.date);
 
     // 日付のmetaにのせる
     return SEO({
       title: news.title,
-      description: `SAI (髙田研究室)のニュース(${japanTime.getFullYear()}/${(
-        japanTime.getMonth() + 1
-      )
-        .toString()
-        .padStart(2, "0")}/${japanTime.getDate().toString().padStart(2, "0")})`,
+      description: `SAI (髙田研究室)のニュース(${DisplayDefaultDateString(
+        japanTime
+      )})`,
       url: `https://sai.ac/project/${params.slug}`,
       imageUrl: undefined,
     });
@@ -79,9 +79,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     );
   }
 
-  const japanTime = new Date(
-    new Date(news.date).toLocaleString("en-US", { timeZone: "Asia/Tokyo" })
-  );
+  const japanTime = ConvertToJST(news.date);
 
   return (
     <>
@@ -100,12 +98,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 }}
               />
               <time dateTime={japanTime.toISOString()}>
-                {`${japanTime.getFullYear()}/${(japanTime.getMonth() + 1)
-                  .toString()
-                  .padStart(2, "0")}/${japanTime
-                  .getDate()
-                  .toString()
-                  .padStart(2, "0")}`}
+                {DisplayDefaultDateString(japanTime)}
               </time>
             </div>
           </div>

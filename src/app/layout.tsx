@@ -7,6 +7,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { useRef } from "react";
 import ScrollToTopButton from "@/components/common/ScrollToTopButton";
 import NextTopLoader from "nextjs-toploader";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export default function RootLayout({
   children,
@@ -19,6 +20,7 @@ export default function RootLayout({
       <head prefix="og: http://ogp.me/ns#">
         <meta name="theme-color" content="#fafafa" />
         <GoogleAnalytics gaId="G-EKY6C0HPHX" />
+        <SpeedInsights />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         {/* アイコンを設定 */}
         <meta

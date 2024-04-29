@@ -14,6 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
+import { CalcFiscalYear, ConvertToJST } from "../JSTConverter";
 
 interface Props {
   _projects: Project[];
@@ -169,13 +170,7 @@ export default function ProjectsViewer(props: Props) {
       filteredArray = lists?.filter((project) =>
         filterKeywords.some(
           (keyword) =>
-            String(
-              new Date(
-                new Date(project.date).toLocaleString("en-US", {
-                  timeZone: "Asia/Tokyo",
-                })
-              ).getFullYear()
-            ) === keyword
+            String(ConvertToJST(project.date).getFullYear()) === keyword
         )
       );
       setDisplayingSearchCondition(
@@ -269,14 +264,8 @@ export default function ProjectsViewer(props: Props) {
     new Set(
       displayArray
         ?.flatMap((item) => {
-          const japanTime = new Date(
-            new Date(item.date).toLocaleString("en-US", {
-              timeZone: "Asia/Tokyo",
-            })
-          );
-          return japanTime.getMonth() + 1 > 3
-            ? japanTime.getFullYear()
-            : japanTime.getFullYear() - 1;
+          const japanTime = ConvertToJST(item.date);
+          return CalcFiscalYear(japanTime);
         })
         .sort((a, b) => b - a)
     )
@@ -416,17 +405,9 @@ export default function ProjectsViewer(props: Props) {
                   if (selectedYear !== 0 && year !== selectedYear)
                     return <React.Fragment key={i} />;
                   const matchedDataWithYear = displayArray?.filter((item) => {
-                    const japanTime = new Date(
-                      new Date(item.date).toLocaleString("en-US", {
-                        timeZone: "Asia/Tokyo",
-                      })
-                    );
+                    const japanTime = ConvertToJST(item.date);
                     // 年度を計算
-                    return (
-                      (japanTime.getMonth() + 1 > 3
-                        ? japanTime.getFullYear()
-                        : japanTime.getFullYear() - 1) === year
-                    );
+                    return CalcFiscalYear(japanTime) === year;
                   });
 
                   const groupedArray = groupByThumbnail(matchedDataWithYear);

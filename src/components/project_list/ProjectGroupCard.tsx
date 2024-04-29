@@ -14,6 +14,7 @@ import {
 import { Project } from "@/components/DefaultStructure";
 import styles from "@/styles/app/projects/projectList.module.scss";
 import Link from "next/link";
+import { CalcFiscalYear, ConvertToJST } from "../JSTConverter";
 
 interface ProjectsAndColors {
   project: Project;
@@ -59,11 +60,7 @@ export default function ProjectGroupCard({
     currentFolderIcon = faFolderOpen;
 
   // 年度が共通なので0インデックス目で計算
-  const japanTimeOfLeader = new Date(
-    new Date(projectsAndColors[0].project.date).toLocaleString("en-US", {
-      timeZone: "Asia/Tokyo",
-    })
-  );
+  const japanTimeOfLeader = ConvertToJST(projectsAndColors[0].project.date);
 
   return (
     <React.Fragment>
@@ -107,11 +104,7 @@ export default function ProjectGroupCard({
                 icon={faCalendar}
                 style={{ marginRight: ".3rem" }}
               />
-              {`${
-                japanTimeOfLeader.getMonth() + 1 > 3
-                  ? japanTimeOfLeader.getFullYear()
-                  : japanTimeOfLeader.getFullYear() - 1
-              }年度`}
+              {`${CalcFiscalYear(japanTimeOfLeader)}年度`}
             </div>
           </div>
           <div className={styles.description_area}>
@@ -169,11 +162,7 @@ export default function ProjectGroupCard({
       {/* 展開時のみ表示 */}
       {isOpen ? (
         projectsAndColors.map((projectAndColor, i) => {
-          const japanTime = new Date(
-            new Date(projectAndColor.project.date).toLocaleString("en-US", {
-              timeZone: "Asia/Tokyo",
-            })
-          );
+          const japanTime = ConvertToJST(projectAndColor.project.date);
           return (
             <Link
               href={`/project/${projectAndColor.project.id}`}
@@ -213,11 +202,7 @@ export default function ProjectGroupCard({
                     icon={faCalendar}
                     style={{ marginRight: ".3rem" }}
                   />
-                  {`${
-                    japanTime.getMonth() + 1 > 3
-                      ? japanTime.getFullYear()
-                      : japanTime.getFullYear() - 1
-                  }年度`}
+                  {`${CalcFiscalYear(japanTime)}年度`}
                 </div>
                 <div className={styles.description_area}>
                   <div className={styles.title}>

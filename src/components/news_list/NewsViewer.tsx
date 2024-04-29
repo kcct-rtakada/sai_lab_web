@@ -14,6 +14,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
+import {
+  CalcFiscalYear,
+  ConvertToJST,
+  DisplayDefaultDateString,
+} from "@/components/JSTConverter";
 
 interface Props {
   _newsList: News[];
@@ -104,14 +109,7 @@ export default function NewsViewer(props: Props) {
       // 年の一致
       filteredArray = lists?.filter((news) =>
         filterKeywords.some(
-          (keyword) =>
-            String(
-              new Date(
-                new Date(news.date).toLocaleString("en-US", {
-                  timeZone: "Asia/Tokyo",
-                })
-              ).getFullYear()
-            ) === keyword
+          (keyword) => String(ConvertToJST(news.date).getFullYear()) === keyword
         )
       );
       setDisplayingSearchCondition(
@@ -199,14 +197,8 @@ export default function NewsViewer(props: Props) {
     new Set(
       displayArray
         ?.flatMap((item) => {
-          const japanTime = new Date(
-            new Date(item.date).toLocaleString("en-US", {
-              timeZone: "Asia/Tokyo",
-            })
-          );
-          return japanTime.getMonth() + 1 > 3
-            ? japanTime.getFullYear()
-            : japanTime.getFullYear() - 1;
+          const japanTime = ConvertToJST(item.date);
+          return CalcFiscalYear(japanTime);
         })
         .sort((a, b) => b - a)
     )
@@ -320,17 +312,9 @@ export default function NewsViewer(props: Props) {
                   if (selectedYear !== 0 && year !== selectedYear)
                     return <span key={`dYear${i}`}></span>;
                   const matchedDataWithYear = displayArray?.filter((item) => {
-                    const japanTime = new Date(
-                      new Date(item.date).toLocaleString("en-US", {
-                        timeZone: "Asia/Tokyo",
-                      })
-                    );
+                    const japanTime = ConvertToJST(item.date);
                     // 該当年度か判定
-                    return (
-                      (japanTime.getMonth() + 1 > 3
-                        ? japanTime.getFullYear()
-                        : japanTime.getFullYear() - 1) === year
-                    );
+                    return CalcFiscalYear(japanTime) === year;
                   });
                   return (
                     <React.Fragment key={`dYear${i}`}>
@@ -343,11 +327,7 @@ export default function NewsViewer(props: Props) {
                         </div>
                       </div>
                       {matchedDataWithYear!.map((item, j) => {
-                        const japanTime = new Date(
-                          new Date(item.date).toLocaleString("en-US", {
-                            timeZone: "Asia/Tokyo",
-                          })
-                        );
+                        const japanTime = ConvertToJST(item.date);
                         return (
                           <Link
                             key={j}
@@ -381,14 +361,7 @@ export default function NewsViewer(props: Props) {
                                     icon={faCalendar}
                                     style={{ marginRight: ".3rem" }}
                                   />
-                                  {`${japanTime.getFullYear()}/${(
-                                    japanTime.getMonth() + 1
-                                  )
-                                    .toString()
-                                    .padStart(2, "0")}/${japanTime
-                                    .getDate()
-                                    .toString()
-                                    .padStart(2, "0")}`}
+                                  {`${DisplayDefaultDateString(japanTime)}`}
                                 </div>
                               </div>
                             </div>

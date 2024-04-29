@@ -13,6 +13,7 @@ import CopyButton from "@/components/client_parts/CopyButton";
 import ProjectRightSidebar from "@/components/project_detail/ProjectRightSidebar";
 import ProjectLeftSidebar from "@/components/project_detail/ProjectLeftSidebar";
 import { fetchProjects } from "@/components/GASFetch";
+import { ConvertToJST, DisplayDefaultDateString } from "@/components/JSTConverter";
 
 // プロジェクト取得・一致判定を行う
 const getProject = cache(async (slug: string) => {
@@ -90,14 +91,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
     );
   }
 
-  const japanTime = new Date(
-    new Date(project!.date).toLocaleString("en-US", { timeZone: "Asia/Tokyo" })
-  );
+  const japanTime = ConvertToJST(project!.date);
 
   // 時間を表示用にフォーマット
-  const displayDate = `${japanTime.getFullYear()}/${(japanTime.getMonth() + 1)
-    .toString()
-    .padStart(2, "0")}/${japanTime.getDate().toString().padStart(2, "0")}`;
+  const displayDate = DisplayDefaultDateString(japanTime);
 
   return (
     <>

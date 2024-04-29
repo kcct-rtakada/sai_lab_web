@@ -21,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default async function Member() {
+export default async function DisplayMember() {
   const response = await fetchMembers();
   const originalMembers: Member[] = await response.json();
   // 空要素がある場合は取り除く

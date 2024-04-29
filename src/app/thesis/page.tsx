@@ -9,6 +9,7 @@ import type { Metadata } from "next";
 import YearListSidebar from "@/components/client_parts/YearListSidebar";
 import React from "react";
 import { fetchProjects } from "@/components/GASFetch";
+import { CalcFiscalYear, ConvertToJST } from "@/components/JSTConverter";
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
@@ -37,14 +38,8 @@ export default async function Thesis() {
     new Set(
       sortedConferencePapers
         ?.flatMap((item) => {
-          const japanTime = new Date(
-            new Date(item.date).toLocaleString("en-US", {
-              timeZone: "Asia/Tokyo",
-            })
-          );
-          return japanTime.getMonth() + 1 > 3
-            ? japanTime.getFullYear()
-            : japanTime.getFullYear() - 1;
+          const japanTime = ConvertToJST(item.date);
+          return CalcFiscalYear(japanTime);
         })
         .sort((a, b) => b - a)
     )
@@ -61,7 +56,7 @@ export default async function Thesis() {
               <Link
                 href={`/project/${item.id}`}
                 className={styles.direct}
-              >{`${item.authors.map((e, j) => `${e.name}, `)}${
+              >{`${item.authors.map((e) => `${e.name}, `)}${
                 item.title
               }`}</Link>
               {item.url ? (
@@ -125,17 +120,9 @@ export default async function Thesis() {
             {uniqueYears.map((year, i) => {
               const matchedDataWithYear = sortedConferencePapers?.filter(
                 (item) => {
-                  const japanTime = new Date(
-                    new Date(item.date).toLocaleString("en-US", {
-                      timeZone: "Asia/Tokyo",
-                    })
-                  );
+                  const japanTime = ConvertToJST(item.date);
                   // 年度を計算
-                  return (
-                    (japanTime.getMonth() + 1 > 3
-                      ? japanTime.getFullYear()
-                      : japanTime.getFullYear() - 1) === year
-                  );
+                  return CalcFiscalYear(japanTime) === year;
                 }
               );
               // 年度内で種類ごとに抽出

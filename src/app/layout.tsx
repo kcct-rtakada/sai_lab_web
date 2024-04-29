@@ -20,7 +20,6 @@ export default function RootLayout({
       <head prefix="og: http://ogp.me/ns#">
         <meta name="theme-color" content="#fafafa" />
         <GoogleAnalytics gaId="G-EKY6C0HPHX" />
-        <SpeedInsights />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         {/* アイコンを設定 */}
         <meta
@@ -265,6 +264,7 @@ export default function RootLayout({
           <Footer />
           <ScrollToTopButton containerRef={containerRef} />
         </main>
+        <SpeedInsights />
       </body>
     </html>
   );

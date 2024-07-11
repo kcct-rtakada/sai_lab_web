@@ -84,6 +84,7 @@ export default function ProjectsViewer(props: Props) {
     const lists = _projects ? _projects : projects;
 
     setSelectedYear(0);
+    setSelectedSearchMode(mode);
 
     // スペースしか入力がない場合はリセット
     if (filterKeywords.every((keyword) => keyword === "")) {
@@ -361,6 +362,7 @@ export default function ProjectsViewer(props: Props) {
                   className={styles.search_select}
                   onChange={triggerSearchModeSelection}
                   name="search_type"
+                  value={selectedSearchMode}
                 >
                   <option value="research_name">研究題目</option>
                   <option value="research_author">著者</option>

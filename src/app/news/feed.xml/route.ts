@@ -2,6 +2,9 @@ import RSS from "rss";
 import { fetchNews } from "@/components/GASFetch";
 import { News } from "@/components/DefaultStructure";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function GET() {
   const feed = new RSS({
     title: "SAI(髙田研究室) ニュース",

@@ -79,6 +79,7 @@ export default function NewsViewer(props: Props) {
     const lists = _newsList ? _newsList : newsList;
 
     setSelectedYear(0);
+    setSelectedSearchMode(mode);
 
     // スペースのみで検索なら取り消し
     if (filterKeywords.every((keyword) => keyword === "")) {
@@ -214,9 +215,8 @@ export default function NewsViewer(props: Props) {
         </div>
         <div className={styles.list_box}>
           <div
-            className={`${styles.search_box} ${
-              isDisplayingSearchBox ? styles.opening : ""
-            }`}
+            className={`${styles.search_box} ${isDisplayingSearchBox ? styles.opening : ""
+              }`}
           >
             <button
               title={isDisplayingSearchBox ? "折りたたむ" : "展開する"}
@@ -247,6 +247,18 @@ export default function NewsViewer(props: Props) {
               </div>
             </div>
             <div className={styles.search_area}>
+              <div className={styles.select_box}>
+                <select
+                  title="検索カテゴリを選択"
+                  className={styles.search_select}
+                  onChange={triggerSearchModeSelection}
+                  name="search_type"
+                  value={selectedSearchMode}
+                >
+                  <option value="news_name">記事名</option>
+                  <option value="news_year">公開年</option>
+                </select>
+              </div>
               <div className={styles.search_box_frame}>
                 <input
                   title="検索条件を入力"
@@ -287,23 +299,11 @@ export default function NewsViewer(props: Props) {
                   className={styles.search_magnify}
                 />
               </button>
-              <div className={styles.select_box}>
-                <select
-                  title="検索カテゴリを選択"
-                  className={styles.search_select}
-                  onChange={triggerSearchModeSelection}
-                  name="search_type"
-                >
-                  <option value="news_name">記事名</option>
-                  <option value="news_year">公開年</option>
-                </select>
-              </div>
             </div>
           </div>
           <div
-            className={`${styles.result_box} ${
-              isDisplayingSearchBox ? styles.opening : ""
-            }`}
+            className={`${styles.result_box} ${isDisplayingSearchBox ? styles.opening : ""
+              }`}
           >
             {displayArray ? (
               displayArray.length > 0 ? (

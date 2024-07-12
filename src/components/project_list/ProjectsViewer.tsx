@@ -282,9 +282,8 @@ export default function ProjectsViewer(props: Props) {
         </div>
         <div className={styles.list_box}>
           <div
-            className={`${styles.search_box} ${
-              isDisplayingSearchBox ? styles.opening : ""
-            }`}
+            className={`${styles.search_box} ${isDisplayingSearchBox ? styles.opening : ""
+              }`}
           >
             <button
               title={isDisplayingSearchBox ? "折りたたむ" : "展開する"}
@@ -315,6 +314,20 @@ export default function ProjectsViewer(props: Props) {
               </div>
             </div>
             <div className={styles.search_area}>
+              <div className={styles.select_box}>
+                <select
+                  title="検索カテゴリを選択"
+                  className={styles.search_select}
+                  onChange={triggerSearchModeSelection}
+                  name="search_type"
+                  value={selectedSearchMode}
+                >
+                  <option value="research_name">研究題目</option>
+                  <option value="research_author">著者</option>
+                  <option value="research_tag">キーワード</option>
+                  <option value="research_year">発行年</option>
+                </select>
+              </div>
               <div className={styles.search_box_frame}>
                 <input
                   title="検索条件を入力"
@@ -355,27 +368,11 @@ export default function ProjectsViewer(props: Props) {
                   className={styles.search_magnify}
                 />
               </button>
-
-              <div className={styles.select_box}>
-                <select
-                  title="検索カテゴリを選択"
-                  className={styles.search_select}
-                  onChange={triggerSearchModeSelection}
-                  name="search_type"
-                  value={selectedSearchMode}
-                >
-                  <option value="research_name">研究題目</option>
-                  <option value="research_author">著者</option>
-                  <option value="research_tag">キーワード</option>
-                  <option value="research_year">発行年</option>
-                </select>
-              </div>
             </div>
           </div>
           <div
-            className={`${styles.result_box} ${
-              isDisplayingSearchBox ? styles.opening : ""
-            }`}
+            className={`${styles.result_box} ${isDisplayingSearchBox ? styles.opening : ""
+              }`}
           >
             {displayArray ? (
               // 検索結果が1件以上あるか

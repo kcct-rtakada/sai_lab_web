@@ -257,6 +257,7 @@
           width: auto;
           position: relative;
           display: flex;
+          margin-left: 1rem;
 
           @include mqUp(sm) {
             width: 50%;
@@ -271,8 +272,7 @@
             -webkit-appearance: none;
             border-style: solid;
             border-width: 0.1rem;
-            border-color: $c-search_border transparent $c-search_border
-              $c-search_border;
+            border-color: $c-search_border transparent $c-search_border $c-search_border;
             border-radius: 2rem 0 0 2rem;
             padding: 0 2.5rem 0 1rem;
             transition: all 0.1s;
@@ -291,15 +291,13 @@
             }
 
             &:hover {
-              border-color: $c-search_border_hover transparent
-                $c-search_border_hover $c-search_border_hover;
+              border-color: $c-search_border_hover transparent $c-search_border_hover $c-search_border_hover;
             }
 
             &:active,
             &:focus {
               outline: none;
-              border-color: $c-search_border_hover transparent
-                $c-search_border_hover $c-search_border_hover;
+              border-color: $c-search_border_hover transparent $c-search_border_hover $c-search_border_hover;
             }
           }
 
@@ -345,7 +343,6 @@
           border-style: solid;
           border-color: $c-search_button;
           border-width: 0.1rem;
-          margin-right: 1rem;
           display: block;
           cursor: pointer;
           width: 3.5rem;
@@ -436,6 +433,7 @@
             -ms-border-radius: 0.5rem;
             -o-border-radius: 0.5rem;
             position: relative;
+
             &:hover {
               border-color: $c-search_border_hover;
             }

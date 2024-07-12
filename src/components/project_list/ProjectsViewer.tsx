@@ -11,10 +11,12 @@ import {
   faMagnifyingGlass,
   faXmark,
   faChevronDown,
+  faSquareRss,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CalcFiscalYear, ConvertToJST } from "../JSTConverter";
+import Link from "next/link";
 
 interface Props {
   _projects: Project[];
@@ -276,7 +278,17 @@ export default function ProjectsViewer(props: Props) {
       <div className={styles.main}>
         <div className={styles.title_box}>
           <div className={styles.title_area}>
-            <h1 className={styles.page_title}>プロジェクト</h1>
+            <h1 className={styles.page_title}>
+              <span>プロジェクト</span>
+              <span>
+                <Link href="/project/feed.xml"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="RSS">
+                  <FontAwesomeIcon icon={faSquareRss} />
+                </Link>
+              </span>
+            </h1>
           </div>
         </div>
         <div className={styles.list_box}>

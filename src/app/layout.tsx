@@ -21,6 +21,8 @@ export default function RootLayout({
         <meta name="theme-color" content="#fafafa" />
         <GoogleAnalytics gaId="G-EKY6C0HPHX" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <link rel="alternate" type="application/atom+xml" href="https://sai.ac/news/feed.xml" />
+        <link rel="alternate" type="application/atom+xml" href="https://sai.ac/project/feed.xml" />
         {/* アイコンを設定 */}
         <meta
           name="msapplication-square70x70logo"

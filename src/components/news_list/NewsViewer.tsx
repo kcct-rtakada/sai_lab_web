@@ -12,6 +12,7 @@ import {
   faXmark,
   faCalendar,
   faChevronDown,
+  faSquareRss,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -222,7 +223,17 @@ export default function NewsViewer(props: Props) {
       <div className={styles.main}>
         <div className={styles.title_box}>
           <div className={styles.title_area}>
-            <h1 className={styles.page_title}>ニュース</h1>
+            <h1 className={styles.page_title}>
+              <span>ニュース</span>
+              <span>
+                <Link href="/project/feed.xml"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="RSS">
+                  <FontAwesomeIcon icon={faSquareRss} />
+                </Link>
+              </span>
+            </h1>
           </div>
         </div>
         <div className={styles.list_box}>

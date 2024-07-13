@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useState, useEffect } from "react";
+import { useDocumentTitle } from 'usehooks-ts';
 import { News } from "@/components/DefaultStructure";
 import styles from "@/styles/app/news/newsList.module.scss";
 import Link from "next/link";
@@ -40,12 +41,15 @@ export default function NewsViewer(props: Props) {
     string | null
   >(null);
   const [isUsingPhone, setIsUsingPhone] = useState<boolean>(false);
+  const [title, setTitle] = useState("News - SAI");
 
   const router = useRouter();
   const params = useSearchParams();
   // 2つのパラメータがあるかチェック
   const initialMode = params.get("mode");
   const initialQ = params.get("q");
+
+  useDocumentTitle(title);
 
   // タップ/クリックの表示を切り替え
   useEffect(() => {
@@ -78,6 +82,14 @@ export default function NewsViewer(props: Props) {
     const mode = _mode ? _mode : selectedSearchMode;
     const lists = _newsList ? _newsList : newsList;
 
+    const modeDic: { [key: string]: string } = {
+      news_name: "記事名",
+      news_year: "公開年"
+    }
+    const modeDisplayName = modeDic[mode] ?? "不明"
+    const commaKeyword = filterKeywords.join(",");
+    setTitle(`${commaKeyword ? `[${modeDisplayName}]` + (commaKeyword.length > 10 ? commaKeyword.substring(0, 10) + "..." : commaKeyword) + " の" : ""}News - SAI`)
+
     setSelectedYear(0);
     setSelectedSearchMode(mode);
 
@@ -105,7 +117,7 @@ export default function NewsViewer(props: Props) {
         })})`
       );
 
-      router.push(`/news/?mode=name&q=${filterKeywords.map((item) => item)}`);
+      router.push(`/news/?mode=name&q=${commaKeyword}`);
     } else if (mode === "news_year") {
       // 年の一致
       filteredArray = lists?.filter((news) =>
@@ -120,7 +132,7 @@ export default function NewsViewer(props: Props) {
         })})`
       );
 
-      router.push(`/news/?mode=year&q=${filterKeywords.map((item) => item)}`);
+      router.push(`/news/?mode=year&q=${commaKeyword}`);
     }
 
     setFilteredNews(filteredArray);

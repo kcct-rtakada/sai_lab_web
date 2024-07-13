@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useState, useEffect } from "react";
+import { useDocumentTitle } from 'usehooks-ts';
 import { Project } from "@/components/DefaultStructure";
 import styles from "@/styles/app/projects/projectList.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -42,11 +43,14 @@ export default function ProjectsViewer(props: Props) {
     string | null
   >(null);
   const [isUsingPhone, setIsUsingPhone] = useState<boolean>(false);
+  const [title, setTitle] = useState("Project - SAI");
 
   const router = useRouter();
   const params = useSearchParams();
   const initialMode = params.get("mode");
   const initialQ = params.get("q");
+
+  useDocumentTitle(title);
 
   // タップ/クリックの表示を切り替え
   useEffect(() => {
@@ -83,6 +87,16 @@ export default function ProjectsViewer(props: Props) {
     const mode = _mode ? _mode : selectedSearchMode;
     const lists = _projects ? _projects : projects;
 
+    const modeDic: { [key: string]: string } = {
+      research_name: "研究題目",
+      research_author: "著者",
+      research_tag: "キーワード",
+      research_year: "発行年"
+    };
+    const modeDisplayName = modeDic[mode] ?? "不明";
+    const commaKeyword = filterKeywords.join(",");
+    setTitle(`${commaKeyword ? `[${modeDisplayName}]` + (commaKeyword.length > 10 ? commaKeyword.substring(0, 10) + "..." : commaKeyword) + " の" : ""}Project - SAI`)
+
     setSelectedYear(0);
     setSelectedSearchMode(mode);
 
@@ -113,7 +127,7 @@ export default function ProjectsViewer(props: Props) {
       );
 
       router.push(
-        `/project/?mode=name&q=${filterKeywords.map((item) => item)}`
+        `/project/?mode=name&q=${commaKeyword}`
       );
     } else if (mode === "research_author") {
       // 名前のスペースを詰めて、そのまま、または順番を入れ替えた場合の文字列で部分一致
@@ -143,7 +157,7 @@ export default function ProjectsViewer(props: Props) {
       );
 
       router.push(
-        `/project/?mode=author&q=${filterKeywords.map((item) => item)}`
+        `/project/?mode=author&q=${commaKeyword}`
       );
     } else if (mode === "research_tag") {
       // キーワードの部分一致
@@ -164,7 +178,7 @@ export default function ProjectsViewer(props: Props) {
       );
 
       router.push(
-        `/project/?mode=keyword&q=${filterKeywords.map((item) => item)}`
+        `/project/?mode=keyword&q=${commaKeyword}`
       );
     } else if (mode === "research_year") {
       // 年の一致
@@ -182,7 +196,7 @@ export default function ProjectsViewer(props: Props) {
       );
 
       router.push(
-        `/project/?mode=year&q=${filterKeywords.map((item) => item)}`
+        `/project/?mode=year&q=${commaKeyword}`
       );
     }
 

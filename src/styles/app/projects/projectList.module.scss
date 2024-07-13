@@ -123,6 +123,7 @@
         -moz-border-radius: 0.5rem 0.5rem 3rem 3rem;
         -ms-border-radius: 0.5rem 0.5rem 3rem 3rem;
         -o-border-radius: 0.5rem 0.5rem 3rem 3rem;
+
         svg {
           width: 1.6rem;
           font-size: 1.6rem;
@@ -139,11 +140,7 @@
         position: absolute;
         top: 0;
         left: 0rem;
-        background-image: linear-gradient(
-          to bottom right,
-          $c-sort_year_bg_from,
-          $c-sort_year_bg_to
-        );
+        background-image: linear-gradient(to bottom right, $c-sort_year_bg_from, $c-sort_year_bg_to);
         z-index: 15000;
         padding: 1rem;
         justify-content: left;
@@ -173,7 +170,7 @@
           -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem $c-sort_year_shadow);
         }
 
-        & > p {
+        &>p {
           font-size: 1.1rem;
           text-align: left;
           font-weight: bold;
@@ -263,6 +260,7 @@
           width: auto;
           position: relative;
           display: flex;
+          margin-left: 1rem;
 
           @include mqUp(sm) {
             width: 50%;
@@ -277,8 +275,7 @@
             -webkit-appearance: none;
             border-style: solid;
             border-width: 0.1rem;
-            border-color: $c-search_border transparent $c-search_border
-              $c-search_border;
+            border-color: $c-search_border transparent $c-search_border $c-search_border;
             border-radius: 2rem 0 0 2rem;
             padding: 0 2.5rem 0 1rem;
             transition: all 0.1s;
@@ -297,15 +294,13 @@
             }
 
             &:hover {
-              border-color: $c-search_border_hover transparent
-                $c-search_border_hover $c-search_border_hover;
+              border-color: $c-search_border_hover transparent $c-search_border_hover $c-search_border_hover;
             }
 
             &:active,
             &:focus {
               outline: none;
-              border-color: $c-search_border_hover transparent
-                $c-search_border_hover $c-search_border_hover;
+              border-color: $c-search_border_hover transparent $c-search_border_hover $c-search_border_hover;
             }
           }
 
@@ -351,7 +346,6 @@
           border-style: solid;
           border-color: $c-search_button;
           border-width: 0.1rem;
-          margin-right: 1rem;
           display: block;
           cursor: pointer;
           width: 3.5rem;
@@ -442,6 +436,7 @@
             -ms-border-radius: 0.5rem;
             -o-border-radius: 0.5rem;
             position: relative;
+
             &:hover {
               border-color: $c-search_border_hover;
             }
@@ -572,6 +567,7 @@
 
           &.group {
             user-select: none;
+
             &.open {
               background-color: #f5f5f5;
             }
@@ -638,11 +634,7 @@
             text-align: center;
             display: flex;
             flex-direction: column;
-            background-image: linear-gradient(
-              to bottom right,
-              #e9fffc,
-              #d3f1f7
-            );
+            background-image: linear-gradient(to bottom right, #e9fffc, #d3f1f7);
 
             &::after {
               display: none;
@@ -658,7 +650,7 @@
               }
             }
 
-            & > p {
+            &>p {
               font-size: 1.5rem;
               font-weight: bold;
             }
@@ -667,6 +659,7 @@
           &:hover {
             filter: drop-shadow(0.1rem 0.1rem 0.5rem #e4e4e4);
             -webkit-filter: drop-shadow(0.1rem 0.1rem 0.5rem #e4e4e4);
+
             @include mqUp(sm) {
               filter: none;
               -webkit-filter: none;
@@ -684,11 +677,7 @@
           .thumbnail_box {
             width: 23rem;
             height: 12.93rem;
-            background-image: linear-gradient(
-              to bottom right,
-              #fffbf6,
-              #fdfdfd
-            );
+            background-image: linear-gradient(to bottom right, #fffbf6, #fdfdfd);
             position: relative;
             overflow: hidden;
             user-select: none;

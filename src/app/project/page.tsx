@@ -6,9 +6,22 @@ import { fetchProjects } from "@/components/GASFetch";
 import { Suspense } from "react";
 import styles from "@/styles/app/projects/projectList.module.scss";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata(
+  { searchParams }: { searchParams: { [key: string]: string } }
+): Promise<Metadata> {
+  const mode = searchParams['mode'] ?? null
+  const q = searchParams['q'] ?? null
+
+  const modeDic: { [key: string]: string } = {
+    name: "研究題目",
+    author: "著者",
+    keyword: "キーワード",
+    year: "発行年"
+  }
+  const modeDisplayName = modeDic[mode] ?? "不明"
+  
   return SEO({
-    title: "Project",
+    title: `${q ? `[${modeDisplayName}]` + (q.length > 10 ? q.substring(0, 10) + "..." : q) + " の" : ""}Project`,
     description: "SAI (髙田研究室)のプロジェクト一覧",
     url: `https://sai.ac/project`,
     imageUrl: undefined,

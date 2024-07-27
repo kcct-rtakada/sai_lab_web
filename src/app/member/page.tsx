@@ -11,6 +11,7 @@ import {
 import SEO from "@/components/common/SEO";
 import type { Metadata } from "next";
 import { fetchMembers } from "@/components/GASFetch";
+import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
@@ -26,6 +27,7 @@ export default async function DisplayMember() {
   const originalMembers: Member[] = await response.json();
   // 空要素がある場合は取り除く
   const members = originalMembers.filter((item) => item.id !== "");
+  const jsonLd = getJsonLd(false, "Member - SAI", "SAI (髙田研究室)のメンバー一覧", "/member")
 
   // 教員の抽出
   const sortedMemberWithTeacher = members?.filter((element) =>
@@ -173,6 +175,7 @@ export default async function DisplayMember() {
 
   return (
     <div className={styles.main}>
+      {getJsonLdScript(jsonLd)}
       <div className={styles.title_box}>
         <div className={styles.title_area}>
           <h1 className={styles.page_title}>メンバー</h1>

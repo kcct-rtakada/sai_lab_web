@@ -267,11 +267,6 @@ export default function RootLayout({
           <ScrollToTopButton containerRef={containerRef} />
         </main>
         <SpeedInsights />
-        <div itemScope itemType="https://schema.org/WebSite">
-          <meta itemProp="url" content="https://sai.ac/"/>
-          <meta itemProp="name" content="SAI (髙田研究室)"/>
-          <meta itemProp="alternateName" content="神戸高専 髙田研究室"/>
-        </div>
       </body>
     </html>
   );

@@ -14,6 +14,7 @@ import {
   ConvertToJST,
   DisplayDefaultDateString,
 } from "@/components/JSTConverter";
+import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
@@ -34,6 +35,8 @@ export default async function PagePublication() {
   const publications: Publication[] = await publicationsResponse.json();
   // 空要素がある場合は取り除く
   const filteredPublications = publications.filter((item) => item.id !== "");
+
+  const jsonLd = getJsonLd(false, "Publication - SAI", "SAI (髙田研究室)の研究業績", "/publication")
 
   // 国内会議 または 国際会議 または 論文誌 のみをこのページでは表示する
   const sortedConferencePapers = filteredProjects?.filter(
@@ -206,6 +209,7 @@ export default async function PagePublication() {
   return (
     <React.Fragment>
       <div className={styles.main}>
+        {getJsonLdScript(jsonLd)}
         <div className={styles.title_box}>
           <div className={styles.title_area}>
             <h1 className={styles.page_title}>研究業績</h1>

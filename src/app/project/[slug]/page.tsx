@@ -14,6 +14,7 @@ import ProjectRightSidebar from "@/components/project_detail/ProjectRightSidebar
 import ProjectLeftSidebar from "@/components/project_detail/ProjectLeftSidebar";
 import { fetchProjects } from "@/components/GASFetch";
 import { ConvertToJST, DisplayDefaultDateString } from "@/components/JSTConverter";
+import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
 
 // プロジェクト取得・一致判定を行う
 const getProject = cache(async (slug: string) => {
@@ -46,13 +47,15 @@ export async function generateMetadata({
       url: `https://sai.ac/project/${params.slug}`,
       imageUrl: undefined,
     });
-  else
+  else {
+    const plainText = project.abstract.replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll("\\n+", " ")
     return SEO({
       title: project.title,
-      description: project.abstract,
+      description: plainText.length > 100 ? plainText.substring(0, 99) + "..." : plainText,
       url: `https://sai.ac/project/${params.slug}`,
       imageUrl: undefined,
     });
+  }
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
@@ -92,6 +95,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   const japanTime = ConvertToJST(project!.date);
+  const plainText = project!.abstract.replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll("\\n+", " ")
+  const jsonLd = getJsonLd(true, `${project!.title} - SAI`, plainText.length > 100 ? plainText.substring(0, 99) + "..." : plainText, `/project/${project.id}`)
 
   // 時間を表示用にフォーマット
   const displayDate = DisplayDefaultDateString(japanTime);
@@ -99,6 +104,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <>
       <div className={styles.main} id="project-detail">
+        {getJsonLdScript(jsonLd)}
         <section className={styles.project}>
           <div id="top" className={styles.project_card}>
             {project.type ? (

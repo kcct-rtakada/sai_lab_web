@@ -14,6 +14,7 @@ import {
   ConvertToJST,
   DisplayDefaultDateString,
 } from "@/components/JSTConverter";
+import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
 
 // ニュース取得・一致判定を行う
 const getNews = cache(async (slug: string) => {
@@ -43,11 +44,12 @@ export async function generateMetadata({
     });
   else {
     const japanTime = ConvertToJST(news.date);
+    const plainText = news.article.replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll("\\n+", " ")
 
     // 日付のmetaにのせる
     return SEO({
       title: news.title,
-      description: `SAI (髙田研究室)のニュース(${DisplayDefaultDateString(
+      description: `${plainText.length > 100 ? plainText.substring(0, 99) + "..." : plainText}(${DisplayDefaultDateString(
         japanTime
       )})`,
       url: `https://sai.ac/project/${params.slug}`,
@@ -80,10 +82,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   const japanTime = ConvertToJST(news.date);
+  const plainText = news.article.replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll("\\n+", " ")
+  const jsonLd = getJsonLd(true, `${news.title} - SAI`, plainText.length > 100 ? plainText.substring(0, 99) + "..." : plainText, `/news/${news.id}`)
 
   return (
     <>
       <div className={styles.main}>
+        {getJsonLdScript(jsonLd)}
         <section className={styles.project}>
           <div className={styles.project_card}>
             <h1 className={styles.title}>{news.title}</h1>

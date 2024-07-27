@@ -10,6 +10,7 @@ import YearListSidebar from "@/components/client_parts/YearListSidebar";
 import React from "react";
 import { fetchProjects } from "@/components/GASFetch";
 import { CalcFiscalYear, ConvertToJST } from "@/components/JSTConverter";
+import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
@@ -25,6 +26,8 @@ export default async function Thesis() {
   const projects: Project[] = await response.json();
   // 空要素がある場合は取り除く
   const filteredProjects = projects.filter((item) => item.id !== "");
+
+  const jsonLd = getJsonLd(false, "Thesis - SAI", "SAI (髙田研究室)での学位論文", "/thesis")
 
   // 本科卒業論文 または 専攻科特別研究論文 のみをこのページでは表示する
   const sortedConferencePapers = filteredProjects?.filter(
@@ -109,6 +112,7 @@ export default async function Thesis() {
   return (
     <React.Fragment>
       <div className={styles.main}>
+        {getJsonLdScript(jsonLd)}
         <div className={styles.title_box}>
           <div className={styles.title_area}>
             <h1 className={styles.page_title}>学位論文</h1>

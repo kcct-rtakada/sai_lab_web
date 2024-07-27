@@ -7,7 +7,7 @@ export type Props = Record<
 
 export default function SEO(info: Props): Metadata {
   const { title, description, url, imageUrl } = info;
-  const displayingTitle = title ? `${title} - SAI` : `SAI`;
+  const displayingTitle = title ? `${title} - SAI` : `SAI (髙田研究室)`;
   const displayingDescription = description
     ? description
     : "神戸市立工業高等専門学校 電子工学科 髙田研究室(SAI)";

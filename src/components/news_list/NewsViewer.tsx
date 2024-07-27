@@ -21,6 +21,7 @@ import {
   ConvertToJST,
   DisplayDefaultDateString,
 } from "@/components/JSTConverter";
+import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
 
 interface Props {
   _newsList: News[];
@@ -49,6 +50,8 @@ export default function NewsViewer(props: Props) {
   // 2つのパラメータがあるかチェック
   const initialMode = params.get("mode");
   const initialQ = params.get("q");
+
+  const jsonLd = getJsonLd(false, "News - SAI", "SAI (髙田研究室)のニュース一覧", "/news")
 
   useDocumentTitle(title);
 
@@ -189,6 +192,7 @@ export default function NewsViewer(props: Props) {
     return (
       <>
         <div className={styles.main}>
+          {getJsonLdScript(jsonLd)}
           <div className={styles.title_box}>
             <div className={styles.title_area}>
               <h1 className={styles.page_title}>ニュース</h1>
@@ -221,12 +225,13 @@ export default function NewsViewer(props: Props) {
   return (
     <>
       <div className={styles.main}>
+        {getJsonLdScript(jsonLd)}
         <div className={styles.title_box}>
           <div className={styles.title_area}>
             <h1 className={styles.page_title}>
               <span>ニュース</span>
               <span>
-                <Link href="/project/feed.xml"
+                <Link href="/news/feed.xml"
                   target="_blank"
                   rel="noopener noreferrer"
                   title="RSS">

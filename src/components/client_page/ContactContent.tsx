@@ -6,10 +6,12 @@ import Link from "next/link";
 import parse from "html-react-parser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
-
+import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
 
 export default function ContactContent() {
   const [usingJapanese, setUsingJapanese] = useState<boolean>(true);
+
+  const jsonLd = getJsonLd(false, "Contact - SAI", "SAI (髙田研究室)へのお問い合わせはこちら", "/contact")
 
   // 2言語の切り替えを行う
   const displayString = (japaneseString: string, englishString: string) => {
@@ -18,6 +20,7 @@ export default function ContactContent() {
 
   return (
     <div className={styles.main}>
+      {getJsonLdScript(jsonLd)}
       <div className={styles.title_box}>
         <div className={styles.title_area}>
           <h1 className={styles.page_title}>

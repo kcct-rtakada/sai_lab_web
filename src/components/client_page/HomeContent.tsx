@@ -9,10 +9,13 @@ import Game from "@/components/game/GameBase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 import { ConvertToJST, DisplayDefaultDateString } from "@/components/JSTConverter";
+import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
 
 export default function HomeContent({ newsList }: { newsList: News[] }) {
   const [usingJapanese, setUsingJapanese] = useState<boolean>(true);
   const [clickedLogoCount, setClickedLogoCount] = useState<number>(0);
+
+  const jsonLd = getJsonLd(false, "SAI (髙田研究室)", "神戸市立工業高等専門学校 電子工学科 髙田研究室(SAI)")
 
   // 2言語の切り替えを行う
   const displayString = (japaneseString: string, englishString: string) => {
@@ -29,6 +32,7 @@ export default function HomeContent({ newsList }: { newsList: News[] }) {
 
   return (
     <div className={styles.main}>
+      {getJsonLdScript(jsonLd)}
       <div
         className={`${styles.egg_canvas} ${
           clickedLogoCount >= 3 ? styles.open : ""

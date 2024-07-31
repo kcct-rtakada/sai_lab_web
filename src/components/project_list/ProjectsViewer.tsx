@@ -18,7 +18,6 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CalcFiscalYear, ConvertToJST } from "../JSTConverter";
 import Link from "next/link";
-import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
 
 interface Props {
   _projects: Project[];
@@ -52,8 +51,6 @@ export default function ProjectsViewer(props: Props) {
   const params = useSearchParams();
   const initialMode = params.get("mode");
   const initialQ = params.get("q");
-
-  const jsonLd = getJsonLd(false, "Project - SAI", "SAI (髙田研究室)のプロジェクト一覧", "/project")
 
   useDocumentTitle(title);
 
@@ -257,7 +254,6 @@ export default function ProjectsViewer(props: Props) {
     return (
       <>
         <div className={styles.main}>
-          {getJsonLdScript(jsonLd)}
           <div className={styles.title_box}>
             <div className={styles.title_area}>
               <h1 className={styles.page_title}>プロジェクト</h1>
@@ -295,7 +291,6 @@ export default function ProjectsViewer(props: Props) {
   return (
     <>
       <div className={styles.main}>
-        {getJsonLdScript(jsonLd)}
         <div className={styles.title_box}>
           <div className={styles.title_area}>
             <h1 className={styles.page_title}>

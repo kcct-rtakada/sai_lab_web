@@ -8,14 +8,23 @@ import YearListSidebar from "@/components/client_parts/YearListSidebar";
 import React from "react";
 import { fetchAwards } from "@/components/GASFetch";
 import { CalcFiscalYear, ConvertToJST, DisplayDefaultDateString } from "@/components/JSTConverter";
-import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
+import { generateWebsiteStructure } from "@/components/common/JsonLd";
+import { PageMetadata } from "@/components/PageMetadata";
+
+const pageMeta: PageMetadata = {
+  isArticle: false,
+  title: "Award",
+  description: "SAI (髙田研究室)での表彰",
+  url: `/award`,
+  imageUrl: undefined,
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
-    title: "Award",
-    description: "SAI (髙田研究室)での表彰",
-    url: `https://sai.ac/award`,
-    imageUrl: undefined,
+    title: pageMeta.title,
+    description: pageMeta.description,
+    url: pageMeta.url,
+    imageUrl: pageMeta.imageUrl,
   });
 }
 
@@ -24,8 +33,6 @@ export default async function DisplayAward() {
   const awards: Award[] = await response.json();
   // 空要素がある場合は取り除く
   const filteredAwards = awards.filter((item) => item.id !== "");
-
-  const jsonLd = getJsonLd(false, "Award - SAI", "SAI (髙田研究室)での表彰", "/award")
 
   // 年度リストを作成する
   const uniqueYears = Array.from(
@@ -42,7 +49,7 @@ export default async function DisplayAward() {
   return (
     <React.Fragment>
       <div className={styles.main}>
-        {getJsonLdScript(jsonLd)}
+        {generateWebsiteStructure(pageMeta)}
         <div className={styles.title_box}>
           <div className={styles.title_area}>
             <h1 className={styles.page_title}>表彰</h1>

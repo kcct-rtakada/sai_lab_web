@@ -10,15 +10,28 @@ import YearListSidebar from "@/components/client_parts/YearListSidebar";
 import React from "react";
 import { fetchProjects } from "@/components/GASFetch";
 import { CalcFiscalYear, ConvertToJST } from "@/components/JSTConverter";
-import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
+import { generateWebsiteStructure } from "@/components/common/JsonLd";
+import { PageMetadata } from "@/components/PageMetadata";
+
+const pageMeta: PageMetadata = {
+  isArticle: false,
+  title: "Thesis",
+  description: "SAI (髙田研究室)での学位論文",
+  url: `/thesis`,
+  imageUrl: undefined,
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
-    title: "Thesis",
-    description: "SAI (髙田研究室)での学位論文",
-    url: `https://sai.ac/thesis`,
-    imageUrl: undefined,
+    title: pageMeta.title,
+    description: pageMeta.description,
+    url: pageMeta.url,
+    imageUrl: pageMeta.imageUrl,
   });
+}
+
+const filterItems = (items: any[], classifications: string[]) => {
+  return items.filter(item => classifications.some(classification => item.classification.toLowerCase().includes(classification)));
 }
 
 export default async function Thesis() {
@@ -27,14 +40,8 @@ export default async function Thesis() {
   // 空要素がある場合は取り除く
   const filteredProjects = projects.filter((item) => item.id !== "");
 
-  const jsonLd = getJsonLd(false, "Thesis - SAI", "SAI (髙田研究室)での学位論文", "/thesis")
-
   // 本科卒業論文 または 専攻科特別研究論文 のみをこのページでは表示する
-  const sortedConferencePapers = filteredProjects?.filter(
-    (element) =>
-      element.classification.toLowerCase().includes("本科卒業論文") ||
-      element.classification.toLowerCase().includes("専攻科特別研究論文")
-  );
+  const sortedConferencePapers = filterItems(filteredProjects, ["本科卒業論文", "専攻科特別研究論文"]);
 
   // 年度リストを作成する
   const uniqueYears = Array.from(
@@ -112,7 +119,7 @@ export default async function Thesis() {
   return (
     <React.Fragment>
       <div className={styles.main}>
-        {getJsonLdScript(jsonLd)}
+        {generateWebsiteStructure(pageMeta)}
         <div className={styles.title_box}>
           <div className={styles.title_area}>
             <h1 className={styles.page_title}>学位論文</h1>
@@ -129,38 +136,25 @@ export default async function Thesis() {
                   return CalcFiscalYear(japanTime) === year;
                 }
               );
-              // 年度内で種類ごとに抽出
-              const matched2ndPaper = matchedDataWithYear?.filter((item) =>
-                item.classification.toLowerCase().includes("専攻科特別研究論文")
-              );
-              const matched1stPaper = matchedDataWithYear?.filter((item) =>
-                item.classification.toLowerCase().includes("本科卒業論文")
-              );
+
+              const types = [
+                {name: "学士（専攻科特別研究論文）", filter: ["専攻科特別研究論文"], items: matchedDataWithYear, func: displayingThesis},
+                {name: "準学士（本科卒業論文）", filter: ["本科卒業論文"], items: matchedDataWithYear, func: displayingThesis},
+              ];
+
               return (
                 <React.Fragment key={i}>
                   <h2 key={i} id={String(year)}>
                     {year}年度
                   </h2>
-                  {matched2ndPaper!.length > 0 ? (
-                    <React.Fragment>
-                      {displayingThesis(
-                        "学士（専攻科特別研究論文）",
-                        matched2ndPaper
-                      )}
-                    </React.Fragment>
-                  ) : (
-                    <></>
-                  )}
-                  {matched1stPaper!.length > 0 ? (
-                    <React.Fragment>
-                      {displayingThesis(
-                        "準学士（本科卒業論文）",
-                        matched1stPaper
-                      )}
-                    </React.Fragment>
-                  ) : (
-                    <></>
-                  )}
+                  {
+                    types.map((type, typeNum) => {
+                      const matchedItem = filterItems(type.items, type.filter);
+                      if (matchedItem.length > 0) {
+                        return <React.Fragment key={typeNum}>{type.func(type.name, matchedItem)}</React.Fragment>;
+                      } else return <React.Fragment key={typeNum} />;
+                    })
+                  }
                 </React.Fragment>
               );
             })}

@@ -44,7 +44,7 @@ export async function generateMetadata({
     return SEO({
       title: "Undefined",
       description: "No Project",
-      url: `https://sai.ac/project/${params.slug}`,
+      url: `/project/${params.slug}`,
       imageUrl: undefined,
     });
   else {
@@ -52,7 +52,7 @@ export async function generateMetadata({
     return SEO({
       title: project.title,
       description: plainText.length > 100 ? plainText.substring(0, 99) + "..." : plainText,
-      url: `https://sai.ac/project/${params.slug}`,
+      url: `/project/${params.slug}`,
       imageUrl: undefined,
     });
   }
@@ -96,7 +96,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   const japanTime = ConvertToJST(project!.date);
   const plainText = project!.abstract.replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll("\\n+", " ")
-  const jsonLd = getJsonLd(true, `${project!.title} - SAI`, plainText.length > 100 ? plainText.substring(0, 99) + "..." : plainText, `/project/${project.id}`)
+  const jsonLd = getJsonLd(true, `${project!.title}`, plainText.length > 100 ? plainText.substring(0, 99) + "..." : plainText, `/project/${project.id}`)
 
   // 時間を表示用にフォーマット
   const displayDate = DisplayDefaultDateString(japanTime);

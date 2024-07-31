@@ -248,6 +248,7 @@ export default function RootLayout({
           sizes="32x32"
           href="/icon-32x32.png"
         />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
       </head>
       <body>
         {/* ページ読み込み時に上部で表示する */}

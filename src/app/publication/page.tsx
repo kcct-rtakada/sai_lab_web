@@ -14,15 +14,28 @@ import {
   ConvertToJST,
   DisplayDefaultDateString,
 } from "@/components/JSTConverter";
-import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
+import { generateWebsiteStructure } from "@/components/common/JsonLd";
+import { PageMetadata } from "@/components/PageMetadata";
+
+const pageMeta: PageMetadata = {
+  isArticle: false,
+  title: "Publication",
+  description: "SAI (髙田研究室)の研究業績",
+  url: `/publication`,
+  imageUrl: undefined,
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   return SEO({
-    title: "Publication",
-    description: "SAI (髙田研究室)の研究業績",
-    url: `https://sai.ac/publication`,
-    imageUrl: undefined,
+    title: pageMeta.title,
+    description: pageMeta.description,
+    url: pageMeta.url,
+    imageUrl: pageMeta.imageUrl,
   });
+}
+
+const filterItems = (items: any[], classifications: string[]) => {
+  return items.filter(item => classifications.some(classification => item.classification.toLowerCase().includes(classification)));
 }
 
 export default async function PagePublication() {
@@ -36,24 +49,9 @@ export default async function PagePublication() {
   // 空要素がある場合は取り除く
   const filteredPublications = publications.filter((item) => item.id !== "");
 
-  const jsonLd = getJsonLd(false, "Publication - SAI", "SAI (髙田研究室)の研究業績", "/publication")
-
   // 国内会議 または 国際会議 または 論文誌 のみをこのページでは表示する
-  const sortedConferencePapers = filteredProjects?.filter(
-    (element) =>
-      element.classification.toLowerCase().includes("国内会議") ||
-      element.classification.toLowerCase().includes("国際会議") ||
-      element.classification.toLowerCase().includes("論文誌")
-  );
-
-  //
-  const sortedPublications = filteredPublications?.filter(
-    (element) =>
-      element.classification.toLowerCase().includes("記事") ||
-      element.classification.toLowerCase().includes("出版") ||
-      element.classification.toLowerCase().includes("講演") ||
-      element.classification.toLowerCase().includes("報道")
-  );
+  const sortedConferencePapers = filterItems(filteredProjects, ["国内会議", "国際会議", "論文誌"]);
+  const sortedPublications = filterItems(filteredPublications, ["記事", "出版", "講演", "報道"]);
 
   // 年度リストを作成する
   const uniqueYears = Array.from(
@@ -94,12 +92,7 @@ export default async function PagePublication() {
         <h3>{name}</h3>
         <ol>
           {arrays!.map((item, j) => {
-            const japanTime = new Date(
-              new Date(item.date).toLocaleString("en-US", {
-                timeZone: "Asia/Tokyo",
-              })
-            );
-
+            const japanTime = ConvertToJST(item.date);
             return (
               <li key={j}>
                 {item.url ? (
@@ -109,15 +102,13 @@ export default async function PagePublication() {
                     rel="noopener noreferrer"
                     className={styles.direct}
                   >
-                    {`${item.author}, ${item.title}, ${
-                      item.publisher
-                    }(${DisplayDefaultDateString(japanTime)})`}
+                    {`${item.author}, ${item.title}, ${item.publisher
+                      }(${DisplayDefaultDateString(japanTime)})`}
                   </Link>
                 ) : (
                   <span>
-                    {`${item.author}, ${item.title}, ${
-                      item.publisher
-                    }(${DisplayDefaultDateString(japanTime)})`}
+                    {`${item.author}, ${item.title}, ${item.publisher
+                      }(${DisplayDefaultDateString(japanTime)})`}
                   </span>
                 )}
                 {item.additionalURL ? (
@@ -209,7 +200,7 @@ export default async function PagePublication() {
   return (
     <React.Fragment>
       <div className={styles.main}>
-        {getJsonLdScript(jsonLd)}
+        {generateWebsiteStructure(pageMeta)}
         <div className={styles.title_box}>
           <div className={styles.title_area}>
             <h1 className={styles.page_title}>研究業績</h1>
@@ -254,58 +245,28 @@ export default async function PagePublication() {
                   item.classification.toLowerCase().includes("記事") ||
                   item.classification.toLowerCase().includes("出版")
               );
+              const types = [
+                {name: "国内会議", filter: ["国内会議"], items: matchedProjectsWithYear, func: displayingProjects},
+                {name: "国際会議", filter: ["国際会議"], items: matchedProjectsWithYear, func: displayingProjects},
+                {name: "論文誌", filter: ["論文誌"], items: matchedProjectsWithYear, func: displayingProjects},
+                {name: "報道", filter: ["報道"], items: matchedPublicationsWithYear, func: displayingPublications},
+                {name: "講演", filter: ["講演"], items: matchedPublicationsWithYear, func: displayingPublications},
+                {name: "記事・出版", filter: ["記事", "出版"], items: matchedPublicationsWithYear, func: displayingPublications},
+              ];
+
               return (
                 <React.Fragment key={i}>
                   <h2 key={i} id={String(year)}>
                     {year}年度
                   </h2>
-                  {matchedJournal!.length > 0 ? (
-                    <React.Fragment>
-                      {displayingProjects("論文誌", matchedJournal)}
-                    </React.Fragment>
-                  ) : (
-                    <></>
-                  )}
-
-                  {matchedInternal!.length > 0 ? (
-                    <React.Fragment>
-                      {displayingProjects("国内会議", matchedInternal)}
-                    </React.Fragment>
-                  ) : (
-                    <></>
-                  )}
-
-                  {matchedExternal!.length > 0 ? (
-                    <React.Fragment>
-                      {displayingProjects("国際会議", matchedExternal)}
-                    </React.Fragment>
-                  ) : (
-                    <></>
-                  )}
-
-                  {matchedCoverage!.length > 0 ? (
-                    <React.Fragment>
-                      {displayingPublications("報道", matchedCoverage)}
-                    </React.Fragment>
-                  ) : (
-                    <></>
-                  )}
-
-                  {matchedSpeech!.length > 0 ? (
-                    <React.Fragment>
-                      {displayingPublications("講演", matchedSpeech)}
-                    </React.Fragment>
-                  ) : (
-                    <></>
-                  )}
-
-                  {matchedArticle!.length > 0 ? (
-                    <React.Fragment>
-                      {displayingPublications("記事・出版", matchedArticle)}
-                    </React.Fragment>
-                  ) : (
-                    <></>
-                  )}
+                  {
+                    types.map((type, typeNum) => {
+                      const matchedItem = filterItems(type.items, type.filter);
+                      if (matchedItem.length > 0) {
+                        return <React.Fragment key={typeNum}>{type.func(type.name, matchedItem)}</React.Fragment>;
+                      } else return <React.Fragment key={typeNum} />;
+                    })
+                  }
                 </React.Fragment>
               );
             })}

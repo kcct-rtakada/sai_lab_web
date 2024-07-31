@@ -39,7 +39,7 @@ export async function generateMetadata({
     return SEO({
       title: "Undefined",
       description: "No News",
-      url: `https://sai.ac/news/${params.slug}`,
+      url: `/news/${params.slug}`,
       imageUrl: undefined,
     });
   else {
@@ -52,7 +52,7 @@ export async function generateMetadata({
       description: `${plainText.length > 100 ? plainText.substring(0, 99) + "..." : plainText}(${DisplayDefaultDateString(
         japanTime
       )})`,
-      url: `https://sai.ac/project/${params.slug}`,
+      url: `/news/${params.slug}`,
       imageUrl: undefined,
     });
   }
@@ -83,7 +83,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   const japanTime = ConvertToJST(news.date);
   const plainText = news.article.replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll("\\n+", " ")
-  const jsonLd = getJsonLd(true, `${news.title} - SAI`, plainText.length > 100 ? plainText.substring(0, 99) + "..." : plainText, `/news/${news.id}`)
+  const jsonLd = getJsonLd(true, `${news.title}`, plainText.length > 100 ? plainText.substring(0, 99) + "..." : plainText, `/news/${news.id}`)
 
   return (
     <>

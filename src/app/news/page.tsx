@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { fetchNews } from "@/components/GASFetch";
 import { Suspense } from "react";
 import styles from "@/styles/app/news/newsList.module.scss";
+import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
 
 export async function generateMetadata(
   { searchParams }: { searchParams: { [key: string]: string } }
@@ -21,16 +22,27 @@ export async function generateMetadata(
   return SEO({
     title: `${q ? `[${modeDisplayName}]` + (q.length > 10 ? q.substring(0, 10) + "..." : q) + " の" : ""}News`,
     description: "SAI (髙田研究室)のニュース一覧",
-    url: `https://sai.ac/news`,
+    url: `/news`,
     imageUrl: undefined,
   });
 }
 
-export default async function NewsList() {
+export default async function NewsList({ searchParams }: { searchParams: { [key: string]: string } }) {
   const response = await fetchNews();
   const newsList: News[] = await response.json();
   // 空要素がある場合は取り除く
   const filteredNews = newsList.filter((item) => item.id !== "");
+
+  const mode = searchParams['mode'] ?? null
+  const q = searchParams['q'] ?? null
+
+  const modeDic: { [key: string]: string } = {
+    name: "記事名",
+    year: "公開年"
+  }
+  const modeDisplayName = modeDic[mode] ?? "不明"
+
+  const jsonLd = getJsonLd(false, `${q ? `[${modeDisplayName}]` + (q.length > 10 ? q.substring(0, 10) + "..." : q) + " の" : ""}News`, "SAI (髙田研究室)のニュース一覧", "/news")
 
   // クライアントコンポーネントで描画
   return (
@@ -49,6 +61,7 @@ export default async function NewsList() {
         </div>
       }
     >
+      {getJsonLdScript(jsonLd)}
       <NewsViewer _newsList={filteredNews} />
     </Suspense>
   );

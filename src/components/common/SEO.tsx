@@ -11,7 +11,7 @@ export default function SEO(info: Props): Metadata {
   const displayingDescription = description
     ? description
     : "神戸市立工業高等専門学校 電子工学科 髙田研究室(SAI)";
-  const displayingURL = url ? url : "https://sai.ac";
+  const displayingURL = url ? `https://sai.ac${url}` : "https://sai.ac";
   const displayingImageURL = imageUrl
     ? imageUrl
     : "https://sai.ac/colorful_icon.png";

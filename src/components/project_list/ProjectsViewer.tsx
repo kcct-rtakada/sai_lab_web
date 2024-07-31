@@ -28,11 +28,18 @@ interface ProjectsAndColors {
   uniqueColorNumber: number;
 }
 
+const modeDic: { [key: string]: string } = {
+  name: "研究題目",
+  author: "著者",
+  tag: "キーワード",
+  year: "発行年"
+};
+
 export default function ProjectsViewer(props: Props) {
   const projects = props._projects;
   const [loaded, setLoaded] = useState<boolean>(false);
   const [selectedSearchMode, setSelectedSearchMode] =
-    useState<string>("research_name");
+    useState<string>("name");
   const [selectedYear, setSelectedYear] = useState<number>(0);
   const [filteredProjects, setFilteredProjects] = useState<
     undefined | Project[]
@@ -45,14 +52,14 @@ export default function ProjectsViewer(props: Props) {
     string | null
   >(null);
   const [isUsingPhone, setIsUsingPhone] = useState<boolean>(false);
-  const [title, setTitle] = useState("Project - SAI");
+  const [title, setTitle] = useState("Project");
 
   const router = useRouter();
   const params = useSearchParams();
   const initialMode = params.get("mode");
   const initialQ = params.get("q");
 
-  useDocumentTitle(title);
+  useDocumentTitle(title + " - SAI");
 
   // タップ/クリックの表示を切り替え
   useEffect(() => {
@@ -63,17 +70,7 @@ export default function ProjectsViewer(props: Props) {
       if (initialQ) {
         const initialSearchWord = initialQ.replace(/,/g, " ");
         setSearchWord(initialSearchWord);
-        let mode: string | null = null;
-        if (initialMode === "mode") {
-          mode = "research_name";
-        } else if (initialMode === "author") {
-          mode = "research_author";
-        } else if (initialMode === "keyword") {
-          mode = "research_tag";
-        } else if (initialMode === "year") {
-          mode = "research_year";
-        }
-        searchProjects(initialSearchWord, mode, projects);
+        searchProjects(initialSearchWord, initialMode, projects);
         setUserFiltered(true);
       }
     }
@@ -89,129 +86,99 @@ export default function ProjectsViewer(props: Props) {
     const mode = _mode ? _mode : selectedSearchMode;
     const lists = _projects ? _projects : projects;
 
-    const modeDic: { [key: string]: string } = {
-      research_name: "研究題目",
-      research_author: "著者",
-      research_tag: "キーワード",
-      research_year: "発行年"
-    };
     const modeDisplayName = modeDic[mode] ?? "不明";
     const commaKeyword = filterKeywords.join(",");
-    setTitle(`${commaKeyword ? `[${modeDisplayName}]` + (commaKeyword.length > 10 ? commaKeyword.substring(0, 10) + "..." : commaKeyword) + " の" : ""}Project - SAI`)
+    setTitle(`${commaKeyword ? `[${modeDisplayName}]` + (commaKeyword.length > 10 ? commaKeyword.substring(0, 10) + "..." : commaKeyword) + " の" : ""}Project`)
 
     setSelectedYear(0);
     setSelectedSearchMode(mode);
 
     // スペースしか入力がない場合はリセット
     if (filterKeywords.every((keyword) => keyword === "")) {
-      setUserFiltered(false);
-      router.push(`/project/`);
-      setDisplayingSearchCondition(null);
+      resetSearch();
       return;
     }
 
     let filteredArray: Project[] | undefined = [];
 
-    if (mode === "research_name") {
-      // タイトルの部分一致
-      filteredArray = lists?.filter((project) =>
-        filterKeywords.some(
-          (keyword) =>
-            keyword.toLowerCase() !== "" &&
-            project.title.toLowerCase().includes(keyword.toLowerCase())
-        )
-      );
-      setDisplayingSearchCondition(
-        `検索条件: 研究題目(${filterKeywords.map((item, j) => {
-          if (j === 0) return `${item}`;
-          else return ` OR ${item}`;
-        })})`
-      );
-
-      router.push(
-        `/project/?mode=name&q=${commaKeyword}`
-      );
-    } else if (mode === "research_author") {
-      // 名前のスペースを詰めて、そのまま、または順番を入れ替えた場合の文字列で部分一致
-      filteredArray = lists?.filter((project) =>
-        filterKeywords.some((keyword) =>
-          project.authors.some(
-            (author) =>
+    switch (mode) {
+      case "name":
+        filteredArray = lists?.filter((project) =>
+          filterKeywords.some(
+            (keyword) =>
               keyword.toLowerCase() !== "" &&
-              (author.name
-                .toLowerCase()
-                .replace(/[ 　]+/, "")
-                .includes(keyword.toLowerCase()) ||
-                author.name
+              project.title.toLowerCase().includes(keyword.toLowerCase())
+          )
+        )
+        break;
+      case "author":
+        filteredArray = lists?.filter((project) =>
+          filterKeywords.some((keyword) =>
+            project.authors.some(
+              (author) =>
+                keyword.toLowerCase() !== "" &&
+                (author.name
                   .toLowerCase()
-                  .split(/[ 　]+/)
-                  .reverse()
-                  .join("")
-                  .includes(keyword.toLowerCase()))
+                  .replace(/[ 　]+/, "")
+                  .includes(keyword.toLowerCase()) ||
+                  author.name
+                    .toLowerCase()
+                    .split(/[ 　]+/)
+                    .reverse()
+                    .join("")
+                    .includes(keyword.toLowerCase()))
+            )
           )
-        )
-      );
-      setDisplayingSearchCondition(
-        `検索条件: 著者名(${filterKeywords.map((item, j) => {
-          if (j === 0) return `${item}`;
-          else return ` OR ${item}`;
-        })})`
-      );
-
-      router.push(
-        `/project/?mode=author&q=${commaKeyword}`
-      );
-    } else if (mode === "research_tag") {
-      // キーワードの部分一致
-      filteredArray = lists?.filter((project) =>
-        filterKeywords.some((keyword) =>
-          project.tags.some(
-            (tag) =>
-              keyword.toLowerCase() !== "" &&
-              tag.name.toLowerCase().includes(keyword.toLowerCase())
+        );
+        break;
+      case "keyword":
+        filteredArray = lists?.filter((project) =>
+          filterKeywords.some((keyword) =>
+            project.tags.some(
+              (tag) =>
+                keyword.toLowerCase() !== "" &&
+                tag.name.toLowerCase().includes(keyword.toLowerCase())
+            )
           )
-        )
-      );
-      setDisplayingSearchCondition(
-        `検索条件: キーワード(${filterKeywords.map((item, j) => {
-          if (j === 0) return `${item}`;
-          else return ` OR ${item}`;
-        })})`
-      );
-
-      router.push(
-        `/project/?mode=keyword&q=${commaKeyword}`
-      );
-    } else if (mode === "research_year") {
-      // 年の一致
-      filteredArray = lists?.filter((project) =>
-        filterKeywords.some(
-          (keyword) =>
-            String(ConvertToJST(project.date).getFullYear()) === keyword
-        )
-      );
-      setDisplayingSearchCondition(
-        `検索条件: 発行年(${filterKeywords.map((item, j) => {
-          if (j === 0) return `${item}`;
-          else return ` OR ${item}`;
-        })})`
-      );
-
-      router.push(
-        `/project/?mode=year&q=${commaKeyword}`
-      );
+        );
+        break;
+      case "year":
+        filteredArray = lists?.filter((project) =>
+          filterKeywords.some(
+            (keyword) =>
+              String(ConvertToJST(project.date).getFullYear()) === keyword
+          )
+        );
+        break;
+      default:
+        filteredArray = [];
+        break;
     }
+
+    setDisplayingSearchCondition(
+      `検索条件: ${modeDisplayName}(${filterKeywords.join(" OR ")})`
+    );
+
+    router.push(
+      `/project/?mode=${mode}&q=${commaKeyword}`
+    );
 
     setFilteredProjects(filteredArray);
     setUserFiltered(true);
   };
 
+  const resetSearch = () => {
+    setSearchWord("");
+    setSelectedYear(0);
+    setUserFiltered(false);
+    router.push(`/project/`);
+    setDisplayingSearchCondition(null);
+  }
+
   // 空文字ならリセット
   const triggerSearchProjects = () => {
     if (searchWord === "") {
-      setUserFiltered(false);
-      router.push(`/project/`);
-      setDisplayingSearchCondition(null);
+      resetSearch();
       return;
     }
     searchProjects(searchWord);
@@ -220,9 +187,7 @@ export default function ProjectsViewer(props: Props) {
   // 検索時に空文字ならリセット
   const triggerSearchInput = (event: React.FormEvent<HTMLInputElement>) => {
     if (event.currentTarget.value === "") {
-      setUserFiltered(false);
-      setDisplayingSearchCondition(null);
-      router.push(`/project/`);
+      resetSearch();
     }
 
     setSearchWord(event.currentTarget.value);
@@ -348,10 +313,10 @@ export default function ProjectsViewer(props: Props) {
                   name="search_type"
                   value={selectedSearchMode}
                 >
-                  <option value="research_name">研究題目</option>
-                  <option value="research_author">著者</option>
-                  <option value="research_tag">キーワード</option>
-                  <option value="research_year">発行年</option>
+                  <option value="name">研究題目</option>
+                  <option value="author">著者</option>
+                  <option value="keyword">キーワード</option>
+                  <option value="year">発行年</option>
                 </select>
               </div>
               <div className={styles.search_box_frame}>
@@ -371,13 +336,7 @@ export default function ProjectsViewer(props: Props) {
                 <button
                   title="検索条件をクリア"
                   className={styles.search_clear_button}
-                  onClick={() => {
-                    setSearchWord("");
-                    setSelectedYear(0);
-                    setUserFiltered(false);
-                    router.push(`/project/`);
-                    setDisplayingSearchCondition(null);
-                  }}
+                  onClick={() => resetSearch()}
                 >
                   <FontAwesomeIcon icon={faXmark} />
                 </button>

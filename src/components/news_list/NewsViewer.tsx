@@ -26,11 +26,16 @@ interface Props {
   _newsList: News[];
 }
 
+const modeDic: { [key: string]: string } = {
+  name: "ニュース名",
+  year: "公開年"
+};
+
 export default function NewsViewer(props: Props) {
   const newsList = props._newsList;
   const [loaded, setLoaded] = useState<boolean>(false);
   const [selectedSearchMode, setSelectedSearchMode] =
-    useState<string>("news_name");
+    useState<string>("name");
   const [selectedYear, setSelectedYear] = useState<number>(0);
   const [filteredNews, setFilteredNews] = useState<undefined | News[]>([]);
   const [userFiltered, setUserFiltered] = useState<boolean>(false);
@@ -42,7 +47,7 @@ export default function NewsViewer(props: Props) {
     string | null
   >(null);
   const [isUsingPhone, setIsUsingPhone] = useState<boolean>(false);
-  const [title, setTitle] = useState("News - SAI");
+  const [title, setTitle] = useState("News");
 
   const router = useRouter();
   const params = useSearchParams();
@@ -50,7 +55,7 @@ export default function NewsViewer(props: Props) {
   const initialMode = params.get("mode");
   const initialQ = params.get("q");
 
-  useDocumentTitle(title);
+  useDocumentTitle(title + " - SAI");
 
   // タップ/クリックの表示を切り替え
   useEffect(() => {
@@ -61,13 +66,7 @@ export default function NewsViewer(props: Props) {
       if (initialQ) {
         const initialSearchWord = initialQ.replace(/,/g, " ");
         setSearchWord(initialSearchWord);
-        let mode: string | null = null;
-        if (initialMode === "mode") {
-          mode = "news_name";
-        } else if (initialMode === "year") {
-          mode = "news_year";
-        }
-        searchNews(initialSearchWord, mode, newsList);
+        searchNews(initialSearchWord, initialMode, newsList);
         setUserFiltered(true);
       }
     }
@@ -83,81 +82,76 @@ export default function NewsViewer(props: Props) {
     const mode = _mode ? _mode : selectedSearchMode;
     const lists = _newsList ? _newsList : newsList;
 
-    const modeDic: { [key: string]: string } = {
-      news_name: "記事名",
-      news_year: "公開年"
-    }
     const modeDisplayName = modeDic[mode] ?? "不明"
     const commaKeyword = filterKeywords.join(",");
-    setTitle(`${commaKeyword ? `[${modeDisplayName}]` + (commaKeyword.length > 10 ? commaKeyword.substring(0, 10) + "..." : commaKeyword) + " の" : ""}News - SAI`)
+    setTitle(`${commaKeyword ? `[${modeDisplayName}]` + (commaKeyword.length > 10 ? commaKeyword.substring(0, 10) + "..." : commaKeyword) + " の" : ""}News`)
 
     setSelectedYear(0);
     setSelectedSearchMode(mode);
 
     // スペースのみで検索なら取り消し
     if (filterKeywords.every((keyword) => keyword === "")) {
-      setUserFiltered(false);
+      resetSearch();
       return;
     }
 
     let filteredArray: News[] | undefined = [];
 
-    if (mode === "news_name") {
-      // タイトルの部分一致
-      filteredArray = lists?.filter((news) =>
-        filterKeywords.some(
-          (keyword) =>
-            keyword.toLowerCase() !== "" &&
-            news.title.toLowerCase().includes(keyword.toLowerCase())
-        )
-      );
-      setDisplayingSearchCondition(
-        `検索条件: ニュース名(${filterKeywords.map((item, j) => {
-          if (j === 0) return `${item}`;
-          else return ` OR ${item}`;
-        })})`
-      );
-
-      router.push(`/news/?mode=name&q=${commaKeyword}`);
-    } else if (mode === "news_year") {
-      // 年の一致
-      filteredArray = lists?.filter((news) =>
-        filterKeywords.some(
-          (keyword) => String(ConvertToJST(news.date).getFullYear()) === keyword
-        )
-      );
-      setDisplayingSearchCondition(
-        `検索条件: 公開年(${filterKeywords.map((item, j) => {
-          if (j === 0) return `${item}`;
-          else return ` OR ${item}`;
-        })})`
-      );
-
-      router.push(`/news/?mode=year&q=${commaKeyword}`);
+    switch (mode) {
+      case "name":
+        filteredArray = lists?.filter((news) =>
+          filterKeywords.some(
+            (keyword) =>
+              keyword.toLowerCase() !== "" &&
+              news.title.toLowerCase().includes(keyword.toLowerCase())
+          )
+        );
+        break;
+      case "year":
+        filteredArray = lists?.filter((news) =>
+          filterKeywords.some(
+            (keyword) => String(ConvertToJST(news.date).getFullYear()) === keyword
+          )
+        );
+        break;
+      default:
+        filteredArray = [];
+        break;
     }
+
+    setDisplayingSearchCondition(
+      `検索条件: ${modeDisplayName}(${filterKeywords.join(" OR ")})`
+    );
+
+    router.push(
+      `/news/?mode=${mode}&q=${commaKeyword}`
+    );
 
     setFilteredNews(filteredArray);
     setUserFiltered(true);
   };
 
+  const resetSearch = () => {
+    setSearchWord("");
+    setSelectedYear(0);
+    setUserFiltered(false);
+    router.push(`/news/`);
+    setDisplayingSearchCondition(null);
+  }
+
   // 空文字ならリセット
   const triggerSearchNews = () => {
     if (searchWord === "") {
-      setUserFiltered(false);
-      router.push(`/news/`);
-      setDisplayingSearchCondition(null);
+      resetSearch();
       return;
     }
-
     searchNews(searchWord);
   };
 
   // 文字を更新、空ならリセット
   const triggerSearchInput = (event: React.FormEvent<HTMLInputElement>) => {
     if (event.currentTarget.value === "") {
-      setUserFiltered(false);
-      router.push(`/news/`);
-      setDisplayingSearchCondition(null);
+      resetSearch();
     }
 
     setSearchWord(event.currentTarget.value);
@@ -278,8 +272,8 @@ export default function NewsViewer(props: Props) {
                   name="search_type"
                   value={selectedSearchMode}
                 >
-                  <option value="news_name">記事名</option>
-                  <option value="news_year">公開年</option>
+                  <option value="name">記事名</option>
+                  <option value="year">公開年</option>
                 </select>
               </div>
               <div className={styles.search_box_frame}>
@@ -299,13 +293,7 @@ export default function NewsViewer(props: Props) {
                 <button
                   title="検索条件をクリア"
                   className={styles.search_clear_button}
-                  onClick={() => {
-                    setSearchWord("");
-                    setSelectedYear(0);
-                    setUserFiltered(false);
-                    router.push(`/news/`);
-                    setDisplayingSearchCondition(null);
-                  }}
+                  onClick={() => resetSearch()}
                 >
                   <FontAwesomeIcon icon={faXmark} />
                 </button>

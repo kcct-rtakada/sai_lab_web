@@ -7,7 +7,6 @@ import { faFilePdf, faLink, faTag } from "@fortawesome/free-solid-svg-icons";
 import parse from "html-react-parser";
 import Image from "next/image";
 import SEO from "@/components/common/SEO";
-import type { Metadata } from "next";
 import React, { cache } from "react";
 import CopyButton from "@/components/client_parts/CopyButton";
 import ProjectRightSidebar from "@/components/project_detail/ProjectRightSidebar";
@@ -38,7 +37,7 @@ export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
-}): Promise<Metadata> {
+}) {
   const { project } = await getProject(params.slug);
   if (!project)
     return SEO({

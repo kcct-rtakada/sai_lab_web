@@ -5,7 +5,6 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faLink } from "@fortawesome/free-solid-svg-icons";
 import SEO from "@/components/common/SEO";
-import type { Metadata } from "next";
 import YearListSidebar from "@/components/client_parts/YearListSidebar";
 import React from "react";
 import { fetchProjects, fetchPublications } from "@/components/GASFetch";
@@ -25,7 +24,7 @@ const pageMeta: PageMetadata = {
   imageUrl: undefined,
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata() {
   return SEO({
     title: pageMeta.title,
     description: pageMeta.description,

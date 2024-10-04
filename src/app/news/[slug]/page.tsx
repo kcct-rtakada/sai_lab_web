@@ -7,7 +7,6 @@ import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import parse from "html-react-parser";
 import Image from "next/image";
 import SEO from "@/components/common/SEO";
-import type { Metadata } from "next";
 import { cache } from "react";
 import { fetchNews } from "@/components/GASFetch";
 import {
@@ -33,7 +32,7 @@ export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
-}): Promise<Metadata> {
+}) {
   const news = await getNews(params.slug);
   if (!news)
     return SEO({

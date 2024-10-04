@@ -3,7 +3,6 @@ import { Award } from "@/components/DefaultStructure";
 import styles from "@/styles/app/award/award.module.scss";
 import Link from "next/link";
 import SEO from "@/components/common/SEO";
-import type { Metadata } from "next";
 import YearListSidebar from "@/components/client_parts/YearListSidebar";
 import React from "react";
 import { fetchAwards } from "@/components/GASFetch";
@@ -19,7 +18,7 @@ const pageMeta: PageMetadata = {
   imageUrl: undefined,
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata() {
   return SEO({
     title: pageMeta.title,
     description: pageMeta.description,

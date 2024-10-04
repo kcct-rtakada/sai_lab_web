@@ -1,5 +1,4 @@
 import SEO from "@/components/common/SEO";
-import type { Metadata } from "next";
 import HomeContent from "@/components/client_page/HomeContent";
 import { fetchNews } from "@/components/GASFetch";
 import { News } from "@/components/DefaultStructure";
@@ -14,7 +13,7 @@ const pageMeta: PageMetadata = {
   imageUrl: undefined,
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata() {
   return SEO({
     title: pageMeta.title,
     description: pageMeta.description,

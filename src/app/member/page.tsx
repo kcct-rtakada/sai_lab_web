@@ -9,7 +9,6 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import SEO from "@/components/common/SEO";
-import type { Metadata } from "next";
 import { fetchMembers } from "@/components/GASFetch";
 import { generateWebsiteStructure } from "@/components/common/JsonLd";
 import { PageMetadata } from "@/components/PageMetadata";
@@ -22,7 +21,7 @@ const pageMeta: PageMetadata = {
   imageUrl: undefined,
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata() {
   return SEO({
     title: pageMeta.title,
     description: pageMeta.description,

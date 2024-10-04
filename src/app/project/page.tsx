@@ -1,7 +1,6 @@
 import ProjectsViewer from "@/components/project_list/ProjectsViewer";
 import { Project } from "@/components/DefaultStructure";
 import SEO from "@/components/common/SEO";
-import type { Metadata } from "next";
 import { fetchProjects } from "@/components/GASFetch";
 import { Suspense } from "react";
 import styles from "@/styles/app/projects/projectList.module.scss";
@@ -9,7 +8,7 @@ import { getJsonLd } from "@/components/common/JsonLd";
 
 export async function generateMetadata(
   { searchParams }: { searchParams: { [key: string]: string } }
-): Promise<Metadata> {
+) {
   const mode = searchParams['mode'] ?? null
   const q = searchParams['q'] ?? null
 

@@ -1,7 +1,6 @@
 import { News } from "@/components/DefaultStructure";
 import NewsViewer from "@/components/news_list/NewsViewer";
 import SEO from "@/components/common/SEO";
-import type { Metadata } from "next";
 import { fetchNews } from "@/components/GASFetch";
 import { Suspense } from "react";
 import styles from "@/styles/app/news/newsList.module.scss";
@@ -9,7 +8,7 @@ import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
 
 export async function generateMetadata(
   { searchParams }: { searchParams: { [key: string]: string } }
-): Promise<Metadata> {
+) {
   const mode = searchParams['mode'] ?? null
   const q = searchParams['q'] ?? null
 

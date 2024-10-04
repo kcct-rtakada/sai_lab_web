@@ -39,19 +39,13 @@ const filterItems = (items: any[], classifications: string[]) => {
 }
 
 export default async function PagePublication() {
-  const projectResponse = await fetchProjects();
-  const projects: Project[] = await projectResponse.json();
-  // 空要素がある場合は取り除く
-  const filteredProjects = projects.filter((item) => item.id !== "");
+  const projectList = await fetchProjects();
 
-  const publicationsResponse = await fetchPublications();
-  const publications: Publication[] = await publicationsResponse.json();
-  // 空要素がある場合は取り除く
-  const filteredPublications = publications.filter((item) => item.id !== "");
+  const publicationList = await fetchPublications();
 
   // 国内会議 または 国際会議 または 論文誌 のみをこのページでは表示する
-  const sortedConferencePapers = filterItems(filteredProjects, ["国内会議", "国際会議", "論文誌"]);
-  const sortedPublications = filterItems(filteredPublications, ["記事", "出版", "講演", "報道"]);
+  const sortedConferencePapers = filterItems(projectList, ["国内会議", "国際会議", "論文誌"]);
+  const sortedPublications = filterItems(publicationList, ["記事", "出版", "講演", "報道"]);
 
   // 年度リストを作成する
   const uniqueYears = Array.from(

@@ -1,7 +1,6 @@
 import SEO from "@/components/common/SEO";
 import HomeContent from "@/components/client_page/HomeContent";
 import { fetchNews } from "@/components/GASFetch";
-import { News } from "@/components/DefaultStructure";
 import { generateWebsiteStructure } from "@/components/common/JsonLd";
 import { PageMetadata } from "@/components/PageMetadata";
 
@@ -24,13 +23,10 @@ export async function generateMetadata() {
 
 // 日本語英語ボタン有
 export default async function Home() {
-  const response = await fetchNews();
-  const newsList: News[] = await response.json();
-  // 空要素がある場合は取り除く
-  const filteredNews = newsList.filter((item) => item.id !== "");
+  const newsList = await fetchNews();
   // クライアントコンポーネントにより描画
   return <>
     {generateWebsiteStructure(pageMeta)}
-    <HomeContent newsList={filteredNews} />
+    <HomeContent newsList={newsList} />
   </>;
 }

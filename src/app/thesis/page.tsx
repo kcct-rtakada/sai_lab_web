@@ -35,13 +35,10 @@ const filterItems = (items: any[], classifications: string[]) => {
 }
 
 export default async function Thesis() {
-  const response = await fetchProjects();
-  const projects: Project[] = await response.json();
-  // 空要素がある場合は取り除く
-  const filteredProjects = projects.filter((item) => item.id !== "");
+  const projectList = await fetchProjects();
 
   // 本科卒業論文 または 専攻科特別研究論文 のみをこのページでは表示する
-  const sortedConferencePapers = filterItems(filteredProjects, ["本科卒業論文", "専攻科特別研究論文"]);
+  const sortedConferencePapers = filterItems(projectList, ["本科卒業論文", "専攻科特別研究論文"]);
 
   // 年度リストを作成する
   const uniqueYears = Array.from(

@@ -1,4 +1,3 @@
-import { News } from "@/components/DefaultStructure";
 import NewsViewer from "@/components/news_list/NewsViewer";
 import SEO from "@/components/common/SEO";
 import { fetchNews } from "@/components/GASFetch";
@@ -27,10 +26,7 @@ export async function generateMetadata(
 }
 
 export default async function NewsList({ searchParams }: { searchParams: { [key: string]: string } }) {
-  const response = await fetchNews();
-  const newsList: News[] = await response.json();
-  // 空要素がある場合は取り除く
-  const filteredNews = newsList.filter((item) => item.id !== "");
+  const newsList = await fetchNews();
 
   const mode = searchParams['mode'] ?? null
   const q = searchParams['q'] ?? null
@@ -61,7 +57,7 @@ export default async function NewsList({ searchParams }: { searchParams: { [key:
       }
     >
       {getJsonLdScript(jsonLd)}
-      <NewsViewer _newsList={filteredNews} />
+      <NewsViewer _newsList={newsList} />
     </Suspense>
   );
 }

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faLink, faTag } from "@fortawesome/free-solid-svg-icons";
 import parse from "html-react-parser";
-import Image from "next/image";
 import SEO from "@/components/common/SEO";
 import React, { cache } from "react";
 import CopyButton from "@/components/client_parts/CopyButton";
@@ -18,11 +17,8 @@ import ErrorBlock from "@/components/common/ErrorBlock";
 
 // プロジェクト取得・一致判定を行う
 const getProject = cache(async (slug: string) => {
-  const response = await fetchProjects();
-  const projects: Project[] = await response.json();
-  // 空要素がある場合は取り除く
-  const filteredProjects = projects.filter((item) => item.id !== "");
-  const project: Project | undefined = filteredProjects.find(
+  const projectList = await fetchProjects();
+  const project: Project | undefined = projectList.find(
     (c: { id: string }) => {
       const cid = String(c.id);
       return cid === slug;
@@ -30,7 +26,7 @@ const getProject = cache(async (slug: string) => {
   );
   return {
     project: project,
-    projects: filteredProjects,
+    projects: projectList,
   };
 });
 

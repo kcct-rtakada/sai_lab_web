@@ -32,25 +32,22 @@ export async function generateMetadata() {
 }
 
 export default async function DisplayMember() {
-  const response = await fetchMembers();
-  const originalMembers: Member[] = await response.json();
-  // 空要素がある場合は取り除く
-  const members = originalMembers.filter((item) => item.id !== "");
+  const memberList = await fetchMembers();
 
   // 教員の抽出
-  const sortedMemberWithTeacher = members?.filter((element) =>
+  const sortedMemberWithTeacher = memberList?.filter((element) =>
     element.belonging.toLowerCase().includes("教員")
   );
 
   // 卒業生と修了生の抽出
-  const sortedMemberWithGraduation = members?.filter(
+  const sortedMemberWithGraduation = memberList?.filter(
     (element) =>
       element.belonging.toLowerCase().includes("卒") ||
       element.belonging.toLowerCase().includes("修")
   );
 
   // 上2つに当てはまらなかったメンバーを抽出
-  const sortedEnrolledMember = members?.filter((element) => {
+  const sortedEnrolledMember = memberList?.filter((element) => {
     return (
       !sortedMemberWithGraduation?.some(
         (sortedMember) => sortedMember.id === element.id

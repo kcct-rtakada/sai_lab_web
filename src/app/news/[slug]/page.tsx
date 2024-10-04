@@ -5,7 +5,6 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import parse from "html-react-parser";
-import Image from "next/image";
 import SEO from "@/components/common/SEO";
 import { cache } from "react";
 import { fetchNews } from "@/components/GASFetch";
@@ -18,11 +17,8 @@ import ErrorBlock from "@/components/common/ErrorBlock";
 
 // ニュース取得・一致判定を行う
 const getNews = cache(async (slug: string) => {
-  const response = await fetchNews();
-  const newsList: News[] = await response.json();
-  // 空要素がある場合は取り除く
-  const filteredNews = newsList.filter((item) => item.id !== "");
-  const news: News | undefined = filteredNews.find((c: { id: string }) => {
+  const newsList = await fetchNews();
+  const news: News | undefined = newsList.find((c: { id: string }) => {
     const cid = String(c.id);
     return cid === slug;
   });

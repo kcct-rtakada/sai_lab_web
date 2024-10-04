@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { Award } from "@/components/DefaultStructure";
 import styles from "@/styles/app/award/award.module.scss";
 import Link from "next/link";
 import SEO from "@/components/common/SEO";
@@ -29,15 +28,12 @@ export async function generateMetadata() {
 }
 
 export default async function DisplayAward() {
-  const response = await fetchAwards();
-  const awards: Award[] = await response.json();
-  // 空要素がある場合は取り除く
-  const filteredAwards = awards.filter((item) => item.id !== "");
+  const awardList = await fetchAwards();
 
   // 年度リストを作成する
   const uniqueYears = Array.from(
     new Set(
-      filteredAwards
+      awardList
         ?.flatMap((item) => {
           const japanTime = ConvertToJST(item.date);
           return CalcFiscalYear(japanTime);
@@ -57,7 +53,7 @@ export default async function DisplayAward() {
         <div className={styles.list_box}>
           <div className={styles.result_box}>
             {uniqueYears.map((year, i) => {
-              const matchedDataWithYear = filteredAwards?.filter((item) => {
+              const matchedDataWithYear = awardList?.filter((item) => {
                 const japanTime = ConvertToJST(item.date);
                 // 年度による仕分け
                 return CalcFiscalYear(japanTime) === year;

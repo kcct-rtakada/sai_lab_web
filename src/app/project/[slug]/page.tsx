@@ -14,6 +14,7 @@ import ProjectLeftSidebar from "@/components/project_detail/ProjectLeftSidebar";
 import { fetchProjects } from "@/components/GASFetch";
 import { ConvertToJST, DisplayDefaultDateString } from "@/components/JSTConverter";
 import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
+import ErrorBlock from "@/components/common/ErrorBlock";
 
 // プロジェクト取得・一致判定を行う
 const getProject = cache(async (slug: string) => {
@@ -77,18 +78,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
   if (!project) {
     return (
       <div className={styles.main}>
-        <div className="notfound">
-          <div className="notfound_text">
-            このページの詳細が見つかりませんでした。
-            <br />
-            まだ反映されていない可能性があるので、
-            <br />
-            時間を空けてから再度アクセスしてください。
-          </div>
-          <div className="notfound_img_box">
-            <Image src="/sai_logo.png" alt="sai_logo" fill sizes="4rem" />
-          </div>
-        </div>
+        <ErrorBlock>
+          このページの詳細が見つかりませんでした。
+          <br />
+          まだ反映されていない可能性があるので、
+          <br />
+          時間を空けてから再度アクセスしてください。
+        </ErrorBlock>
       </div>
     );
   }

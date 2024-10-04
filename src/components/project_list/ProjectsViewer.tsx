@@ -19,6 +19,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { CalcFiscalYear, ConvertToJST } from "../JSTConverter";
 import Link from "next/link";
 import { Title } from "../common/SubPageLayout";
+import ErrorBlock from "../common/ErrorBlock";
 
 interface Props {
   _projects: Project[];
@@ -443,33 +444,18 @@ export default function ProjectsViewer(props: Props) {
                   );
                 })
               ) : (
-                <div className={styles.notfound}>
-                  <div className={styles.notfound_text}>
-                    検索結果は得られませんでした。
-                    <br />
-                    検索キーワードは間違っていませんか？
-                  </div>
-                  <div className={styles.notfound_img_box}>
-                    <Image
-                      src="/sai_logo.png"
-                      alt="sai_logo"
-                      fill
-                      sizes="4rem"
-                    />
-                  </div>
-                </div>
+                <ErrorBlock>
+                  検索結果は得られませんでした。
+                  <br />
+                  検索キーワードは間違っていませんか？
+                </ErrorBlock>
               )
             ) : (
-              <div className={styles.notfound}>
-                <div className={styles.notfound_text}>
-                  無効な結果を得ました。
-                  <br />
-                  再度お試しください。
-                </div>
-                <div className={styles.notfound_img_box}>
-                  <Image src="/sai_logo.png" alt="sai_logo" fill sizes="4rem" />
-                </div>
-              </div>
+              <ErrorBlock>
+                無効な結果を得ました。
+                <br />
+                再度お試しください。
+              </ErrorBlock>
             )}
           </div>
         </div>

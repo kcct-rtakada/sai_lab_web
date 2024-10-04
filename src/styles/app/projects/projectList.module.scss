@@ -834,32 +834,6 @@
           }
         }
       }
-
-      .notfound {
-        user-select: none;
-        width: 100%;
-        height: auto;
-        position: relative;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-
-        .notfound_text {
-          margin-top: 1.1rem;
-          font-size: 1.2rem;
-          line-height: 1.8;
-          margin-bottom: 1rem;
-        }
-
-        .notfound_img_box {
-          position: relative;
-          width: 5rem;
-          height: 5rem;
-          pointer-events: none;
-        }
-      }
     }
   }
 }

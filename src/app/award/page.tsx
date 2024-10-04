@@ -9,6 +9,7 @@ import { fetchAwards } from "@/components/GASFetch";
 import { CalcFiscalYear, ConvertToJST, DisplayDefaultDateString } from "@/components/JSTConverter";
 import { generateWebsiteStructure } from "@/components/common/JsonLd";
 import { PageMetadata } from "@/components/PageMetadata";
+import { Title } from "@/components/common/SubPageLayout";
 
 const pageMeta: PageMetadata = {
   isArticle: false,
@@ -49,11 +50,9 @@ export default async function DisplayAward() {
     <React.Fragment>
       <div className={styles.main}>
         {generateWebsiteStructure(pageMeta)}
-        <div className={styles.title_box}>
-          <div className={styles.title_area}>
-            <h1 className={styles.page_title}>表彰</h1>
-          </div>
-        </div>
+        <Title color1="#a153eb" color2="#e660b2">
+          表彰
+        </Title>
         <YearListSidebar pageName="表彰" years={uniqueYears} />
         <div className={styles.list_box}>
           <div className={styles.result_box}>
@@ -82,18 +81,13 @@ export default async function DisplayAward() {
                               href={award.link}
                               target="_blank"
                               rel="noopener noreferrer"
-                            >{`${
-                              award.organization ? `${award.organization}` : ``
-                            }${
-                              award.competition ? `, ${award.competition}` : ``
-                            }, ${award.award}, ${
-                              award.person
-                            } (${displayDate})`}</Link>
+                            >{`${award.organization ? `${award.organization}` : ``
+                              }${award.competition ? `, ${award.competition}` : ``
+                              }, ${award.award}, ${award.person
+                              } (${displayDate})`}</Link>
                           ) : (
-                            `${
-                              award.organization ? `${award.organization}` : ``
-                            }${
-                              award.competition ? `, ${award.competition}` : ``
+                            `${award.organization ? `${award.organization}` : ``
+                            }${award.competition ? `, ${award.competition}` : ``
                             }, ${award.award}, ${award.person} (${displayDate})`
                           )}
                         </li>

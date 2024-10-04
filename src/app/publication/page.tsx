@@ -15,6 +15,7 @@ import {
 } from "@/components/JSTConverter";
 import { generateWebsiteStructure } from "@/components/common/JsonLd";
 import { PageMetadata } from "@/components/PageMetadata";
+import { Title } from "@/components/common/SubPageLayout";
 
 const pageMeta: PageMetadata = {
   isArticle: false,
@@ -200,11 +201,9 @@ export default async function PagePublication() {
     <React.Fragment>
       <div className={styles.main}>
         {generateWebsiteStructure(pageMeta)}
-        <div className={styles.title_box}>
-          <div className={styles.title_area}>
-            <h1 className={styles.page_title}>研究業績</h1>
-          </div>
-        </div>
+        <Title color1="#62c734" color2="#24a5a5">
+          研究業績
+        </Title>
         <YearListSidebar pageName="研究業績" years={uniqueYears} />
         <div className={styles.list_box}>
           <div className={styles.result_box}>
@@ -245,12 +244,12 @@ export default async function PagePublication() {
                   item.classification.toLowerCase().includes("出版")
               );
               const types = [
-                {name: "国内会議", filter: ["国内会議"], items: matchedProjectsWithYear, func: displayingProjects},
-                {name: "国際会議", filter: ["国際会議"], items: matchedProjectsWithYear, func: displayingProjects},
-                {name: "論文誌", filter: ["論文誌"], items: matchedProjectsWithYear, func: displayingProjects},
-                {name: "報道", filter: ["報道"], items: matchedPublicationsWithYear, func: displayingPublications},
-                {name: "講演", filter: ["講演"], items: matchedPublicationsWithYear, func: displayingPublications},
-                {name: "記事・出版", filter: ["記事", "出版"], items: matchedPublicationsWithYear, func: displayingPublications},
+                { name: "国内会議", filter: ["国内会議"], items: matchedProjectsWithYear, func: displayingProjects },
+                { name: "国際会議", filter: ["国際会議"], items: matchedProjectsWithYear, func: displayingProjects },
+                { name: "論文誌", filter: ["論文誌"], items: matchedProjectsWithYear, func: displayingProjects },
+                { name: "報道", filter: ["報道"], items: matchedPublicationsWithYear, func: displayingPublications },
+                { name: "講演", filter: ["講演"], items: matchedPublicationsWithYear, func: displayingPublications },
+                { name: "記事・出版", filter: ["記事", "出版"], items: matchedPublicationsWithYear, func: displayingPublications },
               ];
 
               return (

@@ -12,6 +12,7 @@ import SEO from "@/components/common/SEO";
 import { fetchMembers } from "@/components/GASFetch";
 import { generateWebsiteStructure } from "@/components/common/JsonLd";
 import { PageMetadata } from "@/components/PageMetadata";
+import { Title } from "@/components/common/SubPageLayout";
 
 const pageMeta: PageMetadata = {
   isArticle: false,
@@ -73,17 +74,16 @@ export default async function DisplayMember() {
                   {/* ()で括られた文字列の中身をリスト化し、","で結合する。*/}
                   {/* 全角スペースは半角スペースに置き換える。 */}
                   <span
-                    title={`${
-                      item.otherName
+                    title={`${item.otherName
                         ? "異体字等: " +
-                          item.otherName
-                            .match(/\([^()]+\)/g)
-                            ?.flatMap((match) => match.split(","))
-                            .flatMap((match) => match.slice(1, -1))
-                            .map((match) => match.replace(/[ 　]+/g, " "))
-                            .join(",")
+                        item.otherName
+                          .match(/\([^()]+\)/g)
+                          ?.flatMap((match) => match.split(","))
+                          .flatMap((match) => match.slice(1, -1))
+                          .map((match) => match.replace(/[ 　]+/g, " "))
+                          .join(",")
                         : ""
-                    }`}
+                      }`}
                   >
                     {item.name}
                   </span>
@@ -149,16 +149,15 @@ export default async function DisplayMember() {
                 )},${item.englishName.replace(/[ 　]+/, "")},${item.englishName
                   .split(/[ 　]+/)
                   .reverse()
-                  .join("")}${
-                  item.otherName
+                  .join("")}${item.otherName
                     ? `,${item.otherName
-                        .match(/\([^()]+\)/g)
-                        ?.flatMap((match) => match.split(","))
-                        .flatMap((match) => match.slice(1, -1))
-                        .map((match) => match.replace(/[ 　]+/g, ""))
-                        .join(",")}`
+                      .match(/\([^()]+\)/g)
+                      ?.flatMap((match) => match.split(","))
+                      .flatMap((match) => match.slice(1, -1))
+                      .map((match) => match.replace(/[ 　]+/g, ""))
+                      .join(",")}`
                     : ""
-                }`}
+                  }`}
                 className={styles.search_link}
                 title="プロジェクトを検索"
               >
@@ -183,11 +182,9 @@ export default async function DisplayMember() {
   return (
     <div className={styles.main}>
       {generateWebsiteStructure(pageMeta)}
-      <div className={styles.title_box}>
-        <div className={styles.title_area}>
-          <h1 className={styles.page_title}>メンバー</h1>
-        </div>
-      </div>
+      <Title color1="#d36134" color2="#d4d113">
+        メンバー
+      </Title>
       <div className={styles.list_box}>
         {displayingMember("教員", sortedMemberWithTeacher)}
         {displayingMember("在籍中", sortedEnrolledMember)}

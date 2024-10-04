@@ -6,6 +6,7 @@ import Link from "next/link";
 import parse from "html-react-parser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
+import { Title } from "../common/SubPageLayout";
 
 export default function ContactContent() {
   const [usingJapanese, setUsingJapanese] = useState<boolean>(true);
@@ -17,13 +18,9 @@ export default function ContactContent() {
 
   return (
     <div className={styles.main}>
-      <div className={styles.title_box}>
-        <div className={styles.title_area}>
-          <h1 className={styles.page_title}>
-            {displayString("コンタクト", "Contact")}
-          </h1>
-        </div>
-      </div>
+      <Title color1="#ec5bc1" color2="#da5046">
+        {displayString("コンタクト", "Contact")}
+      </Title>
       <div className={styles.main_script}>
         <h2>{displayString("コンタクト", "Contact")}</h2>
         <p>{displayString("研究室への", "If you are:")}</p>

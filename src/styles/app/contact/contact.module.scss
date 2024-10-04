@@ -41,27 +41,6 @@
     -o-transform: scale(1, 1);
   }
 
-  .title_box {
-    background-image: linear-gradient(
-      to bottom right,
-      #ec5bc1,
-      #da5046
-    );
-
-    .title_area {
-      width: min(55rem, 100%);
-      margin: 0 auto;
-
-      .page_title {
-        font-size: 2rem;
-        font-weight: bold;
-        padding: 1.5rem 3rem;
-        color: $c-base_title_text;
-        margin: 0 auto;
-      }
-    }
-  }
-
   .main_script {
     user-select: text;
     width: min(55rem, 100%);

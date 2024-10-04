@@ -21,6 +21,7 @@ import {
   ConvertToJST,
   DisplayDefaultDateString,
 } from "@/components/JSTConverter";
+import { Title } from "../common/SubPageLayout";
 
 interface Props {
   _newsList: News[];
@@ -183,11 +184,9 @@ export default function NewsViewer(props: Props) {
     return (
       <>
         <div className={styles.main}>
-          <div className={styles.title_box}>
-            <div className={styles.title_area}>
-              <h1 className={styles.page_title}>ニュース</h1>
-            </div>
-          </div>
+          <Title color1="#e74e4e" color2="#dd8431">
+            <span>ニュース</span>
+          </Title>
           <div className="loading">
             <span className="load_1" />
             <span className="load_2" />
@@ -215,21 +214,17 @@ export default function NewsViewer(props: Props) {
   return (
     <>
       <div className={styles.main}>
-        <div className={styles.title_box}>
-          <div className={styles.title_area}>
-            <h1 className={styles.page_title}>
-              <span>ニュース</span>
-              <span>
-                <Link href="/news/feed.xml"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="RSS">
-                  <FontAwesomeIcon icon={faSquareRss} />
-                </Link>
-              </span>
-            </h1>
-          </div>
-        </div>
+        <Title color1="#e74e4e" color2="#dd8431">
+          <span>ニュース</span>
+          <span>
+            <Link href="/news/feed.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="RSS">
+              <FontAwesomeIcon icon={faSquareRss} />
+            </Link>
+          </span>
+        </Title>
         <div className={styles.list_box}>
           <div
             className={`${styles.search_box} ${isDisplayingSearchBox ? styles.opening : ""

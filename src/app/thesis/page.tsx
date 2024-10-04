@@ -11,6 +11,7 @@ import { fetchProjects } from "@/components/GASFetch";
 import { CalcFiscalYear, ConvertToJST } from "@/components/JSTConverter";
 import { generateWebsiteStructure } from "@/components/common/JsonLd";
 import { PageMetadata } from "@/components/PageMetadata";
+import { Title } from "@/components/common/SubPageLayout";
 
 const pageMeta: PageMetadata = {
   isArticle: false,
@@ -65,9 +66,8 @@ export default async function Thesis() {
               <Link
                 href={`/project/${item.id}`}
                 className={styles.direct}
-              >{`${item.authors.map((e) => `${e.name}, `)}${
-                item.title
-              }`}</Link>
+              >{`${item.authors.map((e) => `${e.name}, `)}${item.title
+                }`}</Link>
               {item.url ? (
                 <Link
                   href={item.url}
@@ -119,11 +119,9 @@ export default async function Thesis() {
     <React.Fragment>
       <div className={styles.main}>
         {generateWebsiteStructure(pageMeta)}
-        <div className={styles.title_box}>
-          <div className={styles.title_area}>
-            <h1 className={styles.page_title}>学位論文</h1>
-          </div>
-        </div>
+        <Title color1="#63b0ce" color2="#683bb1">
+          学位論文
+        </Title>
         <YearListSidebar pageName="学位論文" years={uniqueYears} />
         <div className={styles.list_box}>
           <div className={styles.result_box}>
@@ -137,8 +135,8 @@ export default async function Thesis() {
               );
 
               const types = [
-                {name: "学士（専攻科特別研究論文）", filter: ["専攻科特別研究論文"], items: matchedDataWithYear, func: displayingThesis},
-                {name: "準学士（本科卒業論文）", filter: ["本科卒業論文"], items: matchedDataWithYear, func: displayingThesis},
+                { name: "学士（専攻科特別研究論文）", filter: ["専攻科特別研究論文"], items: matchedDataWithYear, func: displayingThesis },
+                { name: "準学士（本科卒業論文）", filter: ["本科卒業論文"], items: matchedDataWithYear, func: displayingThesis },
               ];
 
               return (

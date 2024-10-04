@@ -5,28 +5,6 @@
   padding-top: 0;
   min-height: calc(100% - 6rem);
 
-  .title_box {
-    background-image: linear-gradient(
-      to bottom right,
-      #a153eb,
-      #e660b2
-    );
-    margin: 0 auto;
-
-    .title_area {
-      width: min(55rem, 100%);
-      margin: 0 auto;
-
-      .page_title {
-        margin: 0 auto;
-        font-size: 2rem;
-        font-weight: bold;
-        padding: 1.5rem 3rem;
-        color: $c-base_title_text;
-      }
-    }
-  }
-
   .list_box {
     width: min(55rem, 100%);
     margin: 0 auto;

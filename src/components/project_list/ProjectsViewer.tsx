@@ -18,6 +18,7 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CalcFiscalYear, ConvertToJST } from "../JSTConverter";
 import Link from "next/link";
+import { Title } from "../common/SubPageLayout";
 
 interface Props {
   _projects: Project[];
@@ -219,11 +220,9 @@ export default function ProjectsViewer(props: Props) {
     return (
       <>
         <div className={styles.main}>
-          <div className={styles.title_box}>
-            <div className={styles.title_area}>
-              <h1 className={styles.page_title}>プロジェクト</h1>
-            </div>
-          </div>
+          <Title color1="#dbc70e" color2="#44b835">
+            <span>プロジェクト</span>
+          </Title>
           <div className="loading">
             <span className="load_1" />
             <span className="load_2" />
@@ -256,21 +255,17 @@ export default function ProjectsViewer(props: Props) {
   return (
     <>
       <div className={styles.main}>
-        <div className={styles.title_box}>
-          <div className={styles.title_area}>
-            <h1 className={styles.page_title}>
-              <span>プロジェクト</span>
-              <span>
-                <Link href="/project/feed.xml"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="RSS">
-                  <FontAwesomeIcon icon={faSquareRss} />
-                </Link>
-              </span>
-            </h1>
-          </div>
-        </div>
+        <Title color1="#dbc70e" color2="#44b835">
+          <span>プロジェクト</span>
+          <span>
+            <Link href="/project/feed.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="RSS">
+              <FontAwesomeIcon icon={faSquareRss} />
+            </Link>
+          </span>
+        </Title>
         <div className={styles.list_box}>
           <div
             className={`${styles.search_box} ${isDisplayingSearchBox ? styles.opening : ""

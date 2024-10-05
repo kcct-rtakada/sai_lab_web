@@ -47,6 +47,23 @@ export async function generateMetadata({
 
 }
 
+const InfoItem = ({ title, content }: { title: string, content: React.ReactNode }) => (
+  <div>
+    <h3 className={styles.information_section_title}>{title}</h3>
+    <div>{content}</div>
+  </div>
+);
+
+const renderSection = (title: string, content: string, className: string, isHTML = false) => {
+  if (!content) return null;
+  return (
+    <>
+      <h2 id={title.toLowerCase()} className={styles.section_name}>{title}</h2>
+      <div className={className}>{isHTML ? parse(content) : content}</div>
+    </>
+  );
+};
+
 export default async function Page({ params }: { params: { slug: string } }) {
   const { project, projects } = await getProject(params.slug);
 
@@ -176,72 +193,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <></>
             )}
 
-            {project.abstract ? (
-              <>
-                <h2 id="abstract" className={styles.section_name}>
-                  Abstract
-                </h2>
-                <div className={styles.abstract}>{project.abstract}</div>
-              </>
-            ) : (
-              <></>
-            )}
-
-            {/* stringからHTML要素にパース */}
-            {project.posterHTML ? (
-              <>
-                <h2 id="poster" className={styles.section_name}>
-                  Poster
-                </h2>
-                <div className={`${styles.slide_box} ${styles.poster}`}>
-                  {parse(project.posterHTML)}
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-
-            {/* stringからHTML要素にパース */}
-            {project.presentationHTML ? (
-              <>
-                <h2 id="presentation" className={styles.section_name}>
-                  Presentation
-                </h2>
-                <div className={`${styles.slide_box} ${styles.presentation}`}>
-                  {parse(project.presentationHTML)}
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-
-            {/* stringからHTML要素にパース */}
-            {project.documentHTML ? (
-              <>
-                <h2 id="document" className={styles.section_name}>
-                  Document
-                </h2>
-                <div className={`${styles.slide_box} ${styles.document}`}>
-                  {parse(project.documentHTML)}
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-
-            {/* stringからHTML要素にパース */}
-            {project.freeHTML ? (
-              <>
-                <h2 id="misc" className={styles.section_name}>
-                  Misc
-                </h2>
-                <div className={styles.slide_box}>
-                  {parse(project.freeHTML)}
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
+            {renderSection('Abstract', project.abstract, styles.abstract)}
+            {renderSection('Poster', project.posterHTML, `${styles.slide_box} ${styles.poster}`, true)}
+            {renderSection('Presentation', project.presentationHTML, `${styles.slide_box} ${styles.presentation}`, true)}
+            {renderSection('Document', project.documentHTML, `${styles.slide_box} ${styles.document}`, true)}
+            {renderSection('Misc', project.freeHTML, styles.slide_box, true)}
 
             {project.additionalImageURL.length > 0 ? (
               <>
@@ -267,37 +223,17 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <></>
             )}
 
-            <h2 id="information" className={styles.section_name}>
-              Information
-            </h2>
+            <h2 id="information" className={styles.section_name}>Information</h2>
             <div className={styles.book_card}>
               <h3 className={styles.information_section_title}>Book Title</h3>
               <div>{project.bookTitle}</div>
               <div className={styles.flex_box}>
-                <div>
-                  <h3 className={styles.information_section_title}>Volume</h3>
-                  <div>{project.volume}</div>
-                </div>
-                <div>
-                  <h3 className={styles.information_section_title}>Number</h3>
-                  <div>{project.number}</div>
-                </div>
+                <InfoItem title="Volume" content={project.volume} />
+                <InfoItem title="Number" content={project.number} />
               </div>
               <div className={styles.flex_box}>
-                <div>
-                  <h3 className={styles.information_section_title}>Date</h3>
-                  <div>
-                    <time dateTime={japanTime.toISOString()}>
-                      {String(displayDate)}
-                    </time>
-                  </div>
-                </div>
-                <div>
-                  <h3 className={styles.information_section_title}>Pages</h3>
-                  <div>
-                    {project.pageStart}-{project.pageEnd}
-                  </div>
-                </div>
+                <InfoItem title="Date" content={<time dateTime={japanTime.toISOString()}>{String(displayDate)}</time>} />
+                <InfoItem title="Pages" content={`${project.pageStart}-${project.pageEnd}`} />
               </div>
               <h3 className={styles.information_section_title}>
                 Citation&nbsp;

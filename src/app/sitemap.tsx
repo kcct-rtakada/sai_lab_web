@@ -6,13 +6,9 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const projectsResponse = await fetchProjects();
-  const projects: Project[] = await projectsResponse.json();
-  const filteredProjects = projects.filter((item) => item.id !== "");
+  const projectList = await fetchProjects();
 
-  const newsResponse = await fetchNews();
-  const news: Project[] = await newsResponse.json();
-  const filteredNews = news.filter((item) => item.id !== "");
+  const newsList = await fetchNews();
 
   const lastModified = new Date();
   const baseURL = "https://sai.ac/";
@@ -72,7 +68,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dynamicPaths: any[] = [];
 
   // ニュースとプロジェクトのリストをsitemapに追加
-  filteredProjects.forEach((item) => {
+  projectList.forEach((item) => {
     dynamicPaths.push({
       url: baseURL + "project/" + item.id,
       lastModified: new Date(item.date).toISOString(),
@@ -81,7 +77,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   });
 
-  filteredNews.forEach((item) => {
+  newsList.forEach((item) => {
     dynamicPaths.push({
       url: baseURL + "news/" + item.id,
       lastModified: new Date(item.date).toISOString(),

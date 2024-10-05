@@ -5,9 +5,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf, faLink, faTag } from "@fortawesome/free-solid-svg-icons";
 import parse from "html-react-parser";
-import Image from "next/image";
 import SEO from "@/components/common/SEO";
-import type { Metadata } from "next";
 import React, { cache } from "react";
 import CopyButton from "@/components/client_parts/CopyButton";
 import ProjectRightSidebar from "@/components/project_detail/ProjectRightSidebar";
@@ -15,22 +13,21 @@ import ProjectLeftSidebar from "@/components/project_detail/ProjectLeftSidebar";
 import { fetchProjects } from "@/components/GASFetch";
 import { ConvertToJST, DisplayDefaultDateString } from "@/components/JSTConverter";
 import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
+import { notFound } from "next/navigation";
 
 // プロジェクト取得・一致判定を行う
 const getProject = cache(async (slug: string) => {
-  const response = await fetchProjects();
-  const projects: Project[] = await response.json();
-  // 空要素がある場合は取り除く
-  const filteredProjects = projects.filter((item) => item.id !== "");
-  const project: Project | undefined = filteredProjects.find(
+  const projectList = await fetchProjects();
+  const project: Project | undefined = projectList.find(
     (c: { id: string }) => {
       const cid = String(c.id);
       return cid === slug;
     }
   );
+  if (!project) notFound();
   return {
     project: project,
-    projects: filteredProjects,
+    projects: projectList,
   };
 });
 
@@ -38,25 +35,34 @@ export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
-}): Promise<Metadata> {
+}) {
   const { project } = await getProject(params.slug);
-  if (!project)
-    return SEO({
-      title: "Undefined",
-      description: "No Project",
-      url: `/project/${params.slug}`,
-      imageUrl: undefined,
-    });
-  else {
-    const plainText = project.abstract.replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll("\\n+", " ")
-    return SEO({
-      title: project.title,
-      description: plainText.length > 100 ? plainText.substring(0, 99) + "..." : plainText,
-      url: `/project/${params.slug}`,
-      imageUrl: undefined,
-    });
-  }
+  const plainText = project.abstract.replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll("\\n+", " ")
+  return SEO({
+    title: project.title,
+    description: plainText.length > 100 ? plainText.substring(0, 99) + "..." : plainText,
+    url: `/project/${params.slug}`,
+    imageUrl: undefined,
+  });
+
 }
+
+const InfoItem = ({ title, content }: { title: string, content: React.ReactNode }) => (
+  <div>
+    <h3 className={styles.information_section_title}>{title}</h3>
+    <div>{content}</div>
+  </div>
+);
+
+const renderSection = (title: string, content: string, className: string, isHTML = false) => {
+  if (!content) return null;
+  return (
+    <>
+      <h2 id={title.toLowerCase()} className={styles.section_name}>{title}</h2>
+      <div className={className}>{isHTML ? parse(content) : content}</div>
+    </>
+  );
+};
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const { project, projects } = await getProject(params.slug);
@@ -73,26 +79,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
           ) || project?.title.toLowerCase().includes(item.title.toLowerCase())
       ) && project?.id !== item.id
   );
-
-  // 見つからなかった場合
-  if (!project) {
-    return (
-      <div className={styles.main}>
-        <div className="notfound">
-          <div className="notfound_text">
-            このページの詳細が見つかりませんでした。
-            <br />
-            まだ反映されていない可能性があるので、
-            <br />
-            時間を空けてから再度アクセスしてください。
-          </div>
-          <div className="notfound_img_box">
-            <Image src="/sai_logo.png" alt="sai_logo" fill sizes="4rem" />
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   const japanTime = ConvertToJST(project!.date);
   const plainText = project!.abstract.replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll("\\n+", " ")
@@ -207,72 +193,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <></>
             )}
 
-            {project.abstract ? (
-              <>
-                <h2 id="abstract" className={styles.section_name}>
-                  Abstract
-                </h2>
-                <div className={styles.abstract}>{project.abstract}</div>
-              </>
-            ) : (
-              <></>
-            )}
-
-            {/* stringからHTML要素にパース */}
-            {project.posterHTML ? (
-              <>
-                <h2 id="poster" className={styles.section_name}>
-                  Poster
-                </h2>
-                <div className={`${styles.slide_box} ${styles.poster}`}>
-                  {parse(project.posterHTML)}
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-
-            {/* stringからHTML要素にパース */}
-            {project.presentationHTML ? (
-              <>
-                <h2 id="presentation" className={styles.section_name}>
-                  Presentation
-                </h2>
-                <div className={`${styles.slide_box} ${styles.presentation}`}>
-                  {parse(project.presentationHTML)}
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-
-            {/* stringからHTML要素にパース */}
-            {project.documentHTML ? (
-              <>
-                <h2 id="document" className={styles.section_name}>
-                  Document
-                </h2>
-                <div className={`${styles.slide_box} ${styles.document}`}>
-                  {parse(project.documentHTML)}
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-
-            {/* stringからHTML要素にパース */}
-            {project.freeHTML ? (
-              <>
-                <h2 id="misc" className={styles.section_name}>
-                  Misc
-                </h2>
-                <div className={styles.slide_box}>
-                  {parse(project.freeHTML)}
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
+            {renderSection('Abstract', project.abstract, styles.abstract)}
+            {renderSection('Poster', project.posterHTML, `${styles.slide_box} ${styles.poster}`, true)}
+            {renderSection('Presentation', project.presentationHTML, `${styles.slide_box} ${styles.presentation}`, true)}
+            {renderSection('Document', project.documentHTML, `${styles.slide_box} ${styles.document}`, true)}
+            {renderSection('Misc', project.freeHTML, styles.slide_box, true)}
 
             {project.additionalImageURL.length > 0 ? (
               <>
@@ -298,37 +223,17 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <></>
             )}
 
-            <h2 id="information" className={styles.section_name}>
-              Information
-            </h2>
+            <h2 id="information" className={styles.section_name}>Information</h2>
             <div className={styles.book_card}>
               <h3 className={styles.information_section_title}>Book Title</h3>
               <div>{project.bookTitle}</div>
               <div className={styles.flex_box}>
-                <div>
-                  <h3 className={styles.information_section_title}>Volume</h3>
-                  <div>{project.volume}</div>
-                </div>
-                <div>
-                  <h3 className={styles.information_section_title}>Number</h3>
-                  <div>{project.number}</div>
-                </div>
+                <InfoItem title="Volume" content={project.volume} />
+                <InfoItem title="Number" content={project.number} />
               </div>
               <div className={styles.flex_box}>
-                <div>
-                  <h3 className={styles.information_section_title}>Date</h3>
-                  <div>
-                    <time dateTime={japanTime.toISOString()}>
-                      {String(displayDate)}
-                    </time>
-                  </div>
-                </div>
-                <div>
-                  <h3 className={styles.information_section_title}>Pages</h3>
-                  <div>
-                    {project.pageStart}-{project.pageEnd}
-                  </div>
-                </div>
+                <InfoItem title="Date" content={<time dateTime={japanTime.toISOString()}>{String(displayDate)}</time>} />
+                <InfoItem title="Pages" content={`${project.pageStart}-${project.pageEnd}`} />
               </div>
               <h3 className={styles.information_section_title}>
                 Citation&nbsp;

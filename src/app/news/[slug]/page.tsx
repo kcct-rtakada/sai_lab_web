@@ -5,9 +5,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import parse from "html-react-parser";
-import Image from "next/image";
 import SEO from "@/components/common/SEO";
-import type { Metadata } from "next";
 import { cache } from "react";
 import { fetchNews } from "@/components/GASFetch";
 import {
@@ -15,17 +13,16 @@ import {
   DisplayDefaultDateString,
 } from "@/components/JSTConverter";
 import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
+import { notFound } from "next/navigation";
 
 // ニュース取得・一致判定を行う
 const getNews = cache(async (slug: string) => {
-  const response = await fetchNews();
-  const newsList: News[] = await response.json();
-  // 空要素がある場合は取り除く
-  const filteredNews = newsList.filter((item) => item.id !== "");
-  const news: News | undefined = filteredNews.find((c: { id: string }) => {
+  const newsList = await fetchNews();
+  const news: News | undefined = newsList.find((c: { id: string }) => {
     const cid = String(c.id);
     return cid === slug;
   });
+  if (!news) notFound();
   return news;
 });
 
@@ -33,53 +30,25 @@ export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
-}): Promise<Metadata> {
+}) {
   const news = await getNews(params.slug);
-  if (!news)
-    return SEO({
-      title: "Undefined",
-      description: "No News",
-      url: `/news/${params.slug}`,
-      imageUrl: undefined,
-    });
-  else {
-    const japanTime = ConvertToJST(news.date);
-    const plainText = news.article.replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll("\\n+", " ")
+  const japanTime = ConvertToJST(news.date);
+  const plainText = news.article.replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll("\\n+", " ")
 
-    // 日付のmetaにのせる
-    return SEO({
-      title: news.title,
-      description: `${plainText.length > 100 ? plainText.substring(0, 99) + "..." : plainText}(${DisplayDefaultDateString(
-        japanTime
-      )})`,
-      url: `/news/${params.slug}`,
-      imageUrl: undefined,
-    });
-  }
+  // 日付のmetaにのせる
+  return SEO({
+    title: news.title,
+    description: `${plainText.length > 100 ? plainText.substring(0, 99) + "..." : plainText}(${DisplayDefaultDateString(
+      japanTime
+    )})`,
+    url: `/news/${params.slug}`,
+    imageUrl: undefined,
+  });
+
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const news = await getNews(params.slug);
-
-  // 見つからなかった場合
-  if (!news) {
-    return (
-      <div className={styles.main}>
-        <div className="notfound">
-          <div className="notfound_text">
-            このページの詳細が見つかりませんでした。
-            <br />
-            まだ反映されていない可能性があるので、
-            <br />
-            時間を空けてから再度アクセスしてください。
-          </div>
-          <div className="notfound_img_box">
-            <Image src="/sai_logo.png" alt="sai_logo" fill sizes="4rem" />
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   const japanTime = ConvertToJST(news.date);
   const plainText = news.article.replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll("\\n+", " ")

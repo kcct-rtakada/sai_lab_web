@@ -14,13 +14,15 @@ import {
   faChevronDown,
   faSquareRss,
 } from "@fortawesome/free-solid-svg-icons";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   CalcFiscalYear,
   ConvertToJST,
   DisplayDefaultDateString,
 } from "@/components/JSTConverter";
+import { Title } from "../common/SubPageLayout";
+import ErrorBlock from "../common/ErrorBlock";
+import LoadingUI from "../Loading";
 
 interface Props {
   _newsList: News[];
@@ -157,13 +159,6 @@ export default function NewsViewer(props: Props) {
     setSearchWord(event.currentTarget.value);
   };
 
-  // エンターキーで検索
-  const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      triggerSearchNews();
-    }
-  };
-
   // 検索条件を記憶
   const triggerSearchModeSelection = (event: { target: { value: string } }) => {
     const selectedOptionValue = event.target.value;
@@ -183,15 +178,10 @@ export default function NewsViewer(props: Props) {
     return (
       <>
         <div className={styles.main}>
-          <div className={styles.title_box}>
-            <div className={styles.title_area}>
-              <h1 className={styles.page_title}>ニュース</h1>
-            </div>
-          </div>
-          <div className="loading">
-            <span className="load_1" />
-            <span className="load_2" />
-          </div>
+          <Title color1="#e74e4e" color2="#dd8431">
+            <span>ニュース</span>
+          </Title>
+          <LoadingUI />
         </div>
       </>
     );
@@ -215,21 +205,17 @@ export default function NewsViewer(props: Props) {
   return (
     <>
       <div className={styles.main}>
-        <div className={styles.title_box}>
-          <div className={styles.title_area}>
-            <h1 className={styles.page_title}>
-              <span>ニュース</span>
-              <span>
-                <Link href="/news/feed.xml"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="RSS">
-                  <FontAwesomeIcon icon={faSquareRss} />
-                </Link>
-              </span>
-            </h1>
-          </div>
-        </div>
+        <Title color1="#e74e4e" color2="#dd8431">
+          <span>ニュース</span>
+          <span>
+            <Link href="/news/feed.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="RSS">
+              <FontAwesomeIcon icon={faSquareRss} />
+            </Link>
+          </span>
+        </Title>
         <div className={styles.list_box}>
           <div
             className={`${styles.search_box} ${isDisplayingSearchBox ? styles.opening : ""
@@ -288,7 +274,11 @@ export default function NewsViewer(props: Props) {
                   type={"text"}
                   className={`${styles.search_input}`}
                   onInput={triggerSearchInput}
-                  onKeyDown={handleEnterKeyPress}
+                  onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                    if (e.key === "Enter") {
+                      triggerSearchNews();
+                    }
+                  }}
                 />
                 <button
                   title="検索条件をクリア"
@@ -301,8 +291,7 @@ export default function NewsViewer(props: Props) {
               <button
                 title="検索する"
                 id="header-search-click"
-                className={`
-                ${styles.search_button}`}
+                className={styles.search_button}
                 onClick={triggerSearchNews}
               >
                 <FontAwesomeIcon
@@ -383,33 +372,18 @@ export default function NewsViewer(props: Props) {
                   );
                 })
               ) : (
-                <div className={styles.notfound}>
-                  <div className={styles.notfound_text}>
-                    検索結果は得られませんでした。
-                    <br />
-                    検索キーワードは間違っていませんか？
-                  </div>
-                  <div className={styles.notfound_img_box}>
-                    <Image
-                      src="/sai_logo.png"
-                      alt="sai_logo"
-                      fill
-                      sizes="4rem"
-                    />
-                  </div>
-                </div>
+                <ErrorBlock>
+                  検索結果は得られませんでした。
+                  <br />
+                  検索キーワードは間違っていませんか？
+                </ErrorBlock>
               )
             ) : (
-              <div className={styles.notfound}>
-                <div className={styles.notfound_text}>
-                  無効な結果を得ました。
-                  <br />
-                  再度お試しください。
-                </div>
-                <div className={styles.notfound_img_box}>
-                  <Image src="/sai_logo.png" alt="sai_logo" fill sizes="4rem" />
-                </div>
-              </div>
+              <ErrorBlock>
+                無効な結果を得ました。
+                <br />
+                再度お試しください。
+              </ErrorBlock>
             )}
           </div>
         </div>

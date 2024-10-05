@@ -1,6 +1,5 @@
 import RSS from "rss";
 import { fetchProjects } from "@/components/GASFetch";
-import { Project } from "@/components/DefaultStructure";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -16,12 +15,9 @@ export async function GET() {
     pubDate: new Date().toISOString()
   });
 
-  const response = await fetchProjects();
-  const projectList: Project[] = await response.json();
-  // 空要素がある場合は取り除く
-  const filteredProject = projectList.filter((item) => item.id !== "");
+  const projectList = await fetchProjects();
 
-  filteredProject.forEach(project => {
+  projectList.forEach(project => {
     const plainText = project.abstract.replaceAll("\\n+", " ");
 
     feed.item({
@@ -34,7 +30,7 @@ export async function GET() {
 
   return new Response(feed.xml({ indent: true }), {
     headers: {
-      'Content-Type': 'application/atom+xml; charset=utf-8',
+      'Content-Type': 'application/xml; charset=utf-8',
     },
   });
 }

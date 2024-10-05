@@ -5,34 +5,6 @@
   padding-top: 0;
   min-height: calc(100% - 6rem);
 
-  .title_box {
-    background-image: linear-gradient(to bottom right, #e74e4e, #dd8431);
-    margin: 0 auto;
-
-    .title_area {
-      width: min(55rem, 100%);
-      margin: 0 auto;
-
-      .page_title {
-        font-size: 2rem;
-        font-weight: bold;
-        padding: 1.5rem 3rem;
-        color: $c-base_title_text;
-        margin: 0 auto;
-        justify-content: space-between;
-        display: flex;
-
-        span {
-          display: inline-block;
-        }
-
-        a:hover svg {
-          color: #e0e0e0;
-        }
-      }
-    }
-  }
-
   .search_condition {
     position: sticky;
     margin-top: 1rem;
@@ -738,32 +710,6 @@
               }
             }
           }
-        }
-      }
-
-      .notfound {
-        user-select: none;
-        width: 100%;
-        height: auto;
-        position: relative;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-
-        .notfound_text {
-          margin-top: 1.1rem;
-          font-size: 1.2rem;
-          line-height: 1.8;
-          margin-bottom: 1rem;
-        }
-
-        .notfound_img_box {
-          position: relative;
-          width: 5rem;
-          height: 5rem;
-          pointer-events: none;
         }
       }
     }

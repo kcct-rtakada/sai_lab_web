@@ -1,15 +1,15 @@
 import ProjectsViewer from "@/components/project_list/ProjectsViewer";
-import { Project } from "@/components/DefaultStructure";
 import SEO from "@/components/common/SEO";
-import type { Metadata } from "next";
 import { fetchProjects } from "@/components/GASFetch";
 import { Suspense } from "react";
 import styles from "@/styles/app/projects/projectList.module.scss";
 import { getJsonLd } from "@/components/common/JsonLd";
+import LoadingUI from "@/components/Loading";
+import { Title } from "@/components/common/SubPageLayout";
 
 export async function generateMetadata(
   { searchParams }: { searchParams: { [key: string]: string } }
-): Promise<Metadata> {
+) {
   const mode = searchParams['mode'] ?? null
   const q = searchParams['q'] ?? null
 
@@ -30,10 +30,7 @@ export async function generateMetadata(
 }
 
 export default async function ProjectList({ searchParams }: { searchParams: { [key: string]: string } }) {
-  const response = await fetchProjects();
-  const projects: Project[] = await response.json();
-  // 空要素がある場合は取り除く
-  const filteredProjects = projects.filter((item) => item.id !== "");
+  const projectList = await fetchProjects();
 
   const mode = searchParams['mode'] ?? null
   const q = searchParams['q'] ?? null
@@ -53,19 +50,14 @@ export default async function ProjectList({ searchParams }: { searchParams: { [k
     <Suspense
       fallback={
         <div className={styles.main}>
-          <div className={styles.title_box}>
-            <div className={styles.title_area}>
-              <h1 className={styles.page_title}>プロジェクト</h1>
-            </div>
-          </div>
-          <div className="loading">
-            <span className="load_1" />
-            <span className="load_2" />
-          </div>
+          <Title color1="#dbc70e" color2="#44b835">
+            <span>プロジェクト</span>
+          </Title>
+          <LoadingUI />
         </div>
       }
     >
-      <ProjectsViewer _projects={filteredProjects} />
+      <ProjectsViewer _projects={projectList} />
     </Suspense>
   );
 }

@@ -14,10 +14,12 @@ import {
   faChevronDown,
   faSquareRss,
 } from "@fortawesome/free-solid-svg-icons";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CalcFiscalYear, ConvertToJST } from "../JSTConverter";
 import Link from "next/link";
+import { Title } from "../common/SubPageLayout";
+import ErrorBlock from "../common/ErrorBlock";
+import LoadingUI from "../Loading";
 
 interface Props {
   _projects: Project[];
@@ -193,13 +195,6 @@ export default function ProjectsViewer(props: Props) {
     setSearchWord(event.currentTarget.value);
   };
 
-  // エンターキー押した場合
-  const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      triggerSearchProjects();
-    }
-  };
-
   // 検索条件を記憶
   const triggerSearchModeSelection = (event: { target: { value: string } }) => {
     const selectedOptionValue = event.target.value;
@@ -219,15 +214,10 @@ export default function ProjectsViewer(props: Props) {
     return (
       <>
         <div className={styles.main}>
-          <div className={styles.title_box}>
-            <div className={styles.title_area}>
-              <h1 className={styles.page_title}>プロジェクト</h1>
-            </div>
-          </div>
-          <div className="loading">
-            <span className="load_1" />
-            <span className="load_2" />
-          </div>
+          <Title color1="#dbc70e" color2="#44b835">
+            <span>プロジェクト</span>
+          </Title>
+          <LoadingUI />
         </div>
       </>
     );
@@ -256,21 +246,17 @@ export default function ProjectsViewer(props: Props) {
   return (
     <>
       <div className={styles.main}>
-        <div className={styles.title_box}>
-          <div className={styles.title_area}>
-            <h1 className={styles.page_title}>
-              <span>プロジェクト</span>
-              <span>
-                <Link href="/project/feed.xml"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="RSS">
-                  <FontAwesomeIcon icon={faSquareRss} />
-                </Link>
-              </span>
-            </h1>
-          </div>
-        </div>
+        <Title color1="#dbc70e" color2="#44b835">
+          <span>プロジェクト</span>
+          <span>
+            <Link href="/project/feed.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="RSS">
+              <FontAwesomeIcon icon={faSquareRss} />
+            </Link>
+          </span>
+        </Title>
         <div className={styles.list_box}>
           <div
             className={`${styles.search_box} ${isDisplayingSearchBox ? styles.opening : ""
@@ -331,7 +317,11 @@ export default function ProjectsViewer(props: Props) {
                   type={"text"}
                   className={`${styles.search_input}`}
                   onInput={triggerSearchInput}
-                  onKeyDown={handleEnterKeyPress}
+                  onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                    if (e.key === "Enter") {
+                      triggerSearchProjects();
+                    }
+                  }}
                 />
                 <button
                   title="検索条件をクリア"
@@ -344,8 +334,7 @@ export default function ProjectsViewer(props: Props) {
               <button
                 title="検索する"
                 id="header-search-click"
-                className={`
-                ${styles.search_button}`}
+                className={styles.search_button}
                 onClick={triggerSearchProjects}
               >
                 <FontAwesomeIcon
@@ -398,83 +387,55 @@ export default function ProjectsViewer(props: Props) {
 
                   return (
                     <React.Fragment key={`dYear${i}`}>
-                      <div key={`dYear${i}`} className={styles.project_link}>
-                        <div
-                          key={`dYear${i}`}
-                          className={`${styles.project} ${styles.year}`}
-                        >
-                          <p key={`dYear${i}`}>{year}年度</p>
+                      <div className={styles.project_link}>
+                        <div className={`${styles.project} ${styles.year}`}>
+                          <p>{year}年度</p>
                         </div>
                       </div>
-                      {matchedDataWithYear!.length > 0 ? (
-                        <React.Fragment>
-                          {Object.keys(groupedArray).map((key, j) => {
-                            // 一致するものが無かった場合
-                            if (groupedArray[key].length == 1) {
-                              return (
-                                <ProjectCard
-                                  key={j}
-                                  project={groupedArray[key][0]}
-                                  uniqueColorNumber={uniqueTypes.findIndex(
-                                    (type) => type === groupedArray[key][0].type
-                                  )}
-                                />
-                              );
-                            } else {
-                              // 種類リストからインデックスを取得
-                              const projectAndColors: ProjectsAndColors[] = [];
-                              groupedArray[key].forEach((project) => {
-                                projectAndColors.push({
-                                  project: project,
-                                  uniqueColorNumber: uniqueTypes.findIndex(
-                                    (type) => type === project.type
-                                  ),
-                                });
-                              });
+                      {matchedDataWithYear!.length > 0 && (
+                        Object.keys(groupedArray).map((key, j) => {
+                          const projects = groupedArray[key];
+                          const uniqueColorNumber = (project: Project) => uniqueTypes.findIndex(type => type === project.type);
 
-                              return (
-                                <ProjectGroupCard
-                                  key={j}
-                                  projectsAndColors={projectAndColors}
-                                />
-                              );
-                            }
-                          })}
-                        </React.Fragment>
-                      ) : (
-                        <></>
+                          if (projects.length === 1) {
+                            return (
+                              <ProjectCard
+                                key={j}
+                                project={projects[0]}
+                                uniqueColorNumber={uniqueColorNumber(projects[0])}
+                              />
+                            );
+                          }
+
+                          const projectAndColors = projects.map(project => ({
+                            project,
+                            uniqueColorNumber: uniqueColorNumber(project),
+                          }));
+
+                          return (
+                            <ProjectGroupCard
+                              key={j}
+                              projectsAndColors={projectAndColors}
+                            />
+                          );
+                        })
                       )}
                     </React.Fragment>
                   );
                 })
               ) : (
-                <div className={styles.notfound}>
-                  <div className={styles.notfound_text}>
-                    検索結果は得られませんでした。
-                    <br />
-                    検索キーワードは間違っていませんか？
-                  </div>
-                  <div className={styles.notfound_img_box}>
-                    <Image
-                      src="/sai_logo.png"
-                      alt="sai_logo"
-                      fill
-                      sizes="4rem"
-                    />
-                  </div>
-                </div>
+                <ErrorBlock>
+                  検索結果は得られませんでした。
+                  <br />
+                  検索キーワードは間違っていませんか？
+                </ErrorBlock>
               )
             ) : (
-              <div className={styles.notfound}>
-                <div className={styles.notfound_text}>
-                  無効な結果を得ました。
-                  <br />
-                  再度お試しください。
-                </div>
-                <div className={styles.notfound_img_box}>
-                  <Image src="/sai_logo.png" alt="sai_logo" fill sizes="4rem" />
-                </div>
-              </div>
+              <ErrorBlock>
+                無効な結果を得ました。
+                <br />
+                再度お試しください。
+              </ErrorBlock>
             )}
           </div>
         </div>

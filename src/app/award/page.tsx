@@ -1,15 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-import { Award } from "@/components/DefaultStructure";
 import styles from "@/styles/app/award/award.module.scss";
 import Link from "next/link";
 import SEO from "@/components/common/SEO";
-import type { Metadata } from "next";
 import YearListSidebar from "@/components/client_parts/YearListSidebar";
 import React from "react";
 import { fetchAwards } from "@/components/GASFetch";
 import { CalcFiscalYear, ConvertToJST, DisplayDefaultDateString } from "@/components/JSTConverter";
 import { generateWebsiteStructure } from "@/components/common/JsonLd";
 import { PageMetadata } from "@/components/PageMetadata";
+import { Title } from "@/components/common/SubPageLayout";
 
 const pageMeta: PageMetadata = {
   isArticle: false,
@@ -19,7 +18,7 @@ const pageMeta: PageMetadata = {
   imageUrl: undefined,
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata() {
   return SEO({
     title: pageMeta.title,
     description: pageMeta.description,
@@ -29,15 +28,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function DisplayAward() {
-  const response = await fetchAwards();
-  const awards: Award[] = await response.json();
-  // 空要素がある場合は取り除く
-  const filteredAwards = awards.filter((item) => item.id !== "");
+  const awardList = await fetchAwards();
 
   // 年度リストを作成する
   const uniqueYears = Array.from(
     new Set(
-      filteredAwards
+      awardList
         ?.flatMap((item) => {
           const japanTime = ConvertToJST(item.date);
           return CalcFiscalYear(japanTime);
@@ -50,16 +46,14 @@ export default async function DisplayAward() {
     <React.Fragment>
       <div className={styles.main}>
         {generateWebsiteStructure(pageMeta)}
-        <div className={styles.title_box}>
-          <div className={styles.title_area}>
-            <h1 className={styles.page_title}>表彰</h1>
-          </div>
-        </div>
+        <Title color1="#a153eb" color2="#e660b2">
+          表彰
+        </Title>
         <YearListSidebar pageName="表彰" years={uniqueYears} />
         <div className={styles.list_box}>
           <div className={styles.result_box}>
             {uniqueYears.map((year, i) => {
-              const matchedDataWithYear = filteredAwards?.filter((item) => {
+              const matchedDataWithYear = awardList?.filter((item) => {
                 const japanTime = ConvertToJST(item.date);
                 // 年度による仕分け
                 return CalcFiscalYear(japanTime) === year;
@@ -83,18 +77,13 @@ export default async function DisplayAward() {
                               href={award.link}
                               target="_blank"
                               rel="noopener noreferrer"
-                            >{`${
-                              award.organization ? `${award.organization}` : ``
-                            }${
-                              award.competition ? `, ${award.competition}` : ``
-                            }, ${award.award}, ${
-                              award.person
-                            } (${displayDate})`}</Link>
+                            >{`${award.organization ? `${award.organization}` : ``
+                              }${award.competition ? `, ${award.competition}` : ``
+                              }, ${award.award}, ${award.person
+                              } (${displayDate})`}</Link>
                           ) : (
-                            `${
-                              award.organization ? `${award.organization}` : ``
-                            }${
-                              award.competition ? `, ${award.competition}` : ``
+                            `${award.organization ? `${award.organization}` : ``
+                            }${award.competition ? `, ${award.competition}` : ``
                             }, ${award.award}, ${award.person} (${displayDate})`
                           )}
                         </li>

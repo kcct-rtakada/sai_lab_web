@@ -9,10 +9,10 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import SEO from "@/components/common/SEO";
-import type { Metadata } from "next";
 import { fetchMembers } from "@/components/GASFetch";
 import { generateWebsiteStructure } from "@/components/common/JsonLd";
 import { PageMetadata } from "@/components/PageMetadata";
+import { Title } from "@/components/common/SubPageLayout";
 
 const pageMeta: PageMetadata = {
   isArticle: false,
@@ -22,7 +22,7 @@ const pageMeta: PageMetadata = {
   imageUrl: undefined,
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata() {
   return SEO({
     title: pageMeta.title,
     description: pageMeta.description,
@@ -32,25 +32,22 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function DisplayMember() {
-  const response = await fetchMembers();
-  const originalMembers: Member[] = await response.json();
-  // 空要素がある場合は取り除く
-  const members = originalMembers.filter((item) => item.id !== "");
+  const memberList = await fetchMembers();
 
   // 教員の抽出
-  const sortedMemberWithTeacher = members?.filter((element) =>
+  const sortedMemberWithTeacher = memberList?.filter((element) =>
     element.belonging.toLowerCase().includes("教員")
   );
 
   // 卒業生と修了生の抽出
-  const sortedMemberWithGraduation = members?.filter(
+  const sortedMemberWithGraduation = memberList?.filter(
     (element) =>
       element.belonging.toLowerCase().includes("卒") ||
       element.belonging.toLowerCase().includes("修")
   );
 
   // 上2つに当てはまらなかったメンバーを抽出
-  const sortedEnrolledMember = members?.filter((element) => {
+  const sortedEnrolledMember = memberList?.filter((element) => {
     return (
       !sortedMemberWithGraduation?.some(
         (sortedMember) => sortedMember.id === element.id
@@ -74,17 +71,16 @@ export default async function DisplayMember() {
                   {/* ()で括られた文字列の中身をリスト化し、","で結合する。*/}
                   {/* 全角スペースは半角スペースに置き換える。 */}
                   <span
-                    title={`${
-                      item.otherName
+                    title={`${item.otherName
                         ? "異体字等: " +
-                          item.otherName
-                            .match(/\([^()]+\)/g)
-                            ?.flatMap((match) => match.split(","))
-                            .flatMap((match) => match.slice(1, -1))
-                            .map((match) => match.replace(/[ 　]+/g, " "))
-                            .join(",")
+                        item.otherName
+                          .match(/\([^()]+\)/g)
+                          ?.flatMap((match) => match.split(","))
+                          .flatMap((match) => match.slice(1, -1))
+                          .map((match) => match.replace(/[ 　]+/g, " "))
+                          .join(",")
                         : ""
-                    }`}
+                      }`}
                   >
                     {item.name}
                   </span>
@@ -150,16 +146,15 @@ export default async function DisplayMember() {
                 )},${item.englishName.replace(/[ 　]+/, "")},${item.englishName
                   .split(/[ 　]+/)
                   .reverse()
-                  .join("")}${
-                  item.otherName
+                  .join("")}${item.otherName
                     ? `,${item.otherName
-                        .match(/\([^()]+\)/g)
-                        ?.flatMap((match) => match.split(","))
-                        .flatMap((match) => match.slice(1, -1))
-                        .map((match) => match.replace(/[ 　]+/g, ""))
-                        .join(",")}`
+                      .match(/\([^()]+\)/g)
+                      ?.flatMap((match) => match.split(","))
+                      .flatMap((match) => match.slice(1, -1))
+                      .map((match) => match.replace(/[ 　]+/g, ""))
+                      .join(",")}`
                     : ""
-                }`}
+                  }`}
                 className={styles.search_link}
                 title="プロジェクトを検索"
               >
@@ -184,11 +179,9 @@ export default async function DisplayMember() {
   return (
     <div className={styles.main}>
       {generateWebsiteStructure(pageMeta)}
-      <div className={styles.title_box}>
-        <div className={styles.title_area}>
-          <h1 className={styles.page_title}>メンバー</h1>
-        </div>
-      </div>
+      <Title color1="#d36134" color2="#d4d113">
+        メンバー
+      </Title>
       <div className={styles.list_box}>
         {displayingMember("教員", sortedMemberWithTeacher)}
         {displayingMember("在籍中", sortedEnrolledMember)}

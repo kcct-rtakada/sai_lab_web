@@ -1,6 +1,5 @@
 import RSS from "rss";
 import { fetchNews } from "@/components/GASFetch";
-import { News } from "@/components/DefaultStructure";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -16,12 +15,9 @@ export async function GET() {
     pubDate: new Date().toISOString()
   });
 
-  const response = await fetchNews();
-  const newsList: News[] = await response.json();
-  // 空要素がある場合は取り除く
-  const filteredNews = newsList.filter((item) => item.id !== "");
+  const newsList = await fetchNews();
 
-  filteredNews.forEach(news => {
+  newsList.forEach(news => {
     const plainText = news.article.replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll("\\n+", " ");
 
     feed.item({
@@ -34,7 +30,7 @@ export async function GET() {
 
   return new Response(feed.xml({ indent: true }), {
     headers: {
-      'Content-Type': 'application/atom+xml; charset=utf-8',
+      'Content-Type': 'application/xml; charset=utf-8',
     },
   });
 }

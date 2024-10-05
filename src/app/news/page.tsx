@@ -1,15 +1,15 @@
-import { News } from "@/components/DefaultStructure";
 import NewsViewer from "@/components/news_list/NewsViewer";
 import SEO from "@/components/common/SEO";
-import type { Metadata } from "next";
 import { fetchNews } from "@/components/GASFetch";
 import { Suspense } from "react";
 import styles from "@/styles/app/news/newsList.module.scss";
 import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
+import LoadingUI from "@/components/Loading";
+import { Title } from "@/components/common/SubPageLayout";
 
 export async function generateMetadata(
   { searchParams }: { searchParams: { [key: string]: string } }
-): Promise<Metadata> {
+) {
   const mode = searchParams['mode'] ?? null
   const q = searchParams['q'] ?? null
 
@@ -28,10 +28,7 @@ export async function generateMetadata(
 }
 
 export default async function NewsList({ searchParams }: { searchParams: { [key: string]: string } }) {
-  const response = await fetchNews();
-  const newsList: News[] = await response.json();
-  // 空要素がある場合は取り除く
-  const filteredNews = newsList.filter((item) => item.id !== "");
+  const newsList = await fetchNews();
 
   const mode = searchParams['mode'] ?? null
   const q = searchParams['q'] ?? null
@@ -49,20 +46,15 @@ export default async function NewsList({ searchParams }: { searchParams: { [key:
     <Suspense
       fallback={
         <div className={styles.main}>
-          <div className={styles.title_box}>
-            <div className={styles.title_area}>
-              <h1 className={styles.page_title}>ニュース</h1>
-            </div>
-          </div>
-          <div className="loading">
-            <span className="load_1" />
-            <span className="load_2" />
-          </div>
+          <Title color1="#e74e4e" color2="#dd8431">
+            <span>ニュース</span>
+          </Title>
+          <LoadingUI />
         </div>
       }
     >
       {getJsonLdScript(jsonLd)}
-      <NewsViewer _newsList={filteredNews} />
+      <NewsViewer _newsList={newsList} />
     </Suspense>
   );
 }

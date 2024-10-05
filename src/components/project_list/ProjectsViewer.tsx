@@ -14,12 +14,12 @@ import {
   faChevronDown,
   faSquareRss,
 } from "@fortawesome/free-solid-svg-icons";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CalcFiscalYear, ConvertToJST } from "../JSTConverter";
 import Link from "next/link";
 import { Title } from "../common/SubPageLayout";
 import ErrorBlock from "../common/ErrorBlock";
+import LoadingUI from "../Loading";
 
 interface Props {
   _projects: Project[];
@@ -195,13 +195,6 @@ export default function ProjectsViewer(props: Props) {
     setSearchWord(event.currentTarget.value);
   };
 
-  // エンターキー押した場合
-  const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      triggerSearchProjects();
-    }
-  };
-
   // 検索条件を記憶
   const triggerSearchModeSelection = (event: { target: { value: string } }) => {
     const selectedOptionValue = event.target.value;
@@ -224,10 +217,7 @@ export default function ProjectsViewer(props: Props) {
           <Title color1="#dbc70e" color2="#44b835">
             <span>プロジェクト</span>
           </Title>
-          <div className="loading">
-            <span className="load_1" />
-            <span className="load_2" />
-          </div>
+          <LoadingUI />
         </div>
       </>
     );
@@ -327,7 +317,11 @@ export default function ProjectsViewer(props: Props) {
                   type={"text"}
                   className={`${styles.search_input}`}
                   onInput={triggerSearchInput}
-                  onKeyDown={handleEnterKeyPress}
+                  onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                    if (e.key === "Enter") {
+                      triggerSearchProjects();
+                    }
+                  }}
                 />
                 <button
                   title="検索条件をクリア"

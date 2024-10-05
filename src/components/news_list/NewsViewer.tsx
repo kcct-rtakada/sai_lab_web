@@ -14,7 +14,6 @@ import {
   faChevronDown,
   faSquareRss,
 } from "@fortawesome/free-solid-svg-icons";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   CalcFiscalYear,
@@ -23,6 +22,7 @@ import {
 } from "@/components/JSTConverter";
 import { Title } from "../common/SubPageLayout";
 import ErrorBlock from "../common/ErrorBlock";
+import LoadingUI from "../Loading";
 
 interface Props {
   _newsList: News[];
@@ -159,13 +159,6 @@ export default function NewsViewer(props: Props) {
     setSearchWord(event.currentTarget.value);
   };
 
-  // エンターキーで検索
-  const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      triggerSearchNews();
-    }
-  };
-
   // 検索条件を記憶
   const triggerSearchModeSelection = (event: { target: { value: string } }) => {
     const selectedOptionValue = event.target.value;
@@ -188,10 +181,7 @@ export default function NewsViewer(props: Props) {
           <Title color1="#e74e4e" color2="#dd8431">
             <span>ニュース</span>
           </Title>
-          <div className="loading">
-            <span className="load_1" />
-            <span className="load_2" />
-          </div>
+          <LoadingUI />
         </div>
       </>
     );
@@ -284,7 +274,11 @@ export default function NewsViewer(props: Props) {
                   type={"text"}
                   className={`${styles.search_input}`}
                   onInput={triggerSearchInput}
-                  onKeyDown={handleEnterKeyPress}
+                  onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                    if (e.key === "Enter") {
+                      triggerSearchNews();
+                    }
+                  }}
                 />
                 <button
                   title="検索条件をクリア"

@@ -291,8 +291,7 @@ export default function NewsViewer(props: Props) {
               <button
                 title="検索する"
                 id="header-search-click"
-                className={`
-                ${styles.search_button}`}
+                className={styles.search_button}
                 onClick={triggerSearchNews}
               >
                 <FontAwesomeIcon

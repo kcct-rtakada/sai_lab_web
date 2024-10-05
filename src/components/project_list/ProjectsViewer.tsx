@@ -334,8 +334,7 @@ export default function ProjectsViewer(props: Props) {
               <button
                 title="検索する"
                 id="header-search-click"
-                className={`
-                ${styles.search_button}`}
+                className={styles.search_button}
                 onClick={triggerSearchProjects}
               >
                 <FontAwesomeIcon
@@ -388,51 +387,38 @@ export default function ProjectsViewer(props: Props) {
 
                   return (
                     <React.Fragment key={`dYear${i}`}>
-                      <div key={`dYear${i}`} className={styles.project_link}>
-                        <div
-                          key={`dYear${i}`}
-                          className={`${styles.project} ${styles.year}`}
-                        >
-                          <p key={`dYear${i}`}>{year}年度</p>
+                      <div className={styles.project_link}>
+                        <div className={`${styles.project} ${styles.year}`}>
+                          <p>{year}年度</p>
                         </div>
                       </div>
-                      {matchedDataWithYear!.length > 0 ? (
-                        <React.Fragment>
-                          {Object.keys(groupedArray).map((key, j) => {
-                            // 一致するものが無かった場合
-                            if (groupedArray[key].length == 1) {
-                              return (
-                                <ProjectCard
-                                  key={j}
-                                  project={groupedArray[key][0]}
-                                  uniqueColorNumber={uniqueTypes.findIndex(
-                                    (type) => type === groupedArray[key][0].type
-                                  )}
-                                />
-                              );
-                            } else {
-                              // 種類リストからインデックスを取得
-                              const projectAndColors: ProjectsAndColors[] = [];
-                              groupedArray[key].forEach((project) => {
-                                projectAndColors.push({
-                                  project: project,
-                                  uniqueColorNumber: uniqueTypes.findIndex(
-                                    (type) => type === project.type
-                                  ),
-                                });
-                              });
+                      {matchedDataWithYear!.length > 0 && (
+                        Object.keys(groupedArray).map((key, j) => {
+                          const projects = groupedArray[key];
+                          const uniqueColorNumber = (project: Project) => uniqueTypes.findIndex(type => type === project.type);
 
-                              return (
-                                <ProjectGroupCard
-                                  key={j}
-                                  projectsAndColors={projectAndColors}
-                                />
-                              );
-                            }
-                          })}
-                        </React.Fragment>
-                      ) : (
-                        <></>
+                          if (projects.length === 1) {
+                            return (
+                              <ProjectCard
+                                key={j}
+                                project={projects[0]}
+                                uniqueColorNumber={uniqueColorNumber(projects[0])}
+                              />
+                            );
+                          }
+
+                          const projectAndColors = projects.map(project => ({
+                            project,
+                            uniqueColorNumber: uniqueColorNumber(project),
+                          }));
+
+                          return (
+                            <ProjectGroupCard
+                              key={j}
+                              projectsAndColors={projectAndColors}
+                            />
+                          );
+                        })
                       )}
                     </React.Fragment>
                   );

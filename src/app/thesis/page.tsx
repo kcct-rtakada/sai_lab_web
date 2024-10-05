@@ -113,48 +113,35 @@ export default async function Thesis() {
   };
 
   return (
-    <React.Fragment>
-      <div className={styles.main}>
-        {generateWebsiteStructure(pageMeta)}
-        <Title color1="#63b0ce" color2="#683bb1">
-          学位論文
-        </Title>
-        <YearListSidebar pageName="学位論文" years={uniqueYears} />
-        <div className={styles.list_box}>
-          <div className={styles.result_box}>
-            {uniqueYears.map((year, i) => {
-              const matchedDataWithYear = sortedConferencePapers?.filter(
-                (item) => {
-                  const japanTime = ConvertToJST(item.date);
-                  // 年度を計算
-                  return CalcFiscalYear(japanTime) === year;
-                }
-              );
-
-              const types = [
-                { name: "学士（専攻科特別研究論文）", filter: ["専攻科特別研究論文"], items: matchedDataWithYear, func: displayingThesis },
-                { name: "準学士（本科卒業論文）", filter: ["本科卒業論文"], items: matchedDataWithYear, func: displayingThesis },
-              ];
-
-              return (
-                <React.Fragment key={i}>
-                  <h2 key={i} id={String(year)}>
-                    {year}年度
-                  </h2>
-                  {
-                    types.map((type, typeNum) => {
-                      const matchedItem = filterItems(type.items, type.filter);
-                      if (matchedItem.length > 0) {
-                        return <React.Fragment key={typeNum}>{type.func(type.name, matchedItem)}</React.Fragment>;
-                      } else return <React.Fragment key={typeNum} />;
-                    })
-                  }
-                </React.Fragment>
-              );
-            })}
-          </div>
+    <div className={styles.main}>
+      {generateWebsiteStructure(pageMeta)}
+      <Title color1="#63b0ce" color2="#683bb1">学位論文</Title>
+      <YearListSidebar pageName="学位論文" years={uniqueYears} />
+      <div className={styles.list_box}>
+        <div className={styles.result_box}>
+          {uniqueYears.map((year, i) => {
+            const filters = [
+              { name: "学士（専攻科特別研究論文）", keyword: "専攻科特別研究論文", func: displayingThesis },
+              { name: "準学士（本科卒業論文）", keyword: "本科卒業論文", func: displayingThesis },
+            ];
+  
+            return (
+              <React.Fragment key={i}>
+                <h2 id={String(year)}>{year}年度</h2>
+                {filters.map(({ name, keyword, func }, typeNum) => {
+                  const matchedItems = sortedConferencePapers.filter(item =>
+                    CalcFiscalYear(ConvertToJST(item.date)) === year &&
+                    item.classification.toLowerCase().includes(keyword.toLowerCase())
+                  );
+                  return matchedItems.length > 0 ? (
+                    <React.Fragment key={typeNum}>{func(name, matchedItems)}</React.Fragment>
+                  ) : null;
+                })}
+              </React.Fragment>
+            );
+          })}
         </div>
       </div>
-    </React.Fragment>
+    </div>
   );
 }

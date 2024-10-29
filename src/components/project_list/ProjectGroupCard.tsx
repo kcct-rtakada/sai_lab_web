@@ -15,6 +15,7 @@ import { Project } from "@/components/DefaultStructure";
 import styles from "@/styles/app/projects/projectList.module.scss";
 import Link from "next/link";
 import { CalcFiscalYear, ConvertToJST } from "../JSTConverter";
+import getUsingPhone from "@/libs/PhoneTester";
 
 interface ProjectsAndColors {
   project: Project;
@@ -32,7 +33,7 @@ export default function ProjectGroupCard({
   const [isFolderHovered, setIsFolderHovered] = useState<boolean>(false);
   const [isFolderActive, setIsFolderActive] = useState<boolean>(false);
 
-  const isUsingPhone = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const isUsingPhone = getUsingPhone();
 
   // タグリストを生成
   const uniqueTags = Array.from(

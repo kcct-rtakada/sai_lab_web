@@ -4,6 +4,7 @@ import styles from "@/styles/components/MiniSearchArea.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
+import getUsingPhone from "@/libs/PhoneTester";
 
 export default function MiniSearchArea() {
   const [selectedSearchMode, setSelectedSearchMode] =
@@ -13,7 +14,7 @@ export default function MiniSearchArea() {
 
   // タップ/クリックの表示を切り替える
   useEffect(() => {
-    setIsUsingPhone(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+    setIsUsingPhone(getUsingPhone());
   }, []);
 
   const router = useRouter();

@@ -20,6 +20,7 @@ import Link from "next/link";
 import { Title } from "../common/SubPageLayout";
 import ErrorBlock from "../common/ErrorBlock";
 import LoadingUI from "../Loading";
+import getUsingPhone from "@/libs/PhoneTester";
 
 interface Props {
   _projects: Project[];
@@ -65,7 +66,7 @@ export default function ProjectsViewer(props: Props) {
 
   // タップ/クリックの表示を切り替え
   useEffect(() => {
-    setIsUsingPhone(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+    setIsUsingPhone(getUsingPhone());
     if (projects) {
       setLoaded(true);
 

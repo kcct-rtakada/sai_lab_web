@@ -23,6 +23,7 @@ import {
 import { Title } from "../common/SubPageLayout";
 import ErrorBlock from "../common/ErrorBlock";
 import LoadingUI from "../Loading";
+import getUsingPhone from "@/libs/PhoneTester";
 
 interface Props {
   _newsList: News[];
@@ -61,7 +62,7 @@ export default function NewsViewer(props: Props) {
 
   // タップ/クリックの表示を切り替え
   useEffect(() => {
-    setIsUsingPhone(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+    setIsUsingPhone(getUsingPhone());
     if (newsList) {
       setLoaded(true);
 

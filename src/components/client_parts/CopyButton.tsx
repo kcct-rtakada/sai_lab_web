@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import React from "react";
+import getUsingPhone from "@/libs/PhoneTester";
 
 export default function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState<boolean>(false);
@@ -10,7 +11,7 @@ export default function CopyButton({ text }: { text: string }) {
 
   useEffect(() => {
     // スマホ機種では表示させない
-    setIsUsingPhone(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+    setIsUsingPhone(getUsingPhone());
   }, []);
 
   const copyText = async (text: string) => {

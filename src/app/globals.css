@@ -1,7 +1,8 @@
 * {
   color-scheme: light;
   line-height: 1.5;
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
 }
 
 html {
@@ -59,7 +60,7 @@ body main *:hover {
 }
 
 body main *::-webkit-scrollbar {
-  width: .2rem;
+  width: 0.2rem;
 }
 
 body main *::-webkit-scrollbar-track {
@@ -70,7 +71,6 @@ body main *::-webkit-scrollbar-thumb {
   background-color: #888;
   border-radius: 2rem;
 }
-
 
 body main *::-webkit-scrollbar-thumb:hover {
   background-color: #777;
@@ -113,22 +113,21 @@ body main *::-webkit-scrollbar-thumb:hover {
   background-color: rgb(240, 48, 48) !important;
 }
 
-
 .loading {
   width: min(30vw, 30vh);
   height: min(30vw, 30vh);
   background-color: rgb(253, 253, 253);
   margin: 2rem auto 0 auto;
   position: relative;
-  border-radius: min(.7vw, .7vh);
-  -webkit-border-radius: min(.7vw, .7vh);
-  -moz-border-radius: min(.7vw, .7vh);
-  -ms-border-radius: min(.7vw, .7vh);
-  -o-border-radius: min(.7vw, .7vh);
+  border-radius: min(0.7vw, 0.7vh);
+  -webkit-border-radius: min(0.7vw, 0.7vh);
+  -moz-border-radius: min(0.7vw, 0.7vh);
+  -ms-border-radius: min(0.7vw, 0.7vh);
+  -o-border-radius: min(0.7vw, 0.7vh);
 }
 
 .loading::before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   top: min(11.5vw, 11.5vh);
@@ -136,16 +135,16 @@ body main *::-webkit-scrollbar-thumb:hover {
   width: min(20vw, 20vh);
   height: min(5.5vw, 5.5vh);
   background-color: rgba(253, 253, 253, 0.75);
-  border-radius: min(.7vw, .7vh);
+  border-radius: min(0.7vw, 0.7vh);
   z-index: 450;
-  -webkit-border-radius: min(.7vw, .7vh);
-  -moz-border-radius: min(.7vw, .7vh);
-  -ms-border-radius: min(.7vw, .7vh);
-  -o-border-radius: min(.7vw, .7vh);
+  -webkit-border-radius: min(0.7vw, 0.7vh);
+  -moz-border-radius: min(0.7vw, 0.7vh);
+  -ms-border-radius: min(0.7vw, 0.7vh);
+  -o-border-radius: min(0.7vw, 0.7vh);
 }
 
 .loading::after {
-  content: "Loading...";
+  content: 'Loading...';
   color: rgb(75, 75, 75);
   font-weight: bold;
   font-size: min(4vw, 4vh);
@@ -155,29 +154,29 @@ body main *::-webkit-scrollbar-thumb:hover {
   z-index: 500;
 }
 
-.loading>span {
+.loading > span {
   width: min(3vw, 3vh);
   height: min(3vw, 3vh);
   display: block;
   position: absolute;
-  border-radius: min(.7vw, .7vh);
+  border-radius: min(0.7vw, 0.7vh);
   animation-name: load_1;
   animation-fill-mode: both;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   animation-direction: normal;
   transform: rotateZ(0deg);
-  -webkit-border-radius: min(.7vw, .7vh);
-  -moz-border-radius: min(.7vw, .7vh);
-  -ms-border-radius: min(.7vw, .7vh);
-  -o-border-radius: min(.7vw, .7vh);
+  -webkit-border-radius: min(0.7vw, 0.7vh);
+  -moz-border-radius: min(0.7vw, 0.7vh);
+  -ms-border-radius: min(0.7vw, 0.7vh);
+  -o-border-radius: min(0.7vw, 0.7vh);
   -webkit-transform: rotateZ(0deg);
   -moz-transform: rotateZ(0deg);
   -ms-transform: rotateZ(0deg);
   -o-transform: rotateZ(0deg);
 }
 
-.loading>.load_1 {
+.loading > .load_1 {
   top: 0;
   left: 0;
   background-color: rgb(90, 74, 230);
@@ -185,14 +184,13 @@ body main *::-webkit-scrollbar-thumb:hover {
   animation-delay: 0s;
 }
 
-.loading>.load_2 {
+.loading > .load_2 {
   top: min(27vw, 27vh);
   left: min(27vw, 27vh);
   background-color: rgb(230, 97, 74);
   animation-duration: 4s;
   animation-delay: -1.46s;
   animation-direction: reverse;
-
 }
 
 @keyframes load_1 {

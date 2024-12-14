@@ -1,33 +1,27 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { Project } from "../DefaultStructure";
-import styles from "@/styles/app/projects/project.module.scss";
-import MiniSearchArea from "@/components/client_parts/MiniSearchArea";
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTag, faUser, faBookOpen } from "@fortawesome/free-solid-svg-icons";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { faTag, faUser, faBookOpen } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
+import MiniSearchArea from '@/components/client_parts/MiniSearchArea';
+import styles from '@/styles/app/projects/project.module.scss';
+import { Project } from '../DefaultStructure';
 
-export default function ProjectRightSidebar({
-  filteredProjects,
-}: {
-  filteredProjects: Project[];
-}) {
-  const [displayingNum, setDisplayingNum] = useState<number>(
-    filteredProjects.length > 4 ? 4 : filteredProjects.length
-  );
+export default function ProjectRightSidebar({ filteredProjects }: { filteredProjects: Project[] }) {
+  const [displayingNum, setDisplayingNum] = useState<number>(filteredProjects.length > 4 ? 4 : filteredProjects.length);
   const [scrollbarWidth, setScrollbarWidth] = useState<number>(0);
   const [scrollbarAppeared, setScrollbarAppeared] = useState<boolean>(false);
 
   useEffect(() => {
     // スクロールバーの幅を実際に要素を生成して算出する
     function getScrollbarWidth() {
-      const outer = document.createElement("div");
-      outer.style.visibility = "hidden";
-      outer.style.overflow = "scroll";
+      const outer = document.createElement('div');
+      outer.style.visibility = 'hidden';
+      outer.style.overflow = 'scroll';
 
       document.body.appendChild(outer);
 
-      const inner = document.createElement("div");
+      const inner = document.createElement('div');
       outer.appendChild(inner);
 
       const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
@@ -42,7 +36,7 @@ export default function ProjectRightSidebar({
       const width = getScrollbarWidth();
       setScrollbarWidth(width);
 
-      const outerDiv = document.getElementById("top_main");
+      const outerDiv = document.getElementById('top_main');
       if (outerDiv) {
         const scrollbarVisible = outerDiv.scrollHeight > outerDiv.clientHeight;
         setScrollbarAppeared(scrollbarVisible);
@@ -51,19 +45,15 @@ export default function ProjectRightSidebar({
 
     updateScrollbarWidth();
 
-    window.addEventListener("resize", updateScrollbarWidth);
+    window.addEventListener('resize', updateScrollbarWidth);
 
     return () => {
-      window.removeEventListener("resize", updateScrollbarWidth);
+      window.removeEventListener('resize', updateScrollbarWidth);
     };
   }, []);
 
   const addDisplayingNum = () => {
-    setDisplayingNum(
-      displayingNum + 4 <= filteredProjects.length
-        ? displayingNum + 4
-        : filteredProjects.length
-    );
+    setDisplayingNum(displayingNum + 4 <= filteredProjects.length ? displayingNum + 4 : filteredProjects.length);
   };
 
   return (
@@ -71,7 +61,7 @@ export default function ProjectRightSidebar({
     <div
       className={`${styles.r_sidebar}`}
       style={{ right: `${scrollbarAppeared ? scrollbarWidth : 0}px` }}
-      id="r_sidebar"
+      id='r_sidebar'
     >
       <div className={styles.side_content_area}>
         <p className={styles.section_title}>プロジェクト検索</p>
@@ -79,33 +69,28 @@ export default function ProjectRightSidebar({
         {filteredProjects.length > 0 ? (
           // propsから関連プロジェクトの配列をそのまま表示
           <React.Fragment>
-            <p className={styles.section_title}>
-              関連プロジェクト({filteredProjects.length}件)
-            </p>
+            <p className={styles.section_title}>関連プロジェクト({filteredProjects.length}件)</p>
             <ul className={styles.r_projects}>
               {filteredProjects.slice(0, displayingNum).map((item, i) => (
                 <li key={i}>
                   <Link
                     href={`/project/${item.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target='_blank'
+                    rel='noopener noreferrer'
                     className={styles.r_project_link}
                   >
                     <div className={styles.r_project}>
                       <div className={styles.title}>{item.title}</div>
                       <div className={styles.authors}>
                         {item.authors.map((author, k) => (
-                          <span
-                            className={styles.author}
-                            key={`dProjAuthor${k}`}
-                          >
+                          <span className={styles.author} key={`dProjAuthor${k}`}>
                             <div>
                               <FontAwesomeIcon
                                 icon={faUser}
                                 style={{
-                                  color: "#222",
-                                  fontSize: "0.8rem",
-                                  width: "0.8rem",
+                                  color: '#222',
+                                  fontSize: '0.8rem',
+                                  width: '0.8rem',
                                 }}
                               />
                             </div>
@@ -120,9 +105,9 @@ export default function ProjectRightSidebar({
                               <FontAwesomeIcon
                                 icon={faTag}
                                 style={{
-                                  color: "#8a8a8a",
-                                  fontSize: "0.8rem",
-                                  width: "0.8rem",
+                                  color: '#8a8a8a',
+                                  fontSize: '0.8rem',
+                                  width: '0.8rem',
                                 }}
                               />
                               {tag.name}
@@ -137,10 +122,10 @@ export default function ProjectRightSidebar({
                           <FontAwesomeIcon
                             icon={faBookOpen}
                             style={{
-                              color: "#222",
-                              fontSize: "0.7rem",
-                              width: "0.7rem",
-                              display: "inline-block",
+                              color: '#222',
+                              fontSize: '0.7rem',
+                              width: '0.7rem',
+                              display: 'inline-block',
                             }}
                           />
                         </div>
@@ -148,9 +133,7 @@ export default function ProjectRightSidebar({
                           {`${item.bookTitle ? `${item.bookTitle}` : ``}${
                             item.volume ? `, Vol.${item.volume}` : ``
                           }${item.number ? `, ${item.number}` : ``}${
-                            item.pageStart && item.pageEnd
-                              ? `, pp.${item.pageStart}-${item.pageEnd}`
-                              : ``
+                            item.pageStart && item.pageEnd ? `, pp.${item.pageStart}-${item.pageEnd}` : ``
                           }`}
                         </p>
                       </div>

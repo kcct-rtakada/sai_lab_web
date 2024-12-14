@@ -1,19 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import { News } from "@/components/DefaultStructure";
-import styles from "@/styles/app/news/news.module.scss";
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendar } from "@fortawesome/free-solid-svg-icons";
-import parse from "html-react-parser";
-import SEO from "@/components/common/SEO";
-import { cache } from "react";
-import { fetchNews } from "@/components/GASFetch";
-import {
-  ConvertToJST,
-  DisplayDefaultDateString,
-} from "@/components/JSTConverter";
-import { getJsonLd, getJsonLdScript } from "@/components/common/JsonLd";
-import { notFound } from "next/navigation";
+import { cache } from 'react';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import parse from 'html-react-parser';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { News } from '@/components/DefaultStructure';
+import { fetchNews } from '@/components/GASFetch';
+import { ConvertToJST, DisplayDefaultDateString } from '@/components/JSTConverter';
+import { getJsonLd, getJsonLdScript } from '@/components/common/JsonLd';
+import SEO from '@/components/common/SEO';
+import styles from '@/styles/app/news/news.module.scss';
 
 // ニュース取得・一致判定を行う
 const getNews = cache(async (slug: string) => {
@@ -26,33 +23,33 @@ const getNews = cache(async (slug: string) => {
   return news;
 });
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export async function generateMetadata({ params }: { params: { slug: string } }) {
   const news = await getNews(params.slug);
   const japanTime = ConvertToJST(news.date);
-  const plainText = news.article.replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll("\\n+", " ")
+  const plainText = news.article.replaceAll(/<\/?[^>]+(>|$)/g, '').replaceAll('\\n+', ' ');
 
   // 日付のmetaにのせる
   return SEO({
     title: news.title,
-    description: `${plainText.length > 100 ? plainText.substring(0, 99) + "..." : plainText}(${DisplayDefaultDateString(
-      japanTime
+    description: `${plainText.length > 100 ? plainText.substring(0, 99) + '...' : plainText}(${DisplayDefaultDateString(
+      japanTime,
     )})`,
     url: `/news/${params.slug}`,
     imageUrl: undefined,
   });
-
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const news = await getNews(params.slug);
 
   const japanTime = ConvertToJST(news.date);
-  const plainText = news.article.replaceAll(/<\/?[^>]+(>|$)/g, "").replaceAll("\\n+", " ")
-  const jsonLd = getJsonLd(true, `${news.title}`, plainText.length > 100 ? plainText.substring(0, 99) + "..." : plainText, `/news/${news.id}`)
+  const plainText = news.article.replaceAll(/<\/?[^>]+(>|$)/g, '').replaceAll('\\n+', ' ');
+  const jsonLd = getJsonLd(
+    true,
+    `${news.title}`,
+    plainText.length > 100 ? plainText.substring(0, 99) + '...' : plainText,
+    `/news/${news.id}`,
+  );
 
   return (
     <>
@@ -65,27 +62,21 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <FontAwesomeIcon
                 icon={faCalendar}
                 style={{
-                  display: "inline-block",
-                  marginRight: ".3rem",
-                  fontSize: "1rem",
-                  width: "1rem",
+                  display: 'inline-block',
+                  marginRight: '.3rem',
+                  fontSize: '1rem',
+                  width: '1rem',
                 }}
               />
-              <time dateTime={japanTime.toISOString()}>
-                {DisplayDefaultDateString(japanTime)}
-              </time>
+              <time dateTime={japanTime.toISOString()}>{DisplayDefaultDateString(japanTime)}</time>
             </div>
           </div>
 
           <div className={styles.main_script}>
             {news.thumbnailURL ? (
               <div className={styles.thumbnail_box}>
-                <Link
-                  href={news.thumbnailURL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img src={news.thumbnailURL} alt="thumbnail" />
+                <Link href={news.thumbnailURL} target='_blank' rel='noopener noreferrer'>
+                  <img src={news.thumbnailURL} alt='thumbnail' />
                 </Link>
               </div>
             ) : (
@@ -105,12 +96,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 <h2 className={styles.section_name}>Images</h2>
                 <div className={styles.images_box}>
                   {news.additionalImageURL.map((item, j) => (
-                    <Link
-                      href={`${item.name}`}
-                      key={j}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <Link href={`${item.name}`} key={j} target='_blank' rel='noopener noreferrer'>
                       <div className={styles.image} key={j}>
                         <img src={item.name} key={j} alt={`img_${j}`} />
                       </div>
@@ -127,11 +113,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 <ul className={styles.links}>
                   {news.links.map((link, j) => (
                     <li key={j}>
-                      <Link
-                        href={link.name}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
+                      <Link href={link.name} target='_blank' rel='noopener noreferrer'>
                         {link.name}
                       </Link>
                     </li>

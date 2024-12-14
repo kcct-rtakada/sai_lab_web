@@ -1,5 +1,5 @@
-@import "../../global/responsive.scss";
-@import "../../global/variables.scss";
+@import '../../global/responsive.scss';
+@import '../../global/variables.scss';
 
 .main {
   padding-top: 0;
@@ -142,7 +142,7 @@
           -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem $c-sort_year_shadow);
         }
 
-        &>p {
+        & > p {
           font-size: 1.1rem;
           text-align: left;
           font-weight: bold;
@@ -165,7 +165,7 @@
 
           &::after {
             position: absolute;
-            content: "";
+            content: '';
             width: 0.5rem;
             height: 0.5rem;
             border-style: solid;
@@ -369,7 +369,7 @@
 
           &::after {
             position: absolute;
-            content: "";
+            content: '';
             width: 0.5rem;
             height: 0.5rem;
             border-style: solid;
@@ -575,7 +575,7 @@
 
           &::after {
             position: absolute;
-            content: "";
+            content: '';
             width: 23rem;
             height: 12.97rem;
             border-radius: 0.25rem;
@@ -622,7 +622,7 @@
               }
             }
 
-            &>p {
+            & > p {
               font-size: 1.5rem;
               font-weight: bold;
             }

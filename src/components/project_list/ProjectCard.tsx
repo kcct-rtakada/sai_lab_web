@@ -1,22 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faBookOpen,
-  faTag,
-  faCalendar,
-} from "@fortawesome/free-solid-svg-icons";
-import { Project } from "@/components/DefaultStructure";
-import styles from "@/styles/app/projects/projectList.module.scss";
-import Link from "next/link";
-import { CalcFiscalYear, ConvertToJST } from "../JSTConverter";
-export default function ProjectCard({
-  project,
-  uniqueColorNumber,
-}: {
-  project: Project;
-  uniqueColorNumber: number;
-}) {
+import { faUser, faBookOpen, faTag, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
+import { Project } from '@/components/DefaultStructure';
+import styles from '@/styles/app/projects/projectList.module.scss';
+import { CalcFiscalYear, ConvertToJST } from '../JSTConverter';
+export default function ProjectCard({ project, uniqueColorNumber }: { project: Project; uniqueColorNumber: number }) {
   const japanTime = ConvertToJST(project.date);
   return (
     <Link href={`/project/${project.id}`} className={styles.project_link}>
@@ -24,19 +13,9 @@ export default function ProjectCard({
         <div className={styles.thumbnail_box}>
           {/* 画像がない場合はデフォルト画像 */}
           {project.thumbnailURL ? (
-            <img
-              src={project.thumbnailURL}
-              alt="thumbnail"
-              className={styles.thumbnail}
-              loading="lazy"
-            />
+            <img src={project.thumbnailURL} alt='thumbnail' className={styles.thumbnail} loading='lazy' />
           ) : (
-            <img
-              src="/sai_default_thumbnail.webp"
-              alt="thumbnail"
-              className={styles.thumbnail}
-              loading="lazy"
-            />
+            <img src='/sai_default_thumbnail.webp' alt='thumbnail' className={styles.thumbnail} loading='lazy' />
           )}
         </div>
         {project.type ? (
@@ -47,7 +26,7 @@ export default function ProjectCard({
           <></>
         )}
         <div className={styles.date}>
-          <FontAwesomeIcon icon={faCalendar} style={{ marginRight: ".3rem" }} />
+          <FontAwesomeIcon icon={faCalendar} style={{ marginRight: '.3rem' }} />
           {`${CalcFiscalYear(japanTime)}年度`}
         </div>
         <div className={styles.description_area}>
@@ -56,7 +35,7 @@ export default function ProjectCard({
             {project.authors.map((author, k) => (
               <span className={styles.author} key={`dProjAuthor${k}`}>
                 <div>
-                  <FontAwesomeIcon icon={faUser} style={{ color: "#222" }} />
+                  <FontAwesomeIcon icon={faUser} style={{ color: '#222' }} />
                 </div>
                 <p>{author.name}</p>
               </span>
@@ -66,7 +45,7 @@ export default function ProjectCard({
             <div className={styles.tags}>
               {project.tags.map((tag, k) => (
                 <span key={`dProjTag${k}`}>
-                  <FontAwesomeIcon icon={faTag} style={{ color: "#8a8a8a" }} />
+                  <FontAwesomeIcon icon={faTag} style={{ color: '#8a8a8a' }} />
                   {tag.name}
                 </span>
               ))}
@@ -76,16 +55,14 @@ export default function ProjectCard({
           )}
           <div className={styles.book}>
             <div>
-              <FontAwesomeIcon icon={faBookOpen} style={{ color: "#222" }} />
+              <FontAwesomeIcon icon={faBookOpen} style={{ color: '#222' }} />
             </div>
             <p>
               {/* 手動で形成する */}
               {`${project.bookTitle ? `${project.bookTitle}` : ``}${
                 project.volume ? `, Vol.${project.volume}` : ``
               }${project.number ? `, ${project.number}` : ``}${
-                project.pageStart && project.pageEnd
-                  ? `, pp.${project.pageStart}-${project.pageEnd}`
-                  : ``
+                project.pageStart && project.pageEnd ? `, pp.${project.pageStart}-${project.pageEnd}` : ``
               }`}
             </p>
           </div>

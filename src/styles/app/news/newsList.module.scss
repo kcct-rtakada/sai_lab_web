@@ -1,5 +1,5 @@
-@import "../../global/responsive.scss";
-@import "../../global/variables.scss";
+@import '../../global/responsive.scss';
+@import '../../global/variables.scss';
 
 .main {
   padding-top: 0;
@@ -115,11 +115,7 @@
         position: absolute;
         top: 0;
         left: 0rem;
-        background-image: linear-gradient(
-          to bottom right,
-          $c-sort_year_bg_from,
-          $c-sort_year_bg_to
-        );
+        background-image: linear-gradient(to bottom right, $c-sort_year_bg_from, $c-sort_year_bg_to);
         z-index: 15000;
         padding: 1rem;
         justify-content: left;
@@ -172,7 +168,7 @@
 
           &::after {
             position: absolute;
-            content: "";
+            content: '';
             width: 0.5rem;
             height: 0.5rem;
             border-style: solid;
@@ -376,7 +372,7 @@
 
           &::after {
             position: absolute;
-            content: "";
+            content: '';
             width: 0.5rem;
             height: 0.5rem;
             border-style: solid;
@@ -552,7 +548,7 @@
 
           &::after {
             position: absolute;
-            content: "";
+            content: '';
             width: 100%;
             height: 100%;
             border-radius: 0.25rem;
@@ -584,11 +580,7 @@
             text-align: center;
             display: flex;
             flex-direction: column;
-            background-image: linear-gradient(
-              to bottom right,
-              #e9fffc,
-              #d3f1f7
-            );
+            background-image: linear-gradient(to bottom right, #e9fffc, #d3f1f7);
 
             &::after {
               display: none;
@@ -600,9 +592,7 @@
 
             &:hover {
               filter: drop-shadow(0.1rem 0.1rem 0.2rem #e4e4e4);
-              -webkit-filter: drop-shadow(
-                0.1rem 0.1rem 0.2rem #e4e4e4
-              );
+              -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem #e4e4e4);
 
               @include mqUp(sm) {
                 filter: none;
@@ -618,9 +608,7 @@
 
           &:hover {
             filter: drop-shadow(0.1rem 0.1rem 0.5rem #e4e4e4);
-            -webkit-filter: drop-shadow(
-              0.1rem 0.1rem 0.5rem #e4e4e4
-            );
+            -webkit-filter: drop-shadow(0.1rem 0.1rem 0.5rem #e4e4e4);
             @include mqUp(sm) {
               filter: none;
               -webkit-filter: none;
@@ -638,11 +626,7 @@
           .thumbnail_box {
             width: 14.2rem;
             height: 8rem;
-            background-image: linear-gradient(
-              to bottom right,
-              #fffbf6,
-              #fdfdfd
-            );
+            background-image: linear-gradient(to bottom right, #fffbf6, #fdfdfd);
             position: relative;
             overflow: hidden;
             user-select: none;

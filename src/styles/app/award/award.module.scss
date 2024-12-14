@@ -1,5 +1,5 @@
-@import "../../global/responsive.scss";
-@import "../../global/variables.scss";
+@import '../../global/responsive.scss';
+@import '../../global/variables.scss';
 
 .main {
   padding-top: 0;
@@ -46,7 +46,7 @@
         position: absolute;
         bottom: 0em;
         left: 0;
-        content: "";
+        content: '';
         width: 100%;
         height: 2px;
         background: $c-base_link_text;
@@ -91,11 +91,7 @@
         position: relative;
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
-        background-image: linear-gradient(
-          to right,
-          $c-base_section_bg_from,
-          $c-base_section_bg_to
-        );
+        background-image: linear-gradient(to right, $c-base_section_bg_from, $c-base_section_bg_to);
 
         @include mqUp(xl) {
           scroll-margin-top: 5rem;
@@ -108,12 +104,8 @@
           position: absolute;
           bottom: 0rem;
           left: 0rem;
-          content: "";
-          background-image: linear-gradient(
-            to bottom right,
-            $c-base_section_bar_from,
-            $c-base_section_bar_to
-          );
+          content: '';
+          background-image: linear-gradient(to bottom right, $c-base_section_bar_from, $c-base_section_bar_to);
         }
       }
     }

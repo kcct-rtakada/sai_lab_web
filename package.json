@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint --ext .ts,.js,.tsx .",
+    "lint:fix": "eslint --ext .ts,.js,.tsx . --fix",
+    "fmt": "prettier . --write",
+    "check": "eslint --ext .ts,.js,.tsx . && prettier . --check"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
@@ -33,8 +36,11 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@types/rss": "^0.0.32",
-    "eslint": "^9.9.0",
+    "eslint": "^8.57.1",
     "eslint-config-next": "14.2.5",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.9",
     "typescript": "^5.5.4"
   }
 }

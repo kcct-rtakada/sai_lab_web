@@ -1,9 +1,9 @@
-"use client";
-import React, { useState } from "react";
-import styles from "@/styles/components/Header.module.scss";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+'use client';
+import React, { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import styles from '@/styles/components/Header.module.scss';
 
 export default function Header() {
   const [isOpening, setIsOpening] = useState<boolean>(false);
@@ -15,16 +15,10 @@ export default function Header() {
       <nav className={styles.fixed_header}>
         <div className={styles.header_contents}>
           <div className={styles.icon_box}>
-            {path != "/" ? (
+            {path != '/' ? (
               // 通常遷移
-              <Link onClick={() => setIsOpening(false)} href="/">
-                <Image
-                  src="/sai_logo.png"
-                  alt="SAI LOGO"
-                  fill
-                  sizes="4rem"
-                  priority={false}
-                />
+              <Link onClick={() => setIsOpening(false)} href='/'>
+                <Image src='/sai_logo.png' alt='SAI LOGO' fill sizes='4rem' priority={false} />
                 <div className={styles.top_text_box}>
                   <div>
                     <p>
@@ -37,14 +31,8 @@ export default function Header() {
               </Link>
             ) : (
               // リロードさせる
-              <a href="/">
-                <Image
-                  src="/sai_logo.png"
-                  alt="SAI LOGO"
-                  fill
-                  sizes="4rem"
-                  priority={false}
-                />
+              <a href='/'>
+                <Image src='/sai_logo.png' alt='SAI LOGO' fill sizes='4rem' priority={false} />
                 <div className={styles.top_text_box}>
                   <div>
                     <p>
@@ -59,17 +47,12 @@ export default function Header() {
           </div>
           <input
             onChange={() => setIsOpening(!isOpening)}
-            type="checkbox"
-            id="hamburger"
+            type='checkbox'
+            id='hamburger'
             className={styles.hamburger}
-            style={{ display: "none" }}
+            style={{ display: 'none' }}
           />
-          <label
-            htmlFor="hamburger"
-            className={`${styles.hamburger_button} ${
-              isOpening ? styles.opening : ""
-            }`}
-          >
+          <label htmlFor='hamburger' className={`${styles.hamburger_button} ${isOpening ? styles.opening : ''}`}>
             {/* ハンバーガーメニュー */}
             <div>
               <span />
@@ -77,13 +60,11 @@ export default function Header() {
               <span />
             </div>
           </label>
-          <div
-            className={`${styles.link_box} ${isOpening ? styles.opening : ""}`}
-          >
+          <div className={`${styles.link_box} ${isOpening ? styles.opening : ''}`}>
             <ul>
-              {path !== "/news" ? (
+              {path !== '/news' ? (
                 <li>
-                  <Link onClick={() => setIsOpening(false)} href="/news">
+                  <Link onClick={() => setIsOpening(false)} href='/news'>
                     ニュース
                   </Link>
                 </li>
@@ -92,10 +73,10 @@ export default function Header() {
                   <p>ニュース</p>
                 </li>
               )}
-              {path !== "/member" ? (
+              {path !== '/member' ? (
                 <li>
-                  <Link onClick={() => setIsOpening(false)} href="/member">
-                    メンバー{" "}
+                  <Link onClick={() => setIsOpening(false)} href='/member'>
+                    メンバー{' '}
                   </Link>
                 </li>
               ) : (
@@ -103,9 +84,9 @@ export default function Header() {
                   <p>メンバー</p>
                 </li>
               )}
-              {path !== "/project" ? (
+              {path !== '/project' ? (
                 <li>
-                  <Link onClick={() => setIsOpening(false)} href="/project">
+                  <Link onClick={() => setIsOpening(false)} href='/project'>
                     プロジェクト
                   </Link>
                 </li>
@@ -114,9 +95,9 @@ export default function Header() {
                   <p>プロジェクト</p>
                 </li>
               )}
-              {path !== "/publication" ? (
+              {path !== '/publication' ? (
                 <li>
-                  <Link onClick={() => setIsOpening(false)} href="/publication">
+                  <Link onClick={() => setIsOpening(false)} href='/publication'>
                     研究業績
                   </Link>
                 </li>
@@ -125,9 +106,9 @@ export default function Header() {
                   <p>研究業績</p>
                 </li>
               )}
-              {path !== "/thesis" ? (
+              {path !== '/thesis' ? (
                 <li>
-                  <Link onClick={() => setIsOpening(false)} href="/thesis">
+                  <Link onClick={() => setIsOpening(false)} href='/thesis'>
                     学位論文
                   </Link>
                 </li>
@@ -136,9 +117,9 @@ export default function Header() {
                   <p>学位論文</p>
                 </li>
               )}
-              {path !== "/award" ? (
+              {path !== '/award' ? (
                 <li>
-                  <Link onClick={() => setIsOpening(false)} href="/award">
+                  <Link onClick={() => setIsOpening(false)} href='/award'>
                     表彰
                   </Link>
                 </li>
@@ -147,9 +128,9 @@ export default function Header() {
                   <p>表彰</p>
                 </li>
               )}
-              {path !== "/contact" ? (
+              {path !== '/contact' ? (
                 <li>
-                  <Link onClick={() => setIsOpening(false)} href="/contact">
+                  <Link onClick={() => setIsOpening(false)} href='/contact'>
                     コンタクト
                   </Link>
                 </li>

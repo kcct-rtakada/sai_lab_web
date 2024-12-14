@@ -1,5 +1,5 @@
-@import "../../global/responsive.scss";
-@import "../../global/variables.scss";
+@import '../../global/responsive.scss';
+@import '../../global/variables.scss';
 
 .main {
   min-height: calc(100% - 6rem);
@@ -201,11 +201,7 @@
         z-index: 1000;
         padding-left: 1rem;
         border-radius: 0 0 0.5rem 0.5rem;
-        background-image: linear-gradient(
-          to right,
-          $c-base_section_bg_from,
-          $c-base_section_bg_to
-        );
+        background-image: linear-gradient(to right, $c-base_section_bg_from, $c-base_section_bg_to);
         -webkit-border-radius: 0 0 0.5rem 0.5rem;
         -moz-border-radius: 0 0 0.5rem 0.5rem;
         -ms-border-radius: 0 0 0.5rem 0.5rem;
@@ -222,12 +218,8 @@
           position: absolute;
           bottom: 0.25rem;
           left: 0.15rem;
-          content: "";
-          background-image: linear-gradient(
-            to bottom right,
-            $c-base_section_bar_from,
-            $c-base_section_bar_to
-          );
+          content: '';
+          background-image: linear-gradient(to bottom right, $c-base_section_bar_from, $c-base_section_bar_to);
         }
       }
 
@@ -470,7 +462,7 @@
             &::before {
               position: absolute;
               display: block;
-              content: "";
+              content: '';
               background-color: #374dc7;
               top: 0;
               left: 0;

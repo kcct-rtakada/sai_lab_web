@@ -1,0 +1,31 @@
+name: checks
+
+on: [push, pull_request]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [21.x]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Use pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Run lint check
+        run: pnpm lint
+      - name: Run fmt check
+        run: pnpm fmt --check
+      - name: Reviewdog
+        uses: reviewdog/action-eslint@v1
+        with:
+          eslint-github-check-bright: true

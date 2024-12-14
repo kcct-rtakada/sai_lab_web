@@ -1,5 +1,5 @@
-@import "../../global/responsive.scss";
-@import "../../global/variables.scss";
+@import '../../global/responsive.scss';
+@import '../../global/variables.scss';
 
 .main {
   padding-top: 0;
@@ -34,11 +34,7 @@
         font-size: 1.4rem;
         font-weight: bold;
         margin-bottom: 1.5rem;
-        background-image: linear-gradient(
-          to bottom right,
-          #dcf1ff,
-          #eae8ff
-        );
+        background-image: linear-gradient(to bottom right, #dcf1ff, #eae8ff);
         padding: 0.2rem 1rem;
         border-radius: 0.3rem;
         -webkit-border-radius: 0.3rem;
@@ -57,11 +53,7 @@
       }
 
       .member {
-        background-image: linear-gradient(
-          to right,
-          #fdfdfd,
-          #f8feff
-        );
+        background-image: linear-gradient(to right, #fdfdfd, #f8feff);
         filter: drop-shadow(0.1rem 0.1rem 0.2rem rgb(228, 228, 228));
         margin-bottom: 1rem;
         border-radius: 0.3rem;

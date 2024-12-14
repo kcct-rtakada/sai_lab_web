@@ -1,4 +1,4 @@
-@import "../global/variables.scss";
+@import '../global/variables.scss';
 
 .scrollToTopButton {
   position: fixed;
@@ -59,7 +59,7 @@
     display: block;
     width: 1rem;
     height: 1rem;
-    content: "";
+    content: '';
     border-style: solid;
     border-width: 0.15rem 0.15rem 0 0;
     border-color: $c-scroll_top_arrow;

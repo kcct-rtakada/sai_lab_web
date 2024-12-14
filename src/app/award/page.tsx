@@ -1,22 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
-import styles from "@/styles/app/award/award.module.scss";
-import Link from "next/link";
-import SEO from "@/components/common/SEO";
-import YearListSidebar from "@/components/client_parts/YearListSidebar";
-import React from "react";
-import { fetchAwards } from "@/components/GASFetch";
-import { CalcFiscalYear, ConvertToJST, DisplayDefaultDateString } from "@/components/JSTConverter";
-import { generateWebsiteStructure } from "@/components/common/JsonLd";
-import { PageMetadata } from "@/components/PageMetadata";
-import { Title } from "@/components/common/SubPageLayout";
+import React from 'react';
+import Link from 'next/link';
+import { fetchAwards } from '@/components/GASFetch';
+import { CalcFiscalYear, ConvertToJST, DisplayDefaultDateString } from '@/components/JSTConverter';
+import { PageMetadata } from '@/components/PageMetadata';
+import YearListSidebar from '@/components/client_parts/YearListSidebar';
+import { generateWebsiteStructure } from '@/components/common/JsonLd';
+import SEO from '@/components/common/SEO';
+import { Title } from '@/components/common/SubPageLayout';
+import styles from '@/styles/app/award/award.module.scss';
 
 const pageMeta: PageMetadata = {
   isArticle: false,
-  title: "Award",
-  description: "SAI (髙田研究室)での表彰",
+  title: 'Award',
+  description: 'SAI (髙田研究室)での表彰',
   url: `/award`,
   imageUrl: undefined,
-}
+};
 
 export async function generateMetadata() {
   return SEO({
@@ -38,18 +38,18 @@ export default async function DisplayAward() {
           const japanTime = ConvertToJST(item.date);
           return CalcFiscalYear(japanTime);
         })
-        .sort((a, b) => b - a)
-    )
+        .sort((a, b) => b - a),
+    ),
   );
 
   return (
     <React.Fragment>
       <div className={styles.main}>
         {generateWebsiteStructure(pageMeta)}
-        <Title color1="#a153eb" color2="#e660b2">
+        <Title color1='#a153eb' color2='#e660b2'>
           表彰
         </Title>
-        <YearListSidebar pageName="表彰" years={uniqueYears} />
+        <YearListSidebar pageName='表彰' years={uniqueYears} />
         <div className={styles.list_box}>
           <div className={styles.result_box}>
             {uniqueYears.map((year, i) => {
@@ -73,17 +73,14 @@ export default async function DisplayAward() {
                       return (
                         <li key={j}>
                           {award.link ? (
-                            <Link
-                              href={award.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >{`${award.organization ? `${award.organization}` : ``
-                              }${award.competition ? `, ${award.competition}` : ``
-                              }, ${award.award}, ${award.person
-                              } (${displayDate})`}</Link>
+                            <Link href={award.link} target='_blank' rel='noopener noreferrer'>{`${
+                              award.organization ? `${award.organization}` : ``
+                            }${award.competition ? `, ${award.competition}` : ``}, ${award.award}, ${
+                              award.person
+                            } (${displayDate})`}</Link>
                           ) : (
-                            `${award.organization ? `${award.organization}` : ``
-                            }${award.competition ? `, ${award.competition}` : ``
+                            `${award.organization ? `${award.organization}` : ``}${
+                              award.competition ? `, ${award.competition}` : ``
                             }, ${award.award}, ${award.person} (${displayDate})`
                           )}
                         </li>

@@ -1,8 +1,8 @@
-import SEO from "@/components/common/SEO";
-import HomeContent from "@/components/client_page/HomeContent";
-import { fetchNews } from "@/components/GASFetch";
-import { generateWebsiteStructure } from "@/components/common/JsonLd";
-import { PageMetadata } from "@/components/PageMetadata";
+import { fetchNews } from '@/components/GASFetch';
+import { PageMetadata } from '@/components/PageMetadata';
+import HomeContent from '@/components/client_page/HomeContent';
+import { generateWebsiteStructure } from '@/components/common/JsonLd';
+import SEO from '@/components/common/SEO';
 
 const pageMeta: PageMetadata = {
   isArticle: false,
@@ -10,7 +10,7 @@ const pageMeta: PageMetadata = {
   description: undefined,
   url: undefined,
   imageUrl: undefined,
-}
+};
 
 export async function generateMetadata() {
   return SEO({
@@ -25,8 +25,10 @@ export async function generateMetadata() {
 export default async function Home() {
   const newsList = await fetchNews();
   // クライアントコンポーネントにより描画
-  return <>
-    {generateWebsiteStructure(pageMeta)}
-    <HomeContent newsList={newsList} />
-  </>;
+  return (
+    <>
+      {generateWebsiteStructure(pageMeta)}
+      <HomeContent newsList={newsList} />
+    </>
+  );
 }

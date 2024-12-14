@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import styles from "@/styles/components/GameCanvas.module.scss";
+import { useState, useEffect, useRef } from 'react';
+import styles from '@/styles/components/GameCanvas.module.scss';
 
 interface Vec2D {
   x: number;
@@ -38,9 +38,7 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
   const [initialized, setInitialized] = useState<boolean>(false);
   const [gameScreenSize, setGameSize] = useState<Vec2D>({ x: 1, y: 1 });
   const [isRunning, setIsRunning] = useState(false);
-  const [splashText, setSplashText] = useState<string | null>(
-    "ボタンを押して開始"
-  );
+  const [splashText, setSplashText] = useState<string | null>('ボタンを押して開始');
   const mainRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameVarRef = useRef<GameObj>({
@@ -70,53 +68,28 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
   const drawBall = (context: CanvasRenderingContext2D, ball: Ball) => {
     context.beginPath();
     context.arc(ball.pos.x, ball.pos.y, ball.radius, 0, Math.PI * 2);
-    context.fillStyle = "#444";
+    context.fillStyle = '#444';
     context.fill();
     context.closePath();
   };
 
-  const drawPaddle = (
-    context: CanvasRenderingContext2D,
-    paddle: Paddle,
-    canvas: HTMLCanvasElement
-  ) => {
+  const drawPaddle = (context: CanvasRenderingContext2D, paddle: Paddle, canvas: HTMLCanvasElement) => {
     context.beginPath();
-    context.roundRect(
-      paddle.x,
-      canvas.height - paddle.size.y,
-      paddle.size.x,
-      paddle.size.y,
-      5
-    );
-    context.fillStyle = "#444";
+    context.roundRect(paddle.x, canvas.height - paddle.size.y, paddle.size.x, paddle.size.y, 5);
+    context.fillStyle = '#444';
     context.fill();
     context.closePath();
   };
 
-  const drawBlocks = (
-    context: CanvasRenderingContext2D,
-    blocks: Block[],
-    canvas: HTMLCanvasElement
-  ) => {
-    var gradient = context.createLinearGradient(
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
-    gradient.addColorStop(0, "#E17A7E");
-    gradient.addColorStop(0.5, "#5FCB59");
-    gradient.addColorStop(1, "#5C9DDE");
+  const drawBlocks = (context: CanvasRenderingContext2D, blocks: Block[], canvas: HTMLCanvasElement) => {
+    var gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+    gradient.addColorStop(0, '#E17A7E');
+    gradient.addColorStop(0.5, '#5FCB59');
+    gradient.addColorStop(1, '#5C9DDE');
     blocks.forEach((block) => {
       if (!block.isDestroyed) {
         context.beginPath();
-        context.roundRect(
-          block.pos.x,
-          block.pos.y,
-          block.size.x,
-          block.size.y,
-          5
-        );
+        context.roundRect(block.pos.x, block.pos.y, block.size.x, block.size.y, 5);
         context.fillStyle = gradient;
         context.fill();
         context.closePath();
@@ -128,7 +101,7 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
     if (!isGameStartedRef.current) return;
     const canvas = canvasRef.current as HTMLCanvasElement;
     if (!canvas || canvas == null) return;
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext('2d');
     if (!context || context == null) return;
     const { ball, paddle, blocks } = gameVarRef.current;
 
@@ -137,10 +110,7 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
     drawPaddle(context, paddle, canvas);
     drawBlocks(context, blocks, canvas);
 
-    if (
-      ball.pos.x + ball.sp.x > canvas.width - ball.radius ||
-      ball.pos.x + ball.sp.x < ball.radius
-    ) {
+    if (ball.pos.x + ball.sp.x > canvas.width - ball.radius || ball.pos.x + ball.sp.x < ball.radius) {
       ball.sp.x *= -1;
     }
 
@@ -148,19 +118,16 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
       ball.sp.y *= -1;
     } else if (ball.pos.y + ball.sp.y > canvas.height - ball.radius) {
       if (ball.pos.x > paddle.x - paddle.size.x / 15 && ball.pos.x < paddle.x + paddle.size.x + paddle.size.x / 15) {
-        const xPositionRate =
-          (ball.pos.x - (paddle.x + paddle.size.x / 2)) / (paddle.size.x / 2);
+        const xPositionRate = (ball.pos.x - (paddle.x + paddle.size.x / 2)) / (paddle.size.x / 2);
 
         const reflectionAngle = (xPositionRate * Math.PI) / 4;
         const speedBoostMultiplier = 1.025;
 
-        const speed =
-          Math.sqrt(ball.sp.x * ball.sp.x + ball.sp.y * ball.sp.y) *
-          speedBoostMultiplier;
+        const speed = Math.sqrt(ball.sp.x * ball.sp.x + ball.sp.y * ball.sp.y) * speedBoostMultiplier;
         ball.sp.x = Math.sin(reflectionAngle) * speed;
         ball.sp.y = -Math.cos(reflectionAngle) * speed;
       } else {
-        setSplashText("ゲームオーバー");
+        setSplashText('ゲームオーバー');
         gameVarRef.current.blocks = [];
         isGameStartedRef.current = false;
         setIsRunning(false);
@@ -204,7 +171,7 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
     });
 
     if (allDestroyed) {
-      setSplashText("ゲームクリア！！！");
+      setSplashText('ゲームクリア！！！');
       gameVarRef.current.blocks = [];
       allDestroyed = false;
       isGameStartedRef.current = false;
@@ -244,24 +211,14 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
     const mainDiv = mainRef.current as HTMLDivElement;
     if (!mainDiv || mainDiv == null) return;
 
-    if (
-      (!isRunning && initialized) ||
-      (isRunning && gameVarRef.current.blocks.length == 0)
-    ) {
+    if ((!isRunning && initialized) || (isRunning && gameVarRef.current.blocks.length == 0)) {
       const { ball, paddle } = gameVarRef.current;
       ball.radius = canvas.width / 50;
-      ball.pos.x =
-        Math.random() * (canvas.width - 3 * ball.radius) + ball.radius;
+      ball.pos.x = Math.random() * (canvas.width - 3 * ball.radius) + ball.radius;
       ball.pos.y = (Math.random() * canvas.height) / 2 + ball.radius;
 
-      ball.sp.x =
-        canvas.width / 200 > canvas.height / 200
-          ? canvas.width / 200
-          : canvas.height / 200;
-      ball.sp.y =
-        canvas.width / 200 > canvas.height / 200
-          ? canvas.width / 200
-          : canvas.height / 200;
+      ball.sp.x = canvas.width / 200 > canvas.height / 200 ? canvas.width / 200 : canvas.height / 200;
+      ball.sp.y = canvas.width / 200 > canvas.height / 200 ? canvas.width / 200 : canvas.height / 200;
 
       paddle.x = (canvas.width - paddle.size.x) / 2;
       paddle.size.x = canvas.width / 5;
@@ -357,78 +314,24 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
         blockColumns = 32;
 
         blockBitArray = [
-          [
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0,
-          ],
-          [
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0,
-          ],
-          [
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0,
-            0, 0, 0, 1, 0, 0, 0, 0, 0,
-          ],
-          [
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0,
-            0, 0, 1, 0, 1, 0, 0, 0, 0,
-          ],
-          [
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
-            1, 1, 0, 0, 0, 1, 0, 0, 0,
-          ],
-          [
-            0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1,
-            0, 0, 0, 0, 0, 1, 0, 0, 0,
-          ],
-          [
-            0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0,
-            0, 0, 0, 0, 0, 0, 1, 0, 0,
-          ],
-          [
-            0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1,
-            1, 0, 1, 0, 0, 1, 1, 0, 0,
-          ],
-          [
-            0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
-            0, 1, 0, 1, 1, 0, 1, 0, 0,
-          ],
-          [
-            0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0,
-          ],
-          [
-            0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0,
-          ],
-          [
-            0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0,
-          ],
-          [
-            0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0,
-          ],
-          [
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0,
-          ],
-          [
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0,
-          ],
-          [
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0,
-          ],
-          [
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0,
-          ],
-          [
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0,
-          ],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+          [0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+          [0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0],
+          [0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0],
+          [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         ];
       } else if (gameMode == 5) {
         blockRows = 15;
@@ -459,14 +362,10 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
           gameVarRef.current.blocks.push({
             pos: {
               x:
-                c *
-                  (canvas.width / (blockColumns + 2) +
-                    canvas.width / (blockColumns + 2) / (blockColumns + 1)) +
+                c * (canvas.width / (blockColumns + 2) + canvas.width / (blockColumns + 2) / (blockColumns + 1)) +
                 canvas.width / (blockColumns + 2) / 2,
               y:
-                r *
-                  (canvas.height / (blockRows + 2) +
-                    canvas.height / (blockRows + 3) / (blockRows + 2)) +
+                r * (canvas.height / (blockRows + 2) + canvas.height / (blockRows + 3) / (blockRows + 2)) +
                 canvas.height / (blockRows + 2) / 4,
             },
             size: {
@@ -479,12 +378,12 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
       }
     }
 
-    mainDiv.addEventListener("mousemove", mouseMoveHandler);
-    mainDiv.addEventListener("touchmove", touchMoveHandler);
+    mainDiv.addEventListener('mousemove', mouseMoveHandler);
+    mainDiv.addEventListener('touchmove', touchMoveHandler);
 
     return () => {
-      mainDiv.removeEventListener("mousemove", mouseMoveHandler);
-      mainDiv.removeEventListener("touchmove", touchMoveHandler);
+      mainDiv.removeEventListener('mousemove', mouseMoveHandler);
+      mainDiv.removeEventListener('touchmove', touchMoveHandler);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialized, isRunning]);
@@ -502,7 +401,7 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
     gameVarRef.current.blocks = [];
     isGameStartedRef.current = false;
     setIsRunning(false);
-    setSplashText("ゲーム終了");
+    setSplashText('ゲーム終了');
   };
 
   useEffect(() => {
@@ -521,38 +420,28 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
   var cy = 0;
   if (
     (gameScreenSize.x > 800 ? 800 : gameScreenSize.x) <
-    (gameScreenSize.y - RemToPx(15) > 600
-      ? 600
-      : gameScreenSize.y - RemToPx(15))
+    (gameScreenSize.y - RemToPx(15) > 600 ? 600 : gameScreenSize.y - RemToPx(15))
   ) {
     cx = gameScreenSize.x > 800 ? 800 : gameScreenSize.x;
     cy = (cx * 3) / 4;
   } else {
-    cy =
-      gameScreenSize.y - RemToPx(15) > 600
-        ? 600
-        : gameScreenSize.y - RemToPx(15);
+    cy = gameScreenSize.y - RemToPx(15) > 600 ? 600 : gameScreenSize.y - RemToPx(15);
     cx = (cy * 4) / 3;
   }
 
   return (
     <div className={styles.main} ref={mainRef}>
-      <canvas
-        className={`${isRunning ? styles.running : ""}`}
-        ref={canvasRef}
-        width={cx}
-        height={cy}
-      />
+      <canvas className={`${isRunning ? styles.running : ''}`} ref={canvasRef} width={cx} height={cy} />
       {splashText ? (
         <div className={styles.splash_box}>
           <p className={styles.splash_text}>{splashText}</p>
           <button
             className={styles.return_button}
             onClick={() => {
-              setSplashText("見つけてくれてありがとう！");
+              setSplashText('見つけてくれてありがとう！');
               resetFunc();
             }}
-            title="見つけてくれてありがとう！"
+            title='見つけてくれてありがとう！'
           >
             トップへ戻る
           </button>
@@ -561,16 +450,16 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
         <></>
       )}
 
-      <div className="start-button">
+      <div className='start-button'>
         <button
           className={styles.start_button}
           onClick={() => {
             if (!isRunning) startGame();
             else endGame();
           }}
-          title={isRunning ? "ゲームを終了する" : "ゲームを開始する"}
+          title={isRunning ? 'ゲームを終了する' : 'ゲームを開始する'}
         >
-          {isRunning ? "ゲーム終了" : "ゲーム開始"}
+          {isRunning ? 'ゲーム終了' : 'ゲーム開始'}
         </button>
       </div>
     </div>

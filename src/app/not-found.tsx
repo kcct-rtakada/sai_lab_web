@@ -1,11 +1,11 @@
-import ErrorBlock from "@/components/common/ErrorBlock";
+import ErrorBlock from '@/components/common/ErrorBlock';
 
 const NotFound = () => {
   return (
     <>
-      <div className="main">
+      <div className='main'>
         <ErrorBlock>
-          <b style={{ fontSize: "1.7rem" }}>404</b> Not Found
+          <b style={{ fontSize: '1.7rem' }}>404</b> Not Found
           <br />
           お探しのページは見つかりませんでした。
           <br />

@@ -1,6 +1,6 @@
-@import "../global/responsive.scss";
-@import "../global/variables.scss";
-@import url("https://fonts.googleapis.com/css2?family=Yuji+Syuku&display=swap");
+@import '../global/responsive.scss';
+@import '../global/variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Yuji+Syuku&display=swap');
 
 .main {
   width: 100%;
@@ -61,11 +61,7 @@
       width: 5.5rem;
       height: 100%;
       appearance: none;
-      background-image: linear-gradient(
-        to bottom right,
-        $c-lang_sw_bg_from,
-        $c-lang_sw_bg_to
-      );
+      background-image: linear-gradient(to bottom right, $c-lang_sw_bg_from, $c-lang_sw_bg_to);
       justify-content: center;
       align-items: center;
       text-align: center;
@@ -88,11 +84,7 @@
       -o-border-radius: 1rem;
 
       &:hover {
-        background-image: linear-gradient(
-          to bottom left,
-          $c-lang_sw_bg_from,
-          $c-lang_sw_bg_to
-        );
+        background-image: linear-gradient(to bottom left, $c-lang_sw_bg_from, $c-lang_sw_bg_to);
       }
     }
   }
@@ -175,7 +167,7 @@
 
         p,
         img {
-          font-family: "Yuji Syuku";
+          font-family: 'Yuji Syuku';
           opacity: 0;
           font-size: 15rem;
           animation-duration: 0.3s;
@@ -320,7 +312,7 @@
       position: absolute;
       bottom: 0em;
       left: 0;
-      content: "";
+      content: '';
       width: 100%;
       height: 2px;
       background: $c-base_link_text;
@@ -400,11 +392,7 @@
       top: 3.5rem;
       margin-top: 0.5rem;
       margin-bottom: 0.5rem;
-      background-image: linear-gradient(
-        to right,
-        $c-base_section_bg_from,
-        $c-base_section_bg_to
-      );
+      background-image: linear-gradient(to right, $c-base_section_bg_from, $c-base_section_bg_to);
 
       &::before {
         display: inline-block;
@@ -413,12 +401,8 @@
         position: absolute;
         bottom: 0rem;
         left: 0rem;
-        content: "";
-        background-image: linear-gradient(
-          to bottom right,
-          $c-base_section_bar_from,
-          $c-base_section_bar_to
-        );
+        content: '';
+        background-image: linear-gradient(to bottom right, $c-base_section_bar_from, $c-base_section_bar_to);
       }
     }
 
@@ -479,107 +463,67 @@
       .circle:nth-child(5) {
         display: block;
         background-color: #ffc56f80;
-        transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-          translateY(calc(-1 * min(7.5vw, 3rem)));
-        -webkit-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-          translateY(calc(-1 * min(7.5vw, 3rem)));
-        -moz-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-          translateY(calc(-1 * min(7.5vw, 3rem)));
-        -ms-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-          translateY(calc(-1 * min(7.5vw, 3rem)));
-        -o-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-          translateY(calc(-1 * min(7.5vw, 3rem)));
+        transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
+        -webkit-transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
+        -moz-transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
+        -ms-transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
+        -o-transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
         &.active {
-          transform: translateX(calc(1 * min(7.5vw, 3rem)))
-            translateY(calc(-1 * min(7.5vw, 3rem)));
-          -webkit-transform: translateX(calc(1 * min(7.5vw, 3rem)))
-            translateY(calc(-1 * min(7.5vw, 3rem)));
-          -moz-transform: translateX(calc(1 * min(7.5vw, 3rem)))
-            translateY(calc(-1 * min(7.5vw, 3rem)));
-          -ms-transform: translateX(calc(1 * min(7.5vw, 3rem)))
-            translateY(calc(-1 * min(7.5vw, 3rem)));
-          -o-transform: translateX(calc(1 * min(7.5vw, 3rem)))
-            translateY(calc(-1 * min(7.5vw, 3rem)));
+          transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
+          -webkit-transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
+          -moz-transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
+          -ms-transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
+          -o-transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
         }
       }
       .circle:nth-child(6) {
         display: block;
         background-color: #6effff80;
-        transform: translateX(calc(1 * min(7.5vw, 3rem)))
-          translateY(calc(-1 * min(7.5vw, 3rem)));
-        -webkit-transform: translateX(calc(1 * min(7.5vw, 3rem)))
-          translateY(calc(-1 * min(7.5vw, 3rem)));
-        -moz-transform: translateX(calc(1 * min(7.5vw, 3rem)))
-          translateY(calc(-1 * min(7.5vw, 3rem)));
-        -ms-transform: translateX(calc(1 * min(7.5vw, 3rem)))
-          translateY(calc(-1 * min(7.5vw, 3rem)));
-        -o-transform: translateX(calc(1 * min(7.5vw, 3rem)))
-          translateY(calc(-1 * min(7.5vw, 3rem)));
+        transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
+        -webkit-transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
+        -moz-transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
+        -ms-transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
+        -o-transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
         &.active {
-          transform: translateX(calc(1 * min(7.5vw, 3rem)))
-            translateY(calc(1 * min(7.5vw, 3rem)));
-          -webkit-transform: translateX(calc(1 * min(7.5vw, 3rem)))
-            translateY(calc(1 * min(7.5vw, 3rem)));
-          -moz-transform: translateX(calc(1 * min(7.5vw, 3rem)))
-            translateY(calc(1 * min(7.5vw, 3rem)));
-          -ms-transform: translateX(calc(1 * min(7.5vw, 3rem)))
-            translateY(calc(1 * min(7.5vw, 3rem)));
-          -o-transform: translateX(calc(1 * min(7.5vw, 3rem)))
-            translateY(calc(1 * min(7.5vw, 3rem)));
+          transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
+          -webkit-transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
+          -moz-transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
+          -ms-transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
+          -o-transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
         }
       }
       .circle:nth-child(7) {
         display: block;
         background-color: #69ff9680;
-        transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-          translateY(calc(1 * min(7.5vw, 3rem)));
-        -webkit-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-          translateY(calc(1 * min(7.5vw, 3rem)));
-        -moz-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-          translateY(calc(1 * min(7.5vw, 3rem)));
-        -ms-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-          translateY(calc(1 * min(7.5vw, 3rem)));
-        -o-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-          translateY(calc(1 * min(7.5vw, 3rem)));
+        transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
+        -webkit-transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
+        -moz-transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
+        -ms-transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
+        -o-transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
 
         &.active {
-          transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-            translateY(calc(-1 * min(7.5vw, 3rem)));
-          -webkit-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-            translateY(calc(-1 * min(7.5vw, 3rem)));
-          -moz-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-            translateY(calc(-1 * min(7.5vw, 3rem)));
-          -ms-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-            translateY(calc(-1 * min(7.5vw, 3rem)));
-          -o-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-            translateY(calc(-1 * min(7.5vw, 3rem)));
+          transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
+          -webkit-transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
+          -moz-transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
+          -ms-transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
+          -o-transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(-1 * min(7.5vw, 3rem)));
         }
       }
       .circle:nth-child(8) {
         display: block;
         background-color: #e47aff80;
-        transform: translateX(calc(1 * min(7.5vw, 3rem)))
-          translateY(calc(1 * min(7.5vw, 3rem)));
-        -webkit-transform: translateX(calc(1 * min(7.5vw, 3rem)))
-          translateY(calc(1 * min(7.5vw, 3rem)));
-        -moz-transform: translateX(calc(1 * min(7.5vw, 3rem)))
-          translateY(calc(1 * min(7.5vw, 3rem)));
-        -ms-transform: translateX(calc(1 * min(7.5vw, 3rem)))
-          translateY(calc(1 * min(7.5vw, 3rem)));
-        -o-transform: translateX(calc(1 * min(7.5vw, 3rem)))
-          translateY(calc(1 * min(7.5vw, 3rem)));
+        transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
+        -webkit-transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
+        -moz-transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
+        -ms-transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
+        -o-transform: translateX(calc(1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
 
         &.active {
-          transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-            translateY(calc(1 * min(7.5vw, 3rem)));
-          -webkit-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-            translateY(calc(1 * min(7.5vw, 3rem)));
-          -moz-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-            translateY(calc(1 * min(7.5vw, 3rem)));
-          -ms-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-            translateY(calc(1 * min(7.5vw, 3rem)));
-          -o-transform: translateX(calc(-1 * min(7.5vw, 3rem)))
-            translateY(calc(1 * min(7.5vw, 3rem)));
+          transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
+          -webkit-transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
+          -moz-transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
+          -ms-transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
+          -o-transform: translateX(calc(-1 * min(7.5vw, 3rem))) translateY(calc(1 * min(7.5vw, 3rem)));
         }
       }
     }

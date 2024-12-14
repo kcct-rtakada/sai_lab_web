@@ -1,5 +1,5 @@
-@import "../../global/responsive.scss";
-@import "../../global/variables.scss";
+@import '../../global/responsive.scss';
+@import '../../global/variables.scss';
 
 .main {
   padding-top: 0;
@@ -16,7 +16,7 @@
     position: absolute;
     bottom: 0em;
     left: 0;
-    content: "";
+    content: '';
     width: 100%;
     height: 2px;
     background: $c-base_link_text;
@@ -69,11 +69,7 @@
         width: 5.5rem;
         height: 100%;
         appearance: none;
-        background-image: linear-gradient(
-          to bottom right,
-          $c-lang_sw_bg_from,
-          $c-lang_sw_bg_to
-        );
+        background-image: linear-gradient(to bottom right, $c-lang_sw_bg_from, $c-lang_sw_bg_to);
         justify-content: center;
         align-items: center;
         text-align: center;
@@ -96,11 +92,7 @@
         -o-border-radius: 1rem;
 
         &:hover {
-          background-image: linear-gradient(
-            to bottom left,
-            $c-lang_sw_bg_from,
-            $c-lang_sw_bg_to
-          );
+          background-image: linear-gradient(to bottom left, $c-lang_sw_bg_from, $c-lang_sw_bg_to);
         }
       }
     }
@@ -166,12 +158,8 @@
         position: absolute;
         bottom: 0.25rem;
         left: 0.15rem;
-        content: "";
-        background-image: linear-gradient(
-          to bottom right,
-          $c-base_section_bar_from,
-          $c-base_section_bar_to
-        );
+        content: '';
+        background-image: linear-gradient(to bottom right, $c-base_section_bar_from, $c-base_section_bar_to);
       }
     }
   }

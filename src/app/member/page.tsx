@@ -1,26 +1,24 @@
+/* eslint-disable no-irregular-whitespace */
 /* eslint-disable @next/next/no-img-element */
-import { Member } from "@/components/DefaultStructure";
-import styles from "@/styles/app/member/member.module.scss";
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import {
-  faEarthAmericas,
-  faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
-import SEO from "@/components/common/SEO";
-import { fetchMembers } from "@/components/GASFetch";
-import { generateWebsiteStructure } from "@/components/common/JsonLd";
-import { PageMetadata } from "@/components/PageMetadata";
-import { Title } from "@/components/common/SubPageLayout";
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faEarthAmericas, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
+import { Member } from '@/components/DefaultStructure';
+import { fetchMembers } from '@/components/GASFetch';
+import { PageMetadata } from '@/components/PageMetadata';
+import { generateWebsiteStructure } from '@/components/common/JsonLd';
+import SEO from '@/components/common/SEO';
+import { Title } from '@/components/common/SubPageLayout';
+import styles from '@/styles/app/member/member.module.scss';
 
 const pageMeta: PageMetadata = {
   isArticle: false,
-  title: "Member",
-  description: "SAI (髙田研究室)のメンバー一覧",
+  title: 'Member',
+  description: 'SAI (髙田研究室)のメンバー一覧',
   url: `/member`,
   imageUrl: undefined,
-}
+};
 
 export async function generateMetadata() {
   return SEO({
@@ -35,26 +33,18 @@ export default async function DisplayMember() {
   const memberList = await fetchMembers();
 
   // 教員の抽出
-  const sortedMemberWithTeacher = memberList?.filter((element) =>
-    element.belonging.toLowerCase().includes("教員")
-  );
+  const sortedMemberWithTeacher = memberList?.filter((element) => element.belonging.toLowerCase().includes('教員'));
 
   // 卒業生と修了生の抽出
   const sortedMemberWithGraduation = memberList?.filter(
-    (element) =>
-      element.belonging.toLowerCase().includes("卒") ||
-      element.belonging.toLowerCase().includes("修")
+    (element) => element.belonging.toLowerCase().includes('卒') || element.belonging.toLowerCase().includes('修'),
   );
 
   // 上2つに当てはまらなかったメンバーを抽出
   const sortedEnrolledMember = memberList?.filter((element) => {
     return (
-      !sortedMemberWithGraduation?.some(
-        (sortedMember) => sortedMember.id === element.id
-      ) &&
-      !sortedMemberWithTeacher?.some(
-        (sortedMember) => sortedMember.id === element.id
-      )
+      !sortedMemberWithGraduation?.some((sortedMember) => sortedMember.id === element.id) &&
+      !sortedMemberWithTeacher?.some((sortedMember) => sortedMember.id === element.id)
     );
   });
 
@@ -71,33 +61,34 @@ export default async function DisplayMember() {
                   {/* ()で括られた文字列の中身をリスト化し、","で結合する。*/}
                   {/* 全角スペースは半角スペースに置き換える。 */}
                   <span
-                    title={`${item.otherName
-                        ? "異体字等: " +
-                        item.otherName
-                          .match(/\([^()]+\)/g)
-                          ?.flatMap((match) => match.split(","))
-                          .flatMap((match) => match.slice(1, -1))
-                          .map((match) => match.replace(/[ 　]+/g, " "))
-                          .join(",")
-                        : ""
-                      }`}
+                    title={`${
+                      item.otherName
+                        ? '異体字等: ' +
+                          item.otherName
+                            .match(/\([^()]+\)/g)
+                            ?.flatMap((match) => match.split(','))
+                            .flatMap((match) => match.slice(1, -1))
+                            .map((match) => match.replace(/[ 　]+/g, ' '))
+                            .join(',')
+                        : ''
+                    }`}
                   >
                     {item.name}
                   </span>
                   {item.homepage ? (
                     <Link
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      target='_blank'
+                      rel='noopener noreferrer'
                       href={`${item.homepage}`}
-                      title="個人ホームページ"
-                      style={{ marginLeft: ".6rem" }}
+                      title='個人ホームページ'
+                      style={{ marginLeft: '.6rem' }}
                     >
                       <FontAwesomeIcon
                         icon={faEarthAmericas}
                         style={{
-                          display: "inline-block",
-                          fontSize: "1.2rem",
-                          width: "1.2rem",
+                          display: 'inline-block',
+                          fontSize: '1.2rem',
+                          width: '1.2rem',
                         }}
                       />
                     </Link>
@@ -106,18 +97,18 @@ export default async function DisplayMember() {
                   )}
                   {item.githubId ? (
                     <Link
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      target='_blank'
+                      rel='noopener noreferrer'
                       href={`https://github.com/${item.githubId}`}
                       title={`GitHub(${item.githubId})`}
-                      style={{ marginLeft: ".6rem" }}
+                      style={{ marginLeft: '.6rem' }}
                     >
                       <FontAwesomeIcon
                         icon={faGithub}
                         style={{
-                          display: "inline-block",
-                          fontSize: "1.2rem",
-                          width: "1.2rem",
+                          display: 'inline-block',
+                          fontSize: '1.2rem',
+                          width: '1.2rem',
                         }}
                       />
                     </Link>
@@ -129,9 +120,7 @@ export default async function DisplayMember() {
               </div>
               <div className={styles.middle}>
                 <div className={styles.belonging}>{item.belonging}</div>
-                <div className={styles.classification}>
-                  {item.classification}
-                </div>
+                <div className={styles.classification}>{item.classification}</div>
               </div>
             </div>
 
@@ -142,30 +131,31 @@ export default async function DisplayMember() {
               <Link
                 href={`/project?mode=author&q=${item.name.replace(
                   /[ 　]+/,
-                  ""
-                )},${item.englishName.replace(/[ 　]+/, "")},${item.englishName
+                  '',
+                )},${item.englishName.replace(/[ 　]+/, '')},${item.englishName
                   .split(/[ 　]+/)
                   .reverse()
-                  .join("")}${item.otherName
+                  .join('')}${
+                  item.otherName
                     ? `,${item.otherName
-                      .match(/\([^()]+\)/g)
-                      ?.flatMap((match) => match.split(","))
-                      .flatMap((match) => match.slice(1, -1))
-                      .map((match) => match.replace(/[ 　]+/g, ""))
-                      .join(",")}`
-                    : ""
-                  }`}
+                        .match(/\([^()]+\)/g)
+                        ?.flatMap((match) => match.split(','))
+                        .flatMap((match) => match.slice(1, -1))
+                        .map((match) => match.replace(/[ 　]+/g, ''))
+                        .join(',')}`
+                    : ''
+                }`}
                 className={styles.search_link}
-                title="プロジェクトを検索"
+                title='プロジェクトを検索'
               >
                 <FontAwesomeIcon
                   icon={faMagnifyingGlass}
                   style={{
-                    color: "white",
-                    fill: "white",
-                    display: "block",
-                    fontSize: "1.2rem",
-                    width: "1.2rem",
+                    color: 'white',
+                    fill: 'white',
+                    display: 'block',
+                    fontSize: '1.2rem',
+                    width: '1.2rem',
                   }}
                 />
               </Link>
@@ -179,13 +169,13 @@ export default async function DisplayMember() {
   return (
     <div className={styles.main}>
       {generateWebsiteStructure(pageMeta)}
-      <Title color1="#d36134" color2="#d4d113">
+      <Title color1='#d36134' color2='#d4d113'>
         メンバー
       </Title>
       <div className={styles.list_box}>
-        {displayingMember("教員", sortedMemberWithTeacher)}
-        {displayingMember("在籍中", sortedEnrolledMember)}
-        {displayingMember("卒業/修了", sortedMemberWithGraduation)}
+        {displayingMember('教員', sortedMemberWithTeacher)}
+        {displayingMember('在籍中', sortedEnrolledMember)}
+        {displayingMember('卒業/修了', sortedMemberWithGraduation)}
       </div>
     </div>
   );

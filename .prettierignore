@@ -1,0 +1,14 @@
+.prettierrc
+node_modules
+.next
+.github
+.vscode
+pnpm-lock.yaml
+package.json
+next.config.mjs
+postcss.config.mjs
+tailwind.config.ts
+.prettierrc.json
+.eslintrc.js
+.hintrc
+tsconfig.json

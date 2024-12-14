@@ -67,17 +67,25 @@ const renderSection = (title: string, content: string, className: string, isHTML
 export default async function Page({ params }: { params: { slug: string } }) {
   const { project, projects } = await getProject(params.slug);
 
-  // キーワードの部分一致またはタイトルの部分一致の場合、関連プロジェクトとなる
+  // キーワードの部分一致またはタイトルの部分一致、ファーストオーサーが一致(同じ表記)の場合、関連プロジェクトとなる
   const filteredRelativeProject = projects.filter(
     (item) =>
-      project?.tags.some(
-        (tag) =>
-          item.tags.some(
-            (itemTag) =>
-              tag.name !== "" &&
-              itemTag.name.toLowerCase().includes(tag.name.toLowerCase())
-          ) || project?.title.toLowerCase().includes(item.title.toLowerCase())
-      ) && project?.id !== item.id
+      (
+        project?.tags.some(
+          (tag) =>
+            item.tags.some(
+              (itemTag) =>
+                tag.name !== "" &&
+                itemTag.name.toLowerCase().includes(tag.name.toLowerCase())
+            )
+        ) ||
+        project?.title.toLowerCase().includes(item.title.toLowerCase()) ||
+        (
+          item.authors.length > 0 && project.authors.length > 0 &&
+          item.authors[0].name === project.authors[0].name
+        )
+      )
+      && project?.id !== item.id
   );
 
   const japanTime = ConvertToJST(project!.date);

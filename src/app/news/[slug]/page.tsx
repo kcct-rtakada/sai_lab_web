@@ -23,7 +23,8 @@ const getNews = cache(async (slug: string) => {
   return news;
 });
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const news = await getNews(params.slug);
   const japanTime = ConvertToJST(news.date);
   const plainText = news.article.replaceAll(/<\/?[^>]+(>|$)/g, '').replaceAll('\\n+', ' ');
@@ -39,7 +40,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   });
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export default async function Page(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const news = await getNews(params.slug);
 
   const japanTime = ConvertToJST(news.date);

@@ -29,7 +29,8 @@ const getProject = cache(async (slug: string) => {
   };
 });
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const { project } = await getProject(params.slug);
   const plainText = project.abstract.replaceAll(/<\/?[^>]+(>|$)/g, '').replaceAll('\\n+', ' ');
   return SEO({
@@ -59,7 +60,8 @@ const renderSection = (title: string, content: string, className: string, isHTML
   );
 };
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export default async function Page(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const { project, projects } = await getProject(params.slug);
 
   // キーワードの部分一致またはタイトルの部分一致、ファーストオーサーが一致(同じ表記)の場合、関連プロジェクトとなる

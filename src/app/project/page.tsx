@@ -6,7 +6,8 @@ import { Title } from '@/components/common/SubPageLayout';
 import ProjectsViewer from '@/components/project_list/ProjectsViewer';
 import styles from '@/styles/app/projects/projectList.module.scss';
 
-export async function generateMetadata({ searchParams }: { searchParams: { [key: string]: string } }) {
+export async function generateMetadata(props: { searchParams: Promise<{ [key: string]: string }> }) {
+  const searchParams = await props.searchParams;
   const mode = searchParams['mode'] ?? null;
   const q = searchParams['q'] ?? null;
 

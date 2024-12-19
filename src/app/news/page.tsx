@@ -7,7 +7,8 @@ import { Title } from '@/components/common/SubPageLayout';
 import NewsViewer from '@/components/news_list/NewsViewer';
 import styles from '@/styles/app/news/newsList.module.scss';
 
-export async function generateMetadata({ searchParams }: { searchParams: { [key: string]: string } }) {
+export async function generateMetadata(props: { searchParams: Promise<{ [key: string]: string }> }) {
+  const searchParams = await props.searchParams;
   const mode = searchParams['mode'] ?? null;
   const q = searchParams['q'] ?? null;
 
@@ -25,7 +26,8 @@ export async function generateMetadata({ searchParams }: { searchParams: { [key:
   });
 }
 
-export default async function NewsList({ searchParams }: { searchParams: { [key: string]: string } }) {
+export default async function NewsList(props: { searchParams: Promise<{ [key: string]: string }> }) {
+  const searchParams = await props.searchParams;
   const newsList = await fetchNews();
 
   const mode = searchParams['mode'] ?? null;

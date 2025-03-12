@@ -142,7 +142,7 @@
           -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem $c-sort_year_shadow);
         }
 
-        &>p {
+        & > p {
           font-size: 1.1rem;
           text-align: left;
           font-weight: bold;
@@ -493,10 +493,10 @@
       .year_bar {
         width: 100%;
         text-align: center;
-        padding-block: .7rem;
+        padding-block: 0.7rem;
         font-size: 1.5rem;
         font-weight: bold;
-        border-radius: .15rem;
+        border-radius: 0.15rem;
         background-image: linear-gradient(to bottom right, #e9fffc, #d3f1f7);
 
         @include mqUp(sm) {
@@ -517,7 +517,7 @@
         @include mqUp(lg) {
           justify-content: center;
         }
-        
+
         @include mqUp(sm) {
           row-gap: 0;
           padding-inline: 0;

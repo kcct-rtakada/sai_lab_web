@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 'use client';
 import React, { useState } from 'react';
+import { Klee_One } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from '@/styles/components/Header.module.scss';
-import { Klee_One } from 'next/font/google';
 
 export const kleeOne = Klee_One({
   subsets: ['latin'],

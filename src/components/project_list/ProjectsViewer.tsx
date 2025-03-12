@@ -350,34 +350,34 @@ export default function ProjectsViewer(props: Props) {
 
                   return (
                     <React.Fragment key={`dYear${i}`}>
-                      <div className={styles.project_link}>
-                        <div className={`${styles.project} ${styles.year}`}>
-                          <p>{year}年度</p>
-                        </div>
+                      <div className={styles.year_bar}>
+                        <p>{year}年度</p>
                       </div>
-                      {matchedDataWithYear!.length > 0 &&
-                        Object.keys(groupedArray).map((key, j) => {
-                          const projects = groupedArray[key];
-                          const uniqueColorNumber = (project: Project) =>
-                            uniqueTypes.findIndex((type) => type === project.type);
+                      <section>
+                        {matchedDataWithYear!.length > 0 &&
+                          Object.keys(groupedArray).map((key, j) => {
+                            const projects = groupedArray[key];
+                            const uniqueColorNumber = (project: Project) =>
+                              uniqueTypes.findIndex((type) => type === project.type);
 
-                          if (projects.length === 1) {
-                            return (
-                              <ProjectCard
-                                key={j}
-                                project={projects[0]}
-                                uniqueColorNumber={uniqueColorNumber(projects[0])}
-                              />
-                            );
-                          }
+                            if (projects.length === 1) {
+                              return (
+                                <ProjectCard
+                                  key={j}
+                                  project={projects[0]}
+                                  uniqueColorNumber={uniqueColorNumber(projects[0])}
+                                />
+                              );
+                            }
 
-                          const projectAndColors: ProjectsAndColors[] = projects.map((project) => ({
-                            project,
-                            uniqueColorNumber: uniqueColorNumber(project),
-                          }));
+                            const projectAndColors: ProjectsAndColors[] = projects.map((project) => ({
+                              project,
+                              uniqueColorNumber: uniqueColorNumber(project),
+                            }));
 
-                          return <ProjectGroupCard key={j} projectsAndColors={projectAndColors} />;
-                        })}
+                            return <ProjectGroupCard key={j} projectsAndColors={projectAndColors} />;
+                          })}
+                      </section>
                     </React.Fragment>
                   );
                 })

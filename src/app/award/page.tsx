@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { fetchAwards } from '@/components/GASFetch';
 import { CalcFiscalYear, ConvertToJST, DisplayDefaultDateString } from '@/components/JSTConverter';
 import { PageMetadata } from '@/components/PageMetadata';
+import YearBanner from '@/components/YearBanner';
 import YearListSidebar from '@/components/client_parts/YearListSidebar';
 import { generateWebsiteStructure } from '@/components/common/JsonLd';
 import SEO from '@/components/common/SEO';
@@ -61,9 +62,7 @@ export default async function DisplayAward() {
 
               return (
                 <React.Fragment key={i}>
-                  <h2 key={`year${i}`} id={String(year)}>
-                    {year}年度
-                  </h2>
+                  <YearBanner year={year} />
                   <ul key={`ul${i}`}>
                     {matchedDataWithYear!.map((award, j) => {
                       const japanTime = ConvertToJST(award.date);

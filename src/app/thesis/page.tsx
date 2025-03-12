@@ -7,6 +7,7 @@ import { Project } from '@/components/DefaultStructure';
 import { fetchProjects } from '@/components/GASFetch';
 import { CalcFiscalYear, ConvertToJST } from '@/components/JSTConverter';
 import { PageMetadata } from '@/components/PageMetadata';
+import YearBanner from '@/components/YearBanner';
 import YearListSidebar from '@/components/client_parts/YearListSidebar';
 import { generateWebsiteStructure } from '@/components/common/JsonLd';
 import SEO from '@/components/common/SEO';
@@ -128,7 +129,7 @@ export default async function Thesis() {
 
             return (
               <React.Fragment key={i}>
-                <h2 id={String(year)}>{year}年度</h2>
+                <YearBanner year={year} />
                 {filters.map(({ name, keyword, func }, typeNum) => {
                   const matchedItems = sortedConferencePapers.filter(
                     (item) =>

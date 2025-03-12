@@ -465,7 +465,8 @@
       width: min(55rem, 90%);
       margin: 0 auto;
       justify-content: center;
-      flex-direction: row;
+      flex-direction: column;
+      align-items: stretch;
       row-gap: 2rem;
       column-gap: 2rem;
       margin-top: 2.5rem;
@@ -486,6 +487,40 @@
       &:not(.opening) {
         @include mqUp(sm) {
           margin-top: 3rem;
+        }
+      }
+
+      .year_bar {
+        width: 100%;
+        text-align: center;
+        padding-block: 0.7rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        border-radius: 0.15rem;
+        background-image: linear-gradient(to bottom right, #e9fffc, #d3f1f7);
+
+        @include mqUp(sm) {
+          border-radius: 0;
+        }
+      }
+
+      section {
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+        justify-content: left;
+        flex-direction: row;
+        row-gap: 2rem;
+        column-gap: 2rem;
+        padding-inline: 3rem;
+
+        @include mqUp(lg) {
+          justify-content: center;
+        }
+
+        @include mqUp(sm) {
+          row-gap: 0;
+          padding-inline: 0;
         }
       }
 
@@ -596,35 +631,6 @@
             @include mqUp(sm) {
               width: 100%;
               height: calc(100vw * 9 / 16 - 1rem);
-            }
-          }
-
-          &.year {
-            height: 11.5rem;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            background-image: linear-gradient(to bottom right, #e9fffc, #d3f1f7);
-
-            &::after {
-              display: none;
-            }
-
-            &:hover {
-              filter: drop-shadow(0.1rem 0.1rem 0.2rem #e4e4e4);
-              -webkit-filter: drop-shadow(0.1rem 0.1rem 0.2rem #e4e4e4);
-
-              @include mqUp(sm) {
-                filter: none;
-                -webkit-filter: none;
-              }
-            }
-
-            & > p {
-              font-size: 1.5rem;
-              font-weight: bold;
             }
           }
 

@@ -7,6 +7,7 @@ import { Project, Publication } from '@/components/DefaultStructure';
 import { fetchProjects, fetchPublications } from '@/components/GASFetch';
 import { CalcFiscalYear, ConvertToJST, DisplayDefaultDateString } from '@/components/JSTConverter';
 import { PageMetadata } from '@/components/PageMetadata';
+import YearBanner from '@/components/YearBanner';
 import YearListSidebar from '@/components/client_parts/YearListSidebar';
 import { generateWebsiteStructure } from '@/components/common/JsonLd';
 import SEO from '@/components/common/SEO';
@@ -210,7 +211,7 @@ export default async function PagePublication() {
 
             return (
               <React.Fragment key={i}>
-                <h2 id={String(year)}>{year}年度</h2>
+                <YearBanner year={year} />
                 {filters.map(({ name, items, func }, typeNum) => {
                   const matchedItems = items.filter((item) => {
                     return (

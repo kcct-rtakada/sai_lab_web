@@ -1,5 +1,6 @@
 /* eslint-disable no-irregular-whitespace */
 /* eslint-disable @next/next/no-img-element */
+import { CSSProperties } from 'react';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faEarthAmericas, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,6 +11,7 @@ import { PageMetadata } from '@/components/PageMetadata';
 import { generateWebsiteStructure } from '@/components/common/JsonLd';
 import SEO from '@/components/common/SEO';
 import { Title } from '@/components/common/SubPageLayout';
+import CreateNameQuery, { CreateOtherNameMap } from '@/libs/NameQueryCreator';
 import styles from '@/styles/app/member/member.module.scss';
 
 const pageMeta: PageMetadata = {
@@ -60,22 +62,10 @@ export default async function DisplayMember() {
                 <div className={styles.name}>
                   {/* ()で括られた文字列の中身をリスト化し、","で結合する。*/}
                   {/* 全角スペースは半角スペースに置き換える。 */}
-                  <span
-                    title={`${
-                      item.otherName
-                        ? '異体字等: ' +
-                          item.otherName
-                            .match(/\([^()]+\)/g)
-                            ?.flatMap((match) => match.split(','))
-                            .flatMap((match) => match.slice(1, -1))
-                            .map((match) => match.replace(/[ 　]+/g, ' '))
-                            .join(',')
-                        : ''
-                    }`}
-                  >
+                  <span title={`${item.otherName && '異体字等: ' + CreateOtherNameMap(item)?.join(',')}`}>
                     {item.name}
                   </span>
-                  {item.homepage ? (
+                  {item.homepage && (
                     <Link
                       target='_blank'
                       rel='noopener noreferrer'
@@ -83,19 +73,10 @@ export default async function DisplayMember() {
                       title='個人ホームページ'
                       style={{ marginLeft: '.6rem' }}
                     >
-                      <FontAwesomeIcon
-                        icon={faEarthAmericas}
-                        style={{
-                          display: 'inline-block',
-                          fontSize: '1.2rem',
-                          width: '1.2rem',
-                        }}
-                      />
+                      <FontAwesomeIcon icon={faEarthAmericas} style={inlineIconStyle} />
                     </Link>
-                  ) : (
-                    <></>
                   )}
-                  {item.githubId ? (
+                  {item.githubId && (
                     <Link
                       target='_blank'
                       rel='noopener noreferrer'
@@ -103,17 +84,8 @@ export default async function DisplayMember() {
                       title={`GitHub(${item.githubId})`}
                       style={{ marginLeft: '.6rem' }}
                     >
-                      <FontAwesomeIcon
-                        icon={faGithub}
-                        style={{
-                          display: 'inline-block',
-                          fontSize: '1.2rem',
-                          width: '1.2rem',
-                        }}
-                      />
+                      <FontAwesomeIcon icon={faGithub} style={inlineIconStyle} />
                     </Link>
-                  ) : (
-                    <></>
                   )}
                 </div>
                 <div className={styles.english_name}>{item.englishName}</div>
@@ -129,35 +101,11 @@ export default async function DisplayMember() {
               {/* 名前・英語名のスペースを詰める。英語は順序を入れ替えたものも用意 */}
               {/* 異体字等も同様に検索対象に含める */}
               <Link
-                href={`/project?mode=author&q=${item.name.replace(
-                  /[ 　]+/,
-                  '',
-                )},${item.englishName.replace(/[ 　]+/, '')},${item.englishName
-                  .split(/[ 　]+/)
-                  .reverse()
-                  .join('')}${
-                  item.otherName
-                    ? `,${item.otherName
-                        .match(/\([^()]+\)/g)
-                        ?.flatMap((match) => match.split(','))
-                        .flatMap((match) => match.slice(1, -1))
-                        .map((match) => match.replace(/[ 　]+/g, ''))
-                        .join(',')}`
-                    : ''
-                }`}
+                href={`/project?mode=author&q=${CreateNameQuery(item)}`}
                 className={styles.search_link}
                 title='プロジェクトを検索'
               >
-                <FontAwesomeIcon
-                  icon={faMagnifyingGlass}
-                  style={{
-                    color: 'white',
-                    fill: 'white',
-                    display: 'block',
-                    fontSize: '1.2rem',
-                    width: '1.2rem',
-                  }}
-                />
+                <FontAwesomeIcon icon={faMagnifyingGlass} style={magnifyStyle} />
               </Link>
             </div>
           </div>
@@ -180,3 +128,17 @@ export default async function DisplayMember() {
     </div>
   );
 }
+
+const inlineIconStyle: CSSProperties = {
+  display: 'inline-block',
+  fontSize: '1.2rem',
+  width: '1.2rem',
+};
+
+const magnifyStyle: CSSProperties = {
+  color: 'white',
+  fill: 'white',
+  display: 'block',
+  fontSize: '1.2rem',
+  width: '1.2rem',
+};

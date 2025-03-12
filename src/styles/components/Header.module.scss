@@ -1,6 +1,3 @@
-// ヘッダー用フォント
-@import url('https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap');
-
 @import '../global/responsive.scss';
 @import '../global/variables.scss';
 
@@ -58,7 +55,6 @@
 
           p {
             text-align: left;
-            font-family: 'Klee One';
             left: 4.2rem;
             top: 0;
             font-size: 1.15rem;

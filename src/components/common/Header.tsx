@@ -5,6 +5,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from '@/styles/components/Header.module.scss';
+import { Klee_One } from 'next/font/google';
+
+export const kleeOne = Klee_One({
+  subsets: ['latin'],
+  weight: '400',
+});
 
 export default function Header() {
   const [isOpening, setIsOpening] = useState<boolean>(false);
@@ -20,9 +26,9 @@ export default function Header() {
               // 通常遷移
               <Link onClick={() => setIsOpening(false)} href='/'>
                 <Image src='/sai_logo.png' alt='SAI LOGO' fill sizes='4rem' priority={false} />
-                <div className={styles.top_text_box}>
+                <div className={`${styles.top_text_box}`}>
                   <div>
-                    <p>
+                    <p className={kleeOne.className}>
                       神戸高専
                       <br />
                       髙田研究室
@@ -36,7 +42,7 @@ export default function Header() {
                 <Image src='/sai_logo.png' alt='SAI LOGO' fill sizes='4rem' priority={false} />
                 <div className={styles.top_text_box}>
                   <div>
-                    <p>
+                    <p className={kleeOne.className}>
                       神戸高専
                       <br />
                       髙田研究室

@@ -734,6 +734,7 @@
 
           .description_area {
             height: 10.07rem;
+            padding-bottom: 0.1rem;
             overflow-y: auto;
 
             .title {
@@ -744,13 +745,14 @@
             }
 
             .authors {
+              display: flex;
+              flex-wrap: wrap;
               margin: 0 0.4rem;
               font-size: 0.8rem;
+              gap: 0.3rem;
 
               .author {
-                display: inline-block;
-                margin-right: 0.3rem;
-                margin-bottom: 0;
+                display: block;
                 background-color: #f4fdff;
                 border-radius: 0.3rem;
                 padding: 0.05rem 0.2rem;

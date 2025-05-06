@@ -44,7 +44,7 @@ export async function fetchMembers() {
 // 12時間ごと
 export async function fetchFunds() {
   const response = await fetch(sai_funds, {
-    next: { revalidate: 3600 * 12 },
+    next: { revalidate: 3600 },
   });
   return (await response.json()) as Fund[];
 }

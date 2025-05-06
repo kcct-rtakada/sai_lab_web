@@ -80,17 +80,6 @@ export default function Header() {
                   <p>ニュース</p>
                 </li>
               )}
-              {path !== '/member' ? (
-                <li>
-                  <Link onClick={() => setIsOpening(false)} href='/member'>
-                    メンバー{' '}
-                  </Link>
-                </li>
-              ) : (
-                <li>
-                  <p>メンバー</p>
-                </li>
-              )}
               {path !== '/project' ? (
                 <li>
                   <Link onClick={() => setIsOpening(false)} href='/project'>
@@ -100,6 +89,17 @@ export default function Header() {
               ) : (
                 <li>
                   <p>プロジェクト</p>
+                </li>
+              )}
+              {path !== '/member' ? (
+                <li>
+                  <Link onClick={() => setIsOpening(false)} href='/member'>
+                    メンバー
+                  </Link>
+                </li>
+              ) : (
+                <li>
+                  <p>メンバー</p>
                 </li>
               )}
               {path !== '/publication' ? (
@@ -122,6 +122,17 @@ export default function Header() {
               ) : (
                 <li>
                   <p>学位論文</p>
+                </li>
+              )}
+              {path !== '/funds' ? (
+                <li>
+                  <Link onClick={() => setIsOpening(false)} href='/funds'>
+                    研究費
+                  </Link>
+                </li>
+              ) : (
+                <li>
+                  <p>研究費</p>
                 </li>
               )}
               {path !== '/award' ? (

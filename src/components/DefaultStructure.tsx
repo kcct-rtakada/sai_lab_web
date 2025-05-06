@@ -14,6 +14,10 @@ export interface Link {
   name: string;
 }
 
+export interface ProjectObject {
+  name: string;
+}
+
 export interface Project {
   id: string;
   classification: string;
@@ -79,4 +83,17 @@ export interface Award {
   person: string;
   date: Date;
   link: string;
+}
+
+export interface Fund {
+  id: string;
+  fund_system: string;
+  topic: string;
+  investigator: string;
+  co_investigator: string;
+  tags: Tag[];
+  term: string;
+  amount: string;
+  url: string;
+  projects: ProjectObject[];
 }

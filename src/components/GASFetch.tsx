@@ -1,5 +1,5 @@
-import { Award, Member, News, Project, Publication } from './DefaultStructure';
-import { sai_awards, sai_members, sai_news, sai_projects, sai_publications } from './constant';
+import { Award, Fund, Member, News, Project, Publication } from './DefaultStructure';
+import { sai_awards, sai_funds, sai_members, sai_news, sai_projects, sai_publications } from './constant';
 
 // 8時間ごと
 export async function fetchAwards() {
@@ -39,4 +39,12 @@ export async function fetchMembers() {
     next: { revalidate: 3600 * 6 },
   });
   return ((await response.json()) as Member[]).filter((item) => item.id !== '');
+}
+
+// 12時間ごと
+export async function fetchFunds() {
+  const response = await fetch(sai_funds, {
+    next: { revalidate: 3600 * 12 },
+  });
+  return (await response.json()) as Fund[];
 }

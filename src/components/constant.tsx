@@ -12,3 +12,6 @@ export const sai_news =
 
 export const sai_publications =
   'https://script.google.com/macros/s/AKfycby3CH7Emzj_LyT6UU62sEu0Ht5dDX7cEc3uuPKD8ORs3G5YZuAFRZpEMe8qXB75TqbV/exec';
+
+export const sai_funds =
+  'https://script.google.com/macros/s/AKfycbwjLYbn6XKkSfAIfAnbEl0siXqKAvv6U_MyX2qVEwzFGthmYSR6-Alf2m5WEYg4AfjR/exec';

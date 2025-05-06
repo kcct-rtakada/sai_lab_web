@@ -1,0 +1,229 @@
+@import '../../global/responsive.scss';
+@import '../../global/variables.scss';
+
+.main {
+  padding-top: 0;
+  min-height: calc(100% - 6rem);
+
+  .fund_list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    padding: 2rem;
+
+    @include mqUp(xl) {
+      padding: 2rem 0;
+    }
+
+    .fund_item {
+      display: block;
+      width: 60rem;
+      padding: 0 1rem 1rem 1rem;
+      background-color: $c-base_tile;
+
+      @include mqUp(xl) {
+        width: 100%;
+      }
+
+      .topic {
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
+
+      .detail_box {
+        -moz-user-select: text;
+        -ms-user-select: text;
+        -khtml-user-select: text;
+        -webkit-user-select: text;
+        user-select: text;
+        -webkit-touch-callout: initial;
+        pointer-events: all;
+        position: sticky;
+        top: 0;
+        padding: 1rem 0;
+        z-index: 20;
+        background-color: $c-base_tile;
+
+        @include mqUp(xl) {
+          position: relative;
+        }
+
+        .detail_padding {
+          margin-block: 0.25rem;
+          margin-left: 0.6rem;
+          padding-left: 0.75rem;
+          border-color: $c-base_texture_black;
+          border-style: solid;
+          border-width: 0 0 0 0.15rem;
+
+          .detail {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.5rem;
+
+            .detail_prefix {
+              font-size: 0.85rem;
+              padding: 0.05rem 0.25rem;
+              border-radius: 0.15rem;
+              background-color: #382b5a;
+              color: $c-base_title_text;
+            }
+          }
+        }
+      }
+
+      .tags {
+        font-size: 0.8rem;
+        margin: 0 0.5rem 0.2rem 0.7rem;
+
+        span {
+          display: inline-block;
+          margin-right: 0.5rem;
+          position: relative;
+
+          svg {
+            width: 0.8rem;
+            height: 0.8rem;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-right: 0.15rem;
+            position: relative;
+            top: -0.1rem;
+          }
+        }
+      }
+
+      .relative_projects {
+        margin: 0;
+        justify-content: center;
+        flex-direction: row;
+        position: relative;
+        width: 100%;
+        padding: 0;
+
+        @include mqDown(xx) {
+          overflow-y: auto;
+          max-height: calc(100% - 12.5rem);
+        }
+
+        .r_project_link {
+          pointer-events: none;
+
+          .r_project {
+            color: #222;
+            pointer-events: all;
+            width: 100%;
+            position: relative;
+            margin: 0.5rem 0 1rem 0;
+            background-color: #fdfdfd;
+            border-style: solid;
+            border-width: 0.05rem 0.05rem 0.05rem 0;
+            border-color: #e0e0e0;
+            padding: 0.25rem 0.25rem 0.25rem 0.7rem;
+            transition: all 0.15s;
+            -webkit-transition: all 0.15s;
+            -moz-transition: all 0.15s;
+            -ms-transition: all 0.15s;
+            -o-transition: all 0.15s;
+
+            &::before {
+              position: absolute;
+              display: block;
+              content: '';
+              background-color: #374dc7;
+              top: 0;
+              left: 0;
+              height: 100%;
+              width: 0.4rem;
+            }
+
+            &:hover {
+              border-color: #374dc7;
+            }
+
+            .title {
+              margin: 0.4rem 0.4rem 0.1rem 0.4rem;
+              font-size: 1.05rem;
+              font-weight: bold;
+              line-height: 1.15;
+            }
+
+            .authors {
+              margin: 0 0.4rem;
+              font-size: 0.8rem;
+
+              .author {
+                display: inline-block;
+                margin-right: 0.3rem;
+                margin-bottom: 0;
+                background-color: #f4fdff;
+                border-radius: 0.3rem;
+                padding: 0.05rem 0.2rem;
+                line-height: 1.2;
+                font-size: 0.8rem;
+                -webkit-border-radius: 0.3rem;
+                -moz-border-radius: 0.3rem;
+                -ms-border-radius: 0.3rem;
+                -o-border-radius: 0.3rem;
+
+                div {
+                  display: inline-block;
+                  border-right: 1rem;
+                  width: 0.8rem;
+                  font-size: 0.8rem;
+                }
+
+                p {
+                  margin-left: 0.2rem;
+                  margin-right: 0.2rem;
+                  display: inline-block;
+                }
+              }
+            }
+
+            .tags {
+              font-size: 0.8rem;
+              margin: 0.2rem 0.5rem 0.2rem 0.7rem;
+
+              span {
+                display: inline-block;
+                margin-right: 0.5rem;
+                position: relative;
+
+                svg {
+                  width: 0.8rem;
+                  height: 0.8rem;
+                  font-size: 0.8rem;
+                  display: inline-block;
+                  margin-right: 0.15rem;
+                  position: relative;
+                  top: 0.07rem;
+                }
+              }
+            }
+
+            .book {
+              font-size: 0.7rem;
+              margin: 0.1rem 0.4rem 0.1rem 0.5rem;
+
+              div {
+                display: inline;
+                border-right: 1rem;
+                width: 0.8rem;
+                font-size: 0.8rem;
+              }
+
+              p {
+                margin-left: 0.4rem;
+                margin-right: 0.2rem;
+                display: inline;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

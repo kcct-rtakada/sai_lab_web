@@ -47,8 +47,6 @@ export default async function DisplayFunds() {
                     <FontAwesomeIcon
                       icon={faLink}
                       style={{
-                        position: 'relative',
-                        bottom: '.3rem',
                         color: '#FA5F2F',
                         display: 'inline-block',
                         fontSize: '1.5rem',

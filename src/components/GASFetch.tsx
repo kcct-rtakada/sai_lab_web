@@ -41,7 +41,7 @@ export async function fetchMembers() {
   return ((await response.json()) as Member[]).filter((item) => item.id !== '');
 }
 
-// 12時間ごと
+// 1時間ごと
 export async function fetchFunds() {
   const response = await fetch(sai_funds, {
     next: { revalidate: 3600 },

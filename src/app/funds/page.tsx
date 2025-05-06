@@ -57,28 +57,36 @@ export default async function DisplayFunds() {
                 )}
               </p>
               <div className={styles.detail_padding}>
-                <p className={styles.detail}>
-                  <span className={styles.detail_prefix}>助成事業名</span>
-                  {fund.fund_system}
-                </p>
-                <p className={styles.detail}>
-                  <span className={styles.detail_prefix}>代表者名</span>
-                  {fund.investigator}
-                  {fund.co_investigator && (
-                    <React.Fragment>
-                      <span>分担者</span>
-                      {fund.co_investigator}
-                    </React.Fragment>
-                  )}
-                </p>
-                <p className={styles.detail}>
-                  <span className={styles.detail_prefix}>助成期間</span>
-                  {fund.term}
-                </p>
-                <p className={styles.detail}>
-                  <span className={styles.detail_prefix}>配分額</span>
-                  {fund.amount}
-                </p>
+                {fund.fund_system.trim() && (
+                  <p className={styles.detail}>
+                    <span className={styles.detail_prefix}>助成事業名</span>
+                    {fund.fund_system}
+                  </p>
+                )}
+                {fund.investigator.trim() && (
+                  <p className={styles.detail}>
+                    <span className={styles.detail_prefix}>代表者名</span>
+                    {fund.investigator}
+                  </p>
+                )}
+                {fund.co_investigator.trim() && (
+                  <p className={styles.detail}>
+                    <span className={styles.detail_prefix}>分担者</span>
+                    {fund.co_investigator}
+                  </p>
+                )}
+                {fund.term.trim() && (
+                  <p className={styles.detail}>
+                    <span className={styles.detail_prefix}>助成期間</span>
+                    {fund.term}
+                  </p>
+                )}
+                {fund.amount.trim() && (
+                  <p className={styles.detail}>
+                    <span className={styles.detail_prefix}>配分額</span>
+                    {fund.amount}
+                  </p>
+                )}
               </div>
             </div>
             <div className={styles.tags}>

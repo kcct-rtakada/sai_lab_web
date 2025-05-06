@@ -60,15 +60,18 @@
           .detail {
             display: flex;
             flex-direction: row;
-            align-items: center;
+            align-items: flex-start;
             gap: 0.5rem;
 
             .detail_prefix {
               font-size: 0.85rem;
-              padding: 0.05rem 0.25rem;
+              padding: 0.05rem;
+              width: 4.85rem;
+              text-align: center;
               border-radius: 0.15rem;
               background-color: #382b5a;
               color: $c-base_title_text;
+              flex-shrink: 0;
             }
           }
         }

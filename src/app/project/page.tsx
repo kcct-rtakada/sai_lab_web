@@ -34,7 +34,7 @@ export default async function ProjectList() {
     <Suspense
       fallback={
         <div className={styles.main}>
-          <Title color1='#dbc70e' color2='#44b835'>
+          <Title color1='#d36134' color2='#d4d113'>
             <span>プロジェクト</span>
           </Title>
           <LoadingUI />

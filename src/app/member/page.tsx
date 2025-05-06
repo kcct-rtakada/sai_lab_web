@@ -117,7 +117,7 @@ export default async function DisplayMember() {
   return (
     <div className={styles.main}>
       {generateWebsiteStructure(pageMeta)}
-      <Title color1='#d36134' color2='#d4d113'>
+      <Title color1='#dbc70e' color2='#44b835'>
         メンバー
       </Title>
       <div className={styles.list_box}>

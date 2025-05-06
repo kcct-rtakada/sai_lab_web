@@ -196,7 +196,7 @@ export default function ProjectsViewer(props: Props) {
     return (
       <>
         <div className={styles.main}>
-          <Title color1='#dbc70e' color2='#44b835'>
+          <Title color1='#d36134' color2='#d4d113'>
             <span>プロジェクト</span>
           </Title>
           <LoadingUI />
@@ -226,7 +226,7 @@ export default function ProjectsViewer(props: Props) {
   return (
     <>
       <div className={styles.main}>
-        <Title color1='#dbc70e' color2='#44b835'>
+        <Title color1='#d36134' color2='#d4d113'>
           <span>プロジェクト</span>
           <span>
             <Link href='/project/feed.xml' target='_blank' rel='noopener noreferrer' title='RSS'>

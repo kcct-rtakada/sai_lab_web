@@ -56,18 +56,18 @@ export default function ContactContent() {
         <h2>{displayString('アクセス', 'Access')}</h2>
         <p>
           <Link
-            href='https://www.kobe-kosen.ac.jp/common/access_campus_map.html'
+            href='https://www.kobe-kosen.ac.jp/introduction/introduction01/sisetu/'
             target='_blank'
             rel='noopener noreferrer'
           >
             {displayString('神戸高専アクセス情報：', 'Access information for KCCT: ')}
-            https://www.kobe-kosen.ac.jp/common/access_campus_map.html
+            https://www.kobe-kosen.ac.jp/introduction/introduction01/sisetu
           </Link>
         </p>
         <p>
           {displayString(
-            '上記ウェブページのキャンパスマップ内⑦にある「電子工学科棟3F」で活動しております。',
-            'We are located on the 3rd floor of ⑦「電子工学科棟」on the Campus Map in the webpage above.',
+            '上記ウェブページのキャンパスマップ内にある「電子工学科棟3F」で活動しております。',
+            'We are located on the 3rd floor of 「電子工学科棟」on the Campus Map in the webpage above.',
           )}
         </p>
         <h2>{displayString('フォーム', 'Contact Form')}</h2>

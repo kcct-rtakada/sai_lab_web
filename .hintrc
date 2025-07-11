@@ -10,6 +10,8 @@
           "meta[name=theme-color]"
         ]
       }
-    ]
+    ],
+    "no-inline-styles": "off",
+    "apple-touch-icons": "off"
   }
 }

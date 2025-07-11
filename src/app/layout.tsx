@@ -1,16 +1,14 @@
-'use client';
-import React, { useRef } from 'react';
+import React from 'react';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import NextTopLoader from 'nextjs-toploader';
+import ClientScrollWrapper from '@/components/common/ClientScrollWrapper';
 import Footer from '@/components/common/Footer';
 import Header from '@/components/common/Header';
 import 'destyle.css';
 import './globals.css';
-import ScrollToTopButton from '@/components/common/ScrollToTopButton';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const containerRef = useRef(null);
   return (
     <html lang='ja'>
       <head prefix='og: http://ogp.me/ns#'>
@@ -74,12 +72,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           zIndex={20000}
         />
         <Header />
-        <main ref={containerRef} id='top_main'>
+        <ClientScrollWrapper>
           {children}
-          {/* フッターはスクロール対象 */}
           <Footer />
-          <ScrollToTopButton containerRef={containerRef} />
-        </main>
+        </ClientScrollWrapper>
         <SpeedInsights />
       </body>
     </html>

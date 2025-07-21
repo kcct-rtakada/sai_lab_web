@@ -55,8 +55,8 @@ export default async function Page(props: { params: Promise<{ slug: string }> })
 
   return (
     <>
+      {getJsonLdScript(jsonLd)}
       <div className={styles.main}>
-        {getJsonLdScript(jsonLd)}
         <section className={styles.project}>
           <div className={styles.project_card}>
             <h1 className={styles.title}>{news.title}</h1>

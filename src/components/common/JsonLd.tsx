@@ -10,16 +10,16 @@ export function getJsonLd(
   const jsonLd: WithContext<JsonLDArticle | JsonLDWebPage> = {
     '@context': 'https://schema.org',
     '@type': isArticle ? 'Article' : 'WebPage',
-    name: 'SAI (髙田研究室)',
-    alternateName: '神戸高専 髙田研究室',
+    name: '神戸高専電子工学科 髙田研究室',
+    alternateName: ['KCCT SAI'],
     headline: name ? `${name} - SAI` : 'SAI (髙田研究室)',
-    description: description ?? '神戸高専 髙田研究室 (SAI)',
+    description: description ?? '神戸高専電子工学科 髙田研究室 (SAI)',
     mainEntityOfPage: `https://sai.ac${url}`,
-    url: 'https://sai.ac',
+    url: `https://sai.ac${url}`,
 
     publisher: {
       '@type': 'Organization',
-      name: 'SAI (神戸高専 髙田研究室)',
+      name: 'SAI (神戸高専髙田研究室)',
       logo: {
         '@type': 'ImageObject',
         url: `https://sai.ac/colorful_icon.png`,

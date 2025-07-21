@@ -228,7 +228,7 @@ export default function HomeContent({ newsList }: { newsList: News[] }) {
         <p>
           {displayString('問い合わせフォーム', 'Contact Form')}
           <br />
-          <Link href='https://forms.gle/JngM8dAN5b6yAtBv9' target='_blank' rel='noopener noreferrer'>
+          <Link href='https://forms.gle/JngM8dAN5b6yAtBv9' target='_blank' rel='noopener'>
             {displayString(
               `SAI（神戸高専
             髙田研究室）問い合わせフォーム：`,

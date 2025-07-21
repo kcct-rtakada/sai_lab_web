@@ -72,7 +72,7 @@ export default async function DisplayAward() {
                       return (
                         <li key={j}>
                           {award.link ? (
-                            <Link href={award.link} target='_blank' rel='noopener noreferrer'>{`${
+                            <Link href={award.link} target='_blank' rel='noopener'>{`${
                               award.organization ? `${award.organization}` : ``
                             }${award.competition ? `, ${award.competition}` : ``}, ${award.award}, ${
                               award.person

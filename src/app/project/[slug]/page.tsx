@@ -123,7 +123,7 @@ export default async function Page(props: { params: Promise<{ slug: string }> })
             )}
             <div className={styles.links}>
               {project.url ? (
-                <Link href={project.url} target='_blank' rel='noopener noreferrer' className={styles.url_box_link}>
+                <Link href={project.url} target='_blank' rel='noopener' className={styles.url_box_link}>
                   <div className={styles.url_box}>
                     <FontAwesomeIcon
                       icon={faLink}
@@ -143,7 +143,7 @@ export default async function Page(props: { params: Promise<{ slug: string }> })
                 <></>
               )}
               {project.paperUrl ? (
-                <Link href={project.paperUrl} target='_blank' rel='noopener noreferrer' className={styles.pdf_box_link}>
+                <Link href={project.paperUrl} target='_blank' rel='noopener' className={styles.pdf_box_link}>
                   <div className={styles.pdf_box}>
                     <FontAwesomeIcon
                       icon={faFilePdf}
@@ -168,7 +168,7 @@ export default async function Page(props: { params: Promise<{ slug: string }> })
           <div className={styles.main_script}>
             {project.thumbnailURL ? (
               <div className={styles.thumbnail_box}>
-                <Link href={project.thumbnailURL} target='_blank' rel='noopener noreferrer'>
+                <Link href={project.thumbnailURL} target='_blank' rel='noopener'>
                   <img src={project.thumbnailURL} alt='thumbnail' />
                 </Link>
               </div>
@@ -194,7 +194,7 @@ export default async function Page(props: { params: Promise<{ slug: string }> })
                 </h2>
                 <div className={styles.images_box}>
                   {project.additionalImageURL.map((item, j) => (
-                    <Link href={`${item.name}`} key={j} target='_blank' rel='noopener noreferrer'>
+                    <Link href={`${item.name}`} key={j} target='_blank' rel='noopener'>
                       <div className={styles.image} key={j}>
                         <img src={item.name} key={j} alt={`img_${j}`} />
                       </div>

@@ -82,7 +82,7 @@ export default async function PagePublication() {
             return (
               <li key={j}>
                 {item.url ? (
-                  <Link href={item.url} target='_blank' rel='noopener noreferrer' className={styles.direct}>
+                  <Link href={item.url} target='_blank' rel='noopener' className={styles.direct}>
                     {`${item.author}, ${item.title}, ${item.publisher}(${DisplayDefaultDateString(japanTime)})`}
                   </Link>
                 ) : (
@@ -91,12 +91,7 @@ export default async function PagePublication() {
                   </span>
                 )}
                 {item.additionalURL ? (
-                  <Link
-                    href={item.additionalURL}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    style={{ marginLeft: '.5rem' }}
-                  >
+                  <Link href={item.additionalURL} target='_blank' rel='noopener' style={{ marginLeft: '.5rem' }}>
                     <FontAwesomeIcon
                       icon={faLink}
                       style={{
@@ -130,7 +125,7 @@ export default async function PagePublication() {
                 {item.citation}
               </Link>
               {item.url ? (
-                <Link href={item.url} target='_blank' rel='noopener noreferrer' style={{ marginLeft: '.5rem' }}>
+                <Link href={item.url} target='_blank' rel='noopener' style={{ marginLeft: '.5rem' }}>
                   <FontAwesomeIcon
                     icon={faLink}
                     style={{
@@ -145,7 +140,7 @@ export default async function PagePublication() {
                 <></>
               )}
               {item.paperUrl ? (
-                <Link href={item.paperUrl} target='_blank' rel='noopener noreferrer' style={{ marginLeft: '.5rem' }}>
+                <Link href={item.paperUrl} target='_blank' rel='noopener' style={{ marginLeft: '.5rem' }}>
                   <FontAwesomeIcon
                     icon={faFilePdf}
                     style={{

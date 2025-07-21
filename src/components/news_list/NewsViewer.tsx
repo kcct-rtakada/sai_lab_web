@@ -186,7 +186,7 @@ export default function NewsViewer(props: Props) {
         <Title color1='#e74e4e' color2='#dd8431'>
           <span>ニュース</span>
           <span>
-            <Link href='/news/feed.xml' target='_blank' rel='noopener noreferrer' title='RSS'>
+            <Link href='/news/feed.xml' target='_blank' rel='noopener' title='RSS'>
               <FontAwesomeIcon icon={faSquareRss} />
             </Link>
           </span>

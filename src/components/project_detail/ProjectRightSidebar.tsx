@@ -73,12 +73,7 @@ export default function ProjectRightSidebar({ filteredProjects }: { filteredProj
             <ul className={styles.r_projects}>
               {filteredProjects.slice(0, displayingNum).map((item, i) => (
                 <li key={i}>
-                  <Link
-                    href={`/project/${item.id}`}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className={styles.r_project_link}
-                  >
+                  <Link href={`/project/${item.id}`} target='_blank' rel='noopener' className={styles.r_project_link}>
                     <div className={styles.r_project}>
                       <div className={styles.title}>{item.title}</div>
                       <div className={styles.authors}>

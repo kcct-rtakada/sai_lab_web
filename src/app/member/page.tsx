@@ -68,7 +68,7 @@ export default async function DisplayMember() {
                   {item.homepage && (
                     <Link
                       target='_blank'
-                      rel='noopener noreferrer'
+                      rel='noopener'
                       href={`${item.homepage}`}
                       title='個人ホームページ'
                       style={{ marginLeft: '.6rem' }}
@@ -79,7 +79,7 @@ export default async function DisplayMember() {
                   {item.githubId && (
                     <Link
                       target='_blank'
-                      rel='noopener noreferrer'
+                      rel='noopener'
                       href={`https://github.com/${item.githubId}`}
                       title={`GitHub(${item.githubId})`}
                       style={{ marginLeft: '.6rem' }}

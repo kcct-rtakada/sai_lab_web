@@ -68,7 +68,7 @@ export default async function Thesis() {
                 className={styles.direct}
               >{`${item.authors.map((e) => `${e.name}, `)}${item.title}`}</Link>
               {item.url ? (
-                <Link href={item.url} target='_blank' rel='noopener noreferrer' style={{ marginLeft: '.5rem' }}>
+                <Link href={item.url} target='_blank' rel='noopener' style={{ marginLeft: '.5rem' }}>
                   <FontAwesomeIcon
                     icon={faLink}
                     style={{
@@ -83,7 +83,7 @@ export default async function Thesis() {
                 <></>
               )}
               {item.paperUrl ? (
-                <Link href={item.paperUrl} target='_blank' rel='noopener noreferrer' style={{ marginLeft: '.5rem' }}>
+                <Link href={item.paperUrl} target='_blank' rel='noopener' style={{ marginLeft: '.5rem' }}>
                   <FontAwesomeIcon
                     icon={faFilePdf}
                     style={{

@@ -43,7 +43,7 @@ export default async function DisplayFunds() {
               <p className={styles.topic}>
                 {fund.topic}
                 {fund.url && (
-                  <Link href={fund.url} target='_blank' rel='noopener noreferrer' style={{ marginLeft: '.5rem' }}>
+                  <Link href={fund.url} target='_blank' rel='noopener' style={{ marginLeft: '.5rem' }}>
                     <FontAwesomeIcon
                       icon={faLink}
                       style={{
@@ -108,7 +108,7 @@ export default async function DisplayFunds() {
                       <Link
                         href={`/project/${project.id}`}
                         target='_blank'
-                        rel='noopener noreferrer'
+                        rel='noopener'
                         className={styles.r_project_link}
                       >
                         <div className={styles.r_project}>

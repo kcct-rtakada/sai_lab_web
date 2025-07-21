@@ -229,7 +229,7 @@ export default function ProjectsViewer(props: Props) {
         <Title color1='#d36134' color2='#d4d113'>
           <span>プロジェクト</span>
           <span>
-            <Link href='/project/feed.xml' target='_blank' rel='noopener noreferrer' title='RSS'>
+            <Link href='/project/feed.xml' target='_blank' rel='noopener' title='RSS'>
               <FontAwesomeIcon icon={faSquareRss} />
             </Link>
           </span>

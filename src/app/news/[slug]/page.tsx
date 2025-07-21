@@ -77,7 +77,7 @@ export default async function Page(props: { params: Promise<{ slug: string }> })
           <div className={styles.main_script}>
             {news.thumbnailURL ? (
               <div className={styles.thumbnail_box}>
-                <Link href={news.thumbnailURL} target='_blank' rel='noopener noreferrer'>
+                <Link href={news.thumbnailURL} target='_blank' rel='noopener'>
                   <img src={news.thumbnailURL} alt='thumbnail' />
                 </Link>
               </div>
@@ -98,7 +98,7 @@ export default async function Page(props: { params: Promise<{ slug: string }> })
                 <h2 className={styles.section_name}>Images</h2>
                 <div className={styles.images_box}>
                   {news.additionalImageURL.map((item, j) => (
-                    <Link href={`${item.name}`} key={j} target='_blank' rel='noopener noreferrer'>
+                    <Link href={`${item.name}`} key={j} target='_blank' rel='noopener'>
                       <div className={styles.image} key={j}>
                         <img src={item.name} key={j} alt={`img_${j}`} />
                       </div>
@@ -115,7 +115,7 @@ export default async function Page(props: { params: Promise<{ slug: string }> })
                 <ul className={styles.links}>
                   {news.links.map((link, j) => (
                     <li key={j}>
-                      <Link href={link.name} target='_blank' rel='noopener noreferrer'>
+                      <Link href={link.name} target='_blank' rel='noopener'>
                         {link.name}
                       </Link>
                     </li>

@@ -8,11 +8,11 @@ export default function Footer() {
       <div className={styles.footer_box}>
         <p>髙田 崚介</p>
         <p>
-          <Link href='https://www.kobe-kosen.ac.jp/' target='_blank' rel='noopener noreferrer'>
+          <Link href='https://www.kobe-kosen.ac.jp/' target='_blank' rel='noopener'>
             神戸高専
           </Link>
           &nbsp;&nbsp;
-          <Link href='https://www.kobe-kosen.ac.jp/groups/denshi/' target='_blank' rel='noopener noreferrer'>
+          <Link href='https://www.kobe-kosen.ac.jp/groups/denshi/' target='_blank' rel='noopener'>
             電子工学科
           </Link>
         </p>

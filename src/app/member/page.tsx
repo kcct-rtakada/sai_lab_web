@@ -1,5 +1,3 @@
-/* eslint-disable no-irregular-whitespace */
-/* eslint-disable @next/next/no-img-element */
 import { CSSProperties } from 'react';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faEarthAmericas, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';

@@ -1,4 +1,3 @@
-/* eslint-disable no-irregular-whitespace */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 'use client';
@@ -10,7 +9,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useDocumentTitle } from 'usehooks-ts';
 import { News } from '@/components/DefaultStructure';
 import { CalcFiscalYear, ConvertToJST, DisplayDefaultDateString } from '@/components/JSTConverter';
-import getUsingPhone from '@/libs/PhoneTester';
+import useUsingPhone from '@/libs/useUsingPhone';
 import styles from '@/styles/app/news/newsList.module.scss';
 import LoadingUI from '../Loading';
 import ErrorBlock from '../common/ErrorBlock';
@@ -36,7 +35,7 @@ export default function NewsViewer(props: Props) {
   const [isDisplayingSearchBox, setIsDisplayingSearchBox] = useState<boolean>(true);
 
   const [displayingSearchCondition, setDisplayingSearchCondition] = useState<string | null>(null);
-  const [isUsingPhone, setIsUsingPhone] = useState<boolean>(false);
+  const isUsingPhone = useUsingPhone();
   const [title, setTitle] = useState('News');
 
   const router = useRouter();
@@ -49,7 +48,6 @@ export default function NewsViewer(props: Props) {
 
   // タップ/クリックの表示を切り替え
   useEffect(() => {
-    setIsUsingPhone(getUsingPhone());
     if (newsList) {
       setLoaded(true);
 

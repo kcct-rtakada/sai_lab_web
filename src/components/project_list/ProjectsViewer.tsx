@@ -1,6 +1,5 @@
-/* eslint-disable no-irregular-whitespace */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @next/next/no-img-element */
+
 'use client';
 import React, { useState, useEffect } from 'react';
 import { faMagnifyingGlass, faXmark, faChevronDown, faSquareRss } from '@fortawesome/free-solid-svg-icons';
@@ -9,7 +8,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useDocumentTitle } from 'usehooks-ts';
 import { Project } from '@/components/DefaultStructure';
-import getUsingPhone from '@/libs/PhoneTester';
+import useUsingPhone from '@/libs/useUsingPhone';
 import styles from '@/styles/app/projects/projectList.module.scss';
 import { CalcFiscalYear, ConvertToJST } from '../JSTConverter';
 import LoadingUI from '../Loading';
@@ -44,7 +43,7 @@ export default function ProjectsViewer(props: Props) {
   const [searchWord, setSearchWord] = useState<string>('');
   const [isDisplayingSearchBox, setIsDisplayingSearchBox] = useState<boolean>(true);
   const [displayingSearchCondition, setDisplayingSearchCondition] = useState<string | null>(null);
-  const [isUsingPhone, setIsUsingPhone] = useState<boolean>(false);
+  const isUsingPhone = useUsingPhone();
   const [title, setTitle] = useState('Project');
 
   const router = useRouter();
@@ -56,7 +55,6 @@ export default function ProjectsViewer(props: Props) {
 
   // タップ/クリックの表示を切り替え
   useEffect(() => {
-    setIsUsingPhone(getUsingPhone());
     if (projects) {
       setLoaded(true);
 

@@ -13,7 +13,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import { Project } from '@/components/DefaultStructure';
-import getUsingPhone from '@/libs/PhoneTester';
+import useUsingPhone from '@/libs/useUsingPhone';
 import styles from '@/styles/app/projects/projectList.module.scss';
 import { CalcFiscalYear, ConvertToJST } from '../JSTConverter';
 
@@ -29,7 +29,7 @@ export default function ProjectGroupCard({ projectsAndColors }: { projectsAndCol
   const [isFolderHovered, setIsFolderHovered] = useState<boolean>(false);
   const [isFolderActive, setIsFolderActive] = useState<boolean>(false);
 
-  const isUsingPhone = getUsingPhone();
+  const isUsingPhone = useUsingPhone();
 
   // タグリストを生成
   const uniqueTags = Array.from(new Set(projectsAndColors.flatMap((item) => item.project.tags.map((tag) => tag.name))));

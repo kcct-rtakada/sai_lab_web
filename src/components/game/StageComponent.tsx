@@ -385,7 +385,6 @@ export default function StageComponent({ resetFunc }: { resetFunc: Function }) {
       mainDiv.removeEventListener('mousemove', mouseMoveHandler);
       mainDiv.removeEventListener('touchmove', touchMoveHandler);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialized, isRunning]);
 
   const startGame = () => {

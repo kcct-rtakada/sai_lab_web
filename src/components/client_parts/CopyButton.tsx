@@ -1,18 +1,12 @@
 'use client';
-import { useEffect, useState } from 'react';
-import React from 'react';
+import React, { useState } from 'react';
 import { faCopy, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import getUsingPhone from '@/libs/PhoneTester';
+import useUsingPhone from '@/libs/useUsingPhone';
 
 export default function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState<boolean>(false);
-  const [isUsingPhone, setIsUsingPhone] = useState<boolean>(false);
-
-  useEffect(() => {
-    // スマホ機種では表示させない
-    setIsUsingPhone(getUsingPhone());
-  }, []);
+  const isUsingPhone = useUsingPhone();
 
   const copyText = async (text: string) => {
     try {

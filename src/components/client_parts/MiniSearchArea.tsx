@@ -1,21 +1,15 @@
-/* eslint-disable no-irregular-whitespace */
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/navigation';
-import getUsingPhone from '@/libs/PhoneTester';
+import useUsingPhone from '@/libs/useUsingPhone';
 import styles from '@/styles/components/MiniSearchArea.module.scss';
 
 export default function MiniSearchArea() {
   const [selectedSearchMode, setSelectedSearchMode] = useState<string>('research_name');
   const [searchWord, setSearchWord] = useState<string>('');
-  const [isUsingPhone, setIsUsingPhone] = useState<boolean>(false);
-
-  // タップ/クリックの表示を切り替える
-  useEffect(() => {
-    setIsUsingPhone(getUsingPhone());
-  }, []);
+  const isUsingPhone = useUsingPhone();
 
   const router = useRouter();
 

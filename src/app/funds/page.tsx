@@ -1,5 +1,3 @@
-/* eslint-disable no-irregular-whitespace */
-/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import { faBookOpen, faLink, faTag, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

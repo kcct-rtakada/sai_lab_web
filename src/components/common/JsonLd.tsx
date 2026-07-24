@@ -1,4 +1,4 @@
-import { Article as JsonLDArticle, WebPage as JsonLDWebPage, WithContext } from 'schema-dts';
+import { Article as JsonLDArticle, WebPage as JsonLDWebPage, WebSite as JsonLDWebSite, WithContext } from 'schema-dts';
 import { PageMetadata } from '../PageMetadata';
 
 export function getJsonLd(
@@ -6,7 +6,18 @@ export function getJsonLd(
   name: string | undefined,
   description: string | undefined,
   url: string | undefined = '',
-): WithContext<JsonLDArticle | JsonLDWebPage> {
+  structureType: 'WebPage' | 'WebSite' = 'WebPage',
+): WithContext<JsonLDArticle | JsonLDWebPage | JsonLDWebSite> {
+  if (structureType === 'WebSite') {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      url: 'https://sai.ac/',
+      name: 'SAI (神戸高専 髙田研究室)',
+      alternateName: ['SAI', '神戸高専 髙田研究室', 'KCCT SAI'],
+    };
+  }
+
   const jsonLd: WithContext<JsonLDArticle | JsonLDWebPage> = {
     '@context': 'https://schema.org',
     '@type': isArticle ? 'Article' : 'WebPage',
@@ -30,20 +41,14 @@ export function getJsonLd(
   return jsonLd;
 }
 
-export function getJsonLdScript(jsonLd: WithContext<JsonLDArticle | JsonLDWebPage>) {
+export function getJsonLdScript(jsonLd: WithContext<JsonLDArticle | JsonLDWebPage | JsonLDWebSite>) {
   return (
     <script key='json-ld' type='application/ld+json' dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
   );
 }
 
-export function generateWebsiteStructure(pageMeta: PageMetadata) {
-  return (
-    <script
-      key='json-ld'
-      type='application/ld+json'
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(getJsonLd(pageMeta.isArticle, pageMeta.title, pageMeta.description, pageMeta.url)),
-      }}
-    />
+export function generateWebsiteStructure(pageMeta: PageMetadata, structureType: 'WebPage' | 'WebSite' = 'WebPage') {
+  return getJsonLdScript(
+    getJsonLd(pageMeta.isArticle, pageMeta.title, pageMeta.description, pageMeta.url, structureType),
   );
 }

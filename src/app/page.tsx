@@ -27,7 +27,7 @@ export default async function Home() {
   // クライアントコンポーネントにより描画
   return (
     <>
-      {generateWebsiteStructure(pageMeta)}
+      {generateWebsiteStructure(pageMeta, 'WebSite')}
       <HomeContent newsList={newsList} />
     </>
   );
